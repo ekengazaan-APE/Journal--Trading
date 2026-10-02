@@ -3324,7 +3324,7 @@ var SETTINGS_DEFAULT={v:2,
   dayBoundary:{tz:NYC,time:'17:00'},
   beR:0.10,revengeMin:15,maxLossesDay:2,stopMode:'day',maxTradesDay:3,dailyStopPct:50,alertPct:[50,80],includeReview:false,
   // Garde-fous avancés : désactivés par défaut, chaque utilisateur les active dans ses propres réglages
-  guardV3:false,cdA:5,cdB:10,cdC:30,voiceOn:false,trust:{on:false,name:'',svc:'',tpl:'',key:''}};
+  guardV3:false,cdA:5,cdB:10,cdC:30,voiceOn:false,voiceRate:1,trust:{on:false,name:'',svc:'',tpl:'',key:''}};
 function getSettings(){var d=JSON.parse(JSON.stringify(SETTINGS_DEFAULT));var s=DB._l('tj_settings',null);if(!s)return d;Object.keys(d).forEach(function(k){if(s[k]===undefined)s[k]=d[k];});return s;}
 function saveSettings(s){DB._s('tj_settings',s);}
 function sessionOf(ms,S){
@@ -3692,16 +3692,42 @@ function cdTick(){
   });
 }
 try{setInterval(cdTick,1000);}catch(e){}
-// Voix française du navigateur (garde-fous avancés + voix activée). force : bouton de test
-function speakFR(txt,force){
+// Voix françaises disponibles sur cet appareil, les plus naturelles en premier
+function frVoices(){
+  try{
+    if(!('speechSynthesis' in window))return [];
+    var rank=function(v){var n=v.name||'';return (/Natural|Neural|Premium|Enhanced|améliorée/i.test(n)?0:/Online|Google/i.test(n)?1:/fr-FR/i.test(v.lang)?2:3);};
+    return window.speechSynthesis.getVoices().filter(function(v){return /^fr/i.test(v.lang);})
+      .sort(function(a,b){return rank(a)-rank(b)||String(a.name).localeCompare(String(b.name));});
+  }catch(e){return [];}
+}
+// Voix choisie : propre à chaque appareil (les voix disponibles diffèrent entre PC et téléphone), donc hors synchro
+function localVoiceName(){try{return localStorage.getItem('ui_voiceName')||'';}catch(e){return '';}}
+// Voix française du navigateur (garde-fous avancés + voix activée). force : bouton de test ; opt : {name, rate} pour essayer avant d'enregistrer
+function speakFR(txt,force,opt){
   try{
     var S=getSettings();if(!force&&!(S.guardV3&&S.voiceOn))return;
     if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined')return;
-    var u=new SpeechSynthesisUtterance(txt);u.lang='fr-FR';u.rate=1;
-    var vs=window.speechSynthesis.getVoices().filter(function(v){return /^fr/i.test(v.lang);});
-    if(vs.length)u.voice=vs.find(function(v){return /fr-FR/i.test(v.lang);})||vs[0];
+    var name=opt&&opt.name!==undefined?opt.name:localVoiceName(),rate=num(opt&&opt.rate!==undefined?opt.rate:S.voiceRate)||1;
+    var u=new SpeechSynthesisUtterance(txt);u.lang='fr-FR';u.rate=Math.max(0.5,Math.min(2,rate));
+    var vs=frVoices(),pick=name?vs.find(function(v){return v.name===name;}):null;
+    if(pick||vs.length){u.voice=pick||vs[0];u.lang=u.voice.lang;}
     window.speechSynthesis.cancel();window.speechSynthesis.speak(u);
   }catch(e){}
+}
+// Remplit la liste des voix dans les réglages (les voix arrivent parfois après le chargement de la page)
+function fillVoiceSelect(){
+  var el=document.getElementById('st-voice');if(!el)return;
+  var cur=el.getAttribute('data-cur')||'',vs=frVoices();
+  el.innerHTML='<option value="">Automatique (la plus naturelle trouvée)</option>'+vs.map(function(v){
+    return '<option value="'+esc(v.name)+'"'+(v.name===cur?' selected':'')+'>'+esc(v.name)+(v.localService?'':' · en ligne')+'</option>';}).join('')
+    +(cur&&!vs.some(function(v){return v.name===cur;})?'<option value="'+esc(cur)+'" selected>'+esc(cur)+' (absente sur cet appareil)</option>':'');
+  var n=document.getElementById('st-voice-n');if(n)n.textContent=vs.length?vs.length+' voix françaises sur cet appareil':'Aucune voix française trouvée sur cet appareil';
+}
+try{if('speechSynthesis' in window)window.speechSynthesis.addEventListener('voiceschanged',fillVoiceSelect);}catch(e){}
+function stVoiceTest(){
+  var el=document.getElementById('st-voice'),r=document.querySelector('[data-s="voiceRate"]');
+  speakFR('Perte enregistrée. Pause de cinq minutes avant le prochain trade.',true,{name:el?el.value:'',rate:r?r.value:1});
 }
 // ── Personne de confiance : e-mail via EmailJS quand le stop journée est forcé ──
 // Destinataire fixé dans le modèle EmailJS : aucune adresse n'est stockée dans le journal.
@@ -4248,6 +4274,7 @@ function settingsPage(){
 // Carte des garde-fous avancés : propre à chaque utilisateur (enregistrée dans ses réglages synchronisés)
 function guardSettingsHTML(S,o,num2){
   var T=S.trust||{},on=!!S.guardV3;
+  setTimeout(fillVoiceSelect,0);
   var g=function(k,v,ph){return '<input data-g="'+k+'" value="'+esc(v||'')+'" placeholder="'+esc(ph||'')+'" autocomplete="off">';};
   return '<div class="card" style="margin-bottom:14px"><div class="card-title">🛡️ GARDE-FOUS AVANCÉS · PROPRES À TON JOURNAL</div>'
     +'<div class="v2-note">Une fois activés : un trade à plat compte tout de suite dans tes règles du jour (même avant d’être documenté), la pause après une perte dépend de la note du trade perdant, la voix t’annonce les pauses et le stop, et ta personne de confiance est prévenue si tu forces le stop journée. Rien ne bloque ton compte de trading.</div>'
@@ -4256,7 +4283,12 @@ function guardSettingsHTML(S,o,num2){
       +num2('cdA',S.cdA,'PAUSE APRÈS PERTE A+ OU A (MIN)','Toutes les confluences, aucun écart')
       +num2('cdB',S.cdB,'PAUSE APRÈS PERTE B (MIN)','Aucun écart')
       +num2('cdC',S.cdC,'PAUSE APRÈS PERTE C OU ÉCART (MIN)','Hors playbook, sans note ou avec écart')
-      +'<div class="form-group"><label>ALERTES VOCALES</label><select data-g="voiceOn">'+o([['0','Désactivées'],['1','Activées']],S.voiceOn?'1':'0')+'</select><button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="speakFR(\'Test de la voix du journal. Pause de cinq minutes avant le prochain trade.\',true)">🔊 Tester la voix</button></div>'
+      +'<div class="form-group"><label>ALERTES VOCALES</label><select data-g="voiceOn">'+o([['0','Désactivées'],['1','Activées']],S.voiceOn?'1':'0')+'</select></div>'
+      +'<div class="form-group"><label>VOIX</label><select id="st-voice" data-g="voiceName" data-cur="'+esc(localVoiceName())+'"><option value="">Automatique (la plus naturelle trouvée)</option></select>'
+        +'<div id="st-voice-n" style="font-size:9px;color:var(--muted)"></div></div>'
+      +num2('voiceRate',S.voiceRate,'VITESSE DE LA VOIX','1 = normale · 0,8 plus lente · 1,2 plus rapide')
+      +'<div class="form-group"><label>ESSAI</label><button class="btn btn-ghost btn-sm" onclick="stVoiceTest()">🔊 Écouter cette voix</button>'
+        +'<div style="font-size:9px;color:var(--muted)">La voix est mémorisée sur cet appareil seulement : choisis-la aussi sur ton téléphone.</div></div>'
     +'</div>'
     +'<div class="card-title" style="margin-top:14px">PERSONNE DE CONFIANCE · E-MAIL SI TU FORCES LE STOP JOURNÉE</div>'
     +'<div class="form-grid">'
@@ -4291,6 +4323,7 @@ function stCollect(){
     var k=el.getAttribute('data-g'),v=el.value;
     if(k==='guardV3')S.guardV3=v==='1';
     else if(k==='voiceOn')S.voiceOn=v==='1';
+    else if(k==='voiceName'){try{localStorage.setItem('ui_voiceName',String(v||''));}catch(e){}}
     else if(k.indexOf('trust.')===0){S.trust=Object.assign({},S.trust||{});var f=k.slice(6);S.trust[f]=f==='on'?v==='1':String(v).trim();}
   });
   document.querySelectorAll('[data-t]').forEach(function(el){CL.thresholds[el.getAttribute('data-t')]=num(el.value);});
@@ -4303,6 +4336,7 @@ function stCollect(){
   S.sessions.forEach(function(se){if(!hm.test(se.start)||!hm.test(se.end))E.push('Session '+se.label+' : heures au format 9:30');if(!se.label)E.push('Une session n’a pas de nom');});
   if(!hm.test(S.dayBoundary.time))E.push('Bascule de journée au format 17:00');
   ['maxLossesDay','maxTradesDay','revengeMin'].forEach(function(k){if(!(S[k]>=1))E.push('Valeur invalide : '+k);});
+  if(!(S.voiceRate>=0.5&&S.voiceRate<=2))E.push('Vitesse de la voix : entre 0,5 et 2');
   [['cdA','Pause A+ ou A'],['cdB','Pause B'],['cdC','Pause C']].forEach(function(k){if(!(S[k[0]]>=1&&S[k[0]]<=240))E.push(k[1]+' : entre 1 et 240 minutes');});
   if(S.trust&&S.trust.on&&(!S.trust.svc||!S.trust.tpl||!S.trust.key))E.push('Personne de confiance : Service ID, Template ID et Public Key obligatoires');
   if(!(S.beR>=0&&S.beR<1))E.push('Seuil BE entre 0 et 1 R');
