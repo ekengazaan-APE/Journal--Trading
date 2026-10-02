@@ -188,6 +188,9 @@ textarea{resize:vertical;min-height:60px;}
 .v2-warn{padding:10px 12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.35);border-radius:10px;margin-bottom:12px;}
 .v2-stop{padding:16px;background:rgba(155,93,229,0.10);border:1px solid var(--red);border-radius:12px;margin-bottom:12px;}
 .v2-plan{font-size:11px;line-height:1.7;color:var(--text);}
+.v2-cd{flex-basis:100%;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 12px;background:rgba(245,158,11,0.08);border:1px solid rgba(245,158,11,0.45);border-radius:10px;margin:4px 0 8px;}
+.v2-cd-time{font-size:22px;font-weight:900;letter-spacing:2px;color:var(--yellow);font-variant-numeric:tabular-nums;}
+.v2-cd-txt{font-size:11px;line-height:1.5;color:var(--text);flex:1;min-width:180px;}
 .v2-calc{display:grid;grid-template-columns:repeat(auto-fill,minmax(128px,1fr));gap:6px;}
 .v2-cell{background:var(--s2);border:1px solid var(--border);border-radius:8px;padding:7px 9px;display:flex;flex-direction:column;gap:2px;min-width:0;}
 .v2-cell span{font-size:8px;letter-spacing:1.5px;color:var(--muted);font-weight:700;text-transform:uppercase;}
@@ -994,7 +997,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.0 · journal actif · 02/10/2026';
+var APP_BUILD='v2.1 · garde-fous avancés · 02/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -3319,7 +3322,9 @@ function isGapWeek(ms){return Math.round((tzOffset(ms,PARIS)-tzOffset(ms,NYC))/3
 var SETTINGS_DEFAULT={v:2,
   sessions:[{id:'asia',label:'Asie',tz:NYC,start:'20:00',end:'00:00'},{id:'ny',label:'NY',tz:NYC,start:'09:30',end:'11:00'}],
   dayBoundary:{tz:NYC,time:'17:00'},
-  beR:0.10,revengeMin:15,maxLossesDay:2,stopMode:'day',maxTradesDay:3,dailyStopPct:50,alertPct:[50,80],includeReview:false};
+  beR:0.10,revengeMin:15,maxLossesDay:2,stopMode:'day',maxTradesDay:3,dailyStopPct:50,alertPct:[50,80],includeReview:false,
+  // Garde-fous avancés : désactivés par défaut, chaque utilisateur les active dans ses propres réglages
+  guardV3:false,cdA:5,cdB:10,cdC:30,voiceOn:false,trust:{on:false,name:'',svc:'',tpl:'',key:''}};
 function getSettings(){var d=JSON.parse(JSON.stringify(SETTINGS_DEFAULT));var s=DB._l('tj_settings',null);if(!s)return d;Object.keys(d).forEach(function(k){if(s[k]===undefined)s[k]=d[k];});return s;}
 function saveSettings(s){DB._s('tj_settings',s);}
 function sessionOf(ms,S){
@@ -3454,6 +3459,22 @@ function validateTrade(t,acc){
   return {errors:E,closeErrors:CE};
 }
 
+// ── Garde-fous avancés (actifs seulement si S.guardV3) ─────────────────────
+// Trade à plat : toutes les sorties saisies, même si la documentation n'est pas encore complète
+function isFlat(it){return it.c.exitCt>0&&it.c.remaining<=0&&it.c.net!==null;}
+// Trade qui compte pour les règles du jour : clôturé, ou à plat si les garde-fous avancés sont actifs
+function isDone(it,S){return (it.t.status==='closed'&&it.c.net!==null)||(!!(S&&S.guardV3)&&isFlat(it));}
+// Délai après une perte selon la qualité du trade perdant : A+ ou A sans écart, B sans écart, sinon C
+function cooldownMinFor(it,S){
+  if(!S||!S.guardV3)return num(S&&S.revengeMin)||15;
+  var g=it.c.grade,clean=!(it.c.deviations||[]).length;
+  if(clean&&(g==='A+'||g==='A'))return num(S.cdA)||5;
+  if(clean&&g==='B')return num(S.cdB)||10;
+  return num(S.cdC)||30;
+}
+// Libellé de la qualité du trade perdant, pour l'affichage et la voix
+function cooldownLabel(it){var g=it.c.grade,n=(it.c.deviations||[]).length;return (g||'sans note')+(n?' avec '+n+' écart'+(n>1?'s':''):'');}
+
 // ── Contexte : numéro dans la journée, perte précédente, écarts ────────────
 function applyContext(items,S,accById){
   items.sort(function(a,b){return (a.c.entryMs||0)-(b.c.entryMs||0);});
@@ -3464,10 +3485,11 @@ function applyContext(items,S,accById){
     L.forEach(function(it,idx){
       var c=it.c,q=num(it.t.contracts);
       dayCount[c.dayKey]=(dayCount[c.dayKey]||0)+1;c.nthOfDay=dayCount[c.dayKey];
-      var prev=L.slice(0,idx).filter(function(p){return p.t.status==='closed'&&p.c.lastExitMs!==null&&p.c.entryMs!==null&&p.c.lastExitMs<=c.entryMs;});
+      var prev=L.slice(0,idx).filter(function(p){return isDone(p,S)&&p.c.lastExitMs!==null&&p.c.entryMs!==null&&p.c.lastExitMs<=c.entryMs;});
       var lastLoss=null;prev.forEach(function(p){if(p.c.outcome==='Loss'&&(!lastLoss||p.c.lastExitMs>lastLoss.c.lastExitMs))lastLoss=p;});
       c.afterLoss=!!(lastLoss&&lastLoss.c.dayKey===c.dayKey);
       c.minSinceLoss=c.afterLoss?Math.round((c.entryMs-lastLoss.c.lastExitMs)/60000):null;
+      c.cooldownMin=c.afterLoss?cooldownMinFor(lastLoss,S):null;
       var sameDay=prev.filter(function(p){return p.c.dayKey===c.dayKey;}).sort(function(a,b){return a.c.lastExitMs-b.c.lastExitMs;});
       var dayLosses=sameDay.filter(function(p){return p.c.outcome==='Loss';}).length,consec=0;
       for(var k=sameDay.length-1;k>=0;k--){if(sameDay[k].c.outcome==='Loss')consec++;else break;}
@@ -3479,7 +3501,7 @@ function applyContext(items,S,accById){
       if(c.slWidened)D.push('slWidened');
       if(!c.sessionId)D.push('offSession');
       if(!pb||pb.instruments.indexOf(it.t.instrument)<0||c.grade==='C')D.push('offPlaybook');
-      if(c.minSinceLoss!==null&&c.minSinceLoss<S.revengeMin)D.push('revenge');
+      if(c.minSinceLoss!==null&&c.minSinceLoss<c.cooldownMin)D.push('revenge');
       if(c.nthOfDay>S.maxTradesDay)D.push('overtrading');
       if(c.stopAtEntry)D.push('afterStop');
       if(num(acc.maxMicros)>0&&q&&q>num(acc.maxMicros))D.push('maxSize');
@@ -3573,7 +3595,7 @@ function capitalFor(filter){
 function accountState(a,C){
   C=C||v2Compute();var S=C.S,start=num(a.startBalance)||num(a.size)||0;
   var L=C.items.filter(function(it){return it.t.accountId===a.id&&!it.t.archived;});
-  var closed=L.filter(function(it){return it.t.status==='closed'&&it.c.net!==null;});
+  var closed=L.filter(function(it){return isDone(it,S);});
   var todayKey=dayKeyOf(Date.now(),S);
   var legacyNet=(C.trades||[]).filter(function(t){return t&&!t.v&&!t.deletedAt&&t.account===a.name;}).reduce(function(s,t){return s+(parseFloat(t.plDollar)||0);},0);
   var byDay={};closed.forEach(function(it){byDay[it.c.dayKey]=(byDay[it.c.dayKey]||0)+it.c.net;});
@@ -3584,7 +3606,12 @@ function accountState(a,C){
   if(maxDD>0){if(a.ddType==='static')mll=start-maxDD;else{mll=peak-maxDD;if(lk>0&&mll>lk)mll=lk;}}
   var dist=mll!==null?balance-mll:null,usedPct=(mll!==null&&maxDD>0)?Math.max(0,Math.min(100,(maxDD-dist)/maxDD*100)):null;
   var today=L.filter(function(it){return it.c.dayKey===todayKey;});
-  var tc=today.filter(function(it){return it.t.status==='closed'&&it.c.net!==null;}).sort(function(x,y){return x.c.lastExitMs-y.c.lastExitMs;});
+  var tc=today.filter(function(it){return isDone(it,S);}).sort(function(x,y){return x.c.lastExitMs-y.c.lastExitMs;});
+  // Pause après la dernière perte du jour (garde-fous avancés uniquement)
+  var cooldown=null;
+  if(S.guardV3){var lastL=null;tc.forEach(function(it){if(it.c.outcome==='Loss')lastL=it;});
+    if(lastL&&lastL.c.lastExitMs!==null){var cm=cooldownMinFor(lastL,S),until=lastL.c.lastExitMs+cm*60000;
+      cooldown={active:Date.now()<until,until:until,min:cm,label:cooldownLabel(lastL),tradeId:lastL.t.id};}}
   var todayNet=tc.reduce(function(s,it){return s+it.c.net;},0),todayLosses=tc.filter(function(it){return it.c.outcome==='Loss';}).length,consec=0;
   for(var k=tc.length-1;k>=0;k--){if(tc[k].c.outcome==='Loss')consec++;else break;}
   var lossCount=S.stopMode==='consecutive'?consec:todayLosses,stopAmt=accDailyStop(a,S),reasons=[];
@@ -3602,8 +3629,9 @@ function accountState(a,C){
   var w=closed.filter(function(it){return it.c.outcome==='Win';}).length,l=closed.filter(function(it){return it.c.outcome==='Loss';}).length;
   return {start:start,balance:balance,net:net,mll:mll,dist:dist,usedPct:usedPct,peak:peak,locked:a.ddType!=='static'&&lk>0&&mll===lk,
     todayKey:todayKey,todayNet:todayNet,todayTrades:today.length,todayLosses:todayLosses,consec:consec,stopAmt:stopAmt,reasons:reasons,state:state,
-    dllUsed:dllUsed,cons:cons,tgt:tgt,feesMissing:feesMissing,openN:L.filter(function(it){return it.t.status==='open';}).length,
-    nClosed:closed.length,wins:w,losses:l,wr:(w+l)?w/(w+l)*100:null,mllBreached:dist!==null&&dist<=0};
+    dllUsed:dllUsed,cons:cons,tgt:tgt,feesMissing:feesMissing,openN:L.filter(function(it){return it.t.status==='open'&&!(S.guardV3&&isFlat(it));}).length,
+    toDoc:S.guardV3?L.filter(function(it){return it.t.status==='open'&&isFlat(it);}).length:0,
+    nClosed:closed.length,wins:w,losses:l,wr:(w+l)?w/(w+l)*100:null,mllBreached:dist!==null&&dist<=0,cooldown:cooldown};
 }
 
 // ── Initialisation v2 (écritures silencieuses, partent avec la prochaine synchro) ──
@@ -3645,6 +3673,74 @@ function planReminderHTML(a,st){
     +(st.stopAmt>0?' ou '+fmtUSD(-st.stopAmt):'')+' · '+S.maxTradesDay+' trades max · '+win
     +'<br><b>Aujourd’hui sur '+esc(a.name)+'</b> · '+st.todayTrades+' trade'+(st.todayTrades>1?'s':'')+', '+st.todayLosses+' perte'+(st.todayLosses>1?'s':'')+', '+fmtUSD(st.todayNet,true)+'</div>';
 }
+// ── Pause après perte : bandeau, compte à rebours, voix ────────────────────
+function fmtCountdown(ms){var s=Math.max(0,Math.ceil(ms/1000));return pad2(Math.floor(s/60))+':'+pad2(s%60);}
+function cooldownBannerHTML(cd,compact){
+  return '<div class="v2-cd"><span style="font-size:9px;font-weight:800;letter-spacing:2px;color:var(--yellow)">⏳ PAUSE APRÈS PERTE</span>'
+    +'<span class="v2-cd-time" data-cd-until="'+cd.until+'">'+fmtCountdown(cd.until-Date.now())+'</span>'
+    +'<span class="v2-cd-txt">Ta dernière perte était notée <b>'+esc(cd.label)+'</b> : pause de <b>'+cd.min+' min</b>.'
+    +(compact?'':' Tu peux enregistrer un trade, mais il sera marqué en écart <b>revanche</b>.')+'</span></div>';
+}
+var _cdSpoken={};
+function cdTick(){
+  var els=document.querySelectorAll('[data-cd-until]');if(!els.length)return;
+  els.forEach(function(el){var u=+el.getAttribute('data-cd-until'),left=u-Date.now();
+    if(left>0){el.textContent=fmtCountdown(left);return;}
+    el.textContent='00:00';var box=el.closest('.v2-cd');
+    if(box)box.innerHTML='<span style="font-size:9px;font-weight:800;letter-spacing:2px;color:var(--green)">✓ PAUSE TERMINÉE</span><span class="v2-cd-txt">Relis ton plan et ta check-list avant le prochain trade.</span>';
+    if(!_cdSpoken[u]){_cdSpoken[u]=1;speakFR('Pause terminée. Relis ton plan avant de reprendre.');}
+  });
+}
+try{setInterval(cdTick,1000);}catch(e){}
+// Voix française du navigateur (garde-fous avancés + voix activée). force : bouton de test
+function speakFR(txt,force){
+  try{
+    var S=getSettings();if(!force&&!(S.guardV3&&S.voiceOn))return;
+    if(!('speechSynthesis' in window)||typeof SpeechSynthesisUtterance==='undefined')return;
+    var u=new SpeechSynthesisUtterance(txt);u.lang='fr-FR';u.rate=1;
+    var vs=window.speechSynthesis.getVoices().filter(function(v){return /^fr/i.test(v.lang);});
+    if(vs.length)u.voice=vs.find(function(v){return /fr-FR/i.test(v.lang);})||vs[0];
+    window.speechSynthesis.cancel();window.speechSynthesis.speak(u);
+  }catch(e){}
+}
+// ── Personne de confiance : e-mail via EmailJS quand le stop journée est forcé ──
+// Destinataire fixé dans le modèle EmailJS : aucune adresse n'est stockée dans le journal.
+function trustReady(S){S=S||getSettings();var t=S.trust||{};return !!(S.guardV3&&t.on&&t.svc&&t.tpl&&t.key);}
+function trustSend(cfg,params,cb){
+  try{
+    fetch('https://api.emailjs.com/api/v1.0/email/send',{method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({service_id:cfg.svc,template_id:cfg.tpl,user_id:cfg.key,template_params:params})})
+      .then(function(r){return r.text().then(function(x){if(cb)cb(r.ok,x);});})
+      .catch(function(e){if(cb)cb(false,e&&e.message);});
+  }catch(e){if(cb)cb(false,e&&e.message);}
+}
+function trustQueue(){try{return JSON.parse(localStorage.getItem('ui_trustQueue')||'[]');}catch(e){return [];}}
+function trustQueueSet(q){try{localStorage.setItem('ui_trustQueue',JSON.stringify(q.slice(-20)));}catch(e){}}
+// Renvoie les e-mails restés en attente (hors ligne au moment du stop forcé)
+function trustFlush(){
+  var S=getSettings();if(!trustReady(S))return;var q=trustQueue();if(!q.length)return;
+  var p=q.shift();trustQueueSet(q);
+  trustSend(S.trust,p,function(ok){if(!ok){var q2=trustQueue();q2.unshift(p);trustQueueSet(q2);}else if(trustQueue().length)setTimeout(trustFlush,1500);});
+}
+function trustNotifyForce(){
+  var S=getSettings();if(!trustReady(S)||!_tf)return;
+  var a=tfAcc(),st=a?accountState(a,v2Compute()):null;
+  var p={prenom:S.trust.name||'',heure:frDT(parisNow())+' (heure de Paris)',compte:a?a.name:'',motifs:st?st.reasons.join(', '):'',
+    raison:String(_tf.override||'').trim(),pnl_jour:st?fmtUSD(st.todayNet,true):'',pertes:st?String(st.todayLosses):'',trades:st?String(st.todayTrades):''};
+  trustSend(S.trust,p,function(ok){
+    if(ok)toast((S.trust.name||'Ta personne de confiance')+' est prévenue par e-mail');
+    else{var q=trustQueue();q.push(p);trustQueueSet(q);toast('E-mail pas encore parti : nouvel essai automatique','err');}
+  });
+}
+try{window.addEventListener('online',trustFlush);setTimeout(trustFlush,5000);}catch(e){}
+
+// Après l'enregistrement d'un trade : si c'est une perte qui vient de passer à plat, la voix annonce la suite
+function guardAfterSave(it){
+  var C=v2Compute(),S=C.S;if(!S.guardV3||!isDone(it,S)||it.c.outcome!=='Loss')return;
+  var a=C.accById[it.t.accountId];if(!a)return;var st=accountState(a,C);
+  if(st.state==='stop')speakFR('Perte enregistrée. Stop journée : '+st.reasons.join(', ')+'. Ferme Tradovate, ta journée est terminée.');
+  else if(st.cooldown&&st.cooldown.active)speakFR('Perte enregistrée. Trade noté '+st.cooldown.label+'. Pause de '+st.cooldown.min+' minutes avant le prochain trade.');
+}
 function cockpitHTML(){
   var C=v2Compute(),S=C.S,accs=C.accs.filter(function(a){return accActive(a)&&LIVE_CATS.indexOf(accCategory(a))>=0;});
   var head='<div class="anal-section-title" style="margin-bottom:10px">🛡️ AUJOURD’HUI · JOURNÉE DE TRADING DU '+frDate(dayKeyOf(Date.now(),S))+' (BASCULE '+hm(zonedToMs(new Date().toISOString().slice(0,10)+'T'+S.dayBoundary.time,S.dayBoundary.tz))+' PARIS)</div>';
@@ -3657,7 +3753,9 @@ function cockpitHTML(){
       +'<div class="v2-cock-kpis"><span>Trades <b>'+st.todayTrades+' / '+S.maxTradesDay+'</b></span><span>Pertes <b>'+st.todayLosses+' / '+S.maxLossesDay+'</b></span>'
       +'<span>P&L jour <b style="color:'+(st.todayNet>=0?'var(--green)':'var(--red)')+'">'+fmtUSD(st.todayNet,true)+'</b>'+(st.stopAmt>0?' / stop '+fmtUSD(-st.stopAmt):'')+'</span>'
       +(st.dist!==null?'<span>Marge MLL <b style="color:'+(st.usedPct>=S.alertPct[1]?'var(--red)':st.usedPct>=S.alertPct[0]?'var(--yellow)':'var(--text)')+'">'+fmtUSD(st.dist)+'</b></span>':'')
-      +(st.openN?'<span style="color:var(--yellow)">'+st.openN+' trade'+(st.openN>1?'s':'')+' ouvert'+(st.openN>1?'s':'')+'</span>':'')+'</div></div>';
+      +(st.openN?'<span style="color:var(--yellow)">'+st.openN+' trade'+(st.openN>1?'s':'')+' ouvert'+(st.openN>1?'s':'')+'</span>':'')
+      +(st.toDoc?'<span style="color:var(--yellow)">'+st.toDoc+' à documenter</span>':'')+'</div>'
+      +(st.cooldown&&st.cooldown.active&&st.state!=='stop'?cooldownBannerHTML(st.cooldown,true):'')+'</div>';
   }).join('');
   return '<div class="card v2-cockpit" style="margin-bottom:14px">'+head+sess+rows+'</div>';
 }
@@ -3897,13 +3995,16 @@ function tfRefresh(){
   if(g&&a&&!_tf.editing){
     var st=accountState(a,C);
     if(st.state==='stop'&&!_tf.forced){
+      if(!_tf.spoke){_tf.spoke=1;speakFR('Stop journée. '+st.reasons.join(', ')+'. Ferme Tradovate.');}
       g.innerHTML='<div class="v2-stop"><div style="font-size:15px;font-weight:900;letter-spacing:2px;color:var(--red)">STOP JOURNÉE</div><div style="font-size:12px;margin:6px 0 10px">'+esc(st.reasons.join(' · '))+'</div>'+planReminderHTML(a,st)
         +'<label style="margin-top:10px;display:block">POUR FORCER, ÉCRIS POURQUOI (ENREGISTRÉ COMME ÉCART)</label><textarea id="tf-override" oninput="_tf.override=this.value;document.getElementById(\'tf-force\').disabled=this.value.trim().length<15" placeholder="15 caractères minimum">'+esc(_tf.override)+'</textarea>'
-        +'<div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-primary" style="flex:1" onclick="closeModal()">Fermer, je m’arrête</button><button class="btn btn-danger" id="tf-force" '+(_tf.override.trim().length<15?'disabled':'')+' onclick="_tf.forced=true;tfRefresh()">Forcer</button></div></div>';
+        +'<div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-primary" style="flex:1" onclick="closeModal()">Fermer, je m’arrête</button><button class="btn btn-danger" id="tf-force" '+(_tf.override.trim().length<15?'disabled':'')+' onclick="_tf.forced=true;trustNotifyForce();tfRefresh()">Forcer</button></div></div>';
       document.querySelectorAll('#modal-body .form-grid, #tf-foot').forEach(function(x){x.style.display='none';});return;
     }
     document.querySelectorAll('#modal-body .form-grid, #tf-foot').forEach(function(x){x.style.display='';});
-    g.innerHTML=st.state==='warn'||_tf.forced?'<div class="v2-warn">'+(_tf.forced?'<b style="color:var(--red)">Stop journée forcé.</b> ':'')+planReminderHTML(a,st)+'</div>':'';
+    var cd=st.cooldown&&st.cooldown.active&&!_tf.forced?st.cooldown:null;
+    if(cd&&!_tf.spoke){_tf.spoke=1;speakFR('Pause en cours. Encore '+Math.max(1,Math.ceil((cd.until-Date.now())/60000))+' minutes avant ton prochain trade.');}
+    g.innerHTML=(cd?cooldownBannerHTML(cd,false):'')+(st.state==='warn'||_tf.forced?'<div class="v2-warn">'+(_tf.forced?'<b style="color:var(--red)">Stop journée forcé.</b> ':'')+planReminderHTML(a,st)+'</div>':'');
   }else if(g)g.innerHTML='';
   // risque et taille
   var I=INSTR[t.instrument]||{},q=num(t.contracts);
@@ -3932,12 +4033,12 @@ function tfRefresh(){
   // résultat
   var devs=c.deviations||[];
   document.getElementById('tf-result').innerHTML='<div class="v2-calc">'
-    +cell('Session',esc(c.sessionLabel)+(c.nthOfDay?' · n°'+c.nthOfDay+' du jour':''))+cell('Après une perte',c.afterLoss?'Oui · '+c.minSinceLoss+' min':'Non')
+    +cell('Session',esc(c.sessionLabel)+(c.nthOfDay?' · n°'+c.nthOfDay+' du jour':''))+cell('Après une perte',c.afterLoss?'Oui · '+c.minSinceLoss+' min'+(S.guardV3&&c.cooldownMin?' / pause '+c.cooldownMin+' min':''):'Non')
     +cell('Sortie moyenne',fmtPrice(c.avgExit,t.instrument))+cell('P&L points',c.plPts!==null?fmtN(c.plPts,2):'·')+cell('Brut',fmtUSD(c.gross,true))+cell('Frais',fmtUSD(-c.fees))
     +cell('P&L net','<b style="color:'+((c.net||0)>=0?'var(--green)':'var(--red)')+'">'+fmtUSD(c.net,true)+'</b>')+cell('R exécution',fmtRv(c.rExec))+cell('R compte',fmtRv(c.rAccount))
     +cell('Résultat',c.remaining>0&&t.exits.length?'Partiel ('+c.remaining+' ct restants)':(c.outcome||'·'))+cell('Durée',c.durationMin!==null?c.durationMin+' min':'·')+cell('Note',c.grade||'·')+'</div>'
     +'<div style="margin-top:8px">'+(devs.length?devs.map(function(d){return '<span class="badge br" style="margin:2px">'+esc(DEV_LABELS[d]||d)+'</span>';}).join('')+' <span style="font-size:10px;color:var(--red)">Plan respecté : Non</span>':'<span class="badge bg">Aucun écart · plan respecté</span>')
-    +(c.afterLoss&&c.minSinceLoss<S.revengeMin?' <span class="badge br">REVANCHE POTENTIELLE</span>':'')+(c.nthOfDay>S.maxTradesDay?' <span class="badge br">OVERTRADING</span>':'')+'</div>';
+    +(c.afterLoss&&c.minSinceLoss<(c.cooldownMin||S.revengeMin)?' <span class="badge br">REVANCHE POTENTIELLE</span>':'')+(c.nthOfDay>S.maxTradesDay?' <span class="badge br">OVERTRADING</span>':'')+'</div>';
   // erreurs et pied
   var errs=v.errors.map(function(e){return e.m;}),canClose=!errs.length&&!v.closeErrors.length;
   document.getElementById('tf-errors').innerHTML=(errs.length?'<div class="v2-alert"><b>À corriger avant d’enregistrer :</b><br>'+errs.map(esc).join('<br>')+'</div>':'')
@@ -3953,6 +4054,7 @@ function tfSave(close){
   var t=JSON.parse(JSON.stringify(_tf.t)),C=v2Compute(),a=C.accById[t.accountId],v=validateTrade(t,a);
   if(v.errors.length){toast('Corrige les champs en rouge','err');return;}
   if(close&&v.closeErrors.length){toast(v.closeErrors[0],'err');return;}
+  var prevIt=_tf.editing?C.byId[t.id]:null,wasDone=prevIt?isDone(prevIt,C.S):false;
   t.v=2;t.status=close?'closed':'open';t.snap=tfSnap();t.updatedAt=new Date().toISOString();
   t.exits=(t.exits||[]).filter(function(x){return num(x.price)!==null||num(x.contracts)!==null;});
   if(!_tf.editing){t.id=uid();t.createdAt=t.updatedAt;if(_tf.forced)t.overrideReason=_tf.override.trim();}
@@ -3966,6 +4068,7 @@ function tfSave(close){
   try{localStorage.setItem('ui_lastTrade',JSON.stringify({accountId:t.accountId,instrument:t.instrument}));}catch(e){}
   closeModal();
   var it=v2Compute().byId[t.id];
+  if(it&&!wasDone)guardAfterSave(it);
   toast((close?'Trade clôturé':'Trade enregistré ouvert')+(list.length>1?' sur '+list.length+' comptes':'')+(it&&it.c.deviations.length?' · '+it.c.deviations.length+' écart'+(it.c.deviations.length>1?'s':''):''));
   nav(currentPage==='dashboard'?'dashboard':'trades');
 }
@@ -4131,15 +4234,47 @@ function settingsPage(){
     +'<div class="card" style="margin-bottom:14px"><div class="card-title">RÈGLES DU JOUR ET SEUILS</div><div class="form-grid">'
       +num2('maxLossesDay',S.maxLossesDay,'PERTES AVANT STOP')
       +'<div class="form-group"><label>COMPTAGE DES PERTES</label><select data-s="stopMode">'+o([['day','Dans la journée'],['consecutive','Consécutives']],S.stopMode)+'</select></div>'
-      +num2('maxTradesDay',S.maxTradesDay,'TRADES MAX PAR JOUR ET PAR COMPTE')+num2('revengeMin',S.revengeMin,'DÉLAI DE REVANCHE (MIN)','Trade moins de X min après une perte')
+      +num2('maxTradesDay',S.maxTradesDay,'TRADES MAX PAR JOUR ET PAR COMPTE')+num2('revengeMin',S.revengeMin,'DÉLAI DE REVANCHE (MIN)',S.guardV3?'Remplacé par les pauses selon la note (garde-fous avancés)':'Trade moins de X min après une perte')
       +num2('beR',S.beR,'SEUIL BE (± R)','Entre −X et +X R compte = BE')+num2('dailyStopPct',S.dailyStopPct,'STOP PAR DÉFAUT (% DU DLL)','Si le compte n’a pas de stop du jour')
       +num2('alertPct.0',S.alertPct[0],'ALERTE 1 (%)')+num2('alertPct.1',S.alertPct[1],'ALERTE 2 (%)')
       +'<div class="form-group"><label>RELECTURE A POSTERIORI DANS LES STATS</label><select data-s="includeReview">'+o([['0','Exclue'],['1','Incluse']],S.includeReview?'1':'0')+'</select></div></div></div>'
+    +guardSettingsHTML(S,o,num2)
     +'<div class="card" style="margin-bottom:14px"><div class="card-title">SEUILS DE NOTE (SCORE = POIDS COCHÉS ÷ POIDS TOTAL)</div><div class="form-grid">'
       +'<div class="form-group"><label>A+ (ET TOUS LES OBLIGATOIRES)</label><input data-t="aPlus" value="'+CL.thresholds.aPlus+'" inputmode="decimal"></div><div class="form-group"><label>A</label><input data-t="a" value="'+CL.thresholds.a+'" inputmode="decimal"></div>'
       +'<div class="form-group"><label>B</label><input data-t="b" value="'+CL.thresholds.b+'" inputmode="decimal"></div><div class="form-group"><label>C</label><div style="font-size:11px;color:var(--muted);padding-top:8px">En dessous de B, ou un obligatoire manquant</div></div></div></div>'
     +'<div class="anal-section-title">PLAYBOOKS ET CHECKLISTS</div>'+pbs+'<button class="btn btn-ghost btn-sm" onclick="stAddPlaybook()" style="margin-bottom:14px">+ Playbook</button>'
     +'<div class="card"><div class="flex-between"><div class="card-title" style="margin:0">TESTS DU MOTEUR DE CALCUL</div><button class="btn btn-ghost btn-sm" onclick="stRunTests()">Lancer les tests</button></div><div id="st-tests" style="margin-top:10px;font-size:11px"></div></div>';
+}
+// Carte des garde-fous avancés : propre à chaque utilisateur (enregistrée dans ses réglages synchronisés)
+function guardSettingsHTML(S,o,num2){
+  var T=S.trust||{},on=!!S.guardV3;
+  var g=function(k,v,ph){return '<input data-g="'+k+'" value="'+esc(v||'')+'" placeholder="'+esc(ph||'')+'" autocomplete="off">';};
+  return '<div class="card" style="margin-bottom:14px"><div class="card-title">🛡️ GARDE-FOUS AVANCÉS · PROPRES À TON JOURNAL</div>'
+    +'<div class="v2-note">Une fois activés : un trade à plat compte tout de suite dans tes règles du jour (même avant d’être documenté), la pause après une perte dépend de la note du trade perdant, la voix t’annonce les pauses et le stop, et ta personne de confiance est prévenue si tu forces le stop journée. Rien ne bloque ton compte de trading.</div>'
+    +'<div class="form-grid" style="margin-top:10px">'
+      +'<div class="form-group"><label>GARDE-FOUS AVANCÉS</label><select data-g="guardV3">'+o([['0','Désactivés'],['1','Activés']],on?'1':'0')+'</select></div>'
+      +num2('cdA',S.cdA,'PAUSE APRÈS PERTE A+ OU A (MIN)','Toutes les confluences, aucun écart')
+      +num2('cdB',S.cdB,'PAUSE APRÈS PERTE B (MIN)','Aucun écart')
+      +num2('cdC',S.cdC,'PAUSE APRÈS PERTE C OU ÉCART (MIN)','Hors playbook, sans note ou avec écart')
+      +'<div class="form-group"><label>ALERTES VOCALES</label><select data-g="voiceOn">'+o([['0','Désactivées'],['1','Activées']],S.voiceOn?'1':'0')+'</select><button class="btn btn-ghost btn-sm" style="margin-top:6px" onclick="speakFR(\'Test de la voix du journal. Pause de cinq minutes avant le prochain trade.\',true)">🔊 Tester la voix</button></div>'
+    +'</div>'
+    +'<div class="card-title" style="margin-top:14px">PERSONNE DE CONFIANCE · E-MAIL SI TU FORCES LE STOP JOURNÉE</div>'
+    +'<div class="form-grid">'
+      +'<div class="form-group"><label>ENVOI</label><select data-g="trust.on">'+o([['0','Désactivé'],['1','Activé']],T.on?'1':'0')+'</select></div>'
+      +'<div class="form-group"><label>PRÉNOM</label>'+g('trust.name',T.name,'Kiara')+'</div>'
+      +'<div class="form-group"><label>EMAILJS · SERVICE ID</label>'+g('trust.svc',T.svc,'service_xxxxxxx')+'</div>'
+      +'<div class="form-group"><label>EMAILJS · TEMPLATE ID</label>'+g('trust.tpl',T.tpl,'template_xxxxxxx')+'</div>'
+      +'<div class="form-group"><label>EMAILJS · PUBLIC KEY</label>'+g('trust.key',T.key,'Clé publique du compte')+'</div>'
+    +'</div>'
+    +'<div class="v2-note">L’adresse de la personne de confiance se règle dans le modèle EmailJS, pas ici. Variables disponibles dans le modèle : {{prenom}}, {{heure}}, {{compte}}, {{motifs}}, {{raison}}, {{pnl_jour}}, {{pertes}}, {{trades}}.</div>'
+    +'<button class="btn btn-ghost btn-sm" onclick="stTrustTest()">✉️ Envoyer un e-mail de test</button></div>';
+}
+function stTrustTest(){
+  var r=stCollect(),T=r.S.trust||{};
+  if(!T.svc||!T.tpl||!T.key){toast('Renseigne Service ID, Template ID et Public Key','err');return;}
+  toast('Envoi du test…');
+  trustSend(T,{prenom:T.name||'',heure:frDT(parisNow())+' (heure de Paris)',compte:'TEST',motifs:'Test',raison:'Ceci est un test du journal de trading : aucune règle n’a été franchie.',pnl_jour:'0 $',pertes:'0',trades:'0'},
+    function(ok,x){toast(ok?'E-mail de test envoyé':'Échec de l’envoi : '+String(x||'').slice(0,80),ok?'':'err');});
 }
 function stCollect(){
   var S=getSettings(),CL=getChecklists(),E=[];
@@ -4152,6 +4287,12 @@ function stCollect(){
     else if(k==='includeReview')S.includeReview=v==='1';
     else S[k]=num(v);
   });
+  document.querySelectorAll('[data-g]').forEach(function(el){
+    var k=el.getAttribute('data-g'),v=el.value;
+    if(k==='guardV3')S.guardV3=v==='1';
+    else if(k==='voiceOn')S.voiceOn=v==='1';
+    else if(k.indexOf('trust.')===0){S.trust=Object.assign({},S.trust||{});var f=k.slice(6);S.trust[f]=f==='on'?v==='1':String(v).trim();}
+  });
   document.querySelectorAll('[data-t]').forEach(function(el){CL.thresholds[el.getAttribute('data-t')]=num(el.value);});
   document.querySelectorAll('[data-p]').forEach(function(el){var q=el.getAttribute('data-p').split('.'),pb=CL.playbooks[+q[0]];if(!pb)return;
     if(q[1]==='name')pb.name=el.value.trim();if(q[1]==='sessionId')pb.sessionId=el.value;
@@ -4162,6 +4303,8 @@ function stCollect(){
   S.sessions.forEach(function(se){if(!hm.test(se.start)||!hm.test(se.end))E.push('Session '+se.label+' : heures au format 9:30');if(!se.label)E.push('Une session n’a pas de nom');});
   if(!hm.test(S.dayBoundary.time))E.push('Bascule de journée au format 17:00');
   ['maxLossesDay','maxTradesDay','revengeMin'].forEach(function(k){if(!(S[k]>=1))E.push('Valeur invalide : '+k);});
+  [['cdA','Pause A+ ou A'],['cdB','Pause B'],['cdC','Pause C']].forEach(function(k){if(!(S[k[0]]>=1&&S[k[0]]<=240))E.push(k[1]+' : entre 1 et 240 minutes');});
+  if(S.trust&&S.trust.on&&(!S.trust.svc||!S.trust.tpl||!S.trust.key))E.push('Personne de confiance : Service ID, Template ID et Public Key obligatoires');
   if(!(S.beR>=0&&S.beR<1))E.push('Seuil BE entre 0 et 1 R');
   var th=CL.thresholds;if(!(th.aPlus>th.a&&th.a>th.b&&th.b>0&&th.aPlus<=100))E.push('Seuils de note : A+ > A > B > 0');
   CL.playbooks.forEach(function(pb){if(!pb.name)E.push('Un playbook n’a pas de nom');pb.criteria.forEach(function(c){if(!c.label)E.push(pb.name+' : critère sans libellé');if(!(c.weight>=0))E.push(pb.name+' : poids invalide');});});
@@ -4223,6 +4366,18 @@ function runEngineTests(){
   var B=buildCompute(Ls,[acc],S,CL);
   ok('Entrée 8 min après une perte : écart revanche',B.byId.l2.c.deviations.indexOf('revenge')>=0&&B.byId.l2.c.minSinceLoss===8);
   ok('3e trade après 2 pertes dans la journée : écart trade après stop',B.byId.l3.c.deviations.indexOf('afterStop')>=0&&B.byId.l3.c.nthOfDay===3);
+  // Garde-fous avancés : désactivés par défaut, les tests ci-dessus vérifient le comportement historique
+  var S3=Object.assign(JSON.parse(JSON.stringify(S)),{guardV3:true,cdA:5,cdB:10,cdC:30});
+  var chA={biasHTF:true,dol:true,chochBos:true,entryPD:true,sweep:true},chB={biasHTF:true,dol:true,chochBos:true,entryPD:true};
+  var at=function(mn){var m=50+mn,h=15+Math.floor(m/60);return day(pad2(h)+':'+pad2(m%60));};
+  var rev=function(SS,ch,gap,status){var P=[mk({id:'p1',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:4,checklist:ch,status:status||'closed',entryAt:day('15:35'),exits:[{price:20980,contracts:4,at:day('15:50')}]}),
+      mk({id:'p2',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:4,checklist:chA,entryAt:at(gap),exits:[{price:21060,contracts:4,at:at(gap+10)}]})];
+    var R2=buildCompute(P,[acc],SS,CL).byId;return {revenge:R2.p2.c.deviations.indexOf('revenge')>=0,grade:R2.p1.c.grade,cd:R2.p2.c.cooldownMin};};
+  ok('Par défaut : pause fixe de 15 min, entrée 7 min après une perte A = revanche',rev(S,chA,7).revenge&&rev(S,chA,7).cd===15);
+  ok('Garde-fous avancés : perte notée A, entrée 7 min après = pas de revanche (pause 5 min)',rev(S3,chA,7).grade==='A'&&!rev(S3,chA,7).revenge&&rev(S3,chA,7).cd===5);
+  ok('Garde-fous avancés : perte notée B, 8 min après = revanche, 12 min après = OK (pause 10 min)',rev(S3,chB,8).grade==='B'&&rev(S3,chB,8).revenge&&!rev(S3,chB,12).revenge);
+  ok('Garde-fous avancés : perte notée C, 20 min après = revanche, 31 min après = OK (pause 30 min)',rev(S3,{},20).grade==='C'&&rev(S3,{},20).revenge&&!rev(S3,{},31).revenge&&rev(S3,{},20).cd===30);
+  ok('Garde-fous avancés : perte à plat mais pas encore documentée compte quand même',rev(S3,{},3,'open').revenge&&!rev(S,{},3,'open').revenge);
   var mll=function(days){var T=days.map(function(d,i){return mk({id:'d'+i,instrument:'MNQ',entry:21000,slInitial:20000,tpInitial:22000,contracts:1,entryAt:d[0]+'T15:40',exits:[{price:21000+d[1]/2,contracts:1,at:d[0]+'T16:00'}]});});return accountState(acc,buildCompute(T,[acc],S,CL));};
   var m1=mll([['2026-09-01',1200]]),m2=mll([['2026-09-01',1200],['2026-09-02',1000]]);
   ok('MLL trailing : +1 200 $ le jour 1 = seuil 49 200 $',near(m1.mll,49200));
