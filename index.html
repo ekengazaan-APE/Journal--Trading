@@ -3696,7 +3696,9 @@ try{setInterval(cdTick,1000);}catch(e){}
 function frVoices(){
   try{
     if(!('speechSynthesis' in window))return [];
-    var rank=function(v){var n=v.name||'';return (/Natural|Neural|Premium|Enhanced|améliorée/i.test(n)?0:/Online|Google/i.test(n)?1:/fr-FR/i.test(v.lang)?2:3);};
+    // Voix « fantaisie » de macOS (Eddy, Flo, Grandma…) : très robotiques, reléguées en fin de liste
+    var robot=/^(Eddy|Flo|Grandma|Grandpa|Reed|Rocko|Sandy|Shelley)\b/i;
+    var rank=function(v){var n=v.name||'';if(robot.test(n))return 9;return (/Natural|Neural|Premium|Enhanced|amélioré/i.test(n)?0:/Online|Google/i.test(n)?1:/fr-FR/i.test(v.lang)?2:3);};
     return window.speechSynthesis.getVoices().filter(function(v){return /^fr/i.test(v.lang);})
       .sort(function(a,b){return rank(a)-rank(b)||String(a.name).localeCompare(String(b.name));});
   }catch(e){return [];}
