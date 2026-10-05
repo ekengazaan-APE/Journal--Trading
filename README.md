@@ -14,7 +14,7 @@ Journal de trading en un seul fichier (`index.html`), hébergé sur Netlify et s
 - v2.0 · 02/10/2026 · version de référence importée depuis Netlify (déploiement du 02/10/2026).
 - v2.1 · 02/10/2026 · garde-fous avancés (pause selon la note, voix, personne de confiance).
 - v2.2 · 03/10/2026 · garde-fou news (calendrier économique, fenêtre sans entrée).
-- v2.3 · 05/10/2026 · navigation en 7 rubriques avec onglets (aucune page supprimée), lisibilité : tailles de texte relevées (12 px minimum), gris secondaire `#8080a8` (contraste 4,9 à 5,4 pour 1), libellés en casse normale avec acronymes ICT conservés.
+- v2.3 · 05/10/2026 · navigation en 7 rubriques avec onglets (aucune page supprimée), lisibilité : tailles de texte relevées (12 px minimum), gris secondaire `#8080a8` (contraste 4,9 à 5,4 pour 1), libellés en casse normale avec acronymes ICT conservés. Check de forme avant chaque session (sommeil, énergie, calme) : vert, orange (demi-taille, A+ uniquement, 1 trade max) ou rouge (session déconseillée, un trade pris est noté en écart « trade malgré une forme rouge »). Seuils réglables, 6 h pour un vert et 5 h minimum par défaut.
 
 ## Garde-fous avancés (v2.1)
 

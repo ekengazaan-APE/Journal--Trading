@@ -183,6 +183,13 @@ textarea{resize:vertical;min-height:60px;}
 .v2-gauge{display:block;width:100%;height:6px;margin:4px 0 2px;}
 .v2-chip{display:inline-block;padding:3px 9px;border-radius:20px;border:1px solid;font-size:12px;font-weight:800;letter-spacing:0.3px;}
 .v2-cockpit .my-session-row{margin-top:6px;}
+.v2-forme{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 12px;border:1px solid var(--border);border-radius:10px;margin-bottom:12px;background:var(--s2);}
+.v2-forme-ask{display:block;border-color:var(--accent);}
+.v2-frow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:6px 0;}
+.v2-flab{flex:0 0 320px;max-width:100%;display:flex;flex-direction:column;gap:2px;font-size:13px;}.v2-flab span{font-size:12px;color:var(--muted);}
+.v2-fopts{display:flex;gap:6px;flex-wrap:wrap;}
+.v2-fchip{background:var(--s1);border:1px solid var(--border);color:var(--text);padding:8px 12px;min-width:42px;min-height:40px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit;}
+.v2-fchip:hover{border-color:var(--border2);}.v2-fchip.on{border-color:var(--accent);background:rgba(59,130,246,0.18);font-weight:800;}
 .v2-cock-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 0;border-top:1px solid var(--border);}
 .v2-cock-kpis{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-left:auto;}
 .v2-cock-kpis b{color:var(--text);font-family:'Courier New',monospace;}
@@ -992,7 +999,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.3 · 7 rubriques et lisibilité · 05/10/2026';
+var APP_BUILD='v2.3 · 7 rubriques, lisibilité, check de forme · 05/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -3334,7 +3341,7 @@ var END_CAUSES=['Drawdown max','Perte journalière','Règle de consistance','Rev
 var METHODS={live:'Live',replay:'Replay à l’aveugle',review:'Relecture a posteriori'};
 var DEV_LABELS={oversize:'Taille au-dessus de 1R',slWidened:'SL élargi',offSession:'Hors session',offPlaybook:'Hors playbook',
   revenge:'Trade peu après une perte',overtrading:'Overtrading',afterStop:'Trade après stop journée',maxSize:'Taille max du compte dépassée',
-  entryOutOfZone:'Entrée hors zone',earlyExit:'Sortie anticipée',tpMoved:'TP déplacé',newsWindow:'Entrée pendant une news'};
+  entryOutOfZone:'Entrée hors zone',earlyExit:'Sortie anticipée',tpMoved:'TP déplacé',newsWindow:'Entrée pendant une news',formeRouge:'Trade malgré une forme rouge'};
 var MANUAL_DEVS=['entryOutOfZone','earlyExit','tpMoved'];
 
 // ── Nombres et prix ─────────────────────────────────────────────────────────
@@ -3382,7 +3389,9 @@ var SETTINGS_DEFAULT={v:2,
   dayBoundary:{tz:NYC,time:'17:00'},
   beR:0.10,revengeMin:15,maxLossesDay:2,stopMode:'day',maxTradesDay:3,dailyStopPct:50,alertPct:[50,80],includeReview:false,
   // Garde-fous avancés : désactivés par défaut, chaque utilisateur les active dans ses propres réglages
-  guardV3:false,cdA:5,cdB:10,cdC:30,voiceOn:false,voiceRate:1,newsOn:false,newsCcy:'USD',newsImpact:'High',newsBefore:10,newsAfter:10,trust:{on:false,name:'',svc:'',tpl:'',key:''}};
+  guardV3:false,cdA:5,cdB:10,cdC:30,voiceOn:false,voiceRate:1,newsOn:false,newsCcy:'USD',newsImpact:'High',newsBefore:10,newsAfter:10,trust:{on:false,name:'',svc:'',tpl:'',key:''},
+  // Check de forme avant session : activé, seuils de sommeil en heures
+  formeOn:true,formeSleepGreen:6,formeSleepRed:5};
 function getSettings(){var d=JSON.parse(JSON.stringify(SETTINGS_DEFAULT));var s=DB._l('tj_settings',null);if(!s)return d;Object.keys(d).forEach(function(k){if(s[k]===undefined)s[k]=d[k];});return s;}
 function saveSettings(s){DB._s('tj_settings',s);}
 function sessionOf(ms,S){
@@ -3564,6 +3573,7 @@ function applyContext(items,S,accById){
       if(c.stopAtEntry)D.push('afterStop');
       if(num(acc.maxMicros)>0&&q&&q>num(acc.maxMicros))D.push('maxSize');
       if(it.t.newsFlag)D.push('newsWindow');
+      if(it.t.formeFlag&&it.t.formeFlag.v==='rouge')D.push('formeRouge');
       (it.t.manualDeviations||[]).forEach(function(d){if(MANUAL_DEVS.indexOf(d)>=0&&D.indexOf(d)<0)D.push(d);});
       c.deviations=D;c.planOk=D.length===0;
     });
@@ -3724,6 +3734,72 @@ function sessionsRowsHTML(){
       +'<span style="margin-left:auto;font-size:12px;font-weight:700;color:var(--muted)">'+stt+'</span></div>';
   }).join('');
   return rows+(gap?'<div class="v2-note warn">Semaine de décalage horaire : l’Europe et les États-Unis n’ont pas encore le même horaire. Les sessions tombent une heure plus tôt à Paris.</div>':'');
+}
+// ── CHECK DE FORME AVANT SESSION (05/10/2026) ───────────────────────────────
+// 3 réponses avant chaque session (sommeil, énergie, calme). Verdict : vert (taille normale),
+// orange (demi-taille, A+ uniquement, 1 trade max), rouge (session déconseillée, un trade pris est noté en écart).
+var FORME_SLEEP=[[4,'Moins de 5 h'],[5,'5 h'],[6,'6 h'],[7,'7 h'],[8,'8 h et +']];
+var FORME_TXT={vert:['VERT','Forme OK · taille normale','var(--green)'],orange:['ORANGE','Forme moyenne · demi-taille, A+ uniquement, 1 trade max','var(--yellow)'],rouge:['ROUGE','Forme basse · session déconseillée','var(--red)']};
+var _forme={};
+function formeOn(S){S=S||getSettings();return S.formeOn!==false;}
+function formeList(){var l=DB._l('tj_forme',[]);return Array.isArray(l)?l:[];}
+function formeKey(ms,se,S){return dayKeyOf(ms,S)+'·'+se.id;}
+function formeTarget(S){
+  S=S||getSettings();var now=Date.now(),best=null;
+  S.sessions.forEach(function(se){var o=sessionOccurrence(se,now),c={se:se,start:o.start,end:o.end,active:now>=o.start&&now<o.end};
+    if(c.active)best=c;else if(!best||(!best.active&&c.start<best.start))best=c;});
+  if(best)best.key=formeKey(best.start,best.se,S);
+  return best;
+}
+function formeVerdict(r,S){
+  S=S||getSettings();var g=num(S.formeSleepGreen)||6,rd=num(S.formeSleepRed)||5;
+  var low=[r.energy,r.calm].filter(function(x){return x<=2;}).length;
+  if(r.sleepH<rd||r.energy<=1||r.calm<=1||low>=2)return 'rouge';
+  if(r.sleepH<g||low===1)return 'orange';
+  return 'vert';
+}
+function formeFor(key){return formeList().filter(function(x){return x.key===key;}).pop()||null;}
+function formeForTrade(t,S){S=S||getSettings();var ms=zonedToMs(t.entryAt,PARIS),se=sessionOf(ms,S);return se?formeFor(formeKey(ms,se,S)):null;}
+function formeCurrent(){var S=getSettings();if(!formeOn(S))return null;var tg=formeTarget(S);return tg?{target:tg,entry:formeFor(tg.key)}:null;}
+function formeSleepLabel(h){return h>=8?'8 h et +':h<5?'moins de 5 h':h+' h';}
+function formeCardHTML(){
+  var S=getSettings();if(!formeOn(S))return '';var tg=formeTarget(S);if(!tg)return '';
+  var e=formeFor(tg.key),lbl='session '+esc(tg.se.label)+' de '+hm(tg.start);
+  if(e&&!_forme.redo){var m=FORME_TXT[e.verdict]||FORME_TXT.vert;
+    return '<div class="v2-forme"><span class="v2-chip" style="color:'+m[2]+';border-color:'+m[2]+'55;background:'+m[2]+'14">● '+m[0]+'</span>'
+      +'<span style="font-size:13px"><b>Check de forme</b> · '+lbl+' · '+m[1]+'</span>'
+      +'<span style="font-size:12px;color:var(--muted)">Sommeil '+formeSleepLabel(e.sleepH)+' · énergie '+e.energy+'/5 · calme '+e.calm+'/5</span>'
+      +'<button class="v2-link" style="margin-left:auto;font-size:13px" onclick="_forme={redo:1};formeRefresh()">Refaire</button></div>';}
+  var chip=function(f,v,txt){return '<button class="v2-fchip'+(_forme[f]===v?' on':'')+'" aria-pressed="'+(_forme[f]===v)+'" onclick="formeSet(\''+f+'\','+v+')">'+txt+'</button>';};
+  var row=function(title,help,opts){return '<div class="v2-frow"><div class="v2-flab"><b>'+title+'</b><span>'+help+'</span></div><div class="v2-fopts">'+opts+'</div></div>';};
+  var scale=function(f){return [1,2,3,4,5].map(function(v){return chip(f,v,String(v));}).join('');};
+  var ready=_forme.sleepH&&_forme.energy&&_forme.calm;
+  return '<div class="v2-forme v2-forme-ask"><div style="font-size:14px;margin-bottom:6px"><b>Check de forme</b> avant la '+lbl+' · 20 secondes</div>'
+    +row('Sommeil','Total des dernières 24 h, réveil de nuit compris',FORME_SLEEP.map(function(o){return chip('sleepH',o[0],o[1]);}).join(''))
+    +row('Énergie','1 épuisé · 5 en pleine forme',scale('energy'))
+    +row('Calme','1 tendu ou frustré · 5 calme et concentré',scale('calm'))
+    +'<div style="display:flex;gap:8px;margin-top:8px"><button class="btn btn-primary btn-sm" '+(ready?'':'disabled')+' onclick="formeSave()">Valider</button>'
+    +(_forme.redo?'<button class="btn btn-ghost btn-sm" onclick="_forme={};formeRefresh()">Annuler</button>':'')+'</div></div>';
+}
+function formeSet(f,v){_forme[f]=v;formeRefresh();}
+function formeRefresh(){var el=document.getElementById('forme-card');if(el)el.innerHTML=formeCardHTML();}
+function formeSave(){
+  var S=getSettings(),tg=formeTarget(S);if(!tg||!_forme.sleepH||!_forme.energy||!_forme.calm)return;
+  var r={id:uid(),key:tg.key,day:dayKeyOf(tg.start,S),session:tg.se.id,sleepH:_forme.sleepH,energy:_forme.energy,calm:_forme.calm,at:new Date().toISOString()};
+  r.verdict=formeVerdict(r,S);
+  DB._s('tj_forme',formeList().filter(function(x){return x.key!==r.key;}).concat([r]).slice(-400));
+  _forme={};var m=FORME_TXT[r.verdict];toast('Check de forme : '+m[1]);
+  speakFR(r.verdict==='vert'?'Forme correcte. Bonne session.':r.verdict==='orange'?'Forme moyenne. Demi-taille, A plus uniquement, un trade maximum.':'Forme basse. La session est déconseillée aujourd’hui.');
+  formeRefresh();
+}
+function formeBannerHTML(t){
+  var S=getSettings();if(!formeOn(S))return '';
+  var ms=zonedToMs(t.entryAt,PARIS),se=sessionOf(ms,S);if(!se)return '';
+  var e=formeFor(formeKey(ms,se,S));
+  if(!e)return '<div class="v2-warn" style="font-size:13px">Check de forme pas fait pour la session '+esc(se.label)+'. <button class="v2-link" onclick="closeModal();nav(\'dashboard\')">Le faire maintenant</button></div>';
+  if(e.verdict==='orange')return '<div class="v2-warn" style="font-size:13px"><b style="color:var(--yellow)">Forme moyenne.</b> Demi-taille, A+ uniquement, un trade maximum.</div>';
+  if(e.verdict==='rouge')return '<div class="v2-warn" style="font-size:13px;border-color:rgba(155,93,229,0.5);background:rgba(155,93,229,0.08)"><b style="color:var(--red)">Forme basse : session déconseillée.</b> Un trade pris maintenant sera noté en écart.</div>';
+  return '';
 }
 function planReminderHTML(a,st){
   var S=getSettings(),C=v2Compute();
@@ -3933,7 +4009,7 @@ try{setInterval(newsTick,1000);}catch(e){}
 function cockpitHTML(){
   var C=v2Compute(),S=C.S,accs=C.accs.filter(function(a){return accActive(a)&&LIVE_CATS.indexOf(accCategory(a))>=0;});
   var head='<div class="anal-section-title" style="margin-bottom:10px">🛡️ AUJOURD’HUI · JOURNÉE DE TRADING DU '+frDate(dayKeyOf(Date.now(),S))+' (BASCULE '+hm(zonedToMs(new Date().toISOString().slice(0,10)+'T'+S.dayBoundary.time,S.dayBoundary.tz))+' PARIS)</div>';
-  var sess='<div style="margin-bottom:12px">'+sessionsRowsHTML()+(newsActive(S)?'<div id="cal-agenda">'+calAgendaHTML()+'</div>':'')+'</div>';
+  var sess='<div id="forme-card">'+formeCardHTML()+'</div><div style="margin-bottom:12px">'+sessionsRowsHTML()+(newsActive(S)?'<div id="cal-agenda">'+calAgendaHTML()+'</div>':'')+'</div>';
   if(newsActive(S))setTimeout(function(){calFetch(false);},0);
   if(!accs.length)return '<div class="card v2-cockpit" style="margin-bottom:14px">'+head+sess+'<div style="font-size:13px;color:var(--muted);line-height:1.6">Aucun compte live actif. Crée ton compte avec le preset <b style="color:var(--text)">Lucid Flex 50K</b> pour activer les jauges et la règle d’arrêt.</div><button class="btn btn-primary btn-sm" style="margin-top:10px" onclick="openAddAccount()">+ Créer mon compte</button></div>';
   var rows=accs.map(function(a){
@@ -4196,7 +4272,7 @@ function tfRefresh(){
     var nwin=newsWindowFor(zonedToMs(t.entryAt,PARIS),S);
     if(nwin&&!_tf.spokeNews){_tf.spokeNews=1;speakFR('Attention, news à fort impact à '+hm(nwin.ev.ms)+' : '+newsLabel(nwin.ev.t)+'.');}
     if(cd&&!_tf.spoke){_tf.spoke=1;speakFR('Pause en cours. Encore '+Math.max(1,Math.ceil((cd.until-Date.now())/60000))+' minutes avant ton prochain trade.');}
-    g.innerHTML=(nwin?newsBannerHTML(nwin,false):'')+(cd?cooldownBannerHTML(cd,false):'')+(st.state==='warn'||_tf.forced?'<div class="v2-warn">'+(_tf.forced?'<b style="color:var(--red)">Stop journée forcé.</b> ':'')+planReminderHTML(a,st)+'</div>':'');
+    g.innerHTML=formeBannerHTML(t)+(nwin?newsBannerHTML(nwin,false):'')+(cd?cooldownBannerHTML(cd,false):'')+(st.state==='warn'||_tf.forced?'<div class="v2-warn">'+(_tf.forced?'<b style="color:var(--red)">Stop journée forcé.</b> ':'')+planReminderHTML(a,st)+'</div>':'');
   }else if(g)g.innerHTML='';
   // risque et taille
   var I=INSTR[t.instrument]||{},q=num(t.contracts);
@@ -4250,7 +4326,8 @@ function tfSave(close){
   t.v=2;t.status=close?'closed':'open';t.snap=tfSnap();t.updatedAt=new Date().toISOString();
   t.exits=(t.exits||[]).filter(function(x){return num(x.price)!==null||num(x.contracts)!==null;});
   if(!_tf.editing){t.id=uid();t.createdAt=t.updatedAt;if(_tf.forced)t.overrideReason=_tf.override.trim();
-    var nw=newsWindowFor(zonedToMs(t.entryAt,PARIS),C.S);if(nw)t.newsFlag={t:nw.ev.t,c:nw.ev.c,at:new Date(nw.ev.ms).toISOString()};}
+    var nw=newsWindowFor(zonedToMs(t.entryAt,PARIS),C.S);if(nw)t.newsFlag={t:nw.ev.t,c:nw.ev.c,at:new Date(nw.ev.ms).toISOString()};
+    if(formeOn(C.S)){var fe=formeForTrade(t,C.S);if(fe&&fe.verdict!=='vert')t.formeFlag={v:fe.verdict,key:fe.key};}}
   var ts=DB.trades,list=[t];
   if(!_tf.editing){
     var mids=Object.keys(_tf.mirror).filter(function(k){return _tf.mirror[k]&&C.accById[k];});
@@ -4465,6 +4542,12 @@ function guardSettingsHTML(S,o,num2){
       +num2('newsBefore',S.newsBefore,'PAS D’ENTRÉE AVANT LA NEWS (MIN)')
       +num2('newsAfter',S.newsAfter,'PAS D’ENTRÉE APRÈS LA NEWS (MIN)')
     +'</div>'
+    +'<div class="card-title" style="margin-top:14px">CHECK DE FORME AVANT SESSION</div>'
+    +'<div class="form-grid">'
+      +'<div class="form-group"><label>CHECK DE FORME</label><select data-g="formeOn">'+o([['1','Activé'],['0','Désactivé']],S.formeOn!==false?'1':'0')+'</select></div>'
+      +num2('formeSleepGreen',S.formeSleepGreen,'SOMMEIL POUR UN VERT (H)','En dessous : orange, demi-taille')
+      +num2('formeSleepRed',S.formeSleepRed,'SOMMEIL MINIMUM (H)','En dessous : rouge, session déconseillée')
+    +'</div>'
     +'<div class="card-title" style="margin-top:14px">PERSONNE DE CONFIANCE · E-MAIL SI TU FORCES LE STOP JOURNÉE</div>'
     +'<div class="form-grid">'
       +'<div class="form-group"><label>ENVOI</label><select data-g="trust.on">'+o([['0','Désactivé'],['1','Activé']],T.on?'1':'0')+'</select></div>'
@@ -4499,6 +4582,7 @@ function stCollect(){
     if(k==='guardV3')S.guardV3=v==='1';
     else if(k==='voiceOn')S.voiceOn=v==='1';
     else if(k==='newsOn')S.newsOn=v==='1';
+    else if(k==='formeOn')S.formeOn=v==='1';
     else if(k==='newsCcy')S.newsCcy=String(v||'').toUpperCase().replace(/[^A-Z,\s]/g,'').trim()||'USD';
     else if(k==='newsImpact')S.newsImpact=v==='Medium'?'Medium':'High';
     else if(k==='voiceName'){try{localStorage.setItem('ui_voiceName',String(v||''));}catch(e){}}
@@ -4517,6 +4601,7 @@ function stCollect(){
   if(!(S.voiceRate>=0.5&&S.voiceRate<=2))E.push('Vitesse de la voix : entre 0,5 et 2');
   if(!(S.newsBefore>=0&&S.newsBefore<=120)||!(S.newsAfter>=0&&S.newsAfter<=120))E.push('Fenêtre news : entre 0 et 120 minutes');
   [['cdA','Pause A+ ou A'],['cdB','Pause B'],['cdC','Pause C']].forEach(function(k){if(!(S[k[0]]>=1&&S[k[0]]<=240))E.push(k[1]+' : entre 1 et 240 minutes');});
+  if(!(S.formeSleepRed>=3&&S.formeSleepGreen>S.formeSleepRed&&S.formeSleepGreen<=10))E.push('Check de forme : sommeil minimum entre 3 et le seuil du vert (10 h max)');
   if(S.trust&&S.trust.on&&(!S.trust.svc||!S.trust.tpl||!S.trust.key))E.push('Personne de confiance : Service ID, Template ID et Public Key obligatoires');
   if(!(S.beR>=0&&S.beR<1))E.push('Seuil BE entre 0 et 1 R');
   var th=CL.thresholds;if(!(th.aPlus>th.a&&th.a>th.b&&th.b>0&&th.aPlus<=100))E.push('Seuils de note : A+ > A > B > 0');
@@ -4597,6 +4682,8 @@ function runEngineTests(){
   ok('News : CPI à 14:30 Paris, fenêtre de 10 min : 14:21 et 14:39 dans la fenêtre, 14:19 et 14:41 libres',evs.length===1&&hm(evs[0].ms)==='14:30'&&!!newsWindowAt(atN('14:21'),evs,10,10)&&!!newsWindowAt(atN('14:39'),evs,10,10)&&!newsWindowAt(atN('14:19'),evs,10,10)&&!newsWindowAt(atN('14:41'),evs,10,10));
   ok('News : « fort et moyen » ajoute les ventes au détail, les news EUR restent exclues',calEventsFrom(rawEv,{newsCcy:'USD',newsImpact:'Medium'}).length===2&&calEventsFrom(rawEv,{newsCcy:'USD, EUR',newsImpact:'High'}).length===2);
   ok('News : un trade marqué pendant une news porte l’écart « entrée pendant une news »',buildCompute([mk({id:'n1',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('15:40'),exits:[{price:21060,contracts:1,at:day('15:50')}],newsFlag:{t:'CPI m/m',c:'USD',at:'2026-10-05T13:30:00Z'}})],[acc],S,CL).byId.n1.c.deviations.indexOf('newsWindow')>=0);
+  ok('Forme : 7 h, énergie 4, calme 4 = vert · 5 h = orange · 4 h = rouge · énergie 2 et calme 2 = rouge',formeVerdict({sleepH:7,energy:4,calm:4},S)==='vert'&&formeVerdict({sleepH:5,energy:4,calm:4},S)==='orange'&&formeVerdict({sleepH:4,energy:5,calm:5},S)==='rouge'&&formeVerdict({sleepH:8,energy:2,calm:2},S)==='rouge'&&formeVerdict({sleepH:8,energy:2,calm:4},S)==='orange');
+  ok('Forme : un trade pris avec un check rouge porte l’écart « trade malgré une forme rouge », pas avec un orange',(function(){var B=buildCompute([mk({id:'f1',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('15:40'),exits:[{price:21060,contracts:1,at:day('15:50')}],formeFlag:{v:'rouge'}}),mk({id:'f2',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('16:10'),exits:[{price:21060,contracts:1,at:day('16:20')}],formeFlag:{v:'orange'}})],[acc],S,CL);return B.byId.f1.c.deviations.indexOf('formeRouge')>=0&&B.byId.f2.c.deviations.indexOf('formeRouge')<0;})());
   var mll=function(days){var T=days.map(function(d,i){return mk({id:'d'+i,instrument:'MNQ',entry:21000,slInitial:20000,tpInitial:22000,contracts:1,entryAt:d[0]+'T15:40',exits:[{price:21000+d[1]/2,contracts:1,at:d[0]+'T16:00'}]});});return accountState(acc,buildCompute(T,[acc],S,CL));};
   var m1=mll([['2026-09-01',1200]]),m2=mll([['2026-09-01',1200],['2026-09-02',1000]]);
   ok('MLL trailing : +1 200 $ le jour 1 = seuil 49 200 $',near(m1.mll,49200));
