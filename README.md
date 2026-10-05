@@ -4,7 +4,8 @@ Journal de trading en un seul fichier (`index.html`), hébergé sur Netlify et s
 
 ## Règles du dépôt
 
-- `main` = la version en ligne, utilisée par deux personnes (chacune avec son propre code de synchro).
+- `main` = le journal d'Azaan, à l'adresse principale. Depuis le 05/10/2026, il évolue pour lui seul.
+- `ami/` = l'ancienne version du journal de son ami (déploiement Netlify du 31/08/2026, avant la v2.0), servie à l'adresse `/ami/` du même site. Même domaine : ses données locales et son code de synchro restent valables. On n'y touche plus sauf demande.
 - Toute évolution passe par une branche et une adresse de test Netlify avant d'arriver sur `main`.
 - Les données sont sauvegardées en bloc par `save_journal` : une évolution ne doit qu'**ajouter** des champs, jamais renommer ou supprimer, sans migration testée.
 
