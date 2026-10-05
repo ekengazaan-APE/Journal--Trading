@@ -999,7 +999,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.3 · 7 rubriques, lisibilité, check de forme · 05/10/2026';
+var APP_BUILD='v2.4 · import Tradovate · 05/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -4081,11 +4081,169 @@ function trades(){
   return '<div class="flex-between" style="margin-bottom:12px;flex-wrap:wrap;gap:8px"><div><div class="page-title">📋 TRADES</div><div class="page-sub">SAISIE EN DEUX TEMPS · OUVERTURE PUIS CLÔTURE · CALCULS AUTOMATIQUES</div></div>'
     +'<div class="flex-row" style="flex-wrap:wrap">'+accountSelectHTML(tradeFilter,"tradeFilter=this.value;tvSel={};nav('trades')")
     +'<select onchange="tradeSort=this.value;nav(\'trades\')" style="width:auto;padding:7px 12px;border-radius:8px;font-size:13px;background:var(--s1);border:1px solid var(--border);color:var(--text)"><option value="date-desc"'+(tradeSort!=='date-asc'?' selected':'')+'>Plus récent</option><option value="date-asc"'+(tradeSort==='date-asc'?' selected':'')+'>Plus ancien</option></select>'
-    +'<button class="btn btn-primary btn-sm" onclick="openModal()">+ Trade</button></div></div>'
+    +'<button class="btn btn-ghost btn-sm" onclick="tvImportOpen()">📥 Import Tradovate</button><button class="btn btn-primary btn-sm" onclick="openModal()">+ Trade</button></div></div>'
     +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">'+tabs+'</div>'
     +(legacyN?'<div class="v2-note">'+legacyN+' trade'+(legacyN>1?'s':'')+' à l’ancien format : visibles dans les statistiques historiques, non modifiables ici.</div>':'')
     +'<div class="card">'+bulk+(list.length?'<div style="overflow-x:auto"><table><thead><tr><th></th><th>DATE · N°</th><th>COMPTE</th><th>INSTR</th><th>SENS</th><th>SESSION</th><th>NOTE</th><th>CT</th><th>R COMPTE</th><th>P&L NET</th><th>RÉSULTAT</th><th>PLAN</th><th></th></tr></thead><tbody>'+rows+'</tbody></table></div>'
       :'<div class="empty-state"><div class="empty-icon">📋</div><p>'+(tvTab==='trash'?'Corbeille vide':'Aucun trade ici')+'</p>'+(tvTab==='all'?'<small>Clique sur + Trade pour ouvrir ton premier trade</small>':'')+'</div>')+'</div>';
+}
+// ══ IMPORT TRADOVATE (étape 1.1, 05/10/2026) ═══════════════════════════════
+// Lit les exports CSV de Tradovate (Rapports · Ordres et Performance), reconstruit les trades
+// en FIFO, retrouve le SL et le TP initiaux dans les ordres stop et limite, puis crée des
+// trades v2 « à documenter ». Les doublons (même contrat, même heure, même premier ordre) sont ignorés.
+function csvParse(text){
+  text=String(text||'').replace(/^﻿/,'');
+  var rows=[],row=[],f='',q=false;
+  for(var i=0;i<text.length;i++){
+    var ch=text.charAt(i);
+    if(q){if(ch==='"'){if(text.charAt(i+1)==='"'){f+='"';i++;}else q=false;}else f+=ch;}
+    else if(ch==='"')q=true;
+    else if(ch===','){row.push(f);f='';}
+    else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&text.charAt(i+1)==='\n')i++;row.push(f);f='';if(row.some(function(x){return String(x).trim()!=='';}))rows.push(row);row=[];}
+    else f+=ch;
+  }
+  row.push(f);if(row.some(function(x){return String(x).trim()!=='';}))rows.push(row);
+  if(!rows.length)return {head:[],rows:[]};
+  var head=rows[0].map(function(h){return String(h).trim();});
+  return {head:head,rows:rows.slice(1).map(function(r){var o={};head.forEach(function(h,k){o[h]=String(r[k]===undefined?'':r[k]).trim();});return o;})};
+}
+function tvNum(v){
+  var s=String(v===undefined||v===null?'':v).trim();if(!s)return null;
+  var neg=/^\(.*\)$/.test(s.replace(/\$/g,''))||/^-/.test(s.replace(/\$/g,''));
+  s=s.replace(/[$\s,()]/g,'').replace(/^-/,'');
+  var n=parseFloat(s);if(!isFinite(n))return null;return neg?-n:n;
+}
+function tvTime(v,tz){
+  var s=String(v||'').trim();if(!s)return null;var m,y,mo,d,h,mi,se;
+  if((m=/^(\d{1,2})\/(\d{1,2})\/(\d{2,4})[ T]+(\d{1,2}):(\d{2})(?::(\d{2}))?/.exec(s))){mo=+m[1];d=+m[2];y=+m[3];if(y<100)y+=2000;h=+m[4];mi=+m[5];se=+(m[6]||0);}
+  else if((m=/^(\d{4})-(\d{2})-(\d{2})[ T](\d{2}):(\d{2})(?::(\d{2}))?/.exec(s))){y=+m[1];mo=+m[2];d=+m[3];h=+m[4];mi=+m[5];se=+(m[6]||0);}
+  else return null;
+  var base=zonedToMs(y+'-'+pad2(mo)+'-'+pad2(d)+'T'+pad2(h)+':'+pad2(mi),tz||PARIS);
+  return base===null?null:base+se*1000;
+}
+function tvRoot(contract){var m=/^([A-Z0-9]+?)([FGHJKMNQUVXZ])(\d{1,2})$/.exec(String(contract||'').trim().toUpperCase());return m?m[1]:null;}
+function tvGet(r,names){for(var i=0;i<names.length;i++){var v=r[names[i]];if(v!==undefined&&String(v).trim()!=='')return String(v).trim();}return '';}
+function tvKind(head){var h=head.map(function(x){return x.toLowerCase();});
+  if(h.indexOf('boughttimestamp')>=0&&h.indexOf('soldtimestamp')>=0)return 'perf';
+  if(h.indexOf('b/s')>=0&&(h.indexOf('avg fill price')>=0||h.indexOf('avgprice')>=0))return 'orders';
+  return null;}
+function tvAvg(list){var q=list.reduce(function(s,x){return s+x.qty;},0);return q?list.reduce(function(s,x){return s+x.price*x.qty;},0)/q:null;}
+function tvFromOrders(rows,tz){
+  var all=rows.map(function(r){return {id:tvGet(r,['orderId','Order ID']),acct:tvGet(r,['Account']),side:/^b/i.test(tvGet(r,['B/S']))?1:-1,contract:tvGet(r,['Contract']).toUpperCase(),
+    type:tvGet(r,['Type']).toLowerCase(),status:tvGet(r,['Status']).toLowerCase(),qty:tvNum(tvGet(r,['Filled Qty','filledQty'])),price:tvNum(tvGet(r,['Avg Fill Price','avgPrice','decimalFillAvg'])),
+    fillMs:tvTime(tvGet(r,['Fill Time']),tz),ts:tvTime(tvGet(r,['Timestamp','Date']),tz),stop:tvNum(tvGet(r,['Stop Price','decimalStop'])),limit:tvNum(tvGet(r,['Limit Price','decimalLimit']))};});
+  var fills=all.filter(function(o){return /fill/.test(o.status)&&o.qty>0&&o.price!==null&&o.fillMs!==null&&o.contract;})
+    .sort(function(a,b){return a.contract<b.contract?-1:a.contract>b.contract?1:(a.fillMs-b.fillMs)||String(a.id).localeCompare(String(b.id));});
+  var out=[],pos={},cur={};
+  fills.forEach(function(f){
+    var k=f.acct+'|'+f.contract,p=pos[k]||0,left=f.qty;
+    while(left>0){
+      if(p===0){cur[k]={contract:f.contract,acct:f.acct,dir:f.side,entries:[],exits:[],start:f.fillMs,firstId:f.id};}
+      var c=cur[k];
+      if(p===0||(p>0)===(f.side>0)){c.entries.push({price:f.price,qty:left,ms:f.fillMs});p+=f.side*left;left=0;}
+      else{var cl=Math.min(left,Math.abs(p));c.exits.push({price:f.price,qty:cl,ms:f.fillMs});p+=f.side*cl;left-=cl;
+        if(p===0){c.end=f.fillMs;out.push(c);cur[k]=null;}}
+    }
+    pos[k]=p;
+  });
+  Object.keys(cur).forEach(function(k){if(cur[k]){cur[k].open=true;out.push(cur[k]);}});
+  out.forEach(function(t){
+    var end=t.end||Infinity,opp=all.filter(function(o){return o.contract===t.contract&&o.side===-t.dir&&o.ts!==null&&o.ts>=t.start-120000&&o.ts<=end;}).sort(function(a,b){return a.ts-b.ts;});
+    var stops=opp.filter(function(o){return /stop/.test(o.type)&&o.stop!==null;}),lims=opp.filter(function(o){return /limit/.test(o.type)&&!/stop/.test(o.type)&&o.limit!==null;});
+    t.sl=stops.length?stops[0].stop:null;t.slFinal=stops.length>1&&stops[stops.length-1].stop!==t.sl?stops[stops.length-1].stop:null;
+    t.tp=lims.length?lims[0].limit:null;
+  });
+  return out;
+}
+function tvFromPerf(rows,tz){
+  var g={},order=[];
+  rows.forEach(function(r){
+    var sym=tvGet(r,['symbol','Symbol']).toUpperCase(),q=tvNum(tvGet(r,['qty','Qty'])),bp=tvNum(tvGet(r,['buyPrice'])),sp=tvNum(tvGet(r,['sellPrice'])),
+      bt=tvTime(tvGet(r,['boughtTimestamp']),tz),st=tvTime(tvGet(r,['soldTimestamp']),tz),pnl=tvNum(tvGet(r,['pnl','PnL']));
+    if(!sym||!(q>0)||bp===null||sp===null||bt===null||st===null)return;
+    var dir=bt<=st?1:-1,eid=dir>0?tvGet(r,['buyFillId']):tvGet(r,['sellFillId']),ems=dir>0?bt:st,k=sym+'|'+(eid||ems)+'|'+dir;
+    if(!g[k]){g[k]={contract:sym,dir:dir,entries:[],exits:[],start:ems,firstId:eid||'',pnl:0,_eq:0};order.push(k);}
+    var t=g[k];t.entries.push({price:dir>0?bp:sp,qty:q,ms:ems});t.exits.push({price:dir>0?sp:bp,qty:q,ms:dir>0?st:bt});t.pnl+=pnl||0;t.end=Math.max(t.end||0,dir>0?st:bt);
+  });
+  return order.map(function(k){return g[k];});
+}
+// Fichiers lus → trades bruts (les ordres priment, la performance sert de contrôle du P&L)
+function tvBuild(files,tz){
+  var orders=[],perf=[],unknown=[],empty=[];
+  files.forEach(function(f){var p=csvParse(f.text);if(!p.head.length){empty.push(f.name);return;}var k=tvKind(p.head);if(k==='orders')orders=orders.concat(p.rows);else if(k==='perf')perf=perf.concat(p.rows);else unknown.push(f.name);});
+  var base=orders.length?tvFromOrders(orders,tz):tvFromPerf(perf,tz),P=orders.length&&perf.length?tvFromPerf(perf,tz):[];
+  base.forEach(function(t){if(t.pnl!==undefined)return;var m=P.find(function(x){return x.contract===t.contract&&x.dir===t.dir&&Math.abs(x.start-t.start)<=5000;});if(m)t.pnl=m.pnl;});
+  return {trades:base.sort(function(a,b){return a.start-b.start;}),source:orders.length?'ordres':(perf.length?'performance':null),nOrders:orders.length,nPerf:perf.length,unknown:unknown,empty:empty};
+}
+function tvKey(t){return 'tv:'+t.contract+':'+t.start+':'+(t.firstId||'');}
+function tvRoundTick(x,tick){return Math.round(x/tick)*tick;}
+function tvToV2(r,acc,C){
+  var root=tvRoot(r.contract),I=INSTR[root];if(!I)return null;
+  var q=r.entries.reduce(function(s,x){return s+x.qty;},0),e=tvAvg(r.entries);
+  var t={id:uid(),v:2,status:'open',accountId:acc.id,instrument:root,side:r.dir>0?'Long':'Short',entryAt:msToZoned(r.start,PARIS),
+    entry:tvRoundTick(e,I.tick),slInitial:r.sl,tpInitial:r.tp,contracts:q,exits:r.exits.map(function(x){return {price:x.price,contracts:x.qty,at:msToZoned(x.ms,PARIS)};}),
+    slFinal:r.slFinal,checklist:{},pre:{biasHTF:'',dol:'',zone:''},post:'',manualDeviations:[],tags:['import Tradovate'],emotion:3,setupType:'Continuation',tfValidation:'M15',tfEntry:'M1',
+    htfShotUrl:'',execShotUrl:'',biasCorrect:'N/A',maeR:null,mfeR:null,method:defaultMethod(acc),importKey:tvKey(r),importSrc:'tradovate'};
+  var se=sessionOf(r.start,C.S);t.playbookId=suggestPlaybook(root,se?se.id:null,C.CL);
+  t.snap=snapFor(t,acc);t.createdAt=t.updatedAt=new Date().toISOString();
+  var nw=newsWindowFor(r.start,C.S);if(nw)t.newsFlag={t:nw.ev.t,c:nw.ev.c,at:new Date(nw.ev.ms).toISOString()};
+  if(formeOn(C.S)){var fe=formeForTrade(t,C.S);if(fe&&fe.verdict!=='vert')t.formeFlag={v:fe.verdict,key:fe.key};}
+  return t;
+}
+var _tvi=null;
+function tvTz(){try{return localStorage.getItem('ui_tvTz')||PARIS;}catch(e){return PARIS;}}
+function tvImportOpen(){
+  var C=v2Compute(),accs=C.accs.filter(accActive);
+  if(!accs.length){toast('Crée d’abord un compte actif','err');return;}
+  _tvi={files:[],accountId:(accs.find(function(a){return LIVE_CATS.indexOf(accCategory(a))>=0;})||accs[0]).id,build:null};
+  document.getElementById('modal-title').textContent='IMPORT TRADOVATE';
+  document.getElementById('modal').classList.add('wide');
+  var tz=tvTz();
+  document.getElementById('modal-body').innerHTML='<div class="v2-note">Dans Tradovate : Rapports, onglets <b>Ordres</b> et <b>Performance</b>, choisis la période puis exporte en CSV. Dépose les deux fichiers ici. Un fichier déjà importé ne crée pas de doublon.</div>'
+    +'<div class="form-grid" style="margin-top:10px"><div class="form-group"><label>COMPTE</label><select id="tvi-acc" onchange="_tvi.accountId=this.value;tvImportPreview()">'+accs.map(function(a){return '<option value="'+esc(a.id)+'"'+(a.id===_tvi.accountId?' selected':'')+'>'+esc(a.name)+'</option>';}).join('')+'</select></div>'
+    +'<div class="form-group"><label>HEURE DES FICHIERS TRADOVATE</label><select id="tvi-tz" onchange="try{localStorage.setItem(\'ui_tvTz\',this.value)}catch(e){};tvImportPreview()">'+[[PARIS,'Heure de Paris'],[NYC,'Heure de New York'],['UTC','UTC']].map(function(z){return '<option value="'+z[0]+'"'+(z[0]===tz?' selected':'')+'>'+z[1]+'</option>';}).join('')+'</select></div>'
+    +'<div class="form-group"><label>FICHIERS CSV</label><input type="file" id="tvi-files" accept=".csv,text/csv" multiple onchange="tvImportRead(this.files)"></div></div>'
+    +'<div id="tvi-preview" style="margin-top:12px"></div>';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function tvImportRead(list){
+  var arr=[].slice.call(list||[]);_tvi.files=[];if(!arr.length){tvImportPreview();return;}
+  var left=arr.length;
+  arr.forEach(function(f){var rd=new FileReader();rd.onload=function(ev){_tvi.files.push({name:f.name,text:String(ev.target.result||'')});if(--left===0)tvImportPreview();};rd.onerror=function(){if(--left===0)tvImportPreview();};rd.readAsText(f);});
+}
+function tvImportPreview(){
+  var el=document.getElementById('tvi-preview');if(!el||!_tvi)return;
+  if(!_tvi.files.length){el.innerHTML='';return;}
+  var C=v2Compute(),acc=C.accById[_tvi.accountId],tz=(document.getElementById('tvi-tz')||{}).value||tvTz();
+  var B=tvBuild(_tvi.files,tz);_tvi.build=B;
+  var known={};C.trades.forEach(function(t){if(t&&t.importKey)known[t.importKey]=1;});
+  if(!B.trades.length){el.innerHTML='<div class="v2-warn" style="font-size:13px">Aucun trade trouvé dans '+_tvi.files.length+' fichier'+(_tvi.files.length>1?'s':'')+'.'+(B.unknown.length?' Fichier non reconnu : '+esc(B.unknown.join(', '))+'. Exporte depuis Tradovate, Rapports, onglets Ordres et Performance.':'')+(B.empty.length?' '+(B.empty.length>1?'Les fichiers sont vides':'Le fichier '+esc(B.empty[0])+' est vide')+' : aucun ordre exécuté sur la période choisie. C’est normal tant que tu n’as pas tradé.':'')+'</div>';return;}
+  var rows=B.trades.map(function(r){
+    var root=tvRoot(r.contract),I=INSTR[root],dup=!!known[tvKey(r)],q=r.entries.reduce(function(s,x){return s+x.qty;},0);
+    var st=!I?'<span class="badge bm">non suivi</span>':dup?'<span class="badge bm">déjà importé</span>':r.open?'<span class="badge by">encore ouvert</span>':'<span class="badge bg">nouveau</span>';
+    var warn=[];if(I&&r.sl===null)warn.push('SL introuvable');if(I&&r.tp===null)warn.push('TP introuvable');
+    var net=null;if(I&&!r.open){var e=tvAvg(r.entries);net=r.exits.reduce(function(s,x){return s+(x.price-e)*r.dir*x.qty*I.pv;},0)-(num(acc&&acc.fees&&acc.fees[root])||0)*q;}
+    return '<tr><td style="white-space:nowrap">'+frDT(msToZoned(r.start,PARIS))+'</td><td>'+esc(r.contract)+'</td><td><span class="badge '+(r.dir>0?'bg':'br')+'">'+(r.dir>0?'Long':'Short')+'</span></td><td class="mono">'+q+'</td>'
+      +'<td class="mono">'+fmtN(tvAvg(r.entries),2)+'</td><td class="mono">'+(r.sl!==null?fmtN(r.sl,2):'·')+'</td><td class="mono">'+(r.tp!==null?fmtN(r.tp,2):'·')+'</td><td class="mono">'+r.exits.length+'</td>'
+      +'<td class="mono" style="color:'+((net||0)>=0?'var(--green)':'var(--red)')+'">'+(net!==null?fmtUSD(net,true):'·')+(r.pnl!==undefined?'<div style="font-size:12px;color:var(--muted)">Tradovate '+fmtUSD(r.pnl,true)+'</div>':'')+'</td>'
+      +'<td>'+st+(warn.length?'<div style="font-size:12px;color:var(--yellow)">'+warn.join(' · ')+'</div>':'')+'</td></tr>';
+  }).join('');
+  var nNew=B.trades.filter(function(r){return INSTR[tvRoot(r.contract)]&&!known[tvKey(r)];}).length;
+  el.innerHTML='<div style="font-size:13px;color:var(--muted);margin-bottom:8px">Source : '+B.source+' · '+B.nOrders+' ligne'+(B.nOrders>1?'s':'')+' d’ordres, '+B.nPerf+' de performance. Vérifie l’heure du premier trade : si elle est décalée, change l’heure des fichiers.</div>'
+    +'<div style="overflow-x:auto"><table><thead><tr><th>Entrée (Paris)</th><th>Contrat</th><th>Sens</th><th>Ct</th><th>Prix</th><th>SL</th><th>TP</th><th>Sorties</th><th>P&L net</th><th>État</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
+    +'<div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Annuler</button><button class="btn btn-primary" '+(nNew?'':'disabled')+' onclick="tvImportCommit()">Importer '+nNew+' trade'+(nNew>1?'s':'')+'</button></div>';
+}
+function tvImportCommit(){
+  if(!_tvi||!_tvi.build)return;var C=v2Compute(),acc=C.accById[_tvi.accountId];if(!acc){toast('Choisis un compte','err');return;}
+  var known={};C.trades.forEach(function(t){if(t&&t.importKey)known[t.importKey]=1;});
+  var add=_tvi.build.trades.filter(function(r){return INSTR[tvRoot(r.contract)]&&!known[tvKey(r)];}).map(function(r){return tvToV2(r,acc,C);}).filter(Boolean);
+  if(!add.length){toast('Rien de nouveau à importer');return;}
+  DB.trades=DB.trades.concat(add);
+  closeModal();_tvi=null;
+  var last=add.slice().sort(function(a,b){return zonedToMs(b.entryAt,PARIS)-zonedToMs(a.entryAt,PARIS);})[0],it=v2Compute().byId[last.id];
+  if(it&&isDone(it,getSettings()))guardAfterSave(it);
+  toast(add.length+' trade'+(add.length>1?'s':'')+' importé'+(add.length>1?'s':'')+' · à documenter : setup, note, capture, commentaire');
+  tvTab='open';nav('trades');
 }
 var tvLastLen=0;
 function tvBulkBar(){
@@ -4684,6 +4842,21 @@ function runEngineTests(){
   ok('News : un trade marqué pendant une news porte l’écart « entrée pendant une news »',buildCompute([mk({id:'n1',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('15:40'),exits:[{price:21060,contracts:1,at:day('15:50')}],newsFlag:{t:'CPI m/m',c:'USD',at:'2026-10-05T13:30:00Z'}})],[acc],S,CL).byId.n1.c.deviations.indexOf('newsWindow')>=0);
   ok('Forme : 7 h, énergie 4, calme 4 = vert · 5 h = orange · 4 h = rouge · énergie 2 et calme 2 = rouge',formeVerdict({sleepH:7,energy:4,calm:4},S)==='vert'&&formeVerdict({sleepH:5,energy:4,calm:4},S)==='orange'&&formeVerdict({sleepH:4,energy:5,calm:5},S)==='rouge'&&formeVerdict({sleepH:8,energy:2,calm:2},S)==='rouge'&&formeVerdict({sleepH:8,energy:2,calm:4},S)==='orange');
   ok('Forme : un trade pris avec un check rouge porte l’écart « trade malgré une forme rouge », pas avec un orange',(function(){var B=buildCompute([mk({id:'f1',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('15:40'),exits:[{price:21060,contracts:1,at:day('15:50')}],formeFlag:{v:'rouge'}}),mk({id:'f2',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('16:10'),exits:[{price:21060,contracts:1,at:day('16:20')}],formeFlag:{v:'orange'}})],[acc],S,CL);return B.byId.f1.c.deviations.indexOf('formeRouge')>=0&&B.byId.f2.c.deviations.indexOf('formeRouge')<0;})());
+  // Import Tradovate : ordres (FIFO, SL et TP retrouvés), performance seule, montants entre parenthèses
+  var OH='orderId,Account,Order ID,B/S,Contract,Product,Product Description,avgPrice,filledQty,Fill Time,lastCommandId,Status,_priceFormat,_priceFormatType,_tickSize,spreadDefinitionId,Version ID,Timestamp,Date,Quantity,Text,Type,Limit Price,Stop Price,decimalLimit,decimalStop,Filled Qty,Avg Fill Price,decimalFillAvg';
+  var ORD=[OH,
+    '1001,LFE1,1001, Buy,MNQZ6,MNQ,Micro E-mini Nasdaq-100,21000.25,2,10/14/2026 15:41:10,1,Filled,-2,0,0.25,,1,10/14/2026 15:41:09,10/14/26,2,,Market,,,,,2,21000.25,21000.25',
+    '1002,LFE1,1002, Sell,MNQZ6,MNQ,Micro E-mini Nasdaq-100,,0,,2,Canceled,-2,0,0.25,,1,10/14/2026 15:41:12,10/14/26,2,,Stop,,20980,,20980,0,,',
+    '1003,LFE1,1003, Sell,MNQZ6,MNQ,Micro E-mini Nasdaq-100,21040,1,10/14/2026 15:50:00,3,Filled,-2,0,0.25,,1,10/14/2026 15:41:13,10/14/26,1,,Limit,21040,,21040,,1,21040,21040',
+    '1004,LFE1,1004, Sell,MNQZ6,MNQ,Micro E-mini Nasdaq-100,21020.5,1,10/14/2026 15:55:00,4,Filled,-2,0,0.25,,1,10/14/2026 15:54:59,10/14/26,1,,Market,,,,,1,21020.5,21020.5'].join('\r\n');
+  var PH='symbol,_priceFormat,_priceFormatType,_tickSize,buyFillId,sellFillId,qty,buyPrice,sellPrice,pnl,boughtTimestamp,soldTimestamp,duration';
+  var PERF=[PH,'MNQZ6,-2,0,0.25,5001,5002,1,21000.25,21040,$79.50,10/14/2026 15:41:10,10/14/2026 15:50:00,8min 50sec','MNQZ6,-2,0,0.25,5001,5003,1,21000.25,21020.50,$40.50,10/14/2026 15:41:10,10/14/2026 15:55:00,13min 50sec'].join('\n');
+  var tvA=tvBuild([{name:'Orders.csv',text:ORD}],PARIS),tvR=tvA.trades[0];
+  ok('Import Tradovate (ordres) : 1 trade Long de 2 contrats, SL 20 980 et TP 21 040 retrouvés, 2 sorties',tvA.trades.length===1&&tvR.dir===1&&tvR.entries[0].qty===2&&tvR.sl===20980&&tvR.tp===21040&&tvR.exits.length===2&&!tvR.open);
+  var tvP=tvBuild([{name:'Performance.csv',text:PERF}],PARIS).trades;
+  ok('Import Tradovate (performance seule) : les 2 lignes deviennent 1 trade de 2 contrats, P&L Tradovate 120 $',tvP.length===1&&tvP[0].exits.length===2&&near(tvP[0].pnl,120)&&tvNum('$(20.00)')===-20);
+  var tvAcc=Object.assign({},acc,{riskPerTrade:250,fees:{}}),tvT=tvToV2(tvR,tvAcc,{S:S,CL:CL}),tvB=buildCompute([tvT],[tvAcc],S,CL).byId[tvT.id];
+  ok('Import Tradovate : trade v2 du 14/10 à 15:41 Paris, net 120 $, R du compte 0,48, à documenter',tvT.entryAt==='2026-10-14T15:41'&&tvT.instrument==='MNQ'&&tvT.status==='open'&&near(tvB.c.net,120)&&near(tvB.c.rAccount,0.48)&&tvKey(tvR)===tvKey(tvBuild([{name:'o.csv',text:ORD}],PARIS).trades[0]));
   var mll=function(days){var T=days.map(function(d,i){return mk({id:'d'+i,instrument:'MNQ',entry:21000,slInitial:20000,tpInitial:22000,contracts:1,entryAt:d[0]+'T15:40',exits:[{price:21000+d[1]/2,contracts:1,at:d[0]+'T16:00'}]});});return accountState(acc,buildCompute(T,[acc],S,CL));};
   var m1=mll([['2026-09-01',1200]]),m2=mll([['2026-09-01',1200],['2026-09-02',1000]]);
   ok('MLL trailing : +1 200 $ le jour 1 = seuil 49 200 $',near(m1.mll,49200));
