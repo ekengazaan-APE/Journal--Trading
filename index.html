@@ -1405,7 +1405,7 @@ function ctxMarkersInner(){
       +(m.lecture?'<div style="font-size:13px;line-height:1.45">'+esc(m.lecture)+'</div>':'')
       +'<div style="font-size:12px;color:var(--muted);margin-top:auto">'+esc(m.date||'')+(src?' · '+src:'')+'</div></div>';
   }).join('')+'</div>'
-  +'<div style="font-size:12px;color:var(--muted);margin-top:6px">Mis à jour automatiquement'+(ctxStamp()?' le '+ctxStamp():'')+(j.note?' · '+esc(j.note):'')+'. Description du contexte, pas un conseil d’investissement : ton biais reste le tien.</div>';
+  +'<div style="font-size:12px;color:var(--muted);margin-top:6px">Mis à jour automatiquement'+(ctxStamp()?' le '+ctxStamp():'')+(j.note?' · '+esc(String(j.note).replace(/[.\s]+$/,'')):'')+'. Description du contexte, pas un conseil d’investissement : ton biais reste le tien.</div>';
 }
 function ctxPointsInner(k){
   var j=CTX.data;if(!j)return k==='eco'?ctxStatusHTML():'';
