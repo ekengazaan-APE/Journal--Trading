@@ -33,12 +33,12 @@ export default async () => {
       try {
         const bars = await fetchBars(contract, key, from);
         const r = computeLevels(bars, { tick: ROOTS[root], now });
-        symbols.push({ symbol: root, contract, dataUntil: r.dataUntil, levels: r.levels });
+        symbols.push({ symbol: root, contract, dataUntil: r.dataUntil, dernier: r.dernier, levels: r.levels });
       } catch (err) {
         symbols.push({ symbol: root, contract, error: String((err && err.message) || err), levels: [] });
       }
     }
-    memo = { at: now, body: JSON.stringify({ ok: true, source: 'massive', delay: 'données retardées de 8 h (offre gratuite)', generatedAt: new Date(now).toISOString(), symbols }) };
+    memo = { at: now, body: JSON.stringify({ ok: true, source: 'massive', delay: 'données retardées de 8 h (offre gratuite)', generatedAt: new Date(now).toISOString(), journee: today, symbols }) };
   }
   return json(memo.body, 200, { 'Cache-Control': 'public, max-age=300', 'Netlify-CDN-Cache-Control': 'public, durable, s-maxage=900, stale-while-revalidate=1800' });
 };

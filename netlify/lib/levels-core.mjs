@@ -150,7 +150,7 @@ export function computeLevels(bars, opt = {}) {
       }
     }
   }
-  return { levels: L, dataUntil };
+  return { levels: L, dataUntil, dernier: { prix: round(last.c, tick), a: dataUntil } };
 }
 function round(x, tick) {
   const dec = (String(tick).split('.')[1] || '').length;
