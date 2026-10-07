@@ -999,7 +999,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.5 · niveaux automatiques · 07/10/2026';
+var APP_BUILD='v2.6 · top-down automatique · 07/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -1362,6 +1362,80 @@ function tdAddLevel(sym,i){
   var ta=document.getElementById('td-'+tf+'-niveaux');if(ta)ta.value=d.tfs[tf].niveaux;
   toast('Ajouté à tes niveaux clés '+tf+' : '+line);
 }
+// ── CONTEXTE AUTOMATIQUE DE LA TOP-DOWN (07/10/2026) ───────────────────────
+// Fichier data/contexte/<semaine>.json écrit par les tâches « Contexte Top-down » (dimanche 17h,
+// jours de semaine vers 13h50) : marqueurs macro, analyses économique, fondamentale, géopolitique,
+// annonces déjà sorties. Le journal ne fait que l'afficher : aucune tâche n'écrit dans le journal.
+var CTX={wk:'',data:null,err:'',loading:false};
+function ctxUrl(u){u=String(u||'');return /^https:\/\//i.test(u)?u:'';}
+function ctxLoad(wk,force){
+  if(CTX.loading&&CTX.wk===wk)return;
+  if(!force&&CTX.wk===wk&&(CTX.data||CTX.err)){ctxPaint();return;}
+  CTX.wk=wk;CTX.data=null;CTX.err='';
+  if(!/^https?:$/.test(location.protocol)){CTX.err='Le contexte automatique ne s’affiche que sur le site en ligne.';ctxPaint();return;}
+  CTX.loading=true;ctxPaint();
+  fetch('/data/contexte/'+wk+'.json?v='+Date.now(),{cache:'no-store'})
+    .then(function(r){if(r.status===404)throw new Error('absent');if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(function(j){if(CTX.wk===wk)CTX.data=j;})
+    .catch(function(e){if(CTX.wk===wk)CTX.err=e.message==='absent'?'Pas encore de contexte automatique pour cette semaine : il arrive le dimanche à 17h.':'Contexte indisponible pour le moment ('+e.message+').';})
+    .then(function(){CTX.loading=false;ctxPaint();});
+}
+function ctxPaint(){
+  var m=document.getElementById('td-markers');if(m)m.innerHTML=ctxMarkersInner();
+  ['eco','fonda','geo'].forEach(function(k){var el=document.getElementById('td-ctx-'+k);if(el)el.innerHTML=ctxPointsInner(k);});
+  var so=document.getElementById('td-ctx-sorties');if(so)so.innerHTML=ctxSortiesInner();
+}
+function ctxStamp(){var j=CTX.data;if(!j||!j.majA)return '';var t=Date.parse(j.majA);if(!isFinite(t))return '';return frDate(msToZoned(t,PARIS).slice(0,10)).slice(0,5)+' à '+hm(t);}
+function ctxSrcHTML(list){
+  var a=(list||[]).filter(function(x){return x&&ctxUrl(x.url);});
+  if(!a.length)return '';
+  return '<div style="font-size:12px;color:var(--muted);margin-top:6px">Sources : '+a.map(function(x){return '<a href="'+esc(ctxUrl(x.url))+'" target="_blank" rel="noopener" style="color:var(--accent2)">'+esc(x.titre||'source')+'</a>';}).join(' · ')+'</div>';
+}
+function ctxStatusHTML(){return '<div style="font-size:13px;color:var(--muted);padding:4px 0">'+(CTX.loading?'Chargement du contexte…':esc(CTX.err||''))+'</div>';}
+function ctxMarkersInner(){
+  var j=CTX.data;if(!j)return ctxStatusHTML();
+  var M=j.marqueurs||[];if(!M.length)return '<div style="font-size:13px;color:var(--muted)">Aucun marqueur dans le contexte de cette semaine.</div>';
+  return '<div data-nocase style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:10px">'+M.map(function(m){
+    var arrow=m.sens==='hausse'?'▲ ':m.sens==='baisse'?'▼ ':'';
+    var src=m.source&&ctxUrl(m.source.url)?'<a href="'+esc(ctxUrl(m.source.url))+'" target="_blank" rel="noopener" style="color:var(--accent2)">'+esc(m.source.titre||'source')+'</a>':esc((m.source&&m.source.titre)||'');
+    return '<div class="card" style="padding:12px 14px;display:flex;flex-direction:column;gap:4px;min-width:0">'
+      +'<div style="font-size:12px;color:var(--muted)">'+esc(m.nom)+'</div>'
+      +'<div style="display:flex;align-items:baseline;gap:8px;flex-wrap:wrap"><span style="font-family:monospace;font-size:20px;font-weight:700">'+esc(m.valeur||'n.d.')+'</span>'
+      +(m.variation?'<span style="font-size:12px;color:var(--muted)">'+arrow+esc(m.variation)+'</span>':'')+'</div>'
+      +(m.lecture?'<div style="font-size:13px;line-height:1.45">'+esc(m.lecture)+'</div>':'')
+      +'<div style="font-size:12px;color:var(--muted);margin-top:auto">'+esc(m.date||'')+(src?' · '+src:'')+'</div></div>';
+  }).join('')+'</div>'
+  +'<div style="font-size:12px;color:var(--muted);margin-top:6px">Mis à jour automatiquement'+(ctxStamp()?' le '+ctxStamp():'')+(j.note?' · '+esc(String(j.note).replace(/[.\s]+$/,'')):'')+'. Description du contexte, pas un conseil d’investissement : ton biais reste le tien.</div>';
+}
+function ctxPointsInner(k){
+  var j=CTX.data;if(!j)return k==='eco'?ctxStatusHTML():'';
+  var c=j[k]||{},P=c.points||[];
+  if(!P.length)return '<div style="font-size:13px;color:var(--muted)">Rien de nouveau cette semaine.</div>';
+  return '<div data-nocase><ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5">'+P.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+ctxSrcHTML(c.sources)+'</div>';
+}
+function ctxSortiesInner(){
+  var j=CTX.data,S=(j&&j.sorties)||[];if(!S.length)return '';
+  return '<div data-nocase style="margin-top:10px"><div style="font-size:12px;color:var(--muted);margin-bottom:4px">Déjà sorti cette semaine</div>'+S.map(function(e){
+    return '<div style="padding:6px 0;border-top:1px solid var(--border);font-size:13px"><b>'+esc(e.jour||'')+' '+esc(e.heure||'')+'</b> · '+esc(e.titreFr||e.titre||'')
+      +'<div style="color:var(--muted);font-size:12px">Réel <b style="color:var(--text)">'+esc(e.reel||'·')+'</b> · prévision '+esc(e.prevision||'·')+(e.reaction?' · '+esc(e.reaction):'')+'</div></div>';
+  }).join('')+'</div>';
+}
+// Fenêtres sans entrée de la semaine (annonces fortes de tes devises), croisées avec tes sessions
+function tdWindowsHTML(){
+  var S=getSettings();
+  if(!newsActive(S))return '<div style="font-size:13px;color:var(--muted)">Active le garde-fou news dans les réglages pour voir tes fenêtres sans entrée.</div>';
+  if(!_cal.events)return '<div style="font-size:13px;color:var(--muted)">'+(_cal.err?esc(_cal.err):'Chargement du calendrier…')+'</div>';
+  var ev=calEventsFrom(_cal.events,Object.assign({},S,{newsImpact:'High'})),now=Date.now(),b=num(S.newsBefore)||0,a=num(S.newsAfter)||0;
+  if(!ev.length)return '<div style="font-size:13px;color:var(--muted)">Aucune annonce forte sur tes devises cette semaine.</div>';
+  return ev.map(function(e){
+    var se=sessionOf(e.ms,S)||sessionOf(e.ms-b*60000,S)||sessionOf(e.ms+a*60000,S),past=e.ms<now;
+    var day=(FR_DAYS[zparts(e.ms,PARIS).wd]||'').slice(0,3)+'. '+frDate(msToZoned(e.ms,PARIS).slice(0,10)).slice(0,5);
+    return '<div style="display:flex;flex-wrap:wrap;gap:2px 10px;align-items:baseline;padding:6px 0;border-top:1px solid var(--border);font-size:13px;'+(past?'opacity:0.45':'')+'">'
+      +'<span style="min-width:92px;color:var(--muted)">'+esc(day)+'</span><span style="font-family:monospace;font-weight:700">'+hm(e.ms)+'</span>'
+      +'<span style="flex:1 1 160px">'+esc(newsLabel(e.t))+'</span>'
+      +'<span style="font-size:12px;color:'+(se?'var(--red)':'var(--muted)')+'">'+(se?'pendant ta session '+esc(se.label)+' · pas d’entrée de '+hm(e.ms-b*60000)+' à '+hm(e.ms+a*60000):'hors de tes sessions')+'</span></div>';
+  }).join('');
+}
 function lvlBlockHTML(){
   setTimeout(function(){lvlLoad(false);},0);
   return '<div class="card" style="margin-bottom:14px">'
@@ -1371,6 +1445,7 @@ function lvlBlockHTML(){
 }
 function topDown(){
   currentTDKey=getWeekKey(new Date(),tdOffset);
+  setTimeout(function(){ctxLoad(currentTDKey,false);if(tdOffset===0)calFetch(false);},0);
   var rng=getWeekRange(currentTDKey);
   var d=getTopDownData(currentTDKey);
   var isCur=tdOffset===0;
@@ -1429,16 +1504,16 @@ function topDown(){
     +'<button class="btn btn-ghost btn-sm" onclick="tdCur()">Cette semaine</button>'
     +'</div></div>'
     +(isCur?lvlBlockHTML():'')
-    +'<div class="anal-section-title" style="margin-bottom:8px">MARQUEURS MACRO RAPIDES</div>'+'<div class="grid-3" style="margin-bottom:14px">'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">DXY (Dollar Index)</label><input id="td-dxy" oninput="tdSaveField(\'dxy\')" placeholder="ex: 104.2 — pression sur indices" value="'+(d.dxy||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">US10Y (Rendement 10 ans)</label><input id="td-us10y" oninput="tdSaveField(\'us10y\')" placeholder="ex: 4.35% — pèse sur la tech" value="'+(d.us10y||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">VIX (Volatilité)</label><input id="td-vix" oninput="tdSaveField(\'vix\')" placeholder="ex: 14.5 — complaisant/haussier" value="'+(d.vix||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'</div>'+'<div class="anal-section-title" style="margin-bottom:8px">ANALYSE TECHNIQUE MULTI-TIMEFRAME</div>'
+    +'<div class="flex-between" style="margin-bottom:8px"><div class="anal-section-title" style="margin:0">MARQUEURS MACRO</div><button class="btn btn-ghost btn-sm" onclick="ctxLoad(currentTDKey,true)">Actualiser</button></div>'+'<div id="td-markers" style="margin-bottom:10px">'+ctxMarkersInner()+'</div>'+'<details style="margin-bottom:14px"'+((d.dxy||d.us10y||d.vix)?' open':'')+'><summary style="cursor:pointer;font-size:13px;color:var(--muted)">Tes propres notes sur les marqueurs (facultatif)</summary>'+'<div class="grid-3" style="margin-top:8px">'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">DXY (Dollar Index)</label><input id="td-dxy" oninput="tdSaveField(\'dxy\')" placeholder="ex: 104.2 — pression sur indices" value="'+(d.dxy||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">US10Y (Rendement 10 ans)</label><input id="td-us10y" oninput="tdSaveField(\'us10y\')" placeholder="ex: 4.35% — pèse sur la tech" value="'+(d.us10y||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">VIX (Volatilité)</label><input id="td-vix" oninput="tdSaveField(\'vix\')" placeholder="ex: 14.5 — complaisant/haussier" value="'+(d.vix||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'</div></details>'+'<div class="anal-section-title" style="margin-bottom:8px">ANALYSE TECHNIQUE MULTI-TIMEFRAME</div>'
     +tfHTML
     +'<div class="anal-section-title" style="margin:16px 0 8px">CONTEXTE MACRO & FONDAMENTAL</div>'
     +'<div class="grid-2" style="margin-bottom:10px">'
-    +'<div class="card"><div class="card-title">ANALYSE ÉCONOMIQUE</div><textarea id="td-eco" oninput="tdSaveField(\'eco\')" placeholder="Taux Fed/BCE, inflation (CPI/PCE), emploi (NFP), DXY, rendements obligataires..." style="width:100%;min-height:90px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.eco||'')+'</textarea></div>'
-    +'<div class="card"><div class="card-title">ANALYSE FONDAMENTALE</div><textarea id="td-fonda" oninput="tdSaveField(\'fonda\')" placeholder="Sentiment de marché (risk-on/risk-off), positionnement COT, flux, saisonnalité..." style="width:100%;min-height:90px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.fonda||'')+'</textarea></div>'
+    +'<div class="card"><div class="card-title">ANALYSE ÉCONOMIQUE</div><div id="td-ctx-eco">'+ctxPointsInner('eco')+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-eco" oninput="tdSaveField(\'eco\')" placeholder="Taux Fed/BCE, inflation (CPI/PCE), emploi (NFP), DXY, rendements obligataires..." style="width:100%;min-height:90px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.eco||'')+'</textarea></div>'
+    +'<div class="card"><div class="card-title">ANALYSE FONDAMENTALE</div><div id="td-ctx-fonda">'+ctxPointsInner('fonda')+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-fonda" oninput="tdSaveField(\'fonda\')" placeholder="Sentiment de marché (risk-on/risk-off), positionnement COT, flux, saisonnalité..." style="width:100%;min-height:90px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.fonda||'')+'</textarea></div>'
     +'</div>'
     +'<div class="grid-2" style="margin-bottom:10px">'
-    +'<div class="card"><div class="card-title">CONTEXTE GÉOPOLITIQUE</div><textarea id="td-geo" oninput="tdSaveField(\'geo\')" placeholder="Tensions, élections, conflits, décisions de banques centrales pouvant créer de la volatilité..." style="width:100%;min-height:80px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.geo||'')+'</textarea></div>'
-    +'<div class="card" style="border-color:rgba(249,115,22,0.3)"><div class="card-title" style="color:var(--yellow)">ANNONCES À VENIR CETTE SEMAINE</div><textarea id="td-annonces" oninput="tdSaveField(\'annonces\')" placeholder="Lun: -\nMar: -\nMer: FOMC 19h\nJeu: -\nVen: NFP 14h30" style="width:100%;min-height:80px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.annonces||'')+'</textarea></div>'
+    +'<div class="card"><div class="card-title">CONTEXTE GÉOPOLITIQUE</div><div id="td-ctx-geo">'+ctxPointsInner('geo')+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-geo" oninput="tdSaveField(\'geo\')" placeholder="Tensions, élections, conflits, décisions de banques centrales pouvant créer de la volatilité..." style="width:100%;min-height:80px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.geo||'')+'</textarea></div>'
+    +'<div class="card" style="border-color:rgba(249,115,22,0.3)"><div class="card-title" style="color:var(--yellow)">ANNONCES DE LA SEMAINE</div>'+(isCur?'<div id="cal-week-td" style="max-height:360px;overflow:auto">'+calWeekHTML()+'</div>':'')+'<div id="td-ctx-sorties">'+ctxSortiesInner()+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-annonces" oninput="tdSaveField(\'annonces\')" placeholder="Lun: -\nMar: -\nMer: FOMC 19h\nJeu: -\nVen: NFP 14h30" style="width:100%;min-height:80px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.annonces||'')+'</textarea></div>'
     +'</div>'
     +'<div class="anal-section-title" style="margin:16px 0 8px">SYNTHÈSE & PLAN DE TRADE</div>'
     +'<div class="card" style="margin-bottom:10px;border-color:var(--accent)40">'
@@ -1452,7 +1527,7 @@ function topDown(){
     +'<div><label style="font-size:12px;color:var(--accent);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:4px">ZONES CLÉS (2-3 max)</label><textarea id="td-keyZones" oninput="tdSaveField(\'keyZones\')" placeholder="Les niveaux précis où je veux voir l\'action se produire..." style="width:100%;min-height:60px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px">'+(d.keyZones||'')+'</textarea></div>'
     +'<div><label style="font-size:12px;color:var(--red);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:4px">RÈGLE D\'INVALIDATION</label><textarea id="td-invalidation" oninput="tdSaveField(\'invalidation\')" placeholder="Qu\'est-ce qui me dit que mon biais est faux ? À quel niveau j\'abandonne ?" style="width:100%;min-height:60px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px">'+(d.invalidation||'')+'</textarea></div>'
     +'</div>'
-    +'<div><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:4px">JOURS / HEURES DE TRADE (selon les annonces)</label><textarea id="td-tradeDays" oninput="tdSaveField(\'tradeDays\')" placeholder="Lun-Mar agressif, Mer prudent (FOMC), Ven NFP attendre 15h..." style="width:100%;min-height:50px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px">'+(d.tradeDays||'')+'</textarea></div>'
+    +'<div><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:4px">JOURS / HEURES DE TRADE (selon les annonces)</label>'+(isCur?'<div id="td-windows" style="margin-bottom:8px">'+tdWindowsHTML()+'</div>':'')+'<textarea id="td-tradeDays" oninput="tdSaveField(\'tradeDays\')" placeholder="Lun-Mar agressif, Mer prudent (FOMC), Ven NFP attendre 15h..." style="width:100%;min-height:50px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px">'+(d.tradeDays||'')+'</textarea></div>'
     +'</div>'
     +'<div class="anal-section-title" style="margin:16px 0 8px">ÉVALUATION</div>'
     +evalHTML
@@ -4067,7 +4142,7 @@ function mountTVNews(){
   sc.text=JSON.stringify({feedMode:'all_symbols',isTransparent:true,displayMode:'regular',width:'100%',height:520,colorTheme:'dark',locale:'fr'});
   box.appendChild(sc);
 }
-function calRefreshViews(){var a=document.getElementById('cal-agenda');if(a)a.innerHTML=calAgendaHTML();var w=document.getElementById('cal-week');if(w)w.innerHTML=calWeekHTML();}
+function calRefreshViews(){var a=document.getElementById('cal-agenda');if(a)a.innerHTML=calAgendaHTML();var w=document.getElementById('cal-week');if(w)w.innerHTML=calWeekHTML();var t=document.getElementById('cal-week-td');if(t)t.innerHTML=calWeekHTML();var x=document.getElementById('td-windows');if(x)x.innerHTML=tdWindowsHTML();}
 // Toutes les secondes : annonce vocale à l'ouverture d'une fenêtre news ; toutes les 30 s : agenda rafraîchi
 var _newsSpoken={},_newsTickN=0;
 function newsTick(){
