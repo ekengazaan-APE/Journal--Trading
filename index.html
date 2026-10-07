@@ -999,7 +999,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.4 · import Tradovate · 05/10/2026';
+var APP_BUILD='v2.5 · niveaux automatiques · 07/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -1298,6 +1298,77 @@ function tdToggleDefs(){
   var arr=document.getElementById('td-defs-arrow');
   if(el){var hidden=el.style.display==='none';el.style.display=hidden?'block':'none';if(arr)arr.textContent=hidden?'▾':'▸';}
 }
+// ── NIVEAUX CALCULÉS AUTOMATIQUEMENT (étape 1.5, 07/10/2026) ───────────────
+// Source : fonction Netlify /api/levels (prix CME Massive, retard de 8 h). Le bouton + ajoute
+// un niveau dans la case « Niveaux clés » de l'unité de temps correspondante (D1, W1, H1).
+var LVL={data:null,at:0,err:'',loading:false};
+var LVL_DEC={MNQ:2,MES:2,MYM:0,MGC:1};
+var LVL_TF={D1:'Daily',W1:'Weekly',H1:'H1'};
+function lvlFmt(v,sym){var n=Number(v);if(!isFinite(n))return String(v==null?'':v);var d=LVL_DEC[sym]!=null?LVL_DEC[sym]:2;return n.toLocaleString('fr-FR',{minimumFractionDigits:d,maximumFractionDigits:d});}
+function lvlHM(iso){try{return new Date(iso).toLocaleTimeString('fr-FR',{timeZone:'Europe/Paris',hour:'2-digit',minute:'2-digit'});}catch(e){return '';}}
+function lvlDay(k){var p=String(k||'').split('-');if(p.length<3)return '';var d=new Date(Date.UTC(+p[0],+p[1]-1,+p[2]));return ['dim.','lun.','mar.','mer.','jeu.','ven.','sam.'][d.getUTCDay()]+' '+p[2]+'/'+p[1];}
+function lvlPx(l,sym){return (l.bas!=null&&l.haut!=null)?lvlFmt(l.bas,sym)+' à '+lvlFmt(l.haut,sym):lvlFmt(l.prix,sym);}
+function lvlLoad(force){
+  if(LVL.loading)return;
+  if(!force&&LVL.data&&Date.now()-LVL.at<10*60*1000){lvlPaint();return;}
+  if(location.protocol==='file:'){LVL.err='Les niveaux automatiques ne fonctionnent que sur le site en ligne.';lvlPaint();return;}
+  LVL.loading=true;LVL.err='';lvlPaint();
+  fetch('/api/levels'+(force?'?t='+Date.now():''),{cache:'no-store'})
+    .then(function(r){return r.json().then(function(j){if(!r.ok||!j||!j.ok)throw new Error((j&&j.error)||('HTTP '+r.status));return j;});})
+    .then(function(j){LVL.data=j;LVL.at=Date.now();})
+    .catch(function(e){LVL.err='Niveaux indisponibles pour le moment ('+e.message+').';})
+    .then(function(){LVL.loading=false;lvlPaint();});
+}
+function lvlPaint(){var el=document.getElementById('td-auto');if(el)el.innerHTML=lvlInner();}
+function lvlInner(){
+  var j=LVL.data;
+  if(!j)return '<div style="color:var(--muted);font-size:13px;padding:6px 0">'+(LVL.loading?'Chargement des niveaux…':esc(LVL.err||'Pas encore chargé.'))+'</div>';
+  var syms=j.symbols||[],until=(syms.find(function(x){return x.dataUntil;})||{}).dataUntil;
+  var head='<div style="display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center;font-size:13px;color:var(--muted);margin-bottom:10px">'
+    +'<span>Prix CME retardés de 8 h (offre gratuite)'+(until?' · données jusqu’à <b style="color:var(--text)">'+lvlHM(until)+'</b>':'')+'</span>'
+    +'<span>Le bouton + ajoute le niveau dans tes niveaux clés.</span>'
+    +(LVL.err?'<span style="color:var(--yellow)">'+esc(LVL.err)+'</span>':'')+'</div>';
+  var grid=syms.map(function(s){
+    if(s.error)return '<div style="border:1px solid var(--border);border-radius:10px;padding:10px 12px"><b>'+esc(s.symbol)+'</b><div style="color:var(--muted);font-size:13px;margin-top:4px">Données indisponibles : '+esc(s.error)+'</div></div>';
+    var last=s.dernier?Number(s.dernier.prix):NaN,placed=false,rows='';
+    var lastRow=isFinite(last)?'<tr style="background:rgba(0,212,106,0.08)"><td style="padding:6px 8px;color:var(--green);font-weight:600">Dernier prix</td><td style="padding:6px 8px;font-family:monospace;color:var(--green);font-weight:600;white-space:nowrap">'+lvlFmt(last,s.symbol)+'</td><td style="padding:6px 8px;color:var(--green);font-size:12px">'+(s.dernier&&s.dernier.a?lvlHM(s.dernier.a):'')+'</td><td></td></tr>':'';
+    var lv=(s.levels||[]).map(function(l,i){var p=(l.bas!=null&&l.haut!=null)?(Number(l.bas)+Number(l.haut))/2:Number(l.prix);return {l:l,i:i,p:p};}).filter(function(x){return isFinite(x.p);}).sort(function(a,b){return b.p-a.p;});
+    lv.forEach(function(x){
+      if(!placed&&lastRow&&x.p<last){rows+=lastRow;placed=true;}
+      var l=x.l,taken=l.etat==='pris',col=taken?'var(--muted)':'var(--text)';
+      rows+='<tr style="border-top:1px solid var(--border)"><td style="padding:6px 8px;color:'+col+'">'+esc(l.type)+(l.jour?'<div style="font-size:12px;color:var(--muted);white-space:nowrap">'+lvlDay(l.jour)+'</div>':'')+'</td>'
+        +'<td style="padding:6px 8px;font-family:monospace;color:'+col+';white-space:nowrap">'+((l.bas!=null&&l.haut!=null)?lvlFmt(l.bas,s.symbol)+'<br>à '+lvlFmt(l.haut,s.symbol):lvlFmt(l.prix,s.symbol))+'</td>'
+        +'<td style="padding:6px 8px;font-size:12px;color:'+(taken?'var(--muted)':(l.etat==='zone'?'var(--yellow)':'var(--green)'))+'">'+esc(l.etat||'')+'</td>'
+        +'<td style="padding:4px 6px;text-align:right"><button class="btn btn-ghost btn-sm" style="padding:2px 9px;min-width:30px" title="Ajouter à ta top-down ('+(LVL_TF[l.tf]||'Daily')+')" aria-label="Ajouter '+esc(s.symbol+' '+l.type)+' à ta top-down" onclick="tdAddLevel(\''+s.symbol+'\','+x.i+')">+</button></td></tr>';
+    });
+    if(!placed)rows+=lastRow;
+    return '<div style="border:1px solid var(--border);border-radius:10px;padding:10px 12px;min-width:0">'
+      +'<div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px"><b style="font-size:16px">'+esc(s.symbol)+'</b><span style="font-size:12px;color:var(--muted)">'+esc(s.contract||'')+'</span></div>'
+      +'<table style="width:100%;border-collapse:collapse;font-size:13px">'+rows+'</table></div>';
+  }).join('');
+  return head+'<div data-nocase style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:10px">'+grid+'</div>';
+}
+function tdAddLevel(sym,i){
+  var s=((LVL.data&&LVL.data.symbols)||[]).find(function(x){return x.symbol===sym;});
+  var l=s&&(s.levels||[])[i];if(!l)return;
+  var tf=LVL_TF[l.tf]||'Daily';
+  var line=(sym+' · '+l.type+' '+lvlPx(l,sym)+(l.jour?' ('+lvlDay(l.jour)+')':'')).replace(/[\u202f\u00a0]/g,' ');
+  var d=getTopDownData(currentTDKey);
+  if(!d.tfs[tf])d.tfs[tf]={bias:'',niveaux:'',notes:'',screenshot:''};
+  var cur=d.tfs[tf].niveaux||'';
+  if(cur.indexOf(line)>=0){toast('Déjà dans tes niveaux clés '+tf);return;}
+  d.tfs[tf].niveaux=(cur.replace(/\s+$/,'')?cur.replace(/\s+$/,'')+'\n':'')+line;
+  saveTopDownData(currentTDKey,d);
+  var ta=document.getElementById('td-'+tf+'-niveaux');if(ta)ta.value=d.tfs[tf].niveaux;
+  toast('Ajouté à tes niveaux clés '+tf+' : '+line);
+}
+function lvlBlockHTML(){
+  setTimeout(function(){lvlLoad(false);},0);
+  return '<div class="card" style="margin-bottom:14px">'
+    +'<div class="flex-between" style="margin-bottom:6px"><div class="card-title" style="margin:0">NIVEAUX CALCULÉS AUTOMATIQUEMENT</div>'
+    +'<button class="btn btn-ghost btn-sm" onclick="lvlLoad(true)">Actualiser</button></div>'
+    +'<div id="td-auto">'+lvlInner()+'</div></div>';
+}
 function topDown(){
   currentTDKey=getWeekKey(new Date(),tdOffset);
   var rng=getWeekRange(currentTDKey);
@@ -1357,6 +1428,7 @@ function topDown(){
     +(isCur?'':'<button class="btn btn-ghost btn-sm" onclick="tdNext()">Sem. suiv.</button>')
     +'<button class="btn btn-ghost btn-sm" onclick="tdCur()">Cette semaine</button>'
     +'</div></div>'
+    +(isCur?lvlBlockHTML():'')
     +'<div class="anal-section-title" style="margin-bottom:8px">MARQUEURS MACRO RAPIDES</div>'+'<div class="grid-3" style="margin-bottom:14px">'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">DXY (Dollar Index)</label><input id="td-dxy" oninput="tdSaveField(\'dxy\')" placeholder="ex: 104.2 — pression sur indices" value="'+(d.dxy||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">US10Y (Rendement 10 ans)</label><input id="td-us10y" oninput="tdSaveField(\'us10y\')" placeholder="ex: 4.35% — pèse sur la tech" value="'+(d.us10y||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">VIX (Volatilité)</label><input id="td-vix" oninput="tdSaveField(\'vix\')" placeholder="ex: 14.5 — complaisant/haussier" value="'+(d.vix||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'</div>'+'<div class="anal-section-title" style="margin-bottom:8px">ANALYSE TECHNIQUE MULTI-TIMEFRAME</div>'
     +tfHTML
     +'<div class="anal-section-title" style="margin:16px 0 8px">CONTEXTE MACRO & FONDAMENTAL</div>'

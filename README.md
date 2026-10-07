@@ -16,6 +16,7 @@ Journal de trading en un seul fichier (`index.html`), hébergé sur Netlify et s
 - v2.2 · 03/10/2026 · garde-fou news (calendrier économique, fenêtre sans entrée).
 - v2.3 · 05/10/2026 · navigation en 7 rubriques avec onglets (aucune page supprimée), lisibilité : tailles de texte relevées (12 px minimum), gris secondaire `#8080a8` (contraste 4,9 à 5,4 pour 1), libellés en casse normale avec acronymes ICT conservés. Check de forme avant chaque session (sommeil, énergie, calme) : vert, orange (demi-taille, A+ uniquement, 1 trade max) ou rouge (session déconseillée, un trade pris est noté en écart « trade malgré une forme rouge »). Seuils réglables, 6 h pour un vert et 5 h minimum par défaut.
 - v2.4 · 05/10/2026 · import Tradovate : exports CSV Ordres et Performance, trades reconstruits en FIFO, SL et TP initiaux lus dans les ordres stop et limite, contrôle du P&L avec la performance, aperçu avant import, doublons ignorés. Les trades importés arrivent « à documenter ».
+- v2.5 · 07/10/2026 · niveaux automatiques : la page Top-down affiche, pour MNQ, MES, MYM et MGC, les PDH, PDL, PWH, PWL, hauts et bas Asie et Londres, NWOG, EQH et EQL calculés par la fonction `/api/levels` (prix CME Massive, retard de 8 h), avec leur état intact ou pris et le dernier prix connu. Le bouton + ajoute un niveau dans les niveaux clés de l'unité de temps correspondante.
 
 ## Garde-fous avancés (v2.1)
 
