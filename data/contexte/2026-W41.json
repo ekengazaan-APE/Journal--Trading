@@ -1,0 +1,189 @@
+{
+ "v": 1,
+ "semaine": "2026-W41",
+ "periode": "du lundi 05/10 au vendredi 09/10",
+ "majA": "2026-10-07T12:35:03+02:00",
+ "mode": "hebdo",
+ "note": "Variation sur 5 jours non lue pour DXY, VIX, WTI et peur et cupidité.",
+ "marqueurs": [
+  {
+   "id": "dxy",
+   "nom": "Dollar (DXY)",
+   "valeur": "102,167",
+   "variation": "",
+   "sens": "hausse",
+   "lecture": "Un dollar ferme près de 102 pourrait peser sur MGC ; une clôture hebdo au-dessus pourrait freiner MNQ.",
+   "date": "clôture du 06/10",
+   "source": {
+    "titre": "ChainCatcher · Clôture du Dollar Index 06/10",
+    "url": "https://www.chaincatcher.com/en/article/2294261"
+   }
+  },
+  {
+   "id": "us10y",
+   "nom": "Taux à 10 ans US",
+   "valeur": "5,31 %",
+   "variation": "+0,07 pt sur 5 jours",
+   "sens": "hausse",
+   "lecture": "Un 10 ans au-dessus de 5,3 % pourrait peser sur MNQ, plus sensible aux taux que MYM.",
+   "date": "clôture du 05/10",
+   "source": {
+    "titre": "Alpha Vantage · données du Trésor US",
+    "url": "https://www.alphavantage.co/documentation/"
+   }
+  },
+  {
+   "id": "us02y",
+   "nom": "Taux à 2 ans US",
+   "valeur": "4,84 %",
+   "variation": "−0,08 pt sur 5 jours",
+   "sens": "baisse",
+   "lecture": "Le 2 ans qui recule pourrait montrer moins d'attente de hausse Fed, plutôt un soutien pour MES et MGC.",
+   "date": "clôture du 05/10",
+   "source": {
+    "titre": "Alpha Vantage · données du Trésor US",
+    "url": "https://www.alphavantage.co/documentation/"
+   }
+  },
+  {
+   "id": "vix",
+   "nom": "VIX",
+   "valeur": "15,01",
+   "variation": "",
+   "sens": "baisse",
+   "lecture": "Un VIX bas pourrait garder des ranges plus calmes sur MES et MNQ, jusqu'aux minutes du FOMC.",
+   "date": "clôture du 06/10",
+   "source": {
+    "titre": "PC Thematic · Daily Market Report 06/10/2026",
+    "url": "https://pcthematic.substack.com/p/daily-market-report-october-6-2026"
+   }
+  },
+  {
+   "id": "fedwatch",
+   "nom": "Probabilités Fed (FedWatch)",
+   "valeur": "78 % maintien le 28/10",
+   "variation": "",
+   "sens": "stable",
+   "lecture": "Avec 22 % de hausse prévue, les minutes et le CPI du 14/10 pourraient faire bouger ce chiffre et MNQ.",
+   "date": "07/10 matin",
+   "source": {
+    "titre": "FXStreet · Dow Jones futures, taux US avant les minutes du FOMC",
+    "url": "https://fxstreet.com/news/dow-jones-futures-fall-as-us-treasury-yields-rebound-ahead-of-fomc-minutes-202610070843"
+   }
+  },
+  {
+   "id": "wti",
+   "nom": "Pétrole WTI",
+   "valeur": "87,77 $",
+   "variation": "",
+   "sens": "baisse",
+   "lecture": "Un pétrole qui recule pourrait calmer l'inflation et soutenir MNQ ; une reprise pourrait aider MGC.",
+   "date": "clôture du 06/10",
+   "source": {
+    "titre": "TheStreet · Stock Market Today 06/10/2026",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-06-2026"
+   }
+  },
+  {
+   "id": "feargreed",
+   "nom": "Peur et cupidité (CNN)",
+   "valeur": "47 · neutre",
+   "variation": "",
+   "sens": "hausse",
+   "lecture": "Le sentiment remonte vers le neutre, ce qui pourrait laisser de la place à MES et MNQ sans excès.",
+   "date": "06/10",
+   "source": {
+    "titre": "Benzinga · S&P 500 record, Fear & Greed en zone neutre",
+    "url": "https://www.benzinga.com/markets/market-summary/26/10/62209042/sp-500-hits-record-high-investor-sentiment-improves-fear-greed-index-moves-to-neutral-zone"
+   }
+  }
+ ],
+ "eco": {
+  "points": [
+   "La Fed a monté ses taux en septembre à 3,75 à 4,00 %. Prochaine réunion : 27 et 28/10.",
+   "Minutes du FOMC ce mercredi 07/10 à 20h00 : point clé de la semaine pour les taux et le dollar.",
+   "Emploi faible : +29 000 postes en septembre contre 84 000 attendus. Chômage à 4,2 %.",
+   "ISM services à 54,9, mais prix payés à 74,0, plus haut depuis juillet 2022 : inflation des services qui repart.",
+   "10 ans US à 5,31 %, 30 ans près de 5,69 %. CPI de septembre attendu le 14/10."
+  ],
+  "sources": [
+   {
+    "titre": "Gotrade · US Market Outlook 05/10 au 09/10",
+    "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-10-05/"
+   },
+   {
+    "titre": "Verified Investing · ISM Services septembre 2026",
+    "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/ism-services-september-2026"
+   },
+   {
+    "titre": "FXStreet · Dow Jones futures, taux US avant les minutes du FOMC",
+    "url": "https://fxstreet.com/news/dow-jones-futures-fall-as-us-treasury-yields-rebound-ahead-of-fomc-minutes-202610070843"
+   },
+   {
+    "titre": "PC Thematic · Daily Market Report 06/10/2026",
+    "url": "https://pcthematic.substack.com/p/daily-market-report-october-6-2026"
+   }
+  ]
+ },
+ "fonda": {
+  "points": [
+   "Risk-on en surface : S&P 500 record à 7 818,93 et Nasdaq record à 27 599,79 le 06/10.",
+   "Largeur faible : petites caps rejetées, QQQ et SPY vendus en fin de séance le 06/10.",
+   "Semi-conducteurs en tête : Marvell +7,14 % ; Constellation Energy +12,30 % sur un contrat nucléaire avec Google.",
+   "Résultats : PepsiCo jeudi 08/10, Delta Air Lines ensuite. Avant : Constellation Brands mardi, Levi Strauss mercredi.",
+   "Hedge funds : 225 Md$ record placés en T-bills, ils délaissent les obligations longues."
+  ],
+  "sources": [
+   {
+    "titre": "TheStreet · Stock Market Today 06/10/2026",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-06-2026"
+   },
+   {
+    "titre": "PC Thematic · Daily Market Report 06/10/2026",
+    "url": "https://pcthematic.substack.com/p/daily-market-report-october-6-2026"
+   },
+   {
+    "titre": "Gotrade · US Market Outlook 05/10 au 09/10",
+    "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-10-05/"
+   },
+   {
+    "titre": "Substack · Preview of the week starting 05Oct2026",
+    "url": "https://bkobog.substack.com/p/preview-of-the-week-starting-05oct2026"
+   }
+  ]
+ },
+ "geo": {
+  "points": [
+   "Guerre avec l'Iran : attaques de pétroliers à Ormuz, neuf incidents ce mois selon UKMTO.",
+   "G7 : 100 millions de barils de brut et diesel libérés sur quatre mois. Effet jugé court par Capital Economics.",
+   "Arabie saoudite : pipeline Est-Ouest revenu à 5,8 millions de barils par jour, ce qui pèse sur le pétrole.",
+   "BoE : Catherine Mann voit l'inflation UK vers 4 % en fin d'année, ton dur.",
+   "Élections de mi-mandat US en novembre : Trump pousse à faire baisser le diesel avant le vote."
+  ],
+  "sources": [
+   {
+    "titre": "Al Jazeera · G7 libère 100 millions de barils",
+    "url": "https://www.aljazeera.com/news/2026/10/3/g7-to-release-100-million-barrels-of-oil-and-diesel-will-it-curb-prices"
+   },
+   {
+    "titre": "Trading Economics · Pétrole brut",
+    "url": "https://tradingeconomics.com/commodity/crude-oil"
+   },
+   {
+    "titre": "FXStreet · La livre recule avant les minutes du FOMC",
+    "url": "https://fxstreet.com/news/british-pound-weakens-as-us-dollar-advances-ahead-of-fomc-meeting-minutes-202610070222"
+   }
+  ]
+ },
+ "sorties": [
+  {
+   "jour": "lun. 05/10",
+   "heure": "16:00",
+   "titre": "ISM Services PMI",
+   "titreFr": "Indice ISM des services",
+   "reel": "54,9",
+   "prevision": "55,1",
+   "reaction": "Le Nasdaq a fini à +1,05 % et le S&P 500 à +0,66 % ; le 10 ans est monté à 5,31 %."
+  }
+ ]
+}
