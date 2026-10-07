@@ -57,4 +57,12 @@ ok('NWOG = clôture vendredi 25 050, ouverture dimanche 25 070', () => { const g
 ok('PDH 25 080 pris dans la nuit (plus haut Asie 25 095)', () => assert.equal(get('PDH').etat, 'pris'));
 ok('PWH 25 300 intact', () => assert.equal(get('PWH').etat, 'intact'));
 ok('dataUntil = fin de la dernière bougie (08:00 New York)', () => assert.equal(R.dataUntil, new Date(Date.parse('2026-10-05T08:00:00-04:00')).toISOString()));
+// Or (tick 0,1) : 4130.9 ne doit jamais devenir 4130.900000000001
+const gold = all.map((b) => ({ t: b.t, o: b.o / 6.07, h: b.h / 6.07, l: b.l / 6.07, c: b.c / 6.07 }));
+const G = computeLevels(gold, { tick: 0.1, now });
+ok('Or : prix arrondis à 0,1 sans décimales parasites', () => {
+  for (const l of G.levels) {
+    for (const v of [l.prix, l.bas, l.haut].filter((x) => x !== undefined)) assert.match(String(v), /^\d+(\.\d)?$|^\d+(\.\d)? à \d+(\.\d)?$/, `${l.type} : ${v}`);
+  }
+});
 console.log(`\n${n} tests passés`);

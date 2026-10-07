@@ -152,5 +152,8 @@ export function computeLevels(bars, opt = {}) {
   }
   return { levels: L, dataUntil };
 }
-function round(x, tick) { return Math.round(x / tick) * tick; }
+function round(x, tick) {
+  const dec = (String(tick).split('.')[1] || '').length;
+  return Number((Math.round(x / tick) * tick).toFixed(dec));
+}
 function fmtP(x) { return String(x); }
