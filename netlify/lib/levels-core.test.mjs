@@ -65,4 +65,5 @@ ok('Or : prix arrondis à 0,1 sans décimales parasites', () => {
     for (const v of [l.prix, l.bas, l.haut].filter((x) => x !== undefined)) assert.match(String(v), /^\d+(\.\d)?$|^\d+(\.\d)? à \d+(\.\d)?$/, `${l.type} : ${v}`);
   }
 });
+ok('Dernier prix = clôture de la dernière bougie, arrondie au tick', () => { assert.equal(R.dernier.prix, all[all.length - 1].c); assert.equal(R.dernier.a, R.dataUntil); assert.match(String(G.dernier.prix), /^\d+(\.\d)?$/); });
 console.log(`\n${n} tests passés`);
