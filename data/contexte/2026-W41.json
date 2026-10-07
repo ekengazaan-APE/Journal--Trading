@@ -2,43 +2,43 @@
  "v": 1,
  "semaine": "2026-W41",
  "periode": "du lundi 05/10 au vendredi 09/10",
- "majA": "2026-10-07T12:35:03+02:00",
- "mode": "hebdo",
- "note": "Variation sur 5 jours non lue pour DXY, VIX, WTI et peur et cupidité.",
+ "majA": "2026-10-07T13:52:29+02:00",
+ "mode": "quotidien",
+ "note": "Peur et cupidité non mis à jour (valeur du 06/10). Variation du 10 ans sur la veille non lue.",
  "marqueurs": [
   {
    "id": "dxy",
    "nom": "Dollar (DXY)",
-   "valeur": "102,167",
-   "variation": "",
+   "valeur": "102,158",
+   "variation": "+0,54 % sur la veille",
    "sens": "hausse",
-   "lecture": "Un dollar ferme près de 102 pourrait peser sur MGC ; une clôture hebdo au-dessus pourrait freiner MNQ.",
-   "date": "clôture du 06/10",
+   "lecture": "Un dollar en hausse avant les minutes pourrait peser sur MGC et freiner MNQ.",
+   "date": "07/10 à 12h36",
    "source": {
-    "titre": "ChainCatcher · Clôture du Dollar Index 06/10",
-    "url": "https://www.chaincatcher.com/en/article/2294261"
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
    }
   },
   {
    "id": "us10y",
    "nom": "Taux à 10 ans US",
-   "valeur": "5,31 %",
-   "variation": "+0,07 pt sur 5 jours",
+   "valeur": "5,346 %",
+   "variation": "",
    "sens": "hausse",
    "lecture": "Un 10 ans au-dessus de 5,3 % pourrait peser sur MNQ, plus sensible aux taux que MYM.",
-   "date": "clôture du 05/10",
+   "date": "07/10 à 12h36",
    "source": {
-    "titre": "Alpha Vantage · données du Trésor US",
-    "url": "https://www.alphavantage.co/documentation/"
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
    }
   },
   {
    "id": "us02y",
    "nom": "Taux à 2 ans US",
    "valeur": "4,84 %",
-   "variation": "−0,08 pt sur 5 jours",
-   "sens": "baisse",
-   "lecture": "Le 2 ans qui recule pourrait montrer moins d'attente de hausse Fed, plutôt un soutien pour MES et MGC.",
+   "variation": "+0,01 pt sur la veille",
+   "sens": "stable",
+   "lecture": "Un 2 ans stable pourrait montrer des attentes Fed figées avant les minutes, à surveiller pour MES et MGC.",
    "date": "clôture du 05/10",
    "source": {
     "titre": "Alpha Vantage · données du Trésor US",
@@ -48,14 +48,14 @@
   {
    "id": "vix",
    "nom": "VIX",
-   "valeur": "15,01",
-   "variation": "",
-   "sens": "baisse",
-   "lecture": "Un VIX bas pourrait garder des ranges plus calmes sur MES et MNQ, jusqu'aux minutes du FOMC.",
-   "date": "clôture du 06/10",
+   "valeur": "16,00",
+   "variation": "+6,60 % sur la veille",
+   "sens": "hausse",
+   "lecture": "Un VIX qui remonte vers 16 pourrait élargir les ranges de MNQ et MES autour des minutes.",
+   "date": "07/10 à 12h36",
    "source": {
-    "titre": "PC Thematic · Daily Market Report 06/10/2026",
-    "url": "https://pcthematic.substack.com/p/daily-market-report-october-6-2026"
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
    }
   },
   {
@@ -64,24 +64,24 @@
    "valeur": "78 % maintien le 28/10",
    "variation": "",
    "sens": "stable",
-   "lecture": "Avec 22 % de hausse prévue, les minutes et le CPI du 14/10 pourraient faire bouger ce chiffre et MNQ.",
-   "date": "07/10 matin",
+   "lecture": "Les minutes de ce soir et le CPI du 14/10 pourraient faire bouger ce chiffre, et MNQ avec.",
+   "date": "07/10 à 12h36",
    "source": {
-    "titre": "FXStreet · Dow Jones futures, taux US avant les minutes du FOMC",
-    "url": "https://fxstreet.com/news/dow-jones-futures-fall-as-us-treasury-yields-rebound-ahead-of-fomc-minutes-202610070843"
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
    }
   },
   {
    "id": "wti",
    "nom": "Pétrole WTI",
-   "valeur": "87,77 $",
-   "variation": "",
-   "sens": "baisse",
-   "lecture": "Un pétrole qui recule pourrait calmer l'inflation et soutenir MNQ ; une reprise pourrait aider MGC.",
-   "date": "clôture du 06/10",
+   "valeur": "90,19 $",
+   "variation": "+0,84 % sur la veille",
+   "sens": "hausse",
+   "lecture": "Un pétrole qui repasse 90 $ pourrait raviver la peur d'inflation et peser sur MNQ.",
+   "date": "07/10 à 12h36",
    "source": {
-    "titre": "TheStreet · Stock Market Today 06/10/2026",
-    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-06-2026"
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
    }
   },
   {
@@ -100,13 +100,18 @@
  ],
  "eco": {
   "points": [
+   "Mer. 07/10 : 10 ans à 5,346 % et 30 ans à 5,724 %, plus haut depuis 2002. Minutes du FOMC à 20h00.",
    "La Fed a monté ses taux en septembre à 3,75 à 4,00 %. Prochaine réunion : 27 et 28/10.",
-   "Minutes du FOMC ce mercredi 07/10 à 20h00 : point clé de la semaine pour les taux et le dollar.",
+   "FedWatch : 78 % de maintien en octobre, hausses de décembre largement intégrées.",
    "Emploi faible : +29 000 postes en septembre contre 84 000 attendus. Chômage à 4,2 %.",
    "ISM services à 54,9, mais prix payés à 74,0, plus haut depuis juillet 2022 : inflation des services qui repart.",
-   "10 ans US à 5,31 %, 30 ans près de 5,69 %. CPI de septembre attendu le 14/10."
+   "CPI de septembre attendu le 14/10."
   ],
   "sources": [
+   {
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
+   },
    {
     "titre": "Gotrade · US Market Outlook 05/10 au 09/10",
     "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-10-05/"
@@ -127,13 +132,22 @@
  },
  "fonda": {
   "points": [
+   "Mer. 07/10 : futures Nasdaq −0,41 % et S&P −0,14 % le matin. Constellation Brands −4,5 % sur ses marges.",
    "Risk-on en surface : S&P 500 record à 7 818,93 et Nasdaq record à 27 599,79 le 06/10.",
    "Largeur faible : petites caps rejetées, QQQ et SPY vendus en fin de séance le 06/10.",
-   "Semi-conducteurs en tête : Marvell +7,14 % ; Constellation Energy +12,30 % sur un contrat nucléaire avec Google.",
-   "Résultats : PepsiCo jeudi 08/10, Delta Air Lines ensuite. Avant : Constellation Brands mardi, Levi Strauss mercredi.",
+   "Résultats : PepsiCo jeudi 08/10, Delta Air Lines ensuite. Banques le 13/10 : JPMorgan, Goldman Sachs, Citigroup.",
+   "Croissance des bénéfices T3 attendue à +30,6 % pour le S&P 500, portée par l'énergie et la tech.",
    "Hedge funds : 225 Md$ record placés en T-bills, ils délaissent les obligations longues."
   ],
   "sources": [
+   {
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
+   },
+   {
+    "titre": "Schwab · Stock market update 06/10/2026",
+    "url": "https://www.schwab.com/learn/story/stock-market-update-open"
+   },
    {
     "titre": "TheStreet · Stock Market Today 06/10/2026",
     "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-06-2026"
@@ -145,15 +159,12 @@
    {
     "titre": "Gotrade · US Market Outlook 05/10 au 09/10",
     "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-10-05/"
-   },
-   {
-    "titre": "Substack · Preview of the week starting 05Oct2026",
-    "url": "https://bkobog.substack.com/p/preview-of-the-week-starting-05oct2026"
    }
   ]
  },
  "geo": {
   "points": [
+   "Mer. 07/10 : Brent repasse au-dessus de 100 $ à 101,81 $ sur le Moyen-Orient. L'or recule de 1,07 %.",
    "Guerre avec l'Iran : attaques de pétroliers à Ormuz, neuf incidents ce mois selon UKMTO.",
    "G7 : 100 millions de barils de brut et diesel libérés sur quatre mois. Effet jugé court par Capital Economics.",
    "Arabie saoudite : pipeline Est-Ouest revenu à 5,8 millions de barils par jour, ce qui pèse sur le pétrole.",
@@ -161,6 +172,10 @@
    "Élections de mi-mandat US en novembre : Trump pousse à faire baisser le diesel avant le vote."
   ],
   "sources": [
+   {
+    "titre": "Reuters via Investing.com · Futures en baisse, taux et pétrole en hausse avant les minutes",
+    "url": "https://www.investing.com/news/economy-news/wall-st-futures-slip-as-yields-and-oil-rebound-fed-minutes-in-focus-4936151"
+   },
    {
     "titre": "Al Jazeera · G7 libère 100 millions de barils",
     "url": "https://www.aljazeera.com/news/2026/10/3/g7-to-release-100-million-barrels-of-oil-and-diesel-will-it-curb-prices"
