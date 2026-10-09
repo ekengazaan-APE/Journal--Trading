@@ -2,44 +2,44 @@
  "v": 1,
  "semaine": "2026-W41",
  "periode": "du lundi 05/10 au vendredi 09/10",
- "majA": "2026-10-08T13:57:00+02:00",
+ "majA": "2026-10-09T13:56:24+02:00",
  "mode": "quotidien",
- "note": "Taux à 2 ans : dernière valeur trouvée à la clôture du 06/10. Inscriptions au chômage (14h30) pas encore sorties au moment de la mise à jour.",
+ "note": "Taux à 2 ans : dernière valeur trouvée à la clôture du 07/10. Confiance du Michigan (16h00) pas encore sortie au moment de la mise à jour.",
  "marqueurs": [
   {
    "id": "dxy",
    "nom": "Dollar (DXY)",
-   "valeur": "102,403",
-   "variation": "+0,16 % sur la veille",
-   "sens": "hausse",
-   "lecture": "Un dollar au plus haut depuis avril 2025 pourrait peser sur MGC et freiner MNQ.",
-   "date": "08/10 en séance",
+   "valeur": "102,14",
+   "variation": "+0,01 % sur la veille",
+   "sens": "stable",
+   "lecture": "Un dollar stable près de ses plus hauts depuis avril 2025 pourrait encore freiner MGC si les taux remontent.",
+   "date": "09/10",
    "source": {
-    "titre": "Trading Economics · Dollar US, le dollar tient après des minutes dures",
+    "titre": "Trading Economics · Dollar US",
     "url": "https://tradingeconomics.com/united-states/currency"
    }
   },
   {
    "id": "us10y",
    "nom": "Taux à 10 ans US",
-   "valeur": "5,32 %",
-   "variation": "+0,04 pt sur la veille",
-   "sens": "hausse",
-   "lecture": "Un 10 ans collé à ses plus hauts depuis 2002 pourrait continuer de peser sur MNQ, plus sensible aux taux que MYM.",
-   "date": "08/10 à 11h13",
+   "valeur": "5,23 %",
+   "variation": "−0,05 pt sur la veille",
+   "sens": "baisse",
+   "lecture": "Un 10 ans qui se détend un peu pourrait soulager MNQ, mais il reste près de ses plus hauts depuis 2002.",
+   "date": "09/10 avant l'ouverture US",
    "source": {
-    "titre": "FXStreet · Le dollar australien recule, taux US en hausse",
-    "url": "https://fxstreet.com/news/australian-dollar-declines-as-us-dollar-gains-amid-rising-treasury-yields-202610080913"
+    "titre": "Yahoo Finance · Stock market today 09/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-9-dow-sp-500-nasdaq-080148117.html"
    }
   },
   {
    "id": "us02y",
    "nom": "Taux à 2 ans US",
-   "valeur": "4,79 %",
-   "variation": "−0,05 pt sur la veille",
+   "valeur": "4,77 %",
+   "variation": "−0,02 pt sur la veille",
    "sens": "baisse",
-   "lecture": "Un 2 ans qui recule un peu pourrait montrer des attentes Fed stables pour octobre, à surveiller pour MES et MGC.",
-   "date": "clôture du 06/10",
+   "lecture": "Un 2 ans qui recule doucement pourrait montrer des attentes Fed stables pour octobre, à surveiller pour MES et MGC.",
+   "date": "clôture du 07/10",
    "source": {
     "titre": "Alpha Vantage · données du Trésor US",
     "url": "https://www.alphavantage.co/documentation/"
@@ -48,14 +48,14 @@
   {
    "id": "vix",
    "nom": "VIX",
-   "valeur": "15,98",
-   "variation": "+5,97 % sur la veille",
-   "sens": "hausse",
-   "lecture": "Un VIX qui remonte vers 16 pourrait élargir les ranges de MNQ et MES à l'ouverture de NY.",
-   "date": "08/10 à 13h10",
+   "valeur": "15,27",
+   "variation": "−0,91 % sur la veille",
+   "sens": "baisse",
+   "lecture": "Un VIX qui reste vers 15 pourrait garder des ranges modérés sur MNQ et MES, sauf choc pétrole.",
+   "date": "09/10 avant l'ouverture US",
    "source": {
-    "titre": "Yahoo Finance · Stock market today 08/10/2026",
-    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-8-dow-sp-500-nasdaq-080537884.html"
+    "titre": "Yahoo Finance · Stock market today 09/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-9-dow-sp-500-nasdaq-080148117.html"
    }
   },
   {
@@ -64,65 +64,61 @@
    "valeur": "81 % maintien le 28/10",
    "variation": "inchangée sur la veille",
    "sens": "stable",
-   "lecture": "Octobre semble figé, mais une hausse en décembre est très attendue : le CPI du 14/10 pourrait faire bouger MNQ.",
-   "date": "08/10 au matin",
+   "lecture": "Octobre semble figé ; décembre reste ouvert à une hausse : le CPI du 14/10 pourrait faire bouger MNQ et MGC.",
+   "date": "09/10",
    "source": {
-    "titre": "Reuters via Investing.com · Le dollar recule de son plus haut de 18 mois après les minutes",
-    "url": "https://investing.com/news/economy-news/dollar-edges-back-from-18month-high-after-fomc-minutes-4937777"
+    "titre": "Trading Economics · Dollar US",
+    "url": "https://tradingeconomics.com/united-states/currency"
    }
   },
   {
    "id": "wti",
    "nom": "Pétrole WTI",
-   "valeur": "92,75 $",
-   "variation": "+5,06 % sur la veille",
-   "sens": "hausse",
-   "lecture": "Un pétrole qui bondit de 5 % pourrait raviver la peur d'inflation et peser sur MNQ et MES.",
-   "date": "08/10 à 12h41",
+   "valeur": "90,90 $",
+   "variation": "−0,64 % sur la veille",
+   "sens": "baisse",
+   "lecture": "Un pétrole qui se calme après le bond de jeudi pourrait soulager les craintes d'inflation et aider MNQ et MES.",
+   "date": "09/10 avant l'ouverture US",
    "source": {
-    "titre": "Reuters via Investing.com · Le pétrole bondit sur les attaques au Moyen-Orient",
-    "url": "https://www.investing.com/news/commodities-news/oil-jumps-as-middle-east-supply-concerns-persist-amid-shipping-attacks-4938452"
+    "titre": "TheStreet · Stock Market Today 09/10/2026",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-09-2026"
    }
   },
   {
    "id": "feargreed",
    "nom": "Peur et cupidité (CNN)",
-   "valeur": "45 · neutre",
-   "variation": "−2 pts sur la veille",
+   "valeur": "38 · peur",
+   "variation": "−4 pts sur la veille",
    "sens": "baisse",
-   "lecture": "Un sentiment qui glisse vers la peur pourrait rendre MES et MNQ plus nerveux sur les mauvaises nouvelles.",
-   "date": "07/10",
+   "lecture": "Un sentiment passé en zone de peur pourrait rendre MNQ et MES plus nerveux sur les mauvaises nouvelles.",
+   "date": "clôture du 08/10",
    "source": {
-    "titre": "Benzinga · Le Dow perd plus de 300 points, Fear & Greed neutre",
-    "url": "https://benzinga.com/markets/market-summary/26/10/62237802/dow-falls-over-300-points-as-treasury-yields-surge-investor-sentiment-weakens-fear-greed-index-remains-in-neutral-zone"
+    "titre": "Benzinga · Le Nasdaq perd plus de 300 points, Fear & Greed en zone de peur",
+    "url": "https://www.benzinga.com/markets/market-summary/26/10/62265206/nasdaq-falls-over-300-points-as-oil-prices-surge-investor-sentiment-weakens-fear-greed-index-remains-in-fear-zone"
    }
   }
  ],
  "eco": {
   "points": [
-   "Jeu. 08/10 : Waller juge d'autres hausses de taux nécessaires pour revenir plus vite à 2 % d'inflation.",
-   "Minutes du FOMC jugées dures : la majorité voit une autre hausse d'ici fin d'année. Décembre : 84,2 % de hausse selon FedWatch.",
-   "10 ans à 5,32 % et 30 ans à 5,71 % jeudi matin, près des plus hauts depuis 2002.",
-   "Taux Fed à 3,75 à 4,00 % après la hausse de septembre. Réunion des 27 et 28/10 : 19 % de hausse, 81 % de maintien.",
-   "Emploi faible : +29 000 postes en septembre contre 84 000 attendus. Chômage à 4,2 %.",
-   "ISM services : prix payés à 74,0, plus haut depuis juillet 2022. CPI de septembre le 14/10."
+   "Ven. 09/10 : 10 ans à 5,23 %, en repli de 0,05 pt après une adjudication à 30 ans bien reçue.",
+   "Jeu. 08/10 : inscriptions au chômage à 197 000, sous les 200 000 attendus. Licenciements toujours bas.",
+   "Waller : d'autres hausses seraient probablement nécessaires, mais la Fed garde de la souplesse sur le rythme.",
+   "Minutes du FOMC jugées dures : la majorité voit une autre hausse d'ici fin d'année. Décembre : 69 à 81 % de hausse selon les articles.",
+   "Taux Fed à 3,75 à 4,00 % après la hausse de septembre. Réunion des 27 et 28/10 : 81 % de maintien.",
+   "Emploi faible en septembre (+29 000 postes), prix des services en hausse (ISM 74,0). CPI de septembre le 14/10."
   ],
   "sources": [
    {
-    "titre": "Yahoo Finance · Stock market today 08/10/2026",
-    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-8-dow-sp-500-nasdaq-080537884.html"
+    "titre": "Yahoo Finance · Stock market today 09/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-9-dow-sp-500-nasdaq-080148117.html"
    },
    {
-    "titre": "FXStreet · Le dollar australien recule, taux US en hausse",
-    "url": "https://fxstreet.com/news/australian-dollar-declines-as-us-dollar-gains-amid-rising-treasury-yields-202610080913"
-   },
-   {
-    "titre": "Reuters via Investing.com · Le dollar recule de son plus haut de 18 mois après les minutes",
-    "url": "https://investing.com/news/economy-news/dollar-edges-back-from-18month-high-after-fomc-minutes-4937777"
-   },
-   {
-    "titre": "Trading Economics · Dollar US, le dollar tient après des minutes dures",
+    "titre": "Trading Economics · Dollar US",
     "url": "https://tradingeconomics.com/united-states/currency"
+   },
+   {
+    "titre": "Vista P Global · Stock Market Today 08/10/2026",
+    "url": "https://vistapglobal.com/stock-market-today-october-8-2026-nasdaq-falls-1-25-as-oil-and-rate-worries-weigh-on-wall-street-amzn-docs-eprx-eras-gs-hpp-modd-nvda-pltr-ser-soc-spcx-t-ysg/"
    },
    {
     "titre": "Gotrade · US Market Outlook 05/10 au 09/10",
@@ -136,49 +132,57 @@
  },
  "fonda": {
   "points": [
-   "Jeu. 08/10 : futures Nasdaq −0,82 % et S&P −0,56 % à 13h10, freinés par le pétrole à +5 %.",
-   "Mer. 07/10 : S&P 500 −0,22 % à 7 801,77 et Nasdaq −0,22 % à 27 538,69. Russell 2000 −1,31 %.",
-   "PepsiCo bat les attentes au T3 (BPA 2,34 $) mais baisse sa prévision de croissance du BPA à 2,5 à 3 %.",
-   "Records le 06/10 (S&P 7 818,93, Nasdaq 27 599,79), mais largeur faible : petites caps rejetées.",
+   "Ven. 09/10 : futures Nasdaq +0,74 % et S&P +0,35 % avant l'ouverture. La tech rebondit, le pétrole recule.",
+   "Jeu. 08/10 : Nasdaq −1,25 % à 27 193,34, S&P 500 −0,47 % à 7 765,36, Dow +0,10 %. Puces touchées par le doute sur OpenAI.",
+   "Delta rate les attentes pour la première fois en deux ans. BPA annuel visé ramené à 5,10 à 5,60 $.",
+   "Sentiment : Fear & Greed à 38, passé en zone de peur jeudi soir.",
    "Banques le 13/10 : JPMorgan, Goldman Sachs, Citigroup. Bénéfices T3 du S&P 500 attendus à +29,5 % (FactSet).",
    "Hedge funds : 225 Md$ record placés en T-bills, ils délaissent les obligations longues."
   ],
   "sources": [
    {
+    "titre": "Yahoo Finance · Stock market today 09/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-9-dow-sp-500-nasdaq-080148117.html"
+   },
+   {
+    "titre": "TheStreet · Stock Market Today 09/10/2026",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-09-2026"
+   },
+   {
+    "titre": "Vista P Global · Stock Market Today 08/10/2026",
+    "url": "https://vistapglobal.com/stock-market-today-october-8-2026-nasdaq-falls-1-25-as-oil-and-rate-worries-weigh-on-wall-street-amzn-docs-eprx-eras-gs-hpp-modd-nvda-pltr-ser-soc-spcx-t-ysg/"
+   },
+   {
+    "titre": "Benzinga · Le Nasdaq perd plus de 300 points, Fear & Greed en zone de peur",
+    "url": "https://www.benzinga.com/markets/market-summary/26/10/62265206/nasdaq-falls-over-300-points-as-oil-prices-surge-investor-sentiment-weakens-fear-greed-index-remains-in-fear-zone"
+   },
+   {
     "titre": "Yahoo Finance · Stock market today 08/10/2026",
     "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-8-dow-sp-500-nasdaq-080537884.html"
-   },
-   {
-    "titre": "Yahoo Finance · Stock market today 07/10/2026",
-    "url": "https://finance.yahoo.com/markets/live/stock-market-today-wednesday-october-7-dow-sp-500-nasdaq-080241833.html"
-   },
-   {
-    "titre": "Benzinga · Le Dow perd plus de 300 points, Fear & Greed neutre",
-    "url": "https://benzinga.com/markets/market-summary/26/10/62237802/dow-falls-over-300-points-as-treasury-yields-surge-investor-sentiment-weakens-fear-greed-index-remains-in-neutral-zone"
-   },
-   {
-    "titre": "TheStreet · Stock Market Today 06/10/2026",
-    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-06-2026"
-   },
-   {
-    "titre": "PC Thematic · Daily Market Report 06/10/2026",
-    "url": "https://pcthematic.substack.com/p/daily-market-report-october-6-2026"
    }
   ]
  },
  "geo": {
   "points": [
-   "Jeu. 08/10 : Brent +4,99 % à 105,20 $ et WTI +5,06 % à 92,75 $ à 12h41, sur Ormuz et l'ouragan Isaias.",
+   "Ven. 09/10 : WTI −0,64 % à 90,90 $ et Brent −1,08 % à 103,20 $. Trump dit ne pas attaquer l'Iran avant le 03/11.",
+   "Iran : Téhéran étudie la réponse US à sa proposition de rouvrir le détroit d'Ormuz.",
+   "Jeu. 08/10 : nouvelles attaques de pétroliers dans le Golfe. Or vers 4 200 $ vendredi matin, en hausse de 1 %.",
    "Ouragan Isaias : environ 25 % de la production de pétrole US du golfe du Mexique arrêtée mercredi.",
-   "Axios : Washington préparerait une reprise des combats contre l'Iran. Information non vérifiée par Reuters.",
-   "Ormuz : attaques de pétroliers la semaine dernière au plus haut depuis le début de la guerre.",
    "AIE : libération des stocks accélérée, priorité au diesel. G7 : 100 millions de barils sur quatre mois.",
-   "Mi-mandat US en novembre : Trump envisage de suspendre la taxe fédérale sur l'essence."
+   "Mi-mandat US le 03/11 : Trump envisage de suspendre la taxe fédérale sur l'essence."
   ],
   "sources": [
    {
-    "titre": "Reuters via Investing.com · Le pétrole bondit sur les attaques au Moyen-Orient",
-    "url": "https://www.investing.com/news/commodities-news/oil-jumps-as-middle-east-supply-concerns-persist-amid-shipping-attacks-4938452"
+    "titre": "TheStreet · Stock Market Today 09/10/2026",
+    "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-09-2026"
+   },
+   {
+    "titre": "Yahoo Finance · Stock market today 09/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-october-9-dow-sp-500-nasdaq-080148117.html"
+   },
+   {
+    "titre": "Benzinga · Le Nasdaq perd plus de 300 points, Fear & Greed en zone de peur",
+    "url": "https://www.benzinga.com/markets/market-summary/26/10/62265206/nasdaq-falls-over-300-points-as-oil-prices-surge-investor-sentiment-weakens-fear-greed-index-remains-in-fear-zone"
    },
    {
     "titre": "Yahoo Finance · Le pétrole au-dessus de 100 $ sur Ormuz et la tempête",
@@ -187,10 +191,6 @@
    {
     "titre": "Al Jazeera · G7 libère 100 millions de barils",
     "url": "https://www.aljazeera.com/news/2026/10/3/g7-to-release-100-million-barrels-of-oil-and-diesel-will-it-curb-prices"
-   },
-   {
-    "titre": "Yahoo Finance · Stock market today 08/10/2026",
-    "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-8-dow-sp-500-nasdaq-080537884.html"
    }
   ]
  },
@@ -203,6 +203,15 @@
    "reel": "54,9",
    "prevision": "55,1",
    "reaction": "Le Nasdaq a fini à +1,05 % et le S&P 500 à +0,66 % ; le 10 ans est monté à 5,31 %."
+  },
+  {
+   "jour": "jeu. 08/10",
+   "heure": "14:30",
+   "titre": "Unemployment Claims",
+   "titreFr": "Inscriptions hebdomadaires au chômage",
+   "reel": "197K",
+   "prevision": "200K",
+   "reaction": "Peu d'effet : le Nasdaq a fini à −1,25 % sur le pétrole et OpenAI, le S&P 500 à −0,47 %."
   }
  ]
 }
