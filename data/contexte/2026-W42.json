@@ -2,17 +2,17 @@
  "v": 1,
  "semaine": "2026-W42",
  "periode": "du lundi 12/10 au vendredi 16/10",
- "majA": "2026-10-11T17:02:24+02:00",
- "mode": "hebdo",
- "note": "Variation sur 5 jours non trouvée pour FedWatch et Peur et cupidité. Valeurs lues à la clôture du vendredi 09/10.",
+ "majA": "2026-10-12T13:50:37+02:00",
+ "mode": "quotidien",
+ "note": "Lun. 12/10 : marché obligataire US fermé (Columbus Day). Taux, dollar, WTI et peur et cupidité restent à la clôture du 09/10.",
  "marqueurs": [
   {
    "id": "dxy",
    "nom": "Dollar (DXY)",
    "valeur": "102,23",
-   "variation": "+0,6 % sur 5 jours",
+   "variation": "",
    "sens": "hausse",
-   "lecture": "Un dollar ferme pourrait peser sur MGC et freiner MNQ si la hausse continue.",
+   "lecture": "Un dollar ferme, peu changé ce lundi, pourrait peser sur MGC et freiner MNQ si la hausse continue.",
    "date": "clôture du 09/10",
    "source": {
     "titre": "Stocktwits · Weekly Spread, taux et dollar",
@@ -23,10 +23,10 @@
    "id": "us10y",
    "nom": "Taux à 10 ans US",
    "valeur": "5,25 %",
-   "variation": "−0,04 pt sur 5 jours",
+   "variation": "",
    "sens": "baisse",
    "lecture": "Un 10 ans qui recule un peu pourrait soulager MNQ, mais il reste près de ses plus hauts depuis 2002.",
-   "date": "clôture du 09/10",
+   "date": "clôture du 09/10 · marché fermé le 12/10",
    "source": {
     "titre": "Stocktwits · Weekly Spread, taux et dollar",
     "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week/cZxTXunRBnZ"
@@ -36,10 +36,10 @@
    "id": "us02y",
    "nom": "Taux à 2 ans US",
    "valeur": "4,80 %",
-   "variation": "−0,03 pt sur 5 jours",
+   "variation": "",
    "sens": "baisse",
    "lecture": "Un 2 ans stable pourrait montrer que le marché attend une pause de la Fed en octobre.",
-   "date": "clôture du 09/10",
+   "date": "clôture du 09/10 · marché fermé le 12/10",
    "source": {
     "titre": "Stocktwits · Weekly Spread, taux et dollar",
     "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week/cZxTXunRBnZ"
@@ -48,36 +48,36 @@
   {
    "id": "vix",
    "nom": "VIX",
-   "valeur": "14,84",
-   "variation": "−3,1 % sur 5 jours",
-   "sens": "baisse",
-   "lecture": "Un VIX sous 15 pourrait montrer un marché calme, mais le CPI du 14/10 peut le réveiller.",
-   "date": "clôture du 09/10",
+   "valeur": "15,51",
+   "variation": "+0,67 pt sur la veille",
+   "sens": "hausse",
+   "lecture": "Un VIX qui remonte avant le CPI du 14/10 pourrait rendre MNQ et MES plus nerveux.",
+   "date": "12/10 vers 12h00",
    "source": {
-    "titre": "Investing.com · VIX historique",
-    "url": "https://www.investing.com/indices/volatility-s-p-500-historical-data"
+    "titre": "Yahoo Finance · Stock market today, 12/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-october-12-dow-sp-500-nasdaq-080321571.html"
    }
   },
   {
    "id": "fedwatch",
    "nom": "Probabilités Fed (FedWatch)",
-   "valeur": "82 % maintien le 28/10",
-   "variation": "",
+   "valeur": "81 % maintien le 28/10 (19 % hausse)",
+   "variation": "−1 pt sur la veille",
    "sens": "stable",
    "lecture": "Un maintien bien anticipé pourrait déplacer l'attention sur décembre, où une hausse reste favorite.",
-   "date": "09/10",
+   "date": "12/10 à 13h12",
    "source": {
-    "titre": "Central Bank Watch · probabilités Fed (futures CME)",
-    "url": "https://centralbank.watch/federal-reserve/"
+    "titre": "Reuters via AOL · futures US et pétrole, 12/10/2026",
+    "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
    }
   },
   {
    "id": "wti",
    "nom": "Pétrole WTI",
    "valeur": "91,66 $",
-   "variation": "+0,2 % sur 5 jours",
+   "variation": "",
    "sens": "stable",
-   "lecture": "Un pétrole haut pourrait garder la pression sur l'inflation et les taux, donc sur MNQ et MES.",
+   "lecture": "Un pétrole haut, avec le Brent au-dessus de 103 $, pourrait garder la pression sur l'inflation et les taux.",
    "date": "clôture du 09/10",
    "source": {
     "titre": "Trading Economics · Pétrole brut",
@@ -100,13 +100,18 @@
  ],
  "eco": {
   "points": [
-   "Fed à 3,75 à 4,00 % depuis le 16/09. Réunion du 28/10 : 82 % de maintien. Décembre penche vers une hausse.",
+   "Lun. 12/10 : marché obligataire fermé. FedWatch : environ 19 % de hausse le 28/10. Hammack (Fed) parle aujourd'hui.",
+   "Fed à 3,75 à 4,00 % depuis le 16/09. Réunion du 28/10 : environ 81 % de maintien. Décembre penche vers une hausse.",
    "CPI de septembre mer. 14/10 à 14h30 : attendu à +0,6 % sur le mois, 3,6 % sur un an, core 2,5 %.",
    "Jeu. 15/10 à 14h30 : PPI, ventes au détail (+0,3 % attendu) et inscriptions au chômage (195 000 attendues). Philly Fed et Empire State aussi.",
    "10 ans à 5,25 % vendredi, après 5,31 % le 05/10, plus haut depuis 2002. Dollar +0,6 % sur la semaine.",
-   "Fed très présente : Waller mar. 13/10 à 9h45, Livre beige mer. 14/10 à 20h00, Warsh ven. 16/10 à 5h30, en pleine session Asie."
+   "Fed très présente : Waller et Collins mar. 13/10, Livre beige mer. 14/10 à 20h00, Bowman mer., Warsh ven. 16/10 à 5h30."
   ],
   "sources": [
+   {
+    "titre": "Reuters via AOL · futures US et pétrole, 12/10/2026",
+    "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
+   },
    {
     "titre": "FXEmpire · The Week Ahead, CPI et banques",
     "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-jpmorgan-goldman-sachs-earnings-and-cpi-test-stock-market-strength-1637135"
@@ -122,18 +127,27 @@
    {
     "titre": "Live Trading News · Week Ahead on Wall Street",
     "url": "https://www.livetradingnews.com/week-ahead-on-wall-street-cpi-banks-and-oil"
+   },
+   {
+    "titre": "Tickmill · Daily Market Outlook 12/10/2026",
+    "url": "https://www.tickmill.com/blog/daily-market-outlook-october-12-2026"
    }
   ]
  },
  "fonda": {
   "points": [
+   "Lun. 12/10 : futures plats à 13h12. Nasdaq 100 −0,23 %, S&P 500 +0,03 %. Salesforce +4,2 % après relèvement de BofA.",
    "Semaine passée : S&P 500 +1,2 % à 7 811,54, Nasdaq +0,6 % à 27 366,17, Dow +0,9 %. Indices proches des records.",
    "Ven. 09/10 : rebond du logiciel (IGV +2,81 %) après le soulagement sur OpenAI. Puces (SMH −0,65 %) et banques encore à la traîne.",
    "Résultats : JPMorgan, Goldman Sachs, Citigroup, Wells Fargo mar. 13/10 ; Bank of America, Morgan Stanley, ASML mer. 14/10 ; TSMC jeu. 15/10.",
-   "Bénéfices T3 du S&P 500 attendus en hausse de plus de 30 %. TSMC et ASML comptent pour les puces du Nasdaq.",
-   "Lun. 12/10 : marché obligataire fermé, actions ouvertes, volume faible. Ven. 16/10 : expiration mensuelle des options. Fear & Greed à 45, neutre."
+   "Bénéfices T3 du S&P 500 attendus en hausse de 30,6 % (LSEG). TSMC et ASML comptent pour les puces du Nasdaq.",
+   "Lun. 12/10 : actions ouvertes, obligations fermées, volume faible. Ven. 16/10 : expiration mensuelle des options. Fear & Greed à 45, neutre."
   ],
   "sources": [
+   {
+    "titre": "Reuters via AOL · futures US et pétrole, 12/10/2026",
+    "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
+   },
    {
     "titre": "Yahoo Finance · Markets News 09/10/2026",
     "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-9-2026-105547352.html"
@@ -158,13 +172,26 @@
  },
  "geo": {
   "points": [
+   "Lun. 12/10 : Houthis visent Aramco à Riyad et Khurais. Brent touche 105,63 $ puis 103,43 $ (−1,2 %).",
+   "Trump annonce une trêve sur l'énergie entre Russie et Ukraine. L'Iran juge insuffisante la réponse US sur Ormuz.",
    "Iran : attaques en hausse à Ormuz les 10 et 11/10. Négociations bloquées, pas d'accord attendu avant le 03/11.",
-   "Houthis : frappe sur un aéroport saoudien, 12 morts dont un Américain. Trump dit que les US pourraient frapper les Houthis.",
    "Pétrole : WTI à 91,66 $ vendredi, presque stable sur la semaine. Brent vers 104 $. Licence US temporaire pour le diesel russe.",
-   "Or : contrat à 4 216,30 $ vendredi (+1,43 %). L'or spot reste environ 25 % sous son record du 29/01.",
+   "Or : contrat à 4 195,40 $ lundi midi (−0,50 %), après 4 216,30 $ vendredi. L'or spot reste environ 25 % sous son record du 29/01.",
    "Élection en Israël le 27/10, mi-mandat US le 03/11. Réunions annuelles du FMI et de la Banque mondiale cette semaine."
   ],
   "sources": [
+   {
+    "titre": "Tickmill · Daily Market Outlook 12/10/2026",
+    "url": "https://www.tickmill.com/blog/daily-market-outlook-october-12-2026"
+   },
+   {
+    "titre": "Reuters via AOL · futures US et pétrole, 12/10/2026",
+    "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
+   },
+   {
+    "titre": "Yahoo Finance · Stock market today, 12/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-october-12-dow-sp-500-nasdaq-080321571.html"
+   },
    {
     "titre": "Al Jazeera · attaques à Ormuz, 11/10/2026",
     "url": "https://www.aljazeera.com/news/2026/10/11/hormuz-attacks-intensify-as-efforts-to-end-war-on-iran-stall"
