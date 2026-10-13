@@ -2,34 +2,34 @@
  "v": 1,
  "semaine": "2026-W42",
  "periode": "du lundi 12/10 au vendredi 16/10",
- "majA": "2026-10-12T13:50:37+02:00",
+ "majA": "2026-10-13T13:52:05+02:00",
  "mode": "quotidien",
- "note": "Lun. 12/10 : marché obligataire US fermé (Columbus Day). Taux, dollar, WTI et peur et cupidité restent à la clôture du 09/10.",
+ "note": "Taux à 2 ans : pas de valeur du jour trouvée, il reste à la clôture du 09/10 (marché obligataire fermé le 12/10).",
  "marqueurs": [
   {
    "id": "dxy",
    "nom": "Dollar (DXY)",
-   "valeur": "102,23",
-   "variation": "",
+   "valeur": "102,41",
+   "variation": "+0,19 % sur la veille",
    "sens": "hausse",
-   "lecture": "Un dollar ferme, peu changé ce lundi, pourrait peser sur MGC et freiner MNQ si la hausse continue.",
-   "date": "clôture du 09/10",
+   "lecture": "Un dollar ferme avant le CPI pourrait peser sur MGC et freiner MNQ.",
+   "date": "clôture du 12/10",
    "source": {
-    "titre": "Stocktwits · Weekly Spread, taux et dollar",
-    "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week/cZxTXunRBnZ"
+    "titre": "Rio Times · Global Economy Briefing 13/10/2026",
+    "url": "https://www.riotimesonline.com/global-economy-briefing-october-13-2026/"
    }
   },
   {
    "id": "us10y",
    "nom": "Taux à 10 ans US",
-   "valeur": "5,25 %",
-   "variation": "",
+   "valeur": "5,19 %",
+   "variation": "−0,05 pt sur la veille",
    "sens": "baisse",
-   "lecture": "Un 10 ans qui recule un peu pourrait soulager MNQ, mais il reste près de ses plus hauts depuis 2002.",
-   "date": "clôture du 09/10 · marché fermé le 12/10",
+   "lecture": "Un 10 ans qui recule pourrait soulager MNQ et MGC, mais il reste très haut avant le CPI.",
+   "date": "13/10 matin",
    "source": {
-    "titre": "Stocktwits · Weekly Spread, taux et dollar",
-    "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week/cZxTXunRBnZ"
+    "titre": "FXEmpire · DXY et taux US, 13/10/2026",
+    "url": "https://fxempire.com/forecasts/article/us-dollar-price-forecast-dxy-eyes-102-61-can-eur-usd-and-gbp-usd-break-higher-1637544"
    }
   },
   {
@@ -37,80 +37,92 @@
    "nom": "Taux à 2 ans US",
    "valeur": "4,80 %",
    "variation": "",
-   "sens": "baisse",
-   "lecture": "Un 2 ans stable pourrait montrer que le marché attend une pause de la Fed en octobre.",
-   "date": "clôture du 09/10 · marché fermé le 12/10",
+   "sens": "stable",
+   "lecture": "Un 2 ans proche de 4,80 % pourrait montrer que le marché attend une pause de la Fed en octobre.",
+   "date": "clôture du 09/10 · pas de valeur du jour",
    "source": {
-    "titre": "Stocktwits · Weekly Spread, taux et dollar",
-    "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week/cZxTXunRBnZ"
+    "titre": "Investing.com · le 10 ans US tient 5,24 % avant le CPI",
+    "url": "https://www.investing.com/analysis/us-10year-treasury-yield-holds-at-524-ahead-of-cpi-200689363"
    }
   },
   {
    "id": "vix",
    "nom": "VIX",
-   "valeur": "15,51",
-   "variation": "+0,67 pt sur la veille",
+   "valeur": "15,48",
+   "variation": "+0,27 pt sur la veille",
    "sens": "hausse",
-   "lecture": "Un VIX qui remonte avant le CPI du 14/10 pourrait rendre MNQ et MES plus nerveux.",
-   "date": "12/10 vers 12h00",
+   "lecture": "Un VIX qui monte un peu avant le CPI pourrait rendre MNQ et MES plus nerveux.",
+   "date": "13/10 avant l'ouverture US",
    "source": {
-    "titre": "Yahoo Finance · Stock market today, 12/10/2026",
-    "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-october-12-dow-sp-500-nasdaq-080321571.html"
+    "titre": "Yahoo Finance · Stock market today, 13/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html"
    }
   },
   {
    "id": "fedwatch",
    "nom": "Probabilités Fed (FedWatch)",
-   "valeur": "81 % maintien le 28/10 (19 % hausse)",
-   "variation": "−1 pt sur la veille",
+   "valeur": "80,6 % maintien le 28/10",
+   "variation": "",
    "sens": "stable",
-   "lecture": "Un maintien bien anticipé pourrait déplacer l'attention sur décembre, où une hausse reste favorite.",
-   "date": "12/10 à 13h12",
+   "lecture": "Un maintien bien anticipé pourrait laisser le CPI de demain décider du ton pour décembre.",
+   "date": "13/10 matin",
    "source": {
-    "titre": "Reuters via AOL · futures US et pétrole, 12/10/2026",
-    "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
+    "titre": "FXEmpire · DXY et taux US, 13/10/2026",
+    "url": "https://fxempire.com/forecasts/article/us-dollar-price-forecast-dxy-eyes-102-61-can-eur-usd-and-gbp-usd-break-higher-1637544"
    }
   },
   {
    "id": "wti",
    "nom": "Pétrole WTI",
-   "valeur": "91,66 $",
-   "variation": "",
-   "sens": "stable",
-   "lecture": "Un pétrole haut, avec le Brent au-dessus de 103 $, pourrait garder la pression sur l'inflation et les taux.",
-   "date": "clôture du 09/10",
+   "valeur": "91,92 $",
+   "variation": "−1,94 % sur la veille",
+   "sens": "baisse",
+   "lecture": "Un pétrole qui recule pourrait calmer un peu les taux et aider MNQ et MES.",
+   "date": "13/10 vers 11h40",
    "source": {
-    "titre": "Trading Economics · Pétrole brut",
-    "url": "https://tradingeconomics.com/commodity/crude-oil"
+    "titre": "TipRanks · Stock Market Today, 13/10",
+    "url": "https://www.tipranks.com/news/stock-market-today-oct-13-futures-mixed-as-investors-brace-for-big-bank-earnings"
    }
   },
   {
    "id": "feargreed",
    "nom": "Peur et cupidité (CNN)",
-   "valeur": "45 · neutre",
-   "variation": "",
-   "sens": "hausse",
-   "lecture": "Un sentiment neutre pourrait laisser de la place aux deux sens selon le CPI et les banques.",
-   "date": "clôture du 09/10",
+   "valeur": "46 · neutre",
+   "variation": "stable sur la veille",
+   "sens": "stable",
+   "lecture": "Un sentiment neutre pourrait laisser le CPI et les banques donner la direction.",
+   "date": "clôture du 12/10",
    "source": {
-    "titre": "FinHacker · Fear & Greed Index (données CNN)",
-    "url": "https://www.finhacker.cz/en/fear-and-greed-index-historical-data-and-chart/"
+    "titre": "Benzinga · Fear & Greed reste neutre, 13/10/2026",
+    "url": "https://www.benzinga.com/markets/market-summary/26/10/62315795/nasdaq-down-over-100-points-as-memory-stocks-decline-fear-greed-index-remains-in-neutral-zone"
    }
   }
  ],
  "eco": {
   "points": [
-   "Lun. 12/10 : marché obligataire fermé. FedWatch : environ 19 % de hausse le 28/10. Hammack (Fed) parle aujourd'hui.",
-   "Fed à 3,75 à 4,00 % depuis le 16/09. Réunion du 28/10 : environ 81 % de maintien. Décembre penche vers une hausse.",
-   "CPI de septembre mer. 14/10 à 14h30 : attendu à +0,6 % sur le mois, 3,6 % sur un an, core 2,5 %.",
-   "Jeu. 15/10 à 14h30 : PPI, ventes au détail (+0,3 % attendu) et inscriptions au chômage (195 000 attendues). Philly Fed et Empire State aussi.",
-   "10 ans à 5,25 % vendredi, après 5,31 % le 05/10, plus haut depuis 2002. Dollar +0,6 % sur la semaine.",
-   "Fed très présente : Waller et Collins mar. 13/10, Livre beige mer. 14/10 à 20h00, Bowman mer., Warsh ven. 16/10 à 5h30."
+   "Mar. 13/10 : 10 ans à 5,19 %, environ −5 pb. Waller : inflation anticipée bien ancrée, la hausse des taux vient de la croissance.",
+   "Fed à 3,75 à 4,00 % depuis le 16/09. Réunion du 28/10 : 80,6 % de maintien. Décembre penche vers une hausse.",
+   "CPI de septembre mer. 14/10 à 14h30 : attendu +0,6 % sur le mois et 3,6 % sur un an. Core : +0,2 % et 2,5 %.",
+   "Jeu. 15/10 à 14h30 : PPI, ventes au détail (+0,3 % attendu), inscriptions au chômage (199 000 attendues) et Philly Fed.",
+   "Fed aujourd'hui : Barkin à 19h00, Collins à 22h00. Livre beige mer. 14/10 à 20h00. Warsh ven. 16/10 à 5h30.",
+   "10 ans à 5,24 % vendredi, après 5,31 % le 05/10. Dollar à 102,41 lundi, +0,19 %."
   ],
   "sources": [
    {
-    "titre": "Reuters via AOL · futures US et pétrole, 12/10/2026",
-    "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
+    "titre": "Reuters via Investing.com · Waller, inflation anticipée bien ancrée",
+    "url": "https://www.investing.com/news/economy-news/us-inflation-expectations-are-well-anchored-feds-waller-says-4946202"
+   },
+   {
+    "titre": "FXEmpire · DXY et taux US, 13/10/2026",
+    "url": "https://fxempire.com/forecasts/article/us-dollar-price-forecast-dxy-eyes-102-61-can-eur-usd-and-gbp-usd-break-higher-1637544"
+   },
+   {
+    "titre": "Rio Times · Global Economy Briefing 13/10/2026",
+    "url": "https://www.riotimesonline.com/global-economy-briefing-october-13-2026/"
+   },
+   {
+    "titre": "Investing.com · le 10 ans US tient 5,24 % avant le CPI",
+    "url": "https://www.investing.com/analysis/us-10year-treasury-yield-holds-at-524-ahead-of-cpi-200689363"
    },
    {
     "titre": "FXEmpire · The Week Ahead, CPI et banques",
@@ -119,67 +131,63 @@
    {
     "titre": "Central Bank Watch · probabilités Fed (futures CME)",
     "url": "https://centralbank.watch/federal-reserve/"
-   },
-   {
-    "titre": "Stocktwits · Weekly Spread, taux et dollar",
-    "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week/cZxTXunRBnZ"
-   },
-   {
-    "titre": "Live Trading News · Week Ahead on Wall Street",
-    "url": "https://www.livetradingnews.com/week-ahead-on-wall-street-cpi-banks-and-oil"
-   },
-   {
-    "titre": "Tickmill · Daily Market Outlook 12/10/2026",
-    "url": "https://www.tickmill.com/blog/daily-market-outlook-october-12-2026"
    }
   ]
  },
  "fonda": {
   "points": [
-   "Lun. 12/10 : futures plats à 13h12. Nasdaq 100 −0,23 %, S&P 500 +0,03 %. Salesforce +4,2 % après relèvement de BofA.",
-   "Semaine passée : S&P 500 +1,2 % à 7 811,54, Nasdaq +0,6 % à 27 366,17, Dow +0,9 %. Indices proches des records.",
-   "Ven. 09/10 : rebond du logiciel (IGV +2,81 %) après le soulagement sur OpenAI. Puces (SMH −0,65 %) et banques encore à la traîne.",
-   "Résultats : JPMorgan, Goldman Sachs, Citigroup, Wells Fargo mar. 13/10 ; Bank of America, Morgan Stanley, ASML mer. 14/10 ; TSMC jeu. 15/10.",
+   "Mar. 13/10 : JPMorgan rate (BPA 5,57 $ contre 5,90 $ attendu), −3,5 % avant l'ouverture. Goldman bat largement : 17,01 $ contre 13,09 $.",
+   "Mar. 13/10 à 11h38 : futures Nasdaq 100 −0,42 %, S&P 500 +0,02 %, Dow +0,52 %. Mémoires en baisse, KOSPI environ −6 %.",
+   "Lun. 12/10 : Nasdaq −0,44 % à 27 245,90, S&P 500 −0,06 % à 7 807,24, Dow en hausse. Fear & Greed à 46.",
+   "Encore cette semaine : Citigroup et Wells Fargo mar. 13/10 ; Bank of America, Morgan Stanley, ASML mer. 14/10 ; TSMC jeu. 15/10.",
    "Bénéfices T3 du S&P 500 attendus en hausse de 30,6 % (LSEG). TSMC et ASML comptent pour les puces du Nasdaq.",
-   "Lun. 12/10 : actions ouvertes, obligations fermées, volume faible. Ven. 16/10 : expiration mensuelle des options. Fear & Greed à 45, neutre."
+   "Ven. 16/10 : expiration mensuelle des options. Hock Tan (Broadcom) compare la spéculation sur l'IA à un casino."
   ],
   "sources": [
    {
-    "titre": "Reuters via AOL · futures US et pétrole, 12/10/2026",
-    "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
+    "titre": "Traders Agency · JPMorgan rate le T3 2026",
+    "url": "https://tradersagency.com/blog/jpmorgan-posts-rare-q3-2026-miss-as-eps-revenue-fall-short-of-estimates"
    },
    {
-    "titre": "Yahoo Finance · Markets News 09/10/2026",
-    "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-9-2026-105547352.html"
+    "titre": "Investing.com · Goldman Sachs bat les attentes",
+    "url": "https://www.investing.com/news/earnings/goldman-sachs-earnings-beat-by-392-revenue-topped-estimates-4946338"
    },
    {
-    "titre": "Market Scholars · Market Outlook 09/10/2026",
-    "url": "https://www.marketscholars.com/market-outlook-october-9-2026/"
+    "titre": "TipRanks · Stock Market Today, 13/10",
+    "url": "https://www.tipranks.com/news/stock-market-today-oct-13-futures-mixed-as-investors-brace-for-big-bank-earnings"
+   },
+   {
+    "titre": "Yahoo Finance · Stock market today, 13/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html"
+   },
+   {
+    "titre": "Benzinga · Fear & Greed reste neutre, 13/10/2026",
+    "url": "https://www.benzinga.com/markets/market-summary/26/10/62315795/nasdaq-down-over-100-points-as-memory-stocks-decline-fear-greed-index-remains-in-neutral-zone"
    },
    {
     "titre": "FXEmpire · The Week Ahead, CPI et banques",
     "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-jpmorgan-goldman-sachs-earnings-and-cpi-test-stock-market-strength-1637135"
-   },
-   {
-    "titre": "Live Trading News · Week Ahead on Wall Street",
-    "url": "https://www.livetradingnews.com/week-ahead-on-wall-street-cpi-banks-and-oil"
-   },
-   {
-    "titre": "FinHacker · Fear & Greed Index (données CNN)",
-    "url": "https://www.finhacker.cz/en/fear-and-greed-index-historical-data-and-chart/"
    }
   ]
  },
  "geo": {
   "points": [
-   "Lun. 12/10 : Houthis visent Aramco à Riyad et Khurais. Brent touche 105,63 $ puis 103,43 $ (−1,2 %).",
-   "Trump annonce une trêve sur l'énergie entre Russie et Ukraine. L'Iran juge insuffisante la réponse US sur Ormuz.",
-   "Iran : attaques en hausse à Ormuz les 10 et 11/10. Négociations bloquées, pas d'accord attendu avant le 03/11.",
-   "Pétrole : WTI à 91,66 $ vendredi, presque stable sur la semaine. Brent vers 104 $. Licence US temporaire pour le diesel russe.",
-   "Or : contrat à 4 195,40 $ lundi midi (−0,50 %), après 4 216,30 $ vendredi. L'or spot reste environ 25 % sous son record du 29/01.",
+   "Mar. 13/10 : Brent à 104,90 $ (−1,64 %), WTI à 91,92 $. Trump assouplit les sanctions sur le carburant russe : plus de diesel attendu.",
+   "Mar. 13/10 : or (contrat) à 4 214,30 $, +0,57 %, malgré un dollar ferme avant le CPI.",
+   "Lun. 12/10 : Houthis visent Aramco à Riyad et Khurais. Attaques aussi sur des pétroliers près d'Ormuz.",
+   "Trump annonce une trêve sur l'énergie entre Russie et Ukraine, mais le doute reste. L'Iran juge insuffisante la réponse US sur Ormuz.",
+   "Iran : négociations bloquées, pas d'accord attendu avant le 03/11.",
    "Élection en Israël le 27/10, mi-mandat US le 03/11. Réunions annuelles du FMI et de la Banque mondiale cette semaine."
   ],
   "sources": [
+   {
+    "titre": "TipRanks · Stock Market Today, 13/10",
+    "url": "https://www.tipranks.com/news/stock-market-today-oct-13-futures-mixed-as-investors-brace-for-big-bank-earnings"
+   },
+   {
+    "titre": "Yahoo Finance · Stock market today, 13/10/2026",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-13-dow-sp-500-nasdaq-080236234.html"
+   },
    {
     "titre": "Tickmill · Daily Market Outlook 12/10/2026",
     "url": "https://www.tickmill.com/blog/daily-market-outlook-october-12-2026"
@@ -189,28 +197,8 @@
     "url": "https://www.aol.com/articles/us-stock-futures-muted-oil-100919000.html"
    },
    {
-    "titre": "Yahoo Finance · Stock market today, 12/10/2026",
-    "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-october-12-dow-sp-500-nasdaq-080321571.html"
-   },
-   {
     "titre": "Al Jazeera · attaques à Ormuz, 11/10/2026",
     "url": "https://www.aljazeera.com/news/2026/10/11/hormuz-attacks-intensify-as-efforts-to-end-war-on-iran-stall"
-   },
-   {
-    "titre": "Jerusalem Post · live 10/10/2026",
-    "url": "https://www.jpost.com/middle-east/2026-10-10/live-updates-911203"
-   },
-   {
-    "titre": "Trading Economics · Pétrole brut",
-    "url": "https://tradingeconomics.com/commodity/crude-oil"
-   },
-   {
-    "titre": "TradingKey · prévision WTI et Ormuz",
-    "url": "https://www.tradingkey.com/analysis/commodities/oil/262209599-crude-oil-price-forecast-wti-hormuz-crisis-tradingkey"
-   },
-   {
-    "titre": "Yahoo Finance · Markets News 09/10/2026",
-    "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-9-2026-105547352.html"
    },
    {
     "titre": "Live Trading News · Week Ahead on Wall Street",
