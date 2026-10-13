@@ -3584,7 +3584,18 @@ function CHECKLISTS_DEFAULT(){return {v:2,thresholds:{aPlus:90,a:75,b:60},playbo
     {id:'smt',label:'SMT entre MNQ, MES et MYM',weight:1,required:false},
     {id:'candleClose',label:'Clôture de bougie de validation',weight:2,required:false},
     {id:'window',label:'Dans la fenêtre horaire',weight:2,required:false,auto:'window'}]},
-  {id:'opr-asia-mgc',name:'OPR Asian MGC',instruments:['MGC'],sessionId:'asia',criteria:[]}]};}
+  {id:'opr-asia-mgc',name:'OPR Asian MGC',instruments:['MGC'],sessionId:'asia',criteria:OPR_MGC_CRITERIA()}]};}
+// Checklist OPR Asian MGC (13/10/2026) : stratégie mécanique, tous les critères sont obligatoires.
+// M5, OPR sur les bougies de 2h25 et 2h30 (Paris), RSI 7 avec surachat 95 et survente 35, TP fixe 2R, plus de trade après 4h00.
+function OPR_MGC_CRITERIA(){return [
+    {id:'oprTrace',label:'OPR tracé sur les bougies M5 de 2h25 et 2h30',weight:2,required:true},
+    {id:'oprSize',label:'Taille de l’OPR entre 300 et 1 900 sur l’indicateur',weight:3,required:true},
+    {id:'oprBreak',label:'Clôture M5 au-dessus du haut ou sous le bas de l’OPR',weight:3,required:true},
+    {id:'rsiOk',label:'RSI 7 : pas au-dessus de 95 pour un achat, pas sous 35 pour une vente',weight:2,required:true},
+    {id:'before4',label:'Entrée avant 4h00 (Paris)',weight:2,required:true},
+    {id:'trendOrLiq',label:'Dans la tendance, ou contre elle avec une liquidité au-delà de 2R dans une zone intéressante',weight:2,required:true},
+    {id:'tp2R',label:'TP fixe à 2R',weight:1,required:true},
+    {id:'window',label:'Dans la fenêtre horaire',weight:1,required:false,auto:'window'}];}
 function getChecklists(){var c=DB._l('tj_checklists',null);return (c&&c.playbooks)?c:CHECKLISTS_DEFAULT();}
 function saveChecklists(c){DB._s('tj_checklists',c);}
 function findPlaybook(id,CL){return (CL.playbooks||[]).find(function(p){return p.id===id;})||null;}
@@ -3608,9 +3619,9 @@ function accGroupOf(cat){return cat.indexOf('Lucid')===0?'Lucid':(cat==='Demo'?'
 function accActive(a){return a&&!a.archived&&['Passé','Cramé','Abandonné','Échoué'].indexOf(a.status)<0;}
 function accDailyStop(a,S){var d=num(a.dailyStop);if(d>0)return d;var dl=num(a.dailyLoss);return (a.dllEnabled&&dl>0)?dl*(num(S.dailyStopPct)||50)/100:0;}
 var ACC_PRESETS=[
-  {id:'flex50-dll',label:'Lucid Flex 50K · DLL ON',v:{firm:'Lucid',category:'Lucid éval',size:50000,targetP1:3000,payoutTarget:'',maxDrawdown:2000,ddType:'eodTrailing',lockAt:50100,dllEnabled:true,dailyLoss:1200,dailyStop:600,consistencyPct:50,maxMicros:40,riskPerTrade:250,fees:{MNQ:1,MES:1,MYM:1,MGC:1.6}}},
-  {id:'flex50',label:'Lucid Flex 50K · sans DLL',v:{firm:'Lucid',category:'Lucid éval',size:50000,targetP1:3000,payoutTarget:'',maxDrawdown:2000,ddType:'eodTrailing',lockAt:50100,dllEnabled:false,dailyLoss:'',dailyStop:600,consistencyPct:50,maxMicros:40,riskPerTrade:250,fees:{MNQ:1,MES:1,MYM:1,MGC:1.6}}},
-  {id:'demo',label:'Demo',v:{firm:'Autre',category:'Demo',size:50000,targetP1:'',payoutTarget:'',maxDrawdown:2000,ddType:'static',lockAt:'',dllEnabled:false,dailyLoss:'',dailyStop:600,consistencyPct:'',maxMicros:40,riskPerTrade:250}},
+  {id:'flex50-dll',label:'Lucid Flex 50K · DLL ON',v:{firm:'Lucid',category:'Lucid éval',size:50000,targetP1:3000,payoutTarget:'',maxDrawdown:2000,ddType:'eodTrailing',lockAt:50100,dllEnabled:true,dailyLoss:1200,dailyStop:500,consistencyPct:50,maxMicros:40,riskPerTrade:250,fees:{MNQ:1,MES:1,MYM:1,MGC:1.6}}},
+  {id:'flex50',label:'Lucid Flex 50K · sans DLL',v:{firm:'Lucid',category:'Lucid éval',size:50000,targetP1:3000,payoutTarget:'',maxDrawdown:2000,ddType:'eodTrailing',lockAt:50100,dllEnabled:false,dailyLoss:'',dailyStop:500,consistencyPct:50,maxMicros:40,riskPerTrade:250,fees:{MNQ:1,MES:1,MYM:1,MGC:1.6}}},
+  {id:'demo',label:'Demo',v:{firm:'Autre',category:'Demo',size:50000,targetP1:'',payoutTarget:'',maxDrawdown:2000,ddType:'static',lockAt:'',dllEnabled:false,dailyLoss:'',dailyStop:500,consistencyPct:'',maxMicros:40,riskPerTrade:250}},
   {id:'backtest',label:'Backtest',v:{firm:'Autre',category:'Backtest',size:50000,targetP1:'',payoutTarget:'',maxDrawdown:'',ddType:'static',lockAt:'',dllEnabled:false,dailyLoss:'',dailyStop:'',consistencyPct:'',maxMicros:'',riskPerTrade:250}},
   {id:'test',label:'Test stratégie',v:{firm:'Autre',category:'Test stratégie',size:50000,targetP1:'',payoutTarget:'',maxDrawdown:'',ddType:'static',lockAt:'',dllEnabled:false,dailyLoss:'',dailyStop:'',consistencyPct:'',maxMicros:'',riskPerTrade:250}}
 ];
@@ -3871,6 +3882,9 @@ function ensureV2Init(){
     if(!localStorage.getItem('tj_meta'))DB._s('tj_meta',{schemaVersion:APP_SCHEMA,since:new Date().toISOString()});
     if(!localStorage.getItem('tj_settings'))DB._s('tj_settings',JSON.parse(JSON.stringify(SETTINGS_DEFAULT)));
     if(!localStorage.getItem('tj_checklists'))DB._s('tj_checklists',CHECKLISTS_DEFAULT());
+    // La checklist OPR Asian MGC, livrée vide le 02/10, reçoit ses critères si elle est encore vide
+    var _cl=DB._l('tj_checklists',null),_opr=_cl&&_cl.playbooks?_cl.playbooks.filter(function(p){return p.id==='opr-asia-mgc';})[0]:null;
+    if(_opr&&(!_opr.criteria||!_opr.criteria.length)){_opr.criteria=OPR_MGC_CRITERIA();DB._s('tj_checklists',_cl);}
   }catch(e){}finally{_syncApplying=prev;}
 }
 function remoteSchema(store){try{var m=store&&store.tj_meta;if(typeof m==='string')m=JSON.parse(m);return (m&&m.schemaVersion)||1;}catch(e){return 1;}}
@@ -4699,7 +4713,7 @@ function accountFormHTML(f,isNew){
     +'<div class="form-group"><label>VERROU DU MLL ($, TRAILING)</label>'+n('lockAt',f.lockAt,'50100')+'</div>'
     +'<div class="form-group"><label>DAILY LOSS DE LA FIRME</label>'+s('dllEnabled',[['1','DLL ON'],['0','Pas de DLL']],f.dllEnabled?'1':'0')+'</div>'
     +'<div class="form-group"><label>MONTANT DU DLL ($)</label>'+n('dailyLoss',f.dailyLoss,'1200')+'</div>'
-    +'<div class="form-group"><label>TON STOP DU JOUR ($)</label>'+n('dailyStop',f.dailyStop,'600 = moitié du DLL')+'</div>'
+    +'<div class="form-group"><label>TON STOP DU JOUR ($)</label>'+n('dailyStop',f.dailyStop,'500')+'</div>'
     +'<div class="section-title">💸 FRAIS ALLER-RETOUR PAR CONTRAT ($)</div>'
     +INSTR_CODES.map(function(k){return '<div class="form-group"><label>'+k+'</label>'+n('fee-'+k,(f.fees||{})[k],'0')+'</div>';}).join('')
     +'<div class="section-title">🧾 ACHAT</div>'
