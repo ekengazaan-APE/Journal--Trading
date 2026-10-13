@@ -736,6 +736,7 @@ function syncSectionHTML(){
     var dirty=localStorage.getItem('sync_dirty')==='1';
     var col=dirty?'var(--yellow)':'var(--green)';
     _syncCodeVisible=false; // masqué par défaut à chaque affichage ; le code n'est jamais écrit dans le HTML
+    setTimeout(rcLoad,0);
     return '<div class="card" style="margin-bottom:14px;border-color:'+col+'55">'
       +'<div class="flex-between" style="margin-bottom:10px;flex-wrap:wrap;gap:8px"><div class="card-title" style="margin:0;color:'+col+'">☁️ SYNCHRO CLOUD ACTIVE</div>'
       +'<div style="width:9px;height:9px;border-radius:50%;background:'+col+';box-shadow:0 0 8px '+col+'"></div></div>'
@@ -753,6 +754,7 @@ function syncSectionHTML(){
         +'<button class="btn btn-ghost btn-sm" onclick="syncRotateCode()"'+(strong?'':' style="border-color:var(--yellow);color:var(--yellow)"')+'>🔐 Changer le code</button>'
         +'<button class="btn btn-ghost btn-sm" onclick="syncDisconnect()" style="color:var(--red)">Déconnecter</button>'
       +'</div>'
+      +'<div id="rc-box" style="margin-top:14px;padding-top:12px;border-top:1px solid var(--border)">'+rcBoxHTML()+'</div>'
       +'<div style="font-size:12px;color:var(--muted);margin-top:10px;letter-spacing:0.5px">Version du fichier : '+APP_BUILD+'</div>'
       +'</div>';
   }
@@ -1009,7 +1011,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.7 · bilan de session et statistiques en R · 13/10/2026';
+var APP_BUILD='v2.8 · synchro sûre et codes lecture · 13/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -1077,6 +1079,8 @@ function syncRotateCode(){
         if(!row3)return fail('relecture vide');
         if(canonicalJSON(row3.data)!==canonicalJSON(store))return fail('les données relues ne correspondent pas aux données envoyées');
         syncSetCode(newCode);_syncCodeVisible=false;
+        // Les codes lecture seule (rapports automatiques) suivent le journal sous son nouveau code
+        try{cl.rpc('lecture_suivre',{p_ancien:oldCode,p_nouveau:newCode}).then(function(){},function(){});}catch(e){}
         try{localStorage.setItem('sync_serverTs',row3.updated_at||r2.data||new Date().toISOString());localStorage.setItem('sync_dirty','0');}catch(e){}
         _syncBusy=false;
         // Une saisie a eu lieu pendant l'opération : elle n'est pas dans la copie envoyée, on la renvoie
@@ -1107,6 +1111,7 @@ function syncStatusText(){
   if(!syncEnabled())return null;
   var ts=localStorage.getItem('sync_serverTs');
   var dirty=localStorage.getItem('sync_dirty')==='1';
+  if(localStorage.getItem('sync_conflict'))return '<b style="color:var(--red)">Envoi bloqué : ton journal a changé sur un autre appareil.</b> <button class="v2-link" onclick="syncConflictOpen()">Choisir la version à garder</button>';
   if(dirty)return 'Modifs locales en attente d\'envoi…';
   if(ts)return 'Synchronisé · '+new Date(ts).toLocaleString('fr-FR');
   return 'Prêt';
@@ -1148,14 +1153,124 @@ function syncPush(cb){
   var cl=syncClient();if(!cl)return cb&&cb(false);
   if(_syncBusy)return cb&&cb(false);
   if(localStorage.getItem('sync_blocked')==='1'){toast('Synchro bloquée : ce fichier est plus ancien que les données du cloud','err');return cb&&cb(false);}
+  // Conflit en attente : aucun envoi automatique tant que tu n'as pas choisi quelle version garder
+  if(localStorage.getItem('sync_conflict')){syncUpdateBadge();return cb&&cb(false);}
   _syncBusy=true;syncUpdateBadge('push');
-  var store=collectAllData();
-  cl.rpc('save_journal',{p_code:syncCode(),p_data:store}).then(function(res){
+  var store=collectAllData(),seq0=_syncWriteSeq;
+  syncSave(cl,syncCode(),store,localStorage.getItem('sync_serverTs'),function(r){
     _syncBusy=false;
-    if(res.error){toast('Sync : échec d\'envoi ('+res.error.message+')','err');syncUpdateBadge();return cb&&cb(false);}
-    try{localStorage.setItem('sync_serverTs',res.data||new Date().toISOString());localStorage.setItem('sync_dirty','0');}catch(e){}
+    if(r.error){toast('Sync : échec d\'envoi ('+r.error.message+')','err');syncUpdateBadge();return cb&&cb(false);}
+    if(r.conflict){
+      try{localStorage.setItem('sync_conflict',r.remoteTs||'1');}catch(e){}
+      syncUpdateBadge();syncConflictOpen();return cb&&cb(false);
+    }
+    try{localStorage.setItem('sync_serverTs',r.ts);localStorage.removeItem('sync_conflict');
+      // Une saisie faite pendant l'envoi n'est pas dans la copie envoyée : elle repart au prochain envoi
+      localStorage.setItem('sync_dirty',_syncWriteSeq!==seq0?'1':'0');}catch(e){}
+    if(_syncWriteSeq!==seq0)syncSchedulePush();
     syncUpdateBadge();if(currentPage==='backup')nav('backup');cb&&cb(true);
-  }).catch(function(err){_syncBusy=false;toast('Sync : erreur réseau','err');syncUpdateBadge();cb&&cb(false);});
+  });
+}
+// ── Synchro sûre (étape 1, 13/10/2026) ─────────────────────────────────────
+// L'envoi passe par save_journal_v2 : il est refusé si le cloud a changé depuis la dernière version lue
+// par cet appareil (autre appareil, autre onglet). Rien n'est écrasé en silence.
+// Si la fonction n'existe pas encore côté Supabase, on repasse sur save_journal (ancien comportement).
+var _syncV2Missing=false;
+function syncSave(cl,code,store,expected,cb){
+  var legacy=function(){
+    cl.rpc('save_journal',{p_code:code,p_data:store}).then(function(r){cb(r.error?{error:r.error}:{ok:true,ts:r.data||new Date().toISOString()});})
+      .catch(function(){cb({error:{message:'erreur réseau'}});});
+  };
+  if(_syncV2Missing)return legacy();
+  cl.rpc('save_journal_v2',{p_code:code,p_data:store,p_expected:expected||null}).then(function(r){
+    if(r.error){
+      var m=String(r.error.code||'')+' '+String(r.error.message||'');
+      if(/PGRST202|Could not find the function|save_journal_v2/i.test(m)){_syncV2Missing=true;return legacy();}
+      return cb({error:r.error});
+    }
+    var d=r.data;if(typeof d==='string'){try{d=JSON.parse(d);}catch(e){d=null;}}
+    if(d&&d.ok)return cb({ok:true,ts:d.updated_at});
+    if(d&&d.conflict)return cb({conflict:true,remoteTs:d.updated_at});
+    cb({error:{message:'réponse inattendue du cloud'}});
+  }).catch(function(){cb({error:{message:'erreur réseau'}});});
+}
+// ── Codes lecture seule (étape 1, 13/10/2026) ──────────────────────────────
+// Un code lecture lit le journal sans pouvoir l'écrire : c'est lui qu'on donne aux rapports automatiques.
+// La liste ne renvoie jamais les codes eux-mêmes, seulement leurs 4 derniers caractères.
+var _rc={list:null,err:null};
+function rcBoxHTML(){
+  var L=_rc.list,rows;
+  if(L===null)rows=_rc.err?'<span style="color:var(--yellow)">'+esc(_rc.err)+'</span>':'<span style="color:var(--muted)">Chargement…</span>';
+  else rows=L.length?L.map(function(x){return '<div>· '+esc(x.libelle||'Sans nom')+' · créé le '+new Date(x.cree_le).toLocaleDateString('fr-FR')+' · finit par <code>'+esc(x.fin)+'</code></div>';}).join(''):'<span style="color:var(--muted)">Aucun code lecture.</span>';
+  return '<div style="font-size:13px;font-weight:800;margin-bottom:4px">🔎 Codes lecture seule</div>'
+    +'<div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:8px">Un code lecture permet de lire ton journal sans pouvoir le modifier. C’est lui qu’on donne aux rapports automatiques, jamais ton code de synchro.</div>'
+    +'<div style="font-size:13px;line-height:1.7;margin-bottom:8px">'+rows+'</div>'
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn btn-ghost btn-sm" onclick="rcCreate()">+ Créer un code lecture</button>'
+    +(L&&L.length?'<button class="btn btn-ghost btn-sm" style="color:var(--red)" onclick="rcRevoke()">Révoquer tous les codes lecture</button>':'')+'</div>';
+}
+function rcPaint(){var el=document.getElementById('rc-box');if(el)el.innerHTML=rcBoxHTML();}
+function rcErr(e){var m=String(e&&e.code||'')+' '+String(e&&e.message||'');return /PGRST202|Could not find the function/i.test(m)?'Fonction pas encore installée dans Supabase.':'Lecture impossible ('+(e&&e.message||'erreur')+').';}
+function rcLoad(){
+  var cl=syncClient();if(!cl||!syncEnabled())return;
+  cl.rpc('codes_lecture',{p_code:syncCode()}).then(function(r){_rc=r.error?{list:null,err:rcErr(r.error)}:{list:r.data||[],err:null};rcPaint();},
+    function(){_rc={list:null,err:'Erreur réseau.'};rcPaint();});
+}
+function rcCreate(){
+  var cl=syncClient();if(!cl||!syncEnabled()){toast('Active d\'abord la synchro','err');return;}
+  var lib=prompt('À quoi sert ce code ? (exemple : rapports automatiques)','Rapports automatiques');if(lib===null)return;
+  cl.rpc('creer_code_lecture',{p_code:syncCode(),p_libelle:String(lib).slice(0,60)}).then(function(r){
+    if(r.error){toast('Création impossible : '+(r.error.message||'erreur'),'err');return;}
+    rcShow(r.data);rcLoad();
+  },function(){toast('Erreur réseau','err');});
+}
+function rcShow(code){
+  document.getElementById('modal-title').textContent='NOUVEAU CODE LECTURE SEULE';
+  document.getElementById('modal-body').innerHTML='<div style="font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:12px">Il ne s’affichera qu’une fois. Il lit ton journal, il ne peut rien y écrire.</div>'
+    +'<div id="rc-newcode" style="font-family:monospace;font-size:15px;text-align:center;padding:14px;background:var(--s2);border:1px solid var(--border);border-radius:10px;margin-bottom:10px;user-select:all;word-break:normal"></div>'
+    +'<button class="btn btn-ghost btn-sm" style="width:100%" onclick="rcCopy()">📋 Copier le code</button>'
+    +'<div class="modal-footer"><button class="btn btn-primary" onclick="closeModal();nav(\'backup\')" style="flex:1">C’est noté</button></div>';
+  var el=document.getElementById('rc-newcode');if(el)el.textContent=code;
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function rcCopy(){var el=document.getElementById('rc-newcode');if(!el)return;try{navigator.clipboard.writeText(el.textContent).then(function(){toast('Code copié');},function(){toast('Copie impossible : sélectionne le code','err');});}catch(e){toast('Copie impossible : sélectionne le code','err');}}
+function rcRevoke(){
+  if(!confirm('Révoquer tous les codes lecture ?\n\nLes rapports automatiques ne pourront plus lire ton journal tant que tu ne leur donnes pas un nouveau code.'))return;
+  var cl=syncClient();if(!cl)return;
+  cl.rpc('revoquer_codes_lecture',{p_code:syncCode()}).then(function(r){
+    if(r.error){toast('Révocation impossible : '+(r.error.message||'erreur'),'err');return;}
+    toast((r.data||0)+' code'+((r.data||0)>1?'s':'')+' lecture révoqué'+((r.data||0)>1?'s':''));rcLoad();
+  },function(){toast('Erreur réseau','err');});
+}
+function syncConflictOpen(){
+  var ts=localStorage.getItem('sync_conflict'),when=(ts&&ts!=='1')?new Date(ts).toLocaleString('fr-FR'):'récemment';
+  document.getElementById('modal-title').textContent='DEUX VERSIONS DE TON JOURNAL';
+  document.getElementById('modal-body').innerHTML=
+    '<div style="font-size:14px;line-height:1.6;margin-bottom:12px">Ton journal a été modifié sur un autre appareil ('+esc(when)+') depuis ta dernière synchro ici. '
+    +'Pour ne rien perdre en silence, <b>l’envoi est bloqué</b> jusqu’à ton choix.</div>'
+    +'<div class="v2-note" style="margin-bottom:12px">Conseil : exporte d’abord une sauvegarde de cet appareil. Elle garde tout ce que tu as saisi ici.</div>'
+    +'<button class="btn btn-ghost btn-sm" style="width:100%;margin-bottom:14px" onclick="exportData()">💾 Exporter une sauvegarde de cet appareil</button>'
+    +'<div style="display:flex;flex-direction:column;gap:10px">'
+      +'<button class="btn btn-primary" onclick="syncResolve(\'cloud\')">Garder la version du cloud</button>'
+      +'<div style="font-size:13px;color:var(--muted);margin-top:-4px">Ce que tu as saisi ici depuis la dernière synchro est remplacé.</div>'
+      +'<button class="btn btn-ghost" onclick="syncResolve(\'local\')">Garder cet appareil</button>'
+      +'<div style="font-size:13px;color:var(--muted);margin-top:-4px">Ce que tu as saisi sur l’autre appareil est remplacé.</div>'
+    +'</div>'
+    +'<div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()" style="flex:1">Décider plus tard</button></div>';
+  document.getElementById('modal-overlay').classList.add('open');
+}
+function syncResolve(which){
+  var ts=localStorage.getItem('sync_conflict');
+  if(which==='cloud'){
+    try{localStorage.removeItem('sync_conflict');}catch(e){}
+    closeModal();
+    syncPull({apply:true,force:true,loud:true},function(r){if(!r||!r.applied){try{if(ts)localStorage.setItem('sync_conflict',ts);}catch(e){}toast('Lecture du cloud impossible : rien n’a changé','err');}syncUpdateBadge();});
+    return;
+  }
+  if(!confirm('Garder cet appareil ?\n\nLa version du cloud, venue de ton autre appareil, sera remplacée par celle-ci.'))return;
+  try{if(ts&&ts!=='1')localStorage.setItem('sync_serverTs',ts);localStorage.removeItem('sync_conflict');localStorage.setItem('sync_dirty','1');}catch(e){}
+  closeModal();
+  var done=function(ok){if(ok)toast('Cet appareil est maintenant la version du cloud');};
+  syncPush(done);
 }
 
 function syncPull(opts,cb){
@@ -1179,7 +1294,7 @@ function syncPull(opts,cb){
         }
       }
       syncApplyStore(row.data||{});
-      try{localStorage.setItem('sync_serverTs',remoteTs);localStorage.setItem('sync_dirty','0');}catch(e){}
+      try{localStorage.setItem('sync_serverTs',remoteTs);localStorage.setItem('sync_dirty','0');localStorage.removeItem('sync_conflict');}catch(e){}
       if(opts.rerender!==false)nav(currentPage);
       if(opts.loud)toast('Données récupérées depuis le cloud');
       return cb&&cb({exists:true,ts:remoteTs,applied:true});
@@ -1192,6 +1307,7 @@ function syncPull(opts,cb){
 function syncNow(){
   if(!syncEnabled()){toast('Active d\'abord la synchro','err');return;}
   if(!syncClient()){toast('Librairie cloud non chargée — vérifie ta connexion','err');return;}
+  if(localStorage.getItem('sync_conflict')){syncConflictOpen();return;}
   var dirty=localStorage.getItem('sync_dirty')==='1';
   if(dirty){syncPush(function(ok){if(ok)toast('Envoyé vers le cloud');});}
   else{syncPull({apply:true,loud:true});}
@@ -1243,7 +1359,7 @@ function syncUpdateBadge(mode){
   if(!syncEnabled()){dot.style.display='none';return;}
   dot.style.display='block';
   var dirty=localStorage.getItem('sync_dirty')==='1';
-  var col=mode==='push'?'var(--yellow)':dirty?'var(--yellow)':'var(--green)';
+  var col=localStorage.getItem('sync_conflict')?'var(--red)':mode==='push'?'var(--yellow)':dirty?'var(--yellow)':'var(--green)';
   dot.style.background=col;dot.style.boxShadow='0 0 6px '+col;
 }
 
