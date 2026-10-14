@@ -1011,7 +1011,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.8 · synchro sûre et codes lecture · 13/10/2026';
+var APP_BUILD='v2.9 · import Tradovate fiable · 14/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -1263,7 +1263,7 @@ function syncResolve(which){
   if(which==='cloud'){
     try{localStorage.removeItem('sync_conflict');}catch(e){}
     closeModal();
-    syncPull({apply:true,force:true,loud:true},function(r){if(!r||!r.applied){try{if(ts)localStorage.setItem('sync_conflict',ts);}catch(e){}toast('Lecture du cloud impossible : rien n’a changé','err');}syncUpdateBadge();});
+    syncPull({apply:true,force:true,forceApply:true,loud:true},function(r){if(!r||!r.applied){try{if(ts)localStorage.setItem('sync_conflict',ts);}catch(e){}toast('Lecture du cloud impossible : rien n’a changé','err');}syncUpdateBadge();});
     return;
   }
   if(!confirm('Garder cet appareil ?\n\nLa version du cloud, venue de ton autre appareil, sera remplacée par celle-ci.'))return;
@@ -1285,7 +1285,7 @@ function syncPull(opts,cb){
     var newer=!localTs||new Date(remoteTs)>new Date(localTs);
     if(remoteSchema(row.data)>APP_SCHEMA){try{localStorage.setItem('sync_blocked','1');}catch(e){}toast('Le cloud contient une version plus récente du journal : remplace ce fichier par la dernière version.','err');return cb&&cb({exists:true,ts:remoteTs,applied:false,tooNew:true});}
     try{localStorage.removeItem('sync_blocked');}catch(e){}
-    if(opts.apply&&newer){
+    if(opts.apply&&(newer||opts.forceApply)){
       var dirty=localStorage.getItem('sync_dirty')==='1';
       if(dirty && !opts.force){
         // Conflit : modifs locales non envoyées ET le cloud est plus récent
@@ -3705,11 +3705,12 @@ function CHECKLISTS_DEFAULT(){return {v:2,thresholds:{aPlus:90,a:75,b:60},playbo
 // M5, OPR sur les bougies de 2h25 et 2h30 (Paris), RSI 7 avec surachat 95 et survente 35, TP fixe 2R, plus de trade après 4h00.
 function OPR_MGC_CRITERIA(){return [
     {id:'oprTrace',label:'OPR tracé sur les bougies M5 de 2h25 et 2h30',weight:2,required:true},
-    {id:'oprSize',label:'Taille de l’OPR entre 300 et 1 900 sur l’indicateur',weight:3,required:true},
+    {id:'oprSize',label:'Taille de l’OPR entre 30 et 190 ticks MGC (300 à 1 900 sur l’indicateur)',weight:3,required:true},
     {id:'oprBreak',label:'Clôture M5 au-dessus du haut ou sous le bas de l’OPR',weight:3,required:true},
     {id:'rsiOk',label:'RSI 7 : pas au-dessus de 95 pour un achat, pas sous 35 pour une vente',weight:2,required:true},
     {id:'before4',label:'Entrée avant 4h00 (Paris)',weight:2,required:true},
     {id:'trendOrLiq',label:'Dans la tendance, ou contre elle avec une liquidité au-delà de 2R dans une zone intéressante',weight:2,required:true},
+    {id:'slBreak',label:'SL sur la bougie de cassure, si elle n’est pas trop courte',weight:2,required:false},
     {id:'tp2R',label:'TP fixe à 2R',weight:1,required:true},
     {id:'window',label:'Dans la fenêtre horaire',weight:1,required:false,auto:'window'}];}
 function getChecklists(){var c=DB._l('tj_checklists',null);return (c&&c.playbooks)?c:CHECKLISTS_DEFAULT();}
@@ -3817,7 +3818,11 @@ function validateTrade(t,acc){
 // Trade à plat : toutes les sorties saisies, même si la documentation n'est pas encore complète
 function isFlat(it){return it.c.exitCt>0&&it.c.remaining<=0&&it.c.net!==null;}
 // Trade qui compte pour les règles du jour : clôturé, ou à plat si les garde-fous avancés sont actifs
-function isDone(it,S){return (it.t.status==='closed'&&it.c.net!==null)||(!!(S&&S.guardV3)&&isFlat(it));}
+function flatCounts(it,S){return !!(S&&S.guardV3)||!!it.t.importSrc;}
+// Un trade importé de Tradovate est un fait : à plat, il compte tout de suite, même avant d'être documenté
+function isDone(it,S){return (it.t.status==='closed'&&it.c.net!==null)||(flatCounts(it,S)&&isFlat(it));}
+// Trade importé pas encore documenté : aucun critère de checklist coché
+function isUndoc(it){var ck=it.t.checklist||{};return !!it.t.importSrc&&it.t.status==='open'&&!Object.keys(ck).some(function(k){return ck[k];});}
 // Délai après une perte selon la qualité du trade perdant : A+ ou A sans écart, B sans écart, sinon C
 function cooldownMinFor(it,S){
   if(!S||!S.guardV3)return num(S&&S.revengeMin)||15;
@@ -3854,7 +3859,7 @@ function applyContext(items,S,accById){
       if(c.maxSize1R!==null&&q&&q>c.maxSize1R)D.push('oversize');
       if(c.slWidened)D.push('slWidened');
       if(!c.sessionId)D.push('offSession');
-      if(!pb||pb.instruments.indexOf(it.t.instrument)<0||c.grade==='C')D.push('offPlaybook');
+      if(!pb||pb.instruments.indexOf(it.t.instrument)<0||(c.grade==='C'&&!isUndoc(it)))D.push('offPlaybook');
       if(c.minSinceLoss!==null&&c.minSinceLoss<c.cooldownMin)D.push('revenge');
       if(c.nthOfDay>S.maxTradesDay)D.push('overtrading');
       if(c.stopAtEntry)D.push('afterStop');
@@ -3898,13 +3903,13 @@ function viewOf(it,accById){
     planRespected:c.planOk?'Oui':'Non',emotionalState:t.emotion?String(t.emotion):'',biasCorrect:t.biasCorrect||'N/A',
     maeR:t.maeR!==null&&t.maeR!==undefined?t.maeR:'',mfeR:t.mfeR!==null&&t.mfeR!==undefined?t.mfeR:'',maeprice:'',mfeprice:'',
     tags:t.tags||[],confluences:t.checklist||{},screenshotUrl:t.execShotUrl||'',notes:preText(t),postTradeComment:t.post||'',
-    outcome:c.outcome,grade:c.grade,deviations:c.deviations,net:c.net,rAccount:c.rAccount,mirrorGroupId:t.mirrorGroupId||null,method:t.method,dayKey:c.dayKey,
+    outcome:c.outcome,grade:isUndoc(it)?'À documenter':c.grade,deviations:c.deviations,net:c.net,rAccount:c.rAccount,mirrorGroupId:t.mirrorGroupId||null,method:t.method,dayKey:c.dayKey,
     playbookName:c.playbook?c.playbook.name:'',sessionId:c.sessionId};
 }
 function tradeViews(){
   var C=v2Compute();if(C.views)return C.views;
   var out=[];
-  C.items.forEach(function(it){if(it.t.status!=='closed'||it.t.archived||it.c.net===null)return;if(it.t.method==='review'&&!C.S.includeReview)return;out.push(viewOf(it,C.accById));});
+  C.items.forEach(function(it){if((it.t.status!=='closed'&&!(it.t.importSrc&&isFlat(it)))||it.t.archived||it.c.net===null)return;if(it.t.method==='review'&&!C.S.includeReview)return;out.push(viewOf(it,C.accById));});
   C.trades.forEach(function(t){
     if(!t||t.v||t.deletedAt||t.archived)return;
     var a=C.accs.find(function(x){return x.name===t.account;});
@@ -3986,8 +3991,8 @@ function accountState(a,C){
   var w=closed.filter(function(it){return it.c.outcome==='Win';}).length,l=closed.filter(function(it){return it.c.outcome==='Loss';}).length;
   return {start:start,balance:balance,net:net,mll:mll,dist:dist,usedPct:usedPct,peak:peak,locked:a.ddType!=='static'&&lk>0&&mll===lk,
     todayKey:todayKey,todayNet:todayNet,todayTrades:today.length,todayLosses:todayLosses,consec:consec,stopAmt:stopAmt,reasons:reasons,state:state,
-    dllUsed:dllUsed,cons:cons,tgt:tgt,feesMissing:feesMissing,openN:L.filter(function(it){return it.t.status==='open'&&!(S.guardV3&&isFlat(it));}).length,
-    toDoc:S.guardV3?L.filter(function(it){return it.t.status==='open'&&isFlat(it);}).length:0,
+    dllUsed:dllUsed,cons:cons,tgt:tgt,feesMissing:feesMissing,openN:L.filter(function(it){return it.t.status==='open'&&!(flatCounts(it,S)&&isFlat(it));}).length,
+    toDoc:L.filter(function(it){return it.t.status==='open'&&flatCounts(it,S)&&isFlat(it);}).length,
     nClosed:closed.length,wins:w,losses:l,wr:(w+l)?w/(w+l)*100:null,mllBreached:dist!==null&&dist<=0,cooldown:cooldown};
 }
 
@@ -4001,6 +4006,12 @@ function ensureV2Init(){
     // La checklist OPR Asian MGC, livrée vide le 02/10, reçoit ses critères si elle est encore vide
     var _cl=DB._l('tj_checklists',null),_opr=_cl&&_cl.playbooks?_cl.playbooks.filter(function(p){return p.id==='opr-asia-mgc';})[0]:null;
     if(_opr&&(!_opr.criteria||!_opr.criteria.length)){_opr.criteria=OPR_MGC_CRITERIA();DB._s('tj_checklists',_cl);}
+    // 14/10/2026 : unité de la taille de l'OPR précisée (1 tick MGC = 10 sur l'indicateur) et critère du SL ajouté,
+    // seulement sur la checklist livrée le 13/10 et jamais modifiée sur ces points
+    if(_opr&&_opr.criteria&&_opr.criteria.length){var _ch=false,_ids=_opr.criteria.map(function(c){return c.id;});
+      _opr.criteria.forEach(function(c){if(c.id==='oprSize'&&c.label==='Taille de l’OPR entre 300 et 1 900 sur l’indicateur'){c.label='Taille de l’OPR entre 30 et 190 ticks MGC (300 à 1 900 sur l’indicateur)';_ch=true;}});
+      if(_ids.indexOf('slBreak')<0&&_ids.indexOf('oprTrace')>=0&&_ids.indexOf('tp2R')>=0){_opr.criteria.splice(_ids.indexOf('tp2R'),0,{id:'slBreak',label:'SL sur la bougie de cassure, si elle n’est pas trop courte',weight:2,required:false});_ch=true;}
+      if(_ch)DB._s('tj_checklists',_cl);}
   }catch(e){}finally{_syncApplying=prev;}
 }
 function remoteSchema(store){try{var m=store&&store.tj_meta;if(typeof m==='string')m=JSON.parse(m);return (m&&m.schemaVersion)||1;}catch(e){return 1;}}
@@ -4421,7 +4432,7 @@ function tvKind(head){var h=head.map(function(x){return x.toLowerCase();});
 function tvAvg(list){var q=list.reduce(function(s,x){return s+x.qty;},0);return q?list.reduce(function(s,x){return s+x.price*x.qty;},0)/q:null;}
 function tvFromOrders(rows,tz){
   var all=rows.map(function(r){return {id:tvGet(r,['orderId','Order ID']),acct:tvGet(r,['Account']),side:/^b/i.test(tvGet(r,['B/S']))?1:-1,contract:tvGet(r,['Contract']).toUpperCase(),
-    type:tvGet(r,['Type']).toLowerCase(),status:tvGet(r,['Status']).toLowerCase(),qty:tvNum(tvGet(r,['Filled Qty','filledQty'])),price:tvNum(tvGet(r,['Avg Fill Price','avgPrice','decimalFillAvg'])),
+    type:tvGet(r,['Type']).toLowerCase(),status:tvGet(r,['Status']).toLowerCase(),qty:tvNum(tvGet(r,['Filled Qty','filledQty'])),price:tvNum(tvGet(r,['avgPrice','decimalFillAvg','Avg Fill Price'])),
     fillMs:tvTime(tvGet(r,['Fill Time']),tz),ts:tvTime(tvGet(r,['Timestamp','Date']),tz),stop:tvNum(tvGet(r,['Stop Price','decimalStop'])),limit:tvNum(tvGet(r,['Limit Price','decimalLimit']))};});
   var fills=all.filter(function(o){return /fill/.test(o.status)&&o.qty>0&&o.price!==null&&o.fillMs!==null&&o.contract;})
     .sort(function(a,b){return a.contract<b.contract?-1:a.contract>b.contract?1:(a.fillMs-b.fillMs)||String(a.id).localeCompare(String(b.id));});
@@ -4438,11 +4449,25 @@ function tvFromOrders(rows,tz){
     pos[k]=p;
   });
   Object.keys(cur).forEach(function(k){if(cur[k]){cur[k].open=true;out.push(cur[k]);}});
+  // Ordres de protection d'un trade : ceux créés après son ordre d'entrée et avant l'entrée du trade suivant
+  // sur le même contrat (les numéros d'ordre Tradovate croissent). Sans numéros exploitables : fenêtre de temps,
+  // bornée par la fin du trade précédent pour ne jamais prendre ses ordres.
+  var numId=function(x){return /^\d+$/.test(String(x||''))?String(x).padStart(24,'0'):null;};
+  var byK={};out.forEach(function(t){(byK[t.acct+'|'+t.contract]=byK[t.acct+'|'+t.contract]||[]).push(t);});
+  Object.keys(byK).forEach(function(k){byK[k].sort(function(a,b){return a.start-b.start;}).forEach(function(t,i,L){t._prev=L[i-1]||null;t._next=L[i+1]||null;});});
   out.forEach(function(t){
-    var end=t.end||Infinity,opp=all.filter(function(o){return o.contract===t.contract&&o.side===-t.dir&&o.ts!==null&&o.ts>=t.start-120000&&o.ts<=end;}).sort(function(a,b){return a.ts-b.ts;});
+    var end=t.end||Infinity,lo=Math.max(t.start-120000,t._prev&&t._prev.end?t._prev.end+1:-Infinity),id0=numId(t.firstId),id1=t._next?numId(t._next.firstId):null;
+    var opp=all.filter(function(o){if(o.contract!==t.contract||o.side!==-t.dir||o.acct!==t.acct)return false;var oid=numId(o.id);
+      if(id0&&oid)return oid>id0&&(!id1||oid<id1);return o.ts!==null&&o.ts>=lo&&o.ts<=end;})
+      .sort(function(a,b){var x=numId(a.id),y=numId(b.id);return (x&&y)?(x<y?-1:x>y?1:0):((a.ts||0)-(b.ts||0));});
     var stops=opp.filter(function(o){return /stop/.test(o.type)&&o.stop!==null;}),lims=opp.filter(function(o){return /limit/.test(o.type)&&!/stop/.test(o.type)&&o.limit!==null;});
     t.sl=stops.length?stops[0].stop:null;t.slFinal=stops.length>1&&stops[stops.length-1].stop!==t.sl?stops[stops.length-1].stop:null;
     t.tp=lims.length?lims[0].limit:null;
+    // Tradovate n'exporte que le dernier prix d'un ordre : un stop du côté du gain a été remonté (BE ou suiveur),
+    // le SL de départ est perdu. Il devient le SL final, et le SL initial reste à saisir.
+    var e=tvAvg(t.entries);
+    if(t.sl!==null&&e!==null&&(t.dir>0?t.sl>=e:t.sl<=e)){t.slFinal=t.slFinal!==null?t.slFinal:t.sl;t.sl=null;t.slMoved=true;}
+    delete t._prev;delete t._next;
   });
   return out;
 }
@@ -4463,7 +4488,12 @@ function tvBuild(files,tz){
   var orders=[],perf=[],unknown=[],empty=[];
   files.forEach(function(f){var p=csvParse(f.text);if(!p.head.length){empty.push(f.name);return;}var k=tvKind(p.head);if(k==='orders')orders=orders.concat(p.rows);else if(k==='perf')perf=perf.concat(p.rows);else unknown.push(f.name);});
   var base=orders.length?tvFromOrders(orders,tz):tvFromPerf(perf,tz),P=orders.length&&perf.length?tvFromPerf(perf,tz):[];
-  base.forEach(function(t){if(t.pnl!==undefined)return;var m=P.find(function(x){return x.contract===t.contract&&x.dir===t.dir&&Math.abs(x.start-t.start)<=5000;});if(m)t.pnl=m.pnl;});
+  base.forEach(function(t){if(t.pnl!==undefined)return;var m=P.find(function(x){return x.contract===t.contract&&x.dir===t.dir&&Math.abs(x.start-t.start)<=5000;});if(!m)return;t.pnl=m.pnl;
+    // Un ordre rempli en plusieurs fois a un prix moyen hors tick : on reprend les exécutions réelles de la performance
+    var I=INSTR[tvRoot(t.contract)],q=function(L){return L.reduce(function(s,x){return s+x.qty;},0);};
+    if(I&&t.exits.some(function(x){return !onTick(x.price,I.tick);})&&q(m.exits)===q(t.exits)&&m.exits.every(function(x){return onTick(x.price,I.tick);}))
+      t.exits=m.exits.map(function(x){return {price:x.price,qty:x.qty,ms:x.ms};});
+  });
   return {trades:base.sort(function(a,b){return a.start-b.start;}),source:orders.length?'ordres':(perf.length?'performance':null),nOrders:orders.length,nPerf:perf.length,unknown:unknown,empty:empty};
 }
 function tvKey(t){return 'tv:'+t.contract+':'+t.start+':'+(t.firstId||'');}
@@ -4512,7 +4542,7 @@ function tvImportPreview(){
   var rows=B.trades.map(function(r){
     var root=tvRoot(r.contract),I=INSTR[root],dup=!!known[tvKey(r)],q=r.entries.reduce(function(s,x){return s+x.qty;},0);
     var st=!I?'<span class="badge bm">non suivi</span>':dup?'<span class="badge bm">déjà importé</span>':r.open?'<span class="badge by">encore ouvert</span>':'<span class="badge bg">nouveau</span>';
-    var warn=[];if(I&&r.sl===null)warn.push('SL introuvable');if(I&&r.tp===null)warn.push('TP introuvable');
+    var warn=[];if(I&&r.slMoved)warn.push('stop remonté : SL de départ à saisir');else if(I&&r.sl===null)warn.push('SL introuvable');if(I&&r.tp===null)warn.push('TP introuvable');
     var net=null;if(I&&!r.open){var e=tvAvg(r.entries);net=r.exits.reduce(function(s,x){return s+(x.price-e)*r.dir*x.qty*I.pv;},0)-(num(acc&&acc.fees&&acc.fees[root])||0)*q;}
     return '<tr><td style="white-space:nowrap">'+frDT(msToZoned(r.start,PARIS))+'</td><td>'+esc(r.contract)+'</td><td><span class="badge '+(r.dir>0?'bg':'br')+'">'+(r.dir>0?'Long':'Short')+'</span></td><td class="mono">'+q+'</td>'
       +'<td class="mono">'+fmtN(tvAvg(r.entries),2)+'</td><td class="mono">'+(r.sl!==null?fmtN(r.sl,2):'·')+'</td><td class="mono">'+(r.tp!==null?fmtN(r.tp,2):'·')+'</td><td class="mono">'+r.exits.length+'</td>'
@@ -5148,6 +5178,24 @@ function runEngineTests(){
   ok('Import Tradovate (performance seule) : les 2 lignes deviennent 1 trade de 2 contrats, P&L Tradovate 120 $',tvP.length===1&&tvP[0].exits.length===2&&near(tvP[0].pnl,120)&&tvNum('$(20.00)')===-20);
   var tvAcc=Object.assign({},acc,{riskPerTrade:250,fees:{}}),tvT=tvToV2(tvR,tvAcc,{S:S,CL:CL}),tvB=buildCompute([tvT],[tvAcc],S,CL).byId[tvT.id];
   ok('Import Tradovate : trade v2 du 14/10 à 15:41 Paris, net 120 $, R du compte 0,48, à documenter',tvT.entryAt==='2026-10-14T15:41'&&tvT.instrument==='MNQ'&&tvT.status==='open'&&near(tvB.c.net,120)&&near(tvB.c.rAccount,0.48)&&tvKey(tvR)===tvKey(tvBuild([{name:'o.csv',text:ORD}],PARIS).trades[0]));
+  // Import Tradovate (14/10/2026) : stop remonté au BE, ordres de deux trades qui se suivent, exécutions hors tick
+  var row=function(id,bs,avg,q,fill,st,ts,type,lim,stp){return [id,'LFE1',id,' '+bs,'MNQZ6','MNQ','Micro E-mini Nasdaq-100',avg,q,fill,id,st,-2,0,0.25,'',id,ts,'10/14/26',q,'',type,lim,stp,lim,stp,q,avg,avg].join(',');};
+  var ORD2=[OH,row('2001','Buy','21000',7,'10/14/2026 15:40:00','Filled','10/14/2026 15:40:00','Market','',''),
+    row('2002','Sell','',0,'','Canceled','10/14/2026 15:40:00','Limit','21040',''),
+    row('2003','Sell','21000.5',7,'10/14/2026 15:41:00','Filled','10/14/2026 15:40:50','Stop','','21000.5'),
+    row('2004','Buy','21010',7,'10/14/2026 15:41:20','Filled','10/14/2026 15:41:20','Market','',''),
+    row('2005','Sell','',0,'','Canceled','10/14/2026 15:41:20','Limit','21050',''),
+    row('2006','Sell','20990',7,'10/14/2026 15:44:00','Filled','10/14/2026 15:42:00','Stop','','20990')].join('\n');
+  var T2=tvBuild([{name:'Orders.csv',text:ORD2}],PARIS).trades;
+  ok('Import Tradovate : stop remonté au BE reconnu, SL de départ laissé à saisir',T2.length===2&&T2[0].sl===null&&T2[0].slMoved&&T2[0].slFinal===21000.5&&T2[0].tp===21040);
+  ok('Import Tradovate : le 2e trade garde ses propres ordres (SL 20 990, TP 21 050)',T2[1].sl===20990&&T2[1].tp===21050&&!T2[1].slMoved);
+  var ORD3=[OH,row('3001','Sell','21000',2,'10/14/2026 16:00:00','Filled','10/14/2026 16:00:00','Market','',''),
+    row('3002','Buy','20990.125',2,'10/14/2026 16:05:00','Filled','10/14/2026 16:04:00','Stop','','20990')].join('\n');
+  var PERF3=[PH,'MNQZ6,-2,0,0.25,6001,6000,1,20990.00,21000,$20.00,10/14/2026 16:05:00,10/14/2026 16:00:00,5min','MNQZ6,-2,0,0.25,6002,6000,1,20990.25,21000,$19.50,10/14/2026 16:05:00,10/14/2026 16:00:00,5min'].join('\n');
+  var T3=tvBuild([{name:'Orders.csv',text:ORD3},{name:'Performance.csv',text:PERF3}],PARIS).trades[0];
+  ok('Import Tradovate : sortie à prix moyen hors tick remplacée par les vraies exécutions (20 990 et 20 990,25)',T3.exits.length===2&&T3.exits[0].price===20990&&T3.exits[1].price===20990.25&&near(T3.pnl,39.5));
+  var stI=accountState(tvAcc,buildCompute([tvT],[tvAcc],S,CL)),itI=buildCompute([tvT],[tvAcc],S,CL).byId[tvT.id];
+  ok('Import Tradovate : trade importé à plat compté dans le solde sans garde-fous avancés, pas encore « hors playbook »',!S.guardV3&&near(stI.balance,50120)&&stI.nClosed===1&&itI.c.deviations.indexOf('offPlaybook')<0);
   var mll=function(days){var T=days.map(function(d,i){return mk({id:'d'+i,instrument:'MNQ',entry:21000,slInitial:20000,tpInitial:22000,contracts:1,entryAt:d[0]+'T15:40',exits:[{price:21000+d[1]/2,contracts:1,at:d[0]+'T16:00'}]});});return accountState(acc,buildCompute(T,[acc],S,CL));};
   var m1=mll([['2026-09-01',1200]]),m2=mll([['2026-09-01',1200],['2026-09-02',1000]]);
   ok('MLL trailing : +1 200 $ le jour 1 = seuil 49 200 $',near(m1.mll,49200));
@@ -5312,7 +5360,7 @@ function bilanItems(C){
 function bilanAuto(key,C){
   C=C||v2Compute();
   var L=bilanItems(C).filter(function(it){return it.c.dayKey+'·'+it.c.sessionId===key;});
-  var done=L.filter(function(it){return it.t.status==='closed'&&it.c.net!==null;}),devs={},rT=0,rOk=true;
+  var done=L.filter(function(it){return isDone(it,C.S)&&it.c.net!==null;}),devs={},rT=0,rOk=true;
   L.forEach(function(it){(it.c.deviations||[]).forEach(function(d){devs[d]=(devs[d]||0)+1;});});
   done.forEach(function(it){if(it.c.rAccount===null)rOk=false;else rT+=it.c.rAccount;});
   var cnt=function(o){return done.filter(function(it){return it.c.outcome===o;}).length;};
