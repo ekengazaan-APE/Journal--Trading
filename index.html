@@ -1011,7 +1011,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.9 · import Tradovate fiable · 14/10/2026';
+var APP_BUILD='v2.9.1 · import Tradovate fiable, contexte hors Netlify · 14/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -1493,6 +1493,7 @@ function tdAddLevel(sym,i){
 // jours de semaine vers 13h50) : marqueurs macro, analyses économique, fondamentale, géopolitique,
 // annonces déjà sorties. Le journal ne fait que l'afficher : aucune tâche n'écrit dans le journal.
 var CTX={wk:'',data:null,err:'',loading:false};
+var CTX_RAW='https://raw.githubusercontent.com/ekengazaan-APE/Journal--Trading/contexte/data/contexte/';
 function ctxUrl(u){u=String(u||'');return /^https:\/\//i.test(u)?u:'';}
 function ctxLoad(wk,force){
   if(CTX.loading&&CTX.wk===wk)return;
@@ -1500,8 +1501,11 @@ function ctxLoad(wk,force){
   CTX.wk=wk;CTX.data=null;CTX.err='';
   if(!/^https?:$/.test(location.protocol)){CTX.err='Le contexte automatique ne s’affiche que sur le site en ligne.';ctxPaint();return;}
   CTX.loading=true;ctxPaint();
-  fetch('/data/contexte/'+wk+'.json?v='+Date.now(),{cache:'no-store'})
-    .then(function(r){if(r.status===404)throw new Error('absent');if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+  // 14/10/2026 : le contexte est écrit sur la branche « contexte » du dépôt, lue directement sur GitHub.
+  // Une mise à jour quotidienne ne déclenche donc plus de mise en ligne Netlify (15 crédits chacune).
+  // Repli sur le fichier servi par le site (anciennes semaines).
+  var get=function(u){return fetch(u,{cache:'no-store'}).then(function(r){if(r.status===404)throw new Error('absent');if(!r.ok)throw new Error('HTTP '+r.status);return r.json();});};
+  get(CTX_RAW+wk+'.json?v='+Date.now()).catch(function(){return get('/data/contexte/'+wk+'.json?v='+Date.now());})
     .then(function(j){if(CTX.wk===wk)CTX.data=j;})
     .catch(function(e){if(CTX.wk===wk)CTX.err=e.message==='absent'?'Pas encore de contexte automatique pour cette semaine : il arrive le dimanche à 17h.':'Contexte indisponible pour le moment ('+e.message+').';})
     .then(function(){CTX.loading=false;ctxPaint();});
