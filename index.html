@@ -1011,7 +1011,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.9.2 · règle du SL de l’OPR · 15/10/2026';
+var APP_BUILD='v2.9.3 · import sans doublon · 15/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -4503,6 +4503,10 @@ function tvBuild(files,tz){
   return {trades:base.sort(function(a,b){return a.start-b.start;}),source:orders.length?'ordres':(perf.length?'performance':null),nOrders:orders.length,nPerf:perf.length,unknown:unknown,empty:empty};
 }
 function tvKey(t){return 'tv:'+t.contract+':'+t.start+':'+(t.firstId||'');}
+// Trades déjà importés, quelle que soit la source (Ordres ou Performance) : contrat, sens, heure d'entrée.
+// Les numéros diffèrent d'un fichier à l'autre (ordre ou exécution), ils ne servent donc pas à reconnaître un doublon.
+function tvSeen(trades){var out=[];(trades||[]).forEach(function(t){if(!t||!t.importKey||t.deletedAt)return;var p=String(t.importKey).split(':');var ms=+p[2];if(p[0]==='tv'&&p[1]&&isFinite(ms))out.push({c:p[1],ms:ms,dir:t.side==='Short'?-1:1});});return out;}
+function tvIsKnown(seen,r){return seen.some(function(s){return s.c===r.contract&&s.dir===r.dir&&Math.abs(s.ms-r.start)<=5000;});}
 function tvRoundTick(x,tick){return Math.round(x/tick)*tick;}
 function tvToV2(r,acc,C){
   var root=tvRoot(r.contract),I=INSTR[root];if(!I)return null;
@@ -4526,7 +4530,7 @@ function tvImportOpen(){
   document.getElementById('modal-title').textContent='IMPORT TRADOVATE';
   document.getElementById('modal').classList.add('wide');
   var tz=tvTz();
-  document.getElementById('modal-body').innerHTML='<div class="v2-note">Dans Tradovate : Rapports, onglets <b>Ordres</b> et <b>Performance</b>, choisis la période puis exporte en CSV. Dépose les deux fichiers ici. Un fichier déjà importé ne crée pas de doublon.</div>'
+  document.getElementById('modal-body').innerHTML='<div class="v2-note">Dans Tradovate : Rapports, onglets <b>Ordres</b> et <b>Performance</b>, choisis la période puis exporte en CSV. Dépose les deux fichiers <b>en même temps</b> (le fichier Ordres seul suffit, la Performance sert de contrôle). Un trade déjà importé, depuis l’un ou l’autre fichier, n’est jamais importé deux fois.</div>'
     +'<div class="form-grid" style="margin-top:10px"><div class="form-group"><label>COMPTE</label><select id="tvi-acc" onchange="_tvi.accountId=this.value;tvImportPreview()">'+accs.map(function(a){return '<option value="'+esc(a.id)+'"'+(a.id===_tvi.accountId?' selected':'')+'>'+esc(a.name)+'</option>';}).join('')+'</select></div>'
     +'<div class="form-group"><label>HEURE DES FICHIERS TRADOVATE</label><select id="tvi-tz" onchange="try{localStorage.setItem(\'ui_tvTz\',this.value)}catch(e){};tvImportPreview()">'+[[PARIS,'Heure de Paris'],[NYC,'Heure de New York'],['UTC','UTC']].map(function(z){return '<option value="'+z[0]+'"'+(z[0]===tz?' selected':'')+'>'+z[1]+'</option>';}).join('')+'</select></div>'
     +'<div class="form-group"><label>FICHIERS CSV</label><input type="file" id="tvi-files" accept=".csv,text/csv" multiple onchange="tvImportRead(this.files)"></div></div>'
@@ -4543,10 +4547,10 @@ function tvImportPreview(){
   if(!_tvi.files.length){el.innerHTML='';return;}
   var C=v2Compute(),acc=C.accById[_tvi.accountId],tz=(document.getElementById('tvi-tz')||{}).value||tvTz();
   var B=tvBuild(_tvi.files,tz);_tvi.build=B;
-  var known={};C.trades.forEach(function(t){if(t&&t.importKey)known[t.importKey]=1;});
+  var seen=tvSeen(C.trades);
   if(!B.trades.length){el.innerHTML='<div class="v2-warn" style="font-size:13px">Aucun trade trouvé dans '+_tvi.files.length+' fichier'+(_tvi.files.length>1?'s':'')+'.'+(B.unknown.length?' Fichier non reconnu : '+esc(B.unknown.join(', '))+'. Exporte depuis Tradovate, Rapports, onglets Ordres et Performance.':'')+(B.empty.length?' '+(B.empty.length>1?'Les fichiers sont vides':'Le fichier '+esc(B.empty[0])+' est vide')+' : aucun ordre exécuté sur la période choisie. C’est normal tant que tu n’as pas tradé.':'')+'</div>';return;}
   var rows=B.trades.map(function(r){
-    var root=tvRoot(r.contract),I=INSTR[root],dup=!!known[tvKey(r)],q=r.entries.reduce(function(s,x){return s+x.qty;},0);
+    var root=tvRoot(r.contract),I=INSTR[root],dup=tvIsKnown(seen,r),q=r.entries.reduce(function(s,x){return s+x.qty;},0);
     var st=!I?'<span class="badge bm">non suivi</span>':dup?'<span class="badge bm">déjà importé</span>':r.open?'<span class="badge by">encore ouvert</span>':'<span class="badge bg">nouveau</span>';
     var warn=[];if(I&&r.slMoved)warn.push('stop remonté : SL de départ à saisir');else if(I&&r.sl===null)warn.push('SL introuvable');if(I&&r.tp===null)warn.push('TP introuvable');
     var net=null;if(I&&!r.open){var e=tvAvg(r.entries);net=r.exits.reduce(function(s,x){return s+(x.price-e)*r.dir*x.qty*I.pv;},0)-(num(acc&&acc.fees&&acc.fees[root])||0)*q;}
@@ -4555,15 +4559,15 @@ function tvImportPreview(){
       +'<td class="mono" style="color:'+((net||0)>=0?'var(--green)':'var(--red)')+'">'+(net!==null?fmtUSD(net,true):'·')+(r.pnl!==undefined?'<div style="font-size:12px;color:var(--muted)">Tradovate '+fmtUSD(r.pnl,true)+'</div>':'')+'</td>'
       +'<td>'+st+(warn.length?'<div style="font-size:12px;color:var(--yellow)">'+warn.join(' · ')+'</div>':'')+'</td></tr>';
   }).join('');
-  var nNew=B.trades.filter(function(r){return INSTR[tvRoot(r.contract)]&&!known[tvKey(r)];}).length;
+  var nNew=B.trades.filter(function(r){return INSTR[tvRoot(r.contract)]&&!tvIsKnown(seen,r);}).length;
   el.innerHTML='<div style="font-size:13px;color:var(--muted);margin-bottom:8px">Source : '+B.source+' · '+B.nOrders+' ligne'+(B.nOrders>1?'s':'')+' d’ordres, '+B.nPerf+' de performance. Vérifie l’heure du premier trade : si elle est décalée, change l’heure des fichiers.</div>'
     +'<div style="overflow-x:auto"><table><thead><tr><th>Entrée (Paris)</th><th>Contrat</th><th>Sens</th><th>Ct</th><th>Prix</th><th>SL</th><th>TP</th><th>Sorties</th><th>P&L net</th><th>État</th></tr></thead><tbody>'+rows+'</tbody></table></div>'
     +'<div class="modal-footer"><button class="btn btn-ghost" onclick="closeModal()">Annuler</button><button class="btn btn-primary" '+(nNew?'':'disabled')+' onclick="tvImportCommit()">Importer '+nNew+' trade'+(nNew>1?'s':'')+'</button></div>';
 }
 function tvImportCommit(){
   if(!_tvi||!_tvi.build)return;var C=v2Compute(),acc=C.accById[_tvi.accountId];if(!acc){toast('Choisis un compte','err');return;}
-  var known={};C.trades.forEach(function(t){if(t&&t.importKey)known[t.importKey]=1;});
-  var add=_tvi.build.trades.filter(function(r){return INSTR[tvRoot(r.contract)]&&!known[tvKey(r)];}).map(function(r){return tvToV2(r,acc,C);}).filter(Boolean);
+  var seen=tvSeen(C.trades);
+  var add=_tvi.build.trades.filter(function(r){return INSTR[tvRoot(r.contract)]&&!tvIsKnown(seen,r);}).map(function(r){return tvToV2(r,acc,C);}).filter(Boolean);
   if(!add.length){toast('Rien de nouveau à importer');return;}
   DB.trades=DB.trades.concat(add);
   closeModal();_tvi=null;
@@ -5205,6 +5209,8 @@ function runEngineTests(){
   var PERF3=[PH,'MNQZ6,-2,0,0.25,6001,6000,1,20990.00,21000,$20.00,10/14/2026 16:05:00,10/14/2026 16:00:00,5min','MNQZ6,-2,0,0.25,6002,6000,1,20990.25,21000,$19.50,10/14/2026 16:05:00,10/14/2026 16:00:00,5min'].join('\n');
   var T3=tvBuild([{name:'Orders.csv',text:ORD3},{name:'Performance.csv',text:PERF3}],PARIS).trades[0];
   ok('Import Tradovate : sortie à prix moyen hors tick remplacée par les vraies exécutions (20 990 et 20 990,25)',T3.exits.length===2&&T3.exits[0].price===20990&&T3.exits[1].price===20990.25&&near(T3.pnl,39.5));
+  var seenO=tvSeen([Object.assign({},tvT,{importKey:tvKey(tvR)})]),tvP0=tvBuild([{name:'Performance.csv',text:PERF}],PARIS).trades[0];
+  ok('Import Tradovate : un trade déjà importé depuis les Ordres est reconnu dans la Performance (aucun doublon)',tvIsKnown(seenO,tvP0)&&tvKey(tvP0)!==tvKey(tvR));
   var stI=accountState(tvAcc,buildCompute([tvT],[tvAcc],S,CL)),itI=buildCompute([tvT],[tvAcc],S,CL).byId[tvT.id];
   ok('Import Tradovate : trade importé à plat compté dans le solde sans garde-fous avancés, pas encore « hors playbook »',!S.guardV3&&near(stI.balance,50120)&&stI.nClosed===1&&itI.c.deviations.indexOf('offPlaybook')<0);
   var mll=function(days){var T=days.map(function(d,i){return mk({id:'d'+i,instrument:'MNQ',entry:21000,slInitial:20000,tpInitial:22000,contracts:1,entryAt:d[0]+'T15:40',exits:[{price:21000+d[1]/2,contracts:1,at:d[0]+'T16:00'}]});});return accountState(acc,buildCompute(T,[acc],S,CL));};

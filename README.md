@@ -23,6 +23,7 @@ Journal de trading en un seul fichier (`index.html`), hébergé sur Netlify et s
 - v2.9 · 14/10/2026 · import Tradovate testé sur de vrais exports : prix exacts (et non arrondis), ordres rattachés au bon trade par leur numéro, stop remonté au BE reconnu (le SL de départ reste à saisir), exécutions réelles reprises quand un prix moyen tombe hors tick. Un trade importé à plat compte tout de suite dans le solde, le MLL et les règles du jour, même sans garde-fous avancés ; il n'est pas noté hors playbook tant qu'il n'est pas documenté. Checklist OPR : taille en ticks MGC et critère du SL.
 - v2.9.1 · 14/10/2026 · le contexte Top-down est écrit sur la branche `contexte` et lu sur raw.githubusercontent.com : les mises à jour quotidiennes ne consomment plus de crédits Netlify (15 par mise en ligne, 300 par mois sur le plan gratuit).
 - v2.9.2 · 15/10/2026 · checklist OPR : SL obligatoire dans l'OPR, sur la bougie de cassure ou sous une liquidité (mèche, gap) si elle est trop courte. Bouton dans Réglages pour remplacer une checklist OPR personnelle par la version détaillée (l'ancienne est gardée en copie).
+- v2.9.3 · 15/10/2026 · import Tradovate sans doublon entre fichiers : un trade déjà importé depuis les Ordres n'est pas réimporté depuis la Performance (et inversement), reconnu par contrat, sens et heure d'entrée à 5 secondes près.
 
 ## Garde-fous avancés (v2.1)
 
