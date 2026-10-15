@@ -1011,7 +1011,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.9.1 · import Tradovate fiable, contexte hors Netlify · 14/10/2026';
+var APP_BUILD='v2.9.2 · règle du SL de l’OPR · 15/10/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -3714,7 +3714,7 @@ function OPR_MGC_CRITERIA(){return [
     {id:'rsiOk',label:'RSI 7 : pas au-dessus de 95 pour un achat, pas sous 35 pour une vente',weight:2,required:true},
     {id:'before4',label:'Entrée avant 4h00 (Paris)',weight:2,required:true},
     {id:'trendOrLiq',label:'Dans la tendance, ou contre elle avec une liquidité au-delà de 2R dans une zone intéressante',weight:2,required:true},
-    {id:'slBreak',label:'SL sur la bougie de cassure, si elle n’est pas trop courte',weight:2,required:false},
+    {id:'slBreak',label:'SL dans l’OPR : sur la bougie de cassure, ou sous une liquidité (mèche, gap) si elle est trop courte',weight:2,required:true},
     {id:'tp2R',label:'TP fixe à 2R',weight:1,required:true},
     {id:'window',label:'Dans la fenêtre horaire',weight:1,required:false,auto:'window'}];}
 function getChecklists(){var c=DB._l('tj_checklists',null);return (c&&c.playbooks)?c:CHECKLISTS_DEFAULT();}
@@ -4014,7 +4014,9 @@ function ensureV2Init(){
     // seulement sur la checklist livrée le 13/10 et jamais modifiée sur ces points
     if(_opr&&_opr.criteria&&_opr.criteria.length){var _ch=false,_ids=_opr.criteria.map(function(c){return c.id;});
       _opr.criteria.forEach(function(c){if(c.id==='oprSize'&&c.label==='Taille de l’OPR entre 300 et 1 900 sur l’indicateur'){c.label='Taille de l’OPR entre 30 et 190 ticks MGC (300 à 1 900 sur l’indicateur)';_ch=true;}});
-      if(_ids.indexOf('slBreak')<0&&_ids.indexOf('oprTrace')>=0&&_ids.indexOf('tp2R')>=0){_opr.criteria.splice(_ids.indexOf('tp2R'),0,{id:'slBreak',label:'SL sur la bougie de cassure, si elle n’est pas trop courte',weight:2,required:false});_ch=true;}
+      if(_ids.indexOf('slBreak')<0&&_ids.indexOf('oprTrace')>=0&&_ids.indexOf('tp2R')>=0){_opr.criteria.splice(_ids.indexOf('tp2R'),0,{id:'slBreak',label:'SL dans l’OPR : sur la bougie de cassure, ou sous une liquidité (mèche, gap) si elle est trop courte',weight:2,required:true});_ch=true;}
+      // 15/10/2026 : SL toujours dans l'OPR, sur une liquidité si la bougie de cassure est trop courte
+      _opr.criteria.forEach(function(c){if(c.id==='slBreak'&&c.label==='SL sur la bougie de cassure, si elle n’est pas trop courte'){c.label='SL dans l’OPR : sur la bougie de cassure, ou sous une liquidité (mèche, gap) si elle est trop courte';c.required=true;_ch=true;}});
       if(_ch)DB._s('tj_checklists',_cl);}
   }catch(e){}finally{_syncApplying=prev;}
 }
@@ -4978,6 +4980,7 @@ function settingsPage(){
       +pb.criteria.map(function(c,ci){return '<tr><td><input data-c="'+pi+'.'+ci+'.label" value="'+esc(c.label)+'"></td><td><input data-c="'+pi+'.'+ci+'.weight" value="'+esc(c.weight)+'" inputmode="decimal" style="width:60px"></td>'
         +'<td><input type="checkbox" data-c="'+pi+'.'+ci+'.required" '+(c.required?'checked':'')+'></td><td><input type="checkbox" data-c="'+pi+'.'+ci+'.auto" '+(c.auto==='window'?'checked':'')+'></td><td><button class="btn btn-ghost btn-sm" onclick="stDelCrit('+pi+','+ci+')">✕</button></td></tr>';}).join('')
       +'</tbody></table><button class="btn btn-ghost btn-sm" style="margin-top:8px" onclick="stAddCrit('+pi+')">+ Critère</button>'
+      +(pb.id==='opr-asia-mgc'&&pb.criteria.map(function(c){return c.id;}).join()!==OPR_MGC_CRITERIA().map(function(c){return c.id;}).join()?' <button class="btn btn-ghost btn-sm" style="margin-top:8px" onclick="stOprDetail('+pi+')">Remplacer par la checklist OPR détaillée</button>':'')
       +(pb.criteria.length?'':'<div class="v2-note warn" style="margin-top:8px">Aucun critère : les trades de ce playbook n’auront pas de note.</div>')+'</div>';
   }).join('');
   var num2=function(k,v,l,sub){return '<div class="form-group"><label>'+l+'</label><input data-s="'+k+'" value="'+esc(v)+'" inputmode="decimal">'+(sub?'<div style="font-size:12px;color:var(--muted)">'+sub+'</div>':'')+'</div>';};
@@ -5094,6 +5097,10 @@ function stCollect(){
 function stSave(){var r=stCollect();if(r.E.length){toast(r.E[0],'err');return;}saveSettings(r.S);saveChecklists(r.CL);toast('Réglages enregistrés');nav('settings');}
 function stEdit(fn){var r=stCollect();fn(r.CL);saveChecklists(r.CL);if(!r.E.length)saveSettings(r.S);nav('settings');}
 function stAddCrit(pi){stEdit(function(CL){CL.playbooks[pi].criteria.push({id:'c'+uid().slice(-6),label:'Nouveau critère',weight:1,required:false});});}
+// Checklist OPR détaillée (règles données le 13, 14 et 15/10) ; l'ancienne liste est gardée dans criteriaOld
+function stOprDetail(pi){var CL=getChecklists(),pb=CL.playbooks[pi];if(!pb)return;
+  if(!confirm('Remplacer les '+pb.criteria.length+' critères actuels de « '+pb.name+' » par la checklist OPR détaillée ('+OPR_MGC_CRITERIA().length+' critères) ?\n\nTes critères actuels sont gardés en copie.'))return;
+  stEdit(function(C2){var p2=C2.playbooks[pi];p2.criteriaOld=JSON.parse(JSON.stringify(p2.criteria));p2.criteria=OPR_MGC_CRITERIA();});toast('Checklist OPR détaillée en place');}
 function stDelCrit(pi,ci){stEdit(function(CL){CL.playbooks[pi].criteria.splice(ci,1);});}
 function stAddPlaybook(){stEdit(function(CL){CL.playbooks.push({id:'pb'+uid().slice(-6),name:'Nouveau playbook',instruments:['MNQ'],sessionId:'ny',criteria:[]});});}
 function stDelPlaybook(pi){if(!confirm('Supprimer ce playbook ?'))return;stEdit(function(CL){CL.playbooks.splice(pi,1);});}
