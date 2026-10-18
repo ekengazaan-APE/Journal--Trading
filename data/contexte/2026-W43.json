@@ -1,0 +1,179 @@
+{
+  "v": 1,
+  "semaine": "2026-W43",
+  "periode": "du lundi 19/10 au vendredi 23/10",
+  "majA": "2026-10-18T17:01:05+02:00",
+  "mode": "hebdo",
+  "note": "VIX : variation sur 5 jours non trouvée. WTI : dernière valeur Alpha Vantage du 14/10.",
+  "marqueurs": [
+    {
+      "id": "dxy",
+      "nom": "Dollar (DXY)",
+      "valeur": "101,78",
+      "variation": "−0,3 % sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Un dollar plus faible pourrait soutenir l'or (MGC) et alléger un peu la pression sur les indices.",
+      "date": "clôture du 16/10",
+      "source": {
+        "titre": "Stocktwits · Weekly Spread, taux et dollar",
+        "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week-1/cZxjAkARBt3"
+      }
+    },
+    {
+      "id": "us10y",
+      "nom": "Taux à 10 ans US",
+      "valeur": "5,097 %",
+      "variation": "−0,146 pt sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Le 10 ans reste au-dessus de 5 % : un rebond des taux pourrait peser sur MNQ, une détente pourrait le soulager.",
+      "date": "clôture du 16/10",
+      "source": {
+        "titre": "Investrade · Market Review, 16/10/2026",
+        "url": "https://investrade.com/market-review-october-16-2026/"
+      }
+    },
+    {
+      "id": "us02y",
+      "nom": "Taux à 2 ans US",
+      "valeur": "4,734 %",
+      "variation": "−0,055 pt sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Le 2 ans reflète les paris de hausse Fed : une remontée pourrait refroidir MES et MNQ.",
+      "date": "clôture du 16/10",
+      "source": {
+        "titre": "Investrade · Market Review, 16/10/2026",
+        "url": "https://investrade.com/market-review-october-16-2026/"
+      }
+    },
+    {
+      "id": "vix",
+      "nom": "VIX",
+      "valeur": "19,99",
+      "variation": "",
+      "sens": "hausse",
+      "lecture": "VIX en hausse de 21,45 % vendredi : des séances plus nerveuses pourraient élargir les ranges sur MNQ et MES.",
+      "date": "clôture du 16/10",
+      "source": {
+        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
+      }
+    },
+    {
+      "id": "fedwatch",
+      "nom": "Probabilités Fed (FedWatch)",
+      "valeur": "87,3 % maintien le 28/10",
+      "variation": "",
+      "sens": "stable",
+      "lecture": "Une hausse surprise le 28/10 reste possible : un repricing pourrait secouer les indices et l'or.",
+      "date": "17/10",
+      "source": {
+        "titre": "Stockpil · Warsh et la réunion Fed d'octobre",
+        "url": "https://stockpil.com/warsh-october-fed-hold-rate-decision"
+      }
+    },
+    {
+      "id": "wti",
+      "nom": "Pétrole WTI",
+      "valeur": "101,91 $",
+      "variation": "+7,3 % sur 5 jours",
+      "sens": "hausse",
+      "lecture": "Un pétrole au-dessus de 100 $ pourrait nourrir l'inflation et les paris de hausse Fed, plutôt lourd pour les indices.",
+      "date": "clôture du 14/10",
+      "source": {
+        "titre": "Alpha Vantage · EIA",
+        "url": "https://www.alphavantage.co/documentation/"
+      }
+    },
+    {
+      "id": "feargreed",
+      "nom": "Peur et cupidité (CNN)",
+      "valeur": "28 · peur",
+      "variation": "−18 sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Sentiment proche de la peur extrême : les mouvements pourraient être brusques dans les deux sens.",
+      "date": "16/10 vers 17h50",
+      "source": {
+        "titre": "24/7 Wall St. · Sentiment proche de la peur extrême",
+        "url": "https://247wallst.com/investing/2026/10/16/coreweave-and-nebius-sink-9-as-sentiment-index-closes-in-on-extreme-fear"
+      }
+    }
+  ],
+  "eco": {
+    "points": [
+      "Fed : taux à 3,75 % à 4 % après la hausse de septembre. Prochaine décision le 28/10.",
+      "Inflation chaude : CPI à 3,7 % sur un an en septembre, PPI à 6,3 %.",
+      "Ventes au détail de septembre à +0,8 %, au-dessus des +0,3 % attendus. Inscriptions chômage à 199 000.",
+      "Warsh n'a donné aucun signal sur les taux. FedWatch : environ 17 % de chances de hausse fin octobre.",
+      "Semaine calme côté chiffres : logement mardi, PMI flash et Michigan final vendredi."
+    ],
+    "sources": [
+      {
+        "titre": "Stockpil · Warsh et la réunion Fed d'octobre",
+        "url": "https://stockpil.com/warsh-october-fed-hold-rate-decision"
+      },
+      {
+        "titre": "Benzinga · Dow +550 points, indice de peur",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62403453/dow-jumps-over-550-points-following-economic-data-investor-sentiment-improves-but-fear-greed-index-remains-in-fear-zone"
+      },
+      {
+        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
+      },
+      {
+        "titre": "Investrade · Calendrier du 19/10 au 23/10/2026",
+        "url": "https://investrade.com/weekly-event-calendar-10-19-2026-10-23-2026/"
+      }
+    ]
+  },
+  "fonda": {
+    "points": [
+      "Risk-off sur la tech : Nasdaq −4,48 % sur la semaine, S&P 500 −1,95 %, Dow +0,67 %.",
+      "Doutes sur les coûts de l'IA : semi-conducteurs (SOXX) en baisse 8 séances de suite, −12,6 % depuis le 02/10.",
+      "CoreWeave sous pression, obligations à 15 % de rendement : le crédit des neoclouds inquiète.",
+      "Résultats clés : Netflix mardi soir, Tesla, Meta, IBM, Texas Instruments et Lam Research mercredi soir.",
+      "Sentiment CNN à 28, contre 46 une semaine plus tôt."
+    ],
+    "sources": [
+      {
+        "titre": "Investrade · Market Review, 16/10/2026",
+        "url": "https://investrade.com/market-review-october-16-2026/"
+      },
+      {
+        "titre": "24/7 Wall St. · Sentiment proche de la peur extrême",
+        "url": "https://247wallst.com/investing/2026/10/16/coreweave-and-nebius-sink-9-as-sentiment-index-closes-in-on-extreme-fear"
+      },
+      {
+        "titre": "Investrade · Calendrier du 19/10 au 23/10/2026",
+        "url": "https://investrade.com/weekly-event-calendar-10-19-2026-10-23-2026/"
+      },
+      {
+        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
+      }
+    ]
+  },
+  "geo": {
+    "points": [
+      "Guerre en Iran dans son 8e mois : l'offre du Golfe reste surveillée.",
+      "Houthis : attaques contre l'Arabie saoudite. Brent à 109,86 $, plus haut depuis mi-mai.",
+      "Frappes ukrainiennes sur les raffineries russes : le diesel reste rare.",
+      "AIE : plus de 20 millions de barils libérés. G7 : 100 millions de barils de réserves promis.",
+      "Or à 4 181,10 $ vendredi, +0,26 %, avec un pétrole tiré par le Moyen-Orient."
+    ],
+    "sources": [
+      {
+        "titre": "The National · Le pétrole touche 110 $",
+        "url": "https://www.thenationalnews.com/business/energy/2026/10/16/oil-prices-ease-but-head-for-another-weekly-gain-on-middle-east-supply-concerns/"
+      },
+      {
+        "titre": "Investrade · Market Review, 16/10/2026",
+        "url": "https://investrade.com/market-review-october-16-2026/"
+      },
+      {
+        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
+        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
+      }
+    ]
+  },
+  "sorties": []
+}
