@@ -2,9 +2,9 @@
   "v": 1,
   "semaine": "2026-W43",
   "periode": "du lundi 19/10 au vendredi 23/10",
-  "majA": "2026-10-18T17:01:05+02:00",
-  "mode": "hebdo",
-  "note": "VIX : variation sur 5 jours non trouvée. WTI : dernière valeur Alpha Vantage du 14/10.",
+  "majA": "2026-10-19T13:57:20+02:00",
+  "mode": "quotidien",
+  "note": "DXY, taux à 2 ans, VIX et peur et cupidité : pas de valeur trouvée ce lundi, ce sont celles du vendredi 16/10.",
   "marqueurs": [
     {
       "id": "dxy",
@@ -22,14 +22,14 @@
     {
       "id": "us10y",
       "nom": "Taux à 10 ans US",
-      "valeur": "5,097 %",
-      "variation": "−0,146 pt sur 5 jours",
+      "valeur": "5,0812 %",
+      "variation": "−0,016 pt depuis la clôture du 16/10",
       "sens": "baisse",
-      "lecture": "Le 10 ans reste au-dessus de 5 % : un rebond des taux pourrait peser sur MNQ, une détente pourrait le soulager.",
-      "date": "clôture du 16/10",
+      "lecture": "Le 10 ans se détend un peu mais reste au-dessus de 5 % : une détente pourrait soutenir MNQ, un rebond pourrait le freiner.",
+      "date": "19/10 vers 13h40",
       "source": {
-        "titre": "Investrade · Market Review, 16/10/2026",
-        "url": "https://investrade.com/market-review-october-16-2026/"
+        "titre": "Marketscreener · Reuters, futures en hausse, pétrole et taux en baisse",
+        "url": "https://www.marketscreener.com/news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-ce785cdbd889f325"
       }
     },
     {
@@ -61,27 +61,27 @@
     {
       "id": "fedwatch",
       "nom": "Probabilités Fed (FedWatch)",
-      "valeur": "87,3 % maintien le 28/10",
+      "valeur": "84 % maintien le 28/10",
       "variation": "",
       "sens": "stable",
-      "lecture": "Une hausse surprise le 28/10 reste possible : un repricing pourrait secouer les indices et l'or.",
-      "date": "17/10",
+      "lecture": "Le maintien reste le scénario dominant : un repricing vers la hausse pourrait secouer les indices et l'or.",
+      "date": "19/10",
       "source": {
-        "titre": "Stockpil · Warsh et la réunion Fed d'octobre",
-        "url": "https://stockpil.com/warsh-october-fed-hold-rate-decision"
+        "titre": "NordFX · Market Pulse, 19/10/2026",
+        "url": "https://nordfx.com/market-news/market-pulse-october-19-2026"
       }
     },
     {
       "id": "wti",
       "nom": "Pétrole WTI",
-      "valeur": "101,91 $",
-      "variation": "+7,3 % sur 5 jours",
-      "sens": "hausse",
-      "lecture": "Un pétrole au-dessus de 100 $ pourrait nourrir l'inflation et les paris de hausse Fed, plutôt lourd pour les indices.",
-      "date": "clôture du 14/10",
+      "valeur": "100,50 $",
+      "variation": "−0,88 % sur la veille",
+      "sens": "baisse",
+      "lecture": "Un pétrole qui recule pourrait calmer un peu la peur d'inflation, plutôt un soutien pour MNQ et MES.",
+      "date": "19/10 vers 13h30",
       "source": {
-        "titre": "Alpha Vantage · EIA",
-        "url": "https://www.alphavantage.co/documentation/"
+        "titre": "TheStreet · Stock Market Today, 19/10/2026",
+        "url": "https://www.thestreet.com/stock-market-today/stock-market-today-oct-19-2026-nasdaq-futures-climb-as-tech-rebound-from-sell-off"
       }
     },
     {
@@ -100,13 +100,26 @@
   ],
   "eco": {
     "points": [
+      "Lun. 19/10 : 10 ans vers 5,08 %. Marché à 84 % sur un maintien le 28/10. Fed en période de silence jusqu'au 29/10.",
       "Fed : taux à 3,75 % à 4 % après la hausse de septembre. Prochaine décision le 28/10.",
       "Inflation chaude : CPI à 3,7 % sur un an en septembre, PPI à 6,3 %.",
       "Ventes au détail de septembre à +0,8 %, au-dessus des +0,3 % attendus. Inscriptions chômage à 199 000.",
-      "Warsh n'a donné aucun signal sur les taux. FedWatch : environ 17 % de chances de hausse fin octobre.",
+      "Warsh n'a donné aucun signal sur les taux. Chances de hausse fin octobre tombées vers 15 %.",
       "Semaine calme côté chiffres : logement mardi, PMI flash et Michigan final vendredi."
     ],
     "sources": [
+      {
+        "titre": "Marketscreener · Reuters, futures en hausse, pétrole et taux en baisse",
+        "url": "https://www.marketscreener.com/news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-ce785cdbd889f325"
+      },
+      {
+        "titre": "NordFX · Market Pulse, 19/10/2026",
+        "url": "https://nordfx.com/market-news/market-pulse-october-19-2026"
+      },
+      {
+        "titre": "BabyPips · Fundies Cheat Sheet, 19/10",
+        "url": "https://www.babypips.com/analysis/fundies-cheat-sheet-2026-10-19-oil-ai-earnings-yields"
+      },
       {
         "titre": "Stockpil · Warsh et la réunion Fed d'octobre",
         "url": "https://stockpil.com/warsh-october-fed-hold-rate-decision"
@@ -127,13 +140,22 @@
   },
   "fonda": {
     "points": [
+      "Lun. 19/10 : rebond tech en préouverture. Nasdaq 100 +1,05 %, S&P 500 +0,47 %. Intel +4,4 %, CoreWeave +3,4 %.",
       "Risk-off sur la tech : Nasdaq −4,48 % sur la semaine, S&P 500 −1,95 %, Dow +0,67 %.",
       "Doutes sur les coûts de l'IA : semi-conducteurs (SOXX) en baisse 8 séances de suite, −12,6 % depuis le 02/10.",
       "CoreWeave sous pression, obligations à 15 % de rendement : le crédit des neoclouds inquiète.",
-      "Résultats clés : Netflix mardi soir, Tesla, Meta, IBM, Texas Instruments et Lam Research mercredi soir.",
+      "Résultats clés : Netflix et SpaceX mardi soir, Tesla, Meta, IBM, Texas Instruments et Lam Research mercredi soir.",
       "Sentiment CNN à 28, contre 46 une semaine plus tôt."
     ],
     "sources": [
+      {
+        "titre": "TipRanks · Stock Market Today, 19/10",
+        "url": "https://www.tipranks.com/news/stock-market-today-oct-19-futures-rise-as-oil-prices-fall-earnings-in-focus"
+      },
+      {
+        "titre": "Marketscreener · Reuters, futures en hausse, pétrole et taux en baisse",
+        "url": "https://www.marketscreener.com/news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-ce785cdbd889f325"
+      },
       {
         "titre": "Investrade · Market Review, 16/10/2026",
         "url": "https://investrade.com/market-review-october-16-2026/"
@@ -154,13 +176,22 @@
   },
   "geo": {
     "points": [
+      "Lun. 19/10 : Trump suspend des sanctions russes, WTI à 100,50 $. Iran : offre sur Ormuz rejetée par les US. Lavrov à Téhéran.",
       "Guerre en Iran dans son 8e mois : l'offre du Golfe reste surveillée.",
       "Houthis : attaques contre l'Arabie saoudite. Brent à 109,86 $, plus haut depuis mi-mai.",
       "Frappes ukrainiennes sur les raffineries russes : le diesel reste rare.",
       "AIE : plus de 20 millions de barils libérés. G7 : 100 millions de barils de réserves promis.",
-      "Or à 4 181,10 $ vendredi, +0,26 %, avec un pétrole tiré par le Moyen-Orient."
+      "Or vers 4 181 $ lundi matin, +0,4 %, aidé par la baisse des taux."
     ],
     "sources": [
+      {
+        "titre": "Business Standard · Reuters, actions asiatiques et pétrole",
+        "url": "https://www.business-standard.com/markets/news/asian-stocks-skid-on-ai-worries-wall-street-and-bonds-aided-by-oil-slip-126101900040_1.html"
+      },
+      {
+        "titre": "TheStreet · Stock Market Today, 19/10/2026",
+        "url": "https://www.thestreet.com/stock-market-today/stock-market-today-oct-19-2026-nasdaq-futures-climb-as-tech-rebound-from-sell-off"
+      },
       {
         "titre": "The National · Le pétrole touche 110 $",
         "url": "https://www.thenationalnews.com/business/energy/2026/10/16/oil-prices-ease-but-head-for-another-weekly-gain-on-middle-east-supply-concerns/"
