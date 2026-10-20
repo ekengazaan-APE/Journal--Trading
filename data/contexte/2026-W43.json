@@ -2,112 +2,132 @@
   "v": 1,
   "semaine": "2026-W43",
   "periode": "du lundi 19/10 au vendredi 23/10",
-  "majA": "2026-10-19T13:57:20+02:00",
+  "majA": "2026-10-20T13:52:21+02:00",
   "mode": "quotidien",
-  "note": "DXY, taux à 2 ans, VIX et peur et cupidité : pas de valeur trouvée ce lundi, ce sont celles du vendredi 16/10.",
+  "note": "",
   "marqueurs": [
     {
       "id": "dxy",
       "nom": "Dollar (DXY)",
-      "valeur": "101,78",
-      "variation": "−0,3 % sur 5 jours",
+      "valeur": "101,80",
+      "variation": "−0,2 % sur la veille",
       "sens": "baisse",
-      "lecture": "Un dollar plus faible pourrait soutenir l'or (MGC) et alléger un peu la pression sur les indices.",
-      "date": "clôture du 16/10",
+      "lecture": "Un dollar qui glisse sous 102 pourrait soutenir l'or (MGC) et un peu les indices.",
+      "date": "20/10 vers 6h00",
       "source": {
-        "titre": "Stocktwits · Weekly Spread, taux et dollar",
-        "url": "https://stocktwits.com/news-articles/markets/equity/stocktwits-weekly-spread-what-shaped-treasury-yields-and-the-dollar-this-week-1/cZxjAkARBt3"
+        "titre": "FXStreet · Le dollar sous 102,00 avant la Fed",
+        "url": "https://www.fxstreet.com/news/united-states-dollar-index-weakens-below-10200-as-traders-assess-fed-rate-outlook-202610200409"
       }
     },
     {
       "id": "us10y",
       "nom": "Taux à 10 ans US",
-      "valeur": "5,0812 %",
-      "variation": "−0,016 pt depuis la clôture du 16/10",
+      "valeur": "5,12 %",
+      "variation": "−0,02 pt sur la veille",
       "sens": "baisse",
-      "lecture": "Le 10 ans se détend un peu mais reste au-dessus de 5 % : une détente pourrait soutenir MNQ, un rebond pourrait le freiner.",
-      "date": "19/10 vers 13h40",
+      "lecture": "Le 10 ans reste au-dessus de 5 % : un nouveau rebond pourrait peser sur MNQ, une détente pourrait l'aider.",
+      "date": "20/10 au matin",
       "source": {
-        "titre": "Marketscreener · Reuters, futures en hausse, pétrole et taux en baisse",
-        "url": "https://www.marketscreener.com/news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-ce785cdbd889f325"
+        "titre": "Investrade · Morning Preview, 20/10/2026",
+        "url": "https://investrade.com/morning-preview-october-20-2026/"
       }
     },
     {
       "id": "us02y",
       "nom": "Taux à 2 ans US",
-      "valeur": "4,734 %",
-      "variation": "−0,055 pt sur 5 jours",
-      "sens": "baisse",
-      "lecture": "Le 2 ans reflète les paris de hausse Fed : une remontée pourrait refroidir MES et MNQ.",
-      "date": "clôture du 16/10",
+      "valeur": "4,77 %",
+      "variation": "+0,03 pt sur la veille",
+      "sens": "hausse",
+      "lecture": "Le 2 ans remonte avec les paris de hausse Fed : ça pourrait freiner MES et MNQ.",
+      "date": "clôture du 19/10",
       "source": {
-        "titre": "Investrade · Market Review, 16/10/2026",
-        "url": "https://investrade.com/market-review-october-16-2026/"
+        "titre": "CappNotes · Closing Look, lundi 19/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-19-2026"
       }
     },
     {
       "id": "vix",
       "nom": "VIX",
-      "valeur": "19,99",
-      "variation": "",
-      "sens": "hausse",
-      "lecture": "VIX en hausse de 21,45 % vendredi : des séances plus nerveuses pourraient élargir les ranges sur MNQ et MES.",
-      "date": "clôture du 16/10",
+      "valeur": "18,44",
+      "variation": "−7,75 % sur la veille",
+      "sens": "baisse",
+      "lecture": "Le VIX se détend sous 20 : des ranges un peu plus calmes possibles sur MNQ et MES.",
+      "date": "clôture du 19/10",
       "source": {
-        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
+        "titre": "CappNotes · Closing Look, lundi 19/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-19-2026"
       }
     },
     {
       "id": "fedwatch",
       "nom": "Probabilités Fed (FedWatch)",
-      "valeur": "84 % maintien le 28/10",
+      "valeur": "82,8 % maintien le 28/10",
       "variation": "",
       "sens": "stable",
-      "lecture": "Le maintien reste le scénario dominant : un repricing vers la hausse pourrait secouer les indices et l'or.",
-      "date": "19/10",
+      "lecture": "Le maintien reste dominant : un repricing vers une hausse pourrait secouer les indices et l'or.",
+      "date": "20/10",
       "source": {
-        "titre": "NordFX · Market Pulse, 19/10/2026",
-        "url": "https://nordfx.com/market-news/market-pulse-october-19-2026"
+        "titre": "FXStreet · Le dollar sous 102,00 avant la Fed",
+        "url": "https://www.fxstreet.com/news/united-states-dollar-index-weakens-below-10200-as-traders-assess-fed-rate-outlook-202610200409"
       }
     },
     {
       "id": "wti",
       "nom": "Pétrole WTI",
-      "valeur": "100,50 $",
-      "variation": "−0,88 % sur la veille",
-      "sens": "baisse",
-      "lecture": "Un pétrole qui recule pourrait calmer un peu la peur d'inflation, plutôt un soutien pour MNQ et MES.",
-      "date": "19/10 vers 13h30",
+      "valeur": "103,66 $ (contrat novembre)",
+      "variation": "+2,22 % sur la veille",
+      "sens": "hausse",
+      "lecture": "Un pétrole au-dessus de 100 $ pourrait raviver la peur d'inflation et peser sur MNQ et MES.",
+      "date": "clôture du 19/10",
       "source": {
-        "titre": "TheStreet · Stock Market Today, 19/10/2026",
-        "url": "https://www.thestreet.com/stock-market-today/stock-market-today-oct-19-2026-nasdaq-futures-climb-as-tech-rebound-from-sell-off"
+        "titre": "Investrade · Market Review, 19/10/2026",
+        "url": "https://investrade.com/market-review-october-19-2026/"
       }
     },
     {
       "id": "feargreed",
       "nom": "Peur et cupidité (CNN)",
-      "valeur": "28 · peur",
-      "variation": "−18 sur 5 jours",
-      "sens": "baisse",
-      "lecture": "Sentiment proche de la peur extrême : les mouvements pourraient être brusques dans les deux sens.",
-      "date": "16/10 vers 17h50",
+      "valeur": "23 · peur extrême",
+      "variation": "+1 sur la veille",
+      "sens": "stable",
+      "lecture": "Sentiment en peur extrême : les mouvements pourraient rester brusques dans les deux sens.",
+      "date": "clôture du 19/10",
       "source": {
-        "titre": "24/7 Wall St. · Sentiment proche de la peur extrême",
-        "url": "https://247wallst.com/investing/2026/10/16/coreweave-and-nebius-sink-9-as-sentiment-index-closes-in-on-extreme-fear"
+        "titre": "Benzinga · Nasdaq +1 %, indice en peur extrême",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62458648/nasdaq-jumps-over-1-as-tech-stocks-gain-investor-sentiment-improves-greed-index-remains-in-extreme-fear-zone"
       }
     }
   ],
   "eco": {
     "points": [
-      "Lun. 19/10 : 10 ans vers 5,08 %. Marché à 84 % sur un maintien le 28/10. Fed en période de silence jusqu'au 29/10.",
+      "Mar. 20/10 : 10 ans vers 5,12 %. FedWatch à 82,8 % sur un maintien le 28/10. Fed en période de silence.",
+      "Lun. 19/10 : 10 ans à 5,15 %, 2 ans à 4,77 %. Indice NAHB du logement à 29, plus bas depuis juin 2012.",
       "Fed : taux à 3,75 % à 4 % après la hausse de septembre. Prochaine décision le 28/10.",
       "Inflation chaude : CPI à 3,7 % sur un an en septembre, PPI à 6,3 %.",
       "Ventes au détail de septembre à +0,8 %, au-dessus des +0,3 % attendus. Inscriptions chômage à 199 000.",
-      "Warsh n'a donné aucun signal sur les taux. Chances de hausse fin octobre tombées vers 15 %.",
-      "Semaine calme côté chiffres : logement mardi, PMI flash et Michigan final vendredi."
+      "Aujourd'hui : mises en chantier et permis à 14h30, ventes de logements en attente à 16h00. PMI flash et Michigan vendredi."
     ],
     "sources": [
+      {
+        "titre": "Investrade · Morning Preview, 20/10/2026",
+        "url": "https://investrade.com/morning-preview-october-20-2026/"
+      },
+      {
+        "titre": "FXStreet · Le dollar sous 102,00 avant la Fed",
+        "url": "https://www.fxstreet.com/news/united-states-dollar-index-weakens-below-10200-as-traders-assess-fed-rate-outlook-202610200409"
+      },
+      {
+        "titre": "CappNotes · Closing Look, lundi 19/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-19-2026"
+      },
+      {
+        "titre": "Benzinga · Nasdaq +1 %, indice en peur extrême",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62458648/nasdaq-jumps-over-1-as-tech-stocks-gain-investor-sentiment-improves-greed-index-remains-in-extreme-fear-zone"
+      },
+      {
+        "titre": "Saxo · Market Quick Take, 20/10/2026",
+        "url": "https://www.home.saxo/en-gb/content/articles/macro/market-quick-take---korea-slides-as-brent-holds-near-110---20-october-2026-20102026"
+      },
       {
         "titre": "Marketscreener · Reuters, futures en hausse, pétrole et taux en baisse",
         "url": "https://www.marketscreener.com/news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-ce785cdbd889f325"
@@ -140,14 +160,30 @@
   },
   "fonda": {
     "points": [
-      "Lun. 19/10 : rebond tech en préouverture. Nasdaq 100 +1,05 %, S&P 500 +0,47 %. Intel +4,4 %, CoreWeave +3,4 %.",
-      "Risk-off sur la tech : Nasdaq −4,48 % sur la semaine, S&P 500 −1,95 %, Dow +0,67 %.",
-      "Doutes sur les coûts de l'IA : semi-conducteurs (SOXX) en baisse 8 séances de suite, −12,6 % depuis le 02/10.",
+      "Mar. 20/10 : Nasdaq 100 −0,5 % en préouverture, semi-conducteurs de nouveau en baisse. GM −6,3 %, GE −1,4 %.",
+      "Lun. 19/10 : Nasdaq +1,11 % à 26 430, S&P 500 +0,41 %. SOX +1,61 %, fin de 8 séances de baisse.",
+      "Risk-off sur la tech la semaine dernière : Nasdaq −4,48 %, S&P 500 −1,95 %, Dow +0,67 %.",
       "CoreWeave sous pression, obligations à 15 % de rendement : le crédit des neoclouds inquiète.",
-      "Résultats clés : Netflix et SpaceX mardi soir, Tesla, Meta, IBM, Texas Instruments et Lam Research mercredi soir.",
-      "Sentiment CNN à 28, contre 46 une semaine plus tôt."
+      "Ce soir : Netflix, Intuitive Surgical, Capital One, United. Mercredi soir : Tesla, Meta, IBM, Texas Instruments, Lam Research.",
+      "Peur et cupidité CNN à 23 lundi : zone de peur extrême."
     ],
     "sources": [
+      {
+        "titre": "Investing.com · Premarket movers, RTX et GE",
+        "url": "https://www.investing.com/news/stock-market-news/premarket-movers-rtx-rises-ge-slips-following-quarterly-results-4959693"
+      },
+      {
+        "titre": "Investrade · Morning Preview, 20/10/2026",
+        "url": "https://investrade.com/morning-preview-october-20-2026/"
+      },
+      {
+        "titre": "CappNotes · Closing Look, lundi 19/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-19-2026"
+      },
+      {
+        "titre": "Benzinga · Nasdaq +1 %, indice en peur extrême",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62458648/nasdaq-jumps-over-1-as-tech-stocks-gain-investor-sentiment-improves-greed-index-remains-in-extreme-fear-zone"
+      },
       {
         "titre": "TipRanks · Stock Market Today, 19/10",
         "url": "https://www.tipranks.com/news/stock-market-today-oct-19-futures-rise-as-oil-prices-fall-earnings-in-focus"
@@ -176,14 +212,26 @@
   },
   "geo": {
     "points": [
-      "Lun. 19/10 : Trump suspend des sanctions russes, WTI à 100,50 $. Iran : offre sur Ormuz rejetée par les US. Lavrov à Téhéran.",
+      "Mar. 20/10 : Brent près de 110 $. L'Iran resserre son contrôle du détroit d'Ormuz, des navires sont attaqués.",
+      "Lun. 19/10 : attaques Houthis sur l'Arabie saoudite. WTI novembre +2,22 % à 103,66 $. Or −0,5 % vers 4 160 $.",
+      "Flux pétroliers du Golfe à environ 80 % du niveau d'avant-guerre, selon le secrétaire US à l'Énergie.",
+      "Europe : écart de taux à 10 ans Allemagne-France à 148 pb, plus haut depuis la crise des dettes.",
       "Guerre en Iran dans son 8e mois : l'offre du Golfe reste surveillée.",
-      "Houthis : attaques contre l'Arabie saoudite. Brent à 109,86 $, plus haut depuis mi-mai.",
-      "Frappes ukrainiennes sur les raffineries russes : le diesel reste rare.",
-      "AIE : plus de 20 millions de barils libérés. G7 : 100 millions de barils de réserves promis.",
-      "Or vers 4 181 $ lundi matin, +0,4 %, aidé par la baisse des taux."
+      "Frappes Russie-Ukraine sur l'énergie reprises : le diesel reste rare."
     ],
     "sources": [
+      {
+        "titre": "Saxo · Market Quick Take, 20/10/2026",
+        "url": "https://www.home.saxo/en-gb/content/articles/macro/market-quick-take---korea-slides-as-brent-holds-near-110---20-october-2026-20102026"
+      },
+      {
+        "titre": "Investrade · Market Review, 19/10/2026",
+        "url": "https://investrade.com/market-review-october-19-2026/"
+      },
+      {
+        "titre": "Investrade · Morning Preview, 20/10/2026",
+        "url": "https://investrade.com/morning-preview-october-20-2026/"
+      },
       {
         "titre": "Business Standard · Reuters, actions asiatiques et pétrole",
         "url": "https://www.business-standard.com/markets/news/asian-stocks-skid-on-ai-worries-wall-street-and-bonds-aided-by-oil-slip-126101900040_1.html"
