@@ -2,60 +2,60 @@
   "v": 1,
   "semaine": "2026-W43",
   "periode": "du lundi 19/10 au vendredi 23/10",
-  "majA": "2026-10-21T14:01:27+02:00",
+  "majA": "2026-10-22T13:53:16+02:00",
   "mode": "quotidien",
-  "note": "Peur et cupidité CNN non trouvé aujourd'hui. Aucune annonce USD High ou Medium publiée de lundi à mercredi.",
+  "note": "FedWatch non relu depuis le 20/10. Inscriptions chômage de 14h30 pas encore publiées à la mise à jour.",
   "marqueurs": [
     {
       "id": "dxy",
       "nom": "Dollar (DXY)",
-      "valeur": "101,71",
-      "variation": "−0,26 % sur la veille",
-      "sens": "baisse",
-      "lecture": "Un dollar qui reste sous 102 pourrait soutenir l'or (MGC), mais l'effet reste faible pour l'instant.",
-      "date": "clôture du 20/10",
+      "valeur": "101,69",
+      "variation": "−0,04 % sur la veille",
+      "sens": "stable",
+      "lecture": "Le dollar reste vers 101,7 : l'or (MGC) pourrait suivre plutôt le pétrole et les taux que le dollar.",
+      "date": "clôture du 21/10",
       "source": {
-        "titre": "CappNotes · Closing Look, mardi 20/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-tuesday-october-20-2026"
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
       }
     },
     {
       "id": "us10y",
       "nom": "Taux à 10 ans US",
-      "valeur": "5,12 %",
-      "variation": "−0,03 pt sur la veille",
-      "sens": "baisse",
-      "lecture": "Le 10 ans reste au-dessus de 5 % : une adjudication à 20 ans ratée ce soir pourrait peser sur MNQ.",
-      "date": "clôture du 20/10",
+      "valeur": "5,13 %",
+      "variation": "+0,01 pt sur la veille",
+      "sens": "stable",
+      "lecture": "Le 10 ans tient au-dessus de 5 % : une nouvelle poussée pourrait peser sur MNQ, plus sensible aux taux.",
+      "date": "clôture du 21/10",
       "source": {
-        "titre": "CappNotes · Closing Look, mardi 20/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-tuesday-october-20-2026"
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
       }
     },
     {
       "id": "us02y",
       "nom": "Taux à 2 ans US",
-      "valeur": "4,79 %",
+      "valeur": "4,81 %",
       "variation": "+0,02 pt sur la veille",
       "sens": "hausse",
-      "lecture": "Le 2 ans monte encore : un marché qui garde une hausse Fed en tête pourrait freiner MES et MNQ.",
-      "date": "clôture du 20/10",
+      "lecture": "Le 2 ans monte encore : une hausse Fed en décembre reste en tête, ce qui pourrait freiner MES et MNQ.",
+      "date": "clôture du 21/10",
       "source": {
-        "titre": "CappNotes · Closing Look, mardi 20/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-tuesday-october-20-2026"
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
       }
     },
     {
       "id": "vix",
       "nom": "VIX",
-      "valeur": "17,31",
-      "variation": "−6,13 % sur la veille",
+      "valeur": "16,68",
+      "variation": "−3,64 % sur la veille",
       "sens": "baisse",
-      "lecture": "Le VIX se détend vers 17 : les ranges pourraient se calmer, sauf choc sur Meta ou Tesla ce soir.",
-      "date": "clôture du 20/10",
+      "lecture": "Le VIX a baissé mercredi, mais Yahoo le montre à 18,24 ce matin : les ranges pourraient s'élargir en NY.",
+      "date": "clôture du 21/10",
       "source": {
-        "titre": "CappNotes · Closing Look, mardi 20/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-tuesday-october-20-2026"
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
       }
     },
     {
@@ -64,7 +64,7 @@
       "valeur": "14,9 % hausse le 28/10, maintien majoritaire",
       "variation": "",
       "sens": "stable",
-      "lecture": "La hausse recule à 14,9 % contre 22,1 % il y a une semaine : moins de stress taux possible pour les indices.",
+      "lecture": "La hausse reste minoritaire le 28/10 : le sujet devient décembre, ce qui pourrait garder les taux courts sous tension.",
       "date": "20/10",
       "source": {
         "titre": "CappNotes · Closing Look, mardi 20/10/2026",
@@ -74,40 +74,48 @@
     {
       "id": "wti",
       "nom": "Pétrole WTI",
-      "valeur": "98,28 $ (contrat décembre)",
-      "variation": "−0,26 % sur la veille",
-      "sens": "stable",
-      "lecture": "Le WTI tient près de 100 $ et Brent au-dessus de 110 $ : la peur d'inflation pourrait peser sur MNQ et MES.",
-      "date": "clôture du 20/10",
+      "valeur": "97,15 $ (contrat décembre)",
+      "variation": "−0,69 % sur la veille",
+      "sens": "baisse",
+      "lecture": "Le WTI remonte vers 98,5 $ ce matin après Shaybah : la peur d'inflation pourrait peser sur MNQ et MES.",
+      "date": "clôture du 21/10",
       "source": {
-        "titre": "CappNotes · Closing Look, mardi 20/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-tuesday-october-20-2026"
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
       }
     },
     {
       "id": "feargreed",
       "nom": "Peur et cupidité (CNN)",
-      "valeur": "n.d.",
-      "variation": "",
-      "sens": "stable",
-      "lecture": "Valeur non trouvée aujourd'hui.",
-      "date": "",
+      "valeur": "32 · peur",
+      "variation": "+2 sur la veille",
+      "sens": "hausse",
+      "lecture": "Le sentiment remonte mais reste en peur : un rebond fragile pourrait vite céder sur MNQ et MES.",
+      "date": "clôture du 21/10",
       "source": {
-        "titre": "",
-        "url": ""
+        "titre": "Benzinga · Nasdaq +1 %, indice en zone de peur, 21/10",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62517652/nasdaq-surges-over-1-as-spacex-shares-gain-investor-sentiment-improves-but-greed-index-remains-in-fear-zone"
       }
     }
   ],
   "eco": {
     "points": [
-      "Mer. 21/10 : 10 ans à 5,12 %, 2 ans à 4,79 %. FedWatch : hausse à 14,9 %, contre 22,1 % il y a une semaine.",
-      "Mar. 20/10 : mises en chantier à 1,221 million, sous 1,305 attendu. Ventes de logements en attente −7,3 %.",
+      "Jeu. 22/10 : 10 ans à 5,13 %, 2 ans à 4,81 % mercredi. Kalshi : maintien 88 %, hausse 11 % le 28/10.",
+      "Sondage Reuters : 94 économistes sur 100 voient un maintien le 28/10, les 100 voient une hausse en décembre.",
+      "Mer. 21/10 : stocks de brut EIA à −3,06 millions de barils, contre −0,1 million attendu.",
       "Fed : taux à 3,75 % à 4 % après la hausse de septembre. Décision le 28/10, Fed en période de silence.",
       "Inflation chaude : CPI à 3,7 % sur un an en septembre, PPI à 6,3 %.",
-      "Aujourd'hui : adjudication de 13 Md$ à 20 ans à 19h00, stocks de pétrole DOE à 16h30.",
-      "Jeudi : inscriptions chômage (200 000 attendues). Vendredi : PMI flash et Michigan révisé."
+      "Aujourd'hui : inscriptions chômage à 14h30 (200 000 attendues). Vendredi : PMI flash à 15h45, Michigan révisé à 16h00."
     ],
     "sources": [
+      {
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
+      },
+      {
+        "titre": "Mitrade · Fed : maintien le 28/10, hausse attendue en décembre",
+        "url": "https://www.mitrade.com/insights/more/Central-Banks/fed-october-hold-december-hike-20261022J1428"
+      },
       {
         "titre": "CappNotes · Closing Look, mardi 20/10/2026",
         "url": "https://cappnotes.substack.com/p/closing-look-tuesday-october-20-2026"
@@ -131,55 +139,31 @@
       {
         "titre": "CappNotes · Closing Look, lundi 19/10/2026",
         "url": "https://cappnotes.substack.com/p/closing-look-monday-october-19-2026"
-      },
-      {
-        "titre": "Benzinga · Nasdaq +1 %, indice en peur extrême",
-        "url": "https://www.benzinga.com/markets/market-summary/26/10/62458648/nasdaq-jumps-over-1-as-tech-stocks-gain-investor-sentiment-improves-greed-index-remains-in-extreme-fear-zone"
-      },
-      {
-        "titre": "Saxo · Market Quick Take, 20/10/2026",
-        "url": "https://www.home.saxo/en-gb/content/articles/macro/market-quick-take---korea-slides-as-brent-holds-near-110---20-october-2026-20102026"
-      },
-      {
-        "titre": "Marketscreener · Reuters, futures en hausse, pétrole et taux en baisse",
-        "url": "https://www.marketscreener.com/news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-ce785cdbd889f325"
-      },
-      {
-        "titre": "NordFX · Market Pulse, 19/10/2026",
-        "url": "https://nordfx.com/market-news/market-pulse-october-19-2026"
-      },
-      {
-        "titre": "BabyPips · Fundies Cheat Sheet, 19/10",
-        "url": "https://www.babypips.com/analysis/fundies-cheat-sheet-2026-10-19-oil-ai-earnings-yields"
-      },
-      {
-        "titre": "Stockpil · Warsh et la réunion Fed d'octobre",
-        "url": "https://stockpil.com/warsh-october-fed-hold-rate-decision"
-      },
-      {
-        "titre": "Benzinga · Dow +550 points, indice de peur",
-        "url": "https://www.benzinga.com/markets/market-summary/26/10/62403453/dow-jumps-over-550-points-following-economic-data-investor-sentiment-improves-but-fear-greed-index-remains-in-fear-zone"
-      },
-      {
-        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
-      },
-      {
-        "titre": "Investrade · Calendrier du 19/10 au 23/10/2026",
-        "url": "https://investrade.com/weekly-event-calendar-10-19-2026-10-23-2026/"
       }
     ]
   },
   "fonda": {
     "points": [
-      "Mer. 21/10 : futures Nasdaq +0,48 %, S&P +0,18 %. SpaceX +8 % et Super Micro +10 % après résultats, Netflix −6 %.",
-      "Mar. 20/10 : S&P 500 +0,28 % à 7 712, Nasdaq −0,02 %, Dow +1,02 %, Russell +1,65 %. Rotation hors tech.",
-      "Ce soir : Meta, Tesla, IBM, Texas Instruments, Lam Research. Réaction possible sur MNQ en Asie.",
-      "Santé au record (XLV +2,2 %). GM −6,8 % malgré un rachat de 20 Md$.",
-      "Risk-off tech la semaine dernière : Nasdaq −4,48 %. Le crédit des neoclouds reste surveillé.",
-      "Peur et cupidité CNN à 23 lundi : zone de peur extrême."
+      "Jeu. 22/10 : futures S&P et Nasdaq 100 à −0,9 % ce matin, pétrole en hausse. Meta annonce une division 2 pour 1.",
+      "Mer. 21/10 : S&P 500 +0,58 % à 7 757, Nasdaq +1,05 %, Dow +0,69 %. Semis +1,97 %.",
+      "Après clôture : Meta +3,3 %, IBM +3 %, Lam Research −6,3 %. Tesla peu changé malgré un flux de trésorerie positif.",
+      "Aujourd'hui avant ouverture : P&G, Union Pacific, Blackstone, Lockheed Martin. Ce soir : Western Digital, Newmont.",
+      "Selon Yahoo Finance, Anthropic pourrait déposer son S-1 dès vendredi : grosse introduction en Bourse en vue.",
+      "Peur et cupidité CNN à 32 mercredi, contre 30 la veille : zone de peur."
     ],
     "sources": [
+      {
+        "titre": "Yahoo Finance · Futures en baisse, pétrole en hausse, Meta et Tesla, 22/10",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-21-dow-sp-500-nasdaq-tesla-meta-094500493.html"
+      },
+      {
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
+      },
+      {
+        "titre": "Benzinga · Nasdaq +1 %, indice en zone de peur, 21/10",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62517652/nasdaq-surges-over-1-as-spacex-shares-gain-investor-sentiment-improves-but-greed-index-remains-in-fear-zone"
+      },
       {
         "titre": "Investrade · Morning Preview, 21/10/2026",
         "url": "https://investrade.com/morning-preview-october-21-2026/"
@@ -199,55 +183,31 @@
       {
         "titre": "Investing.com · Premarket movers, RTX et GE",
         "url": "https://www.investing.com/news/stock-market-news/premarket-movers-rtx-rises-ge-slips-following-quarterly-results-4959693"
-      },
-      {
-        "titre": "Investrade · Morning Preview, 20/10/2026",
-        "url": "https://investrade.com/morning-preview-october-20-2026/"
-      },
-      {
-        "titre": "CappNotes · Closing Look, lundi 19/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-19-2026"
-      },
-      {
-        "titre": "Benzinga · Nasdaq +1 %, indice en peur extrême",
-        "url": "https://www.benzinga.com/markets/market-summary/26/10/62458648/nasdaq-jumps-over-1-as-tech-stocks-gain-investor-sentiment-improves-greed-index-remains-in-extreme-fear-zone"
-      },
-      {
-        "titre": "TipRanks · Stock Market Today, 19/10",
-        "url": "https://www.tipranks.com/news/stock-market-today-oct-19-futures-rise-as-oil-prices-fall-earnings-in-focus"
-      },
-      {
-        "titre": "Marketscreener · Reuters, futures en hausse, pétrole et taux en baisse",
-        "url": "https://www.marketscreener.com/news/wall-st-futures-climb-as-ai-stocks-rebound-oil-yields-fall-ce785cdbd889f325"
-      },
-      {
-        "titre": "Investrade · Market Review, 16/10/2026",
-        "url": "https://investrade.com/market-review-october-16-2026/"
-      },
-      {
-        "titre": "24/7 Wall St. · Sentiment proche de la peur extrême",
-        "url": "https://247wallst.com/investing/2026/10/16/coreweave-and-nebius-sink-9-as-sentiment-index-closes-in-on-extreme-fear"
-      },
-      {
-        "titre": "Investrade · Calendrier du 19/10 au 23/10/2026",
-        "url": "https://investrade.com/weekly-event-calendar-10-19-2026-10-23-2026/"
-      },
-      {
-        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
       }
     ]
   },
   "geo": {
     "points": [
-      "Mer. 21/10 : Brent au-dessus de 110 $ après des attaques de navires près d'Ormuz.",
-      "Mar. 20/10 : selon l'Iran, deux pétroliers en feu après des mines. Au moins 18 navires attaqués en deux semaines.",
-      "Iran : le Pakistan porte une médiation à Téhéran. Un diplomate US dément un accord imminent.",
-      "Europe : écart France-Allemagne à 10 ans au plus haut depuis 15 ans, puis −10 pb. Troubles en France.",
-      "Brésil : second tour dimanche, sondage Flávio Bolsonaro 52 %, Lula 48 %.",
-      "Or décembre −0,42 % vers 4 143 $ mardi, malgré le pétrole et les tensions."
+      "Jeu. 22/10 : Brent à 110,63 $ (+1,7 %) après un drone houthi près du champ saoudien de Shaybah. Deux morts.",
+      "Washington fait partir son personnel non essentiel d'Arabie saoudite. Attaque aussi sur l'aéroport de Dammam.",
+      "Iran : Téhéran voit peu de progrès avec Washington, Ormuz bloqué. Poutine propose son aide via l'envoyé Witkoff.",
+      "Or : 4 107,90 $ (−1,01 %) ce matin selon Yahoo, malgré la tension sur le pétrole.",
+      "Brésil : second tour dimanche, sondage Quaest Flávio Bolsonaro 45 %, Lula 44 %.",
+      "France : Macron promet d'éviter de nouvelles émeutes, marche des Gilets jaunes samedi à Paris."
     ],
     "sources": [
+      {
+        "titre": "The National · Le pétrole passe 110 $ après un drone houthi près de Shaybah",
+        "url": "https://www.thenationalnews.com/business/energy/2026/10/22/oil-tops-110-as-houthi-drone-strike-near-saudi-shaybah-field-rattles-markets/"
+      },
+      {
+        "titre": "CappNotes · Closing Look, mercredi 21/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-wednesday-october-21"
+      },
+      {
+        "titre": "Yahoo Finance · Futures en baisse, pétrole en hausse, Meta et Tesla, 22/10",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-october-21-dow-sp-500-nasdaq-tesla-meta-094500493.html"
+      },
       {
         "titre": "FinancialJuice · Europe Market Wrap, 21/10/2026",
         "url": "https://features.financialjuice.com/2026/10/21/stocks-rise-on-ai-earnings-oil-gains-europe-market-wrap/"
@@ -267,30 +227,6 @@
       {
         "titre": "Investrade · Market Review, 19/10/2026",
         "url": "https://investrade.com/market-review-october-19-2026/"
-      },
-      {
-        "titre": "Investrade · Morning Preview, 20/10/2026",
-        "url": "https://investrade.com/morning-preview-october-20-2026/"
-      },
-      {
-        "titre": "Business Standard · Reuters, actions asiatiques et pétrole",
-        "url": "https://www.business-standard.com/markets/news/asian-stocks-skid-on-ai-worries-wall-street-and-bonds-aided-by-oil-slip-126101900040_1.html"
-      },
-      {
-        "titre": "TheStreet · Stock Market Today, 19/10/2026",
-        "url": "https://www.thestreet.com/stock-market-today/stock-market-today-oct-19-2026-nasdaq-futures-climb-as-tech-rebound-from-sell-off"
-      },
-      {
-        "titre": "The National · Le pétrole touche 110 $",
-        "url": "https://www.thenationalnews.com/business/energy/2026/10/16/oil-prices-ease-but-head-for-another-weekly-gain-on-middle-east-supply-concerns/"
-      },
-      {
-        "titre": "Investrade · Market Review, 16/10/2026",
-        "url": "https://investrade.com/market-review-october-16-2026/"
-      },
-      {
-        "titre": "Yahoo Finance · Markets News, Oct. 16, 2026",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/markets-news-oct-16-2026-103800633.html"
       }
     ]
   },
