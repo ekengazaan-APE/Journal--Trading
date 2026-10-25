@@ -1,0 +1,183 @@
+{
+  "v": 1,
+  "semaine": "2026-W44",
+  "periode": "du lundi 26/10 au vendredi 30/10",
+  "majA": "2026-10-25T17:01:31+01:00",
+  "mode": "hebdo",
+  "note": "VIX et WTI : variation sur 5 jours non trouvée, variation sur la veille affichée. Peur et cupidité : dernière valeur CNN lue, celle du 22/10.",
+  "marqueurs": [
+    {
+      "id": "dxy",
+      "nom": "Dollar (DXY)",
+      "valeur": "101,79",
+      "variation": "−0,2 % sur 5 jours",
+      "sens": "stable",
+      "lecture": "Le dollar reste vers 101,8 : l'or (MGC) pourrait suivre surtout les taux et le pétrole.",
+      "date": "clôture du 23/10",
+      "source": {
+        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+      }
+    },
+    {
+      "id": "us10y",
+      "nom": "Taux à 10 ans US",
+      "valeur": "4,999 %",
+      "variation": "−0,08 pt sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Le 10 ans colle aux 5 % : un retour au dessus pourrait peser sur MNQ, plus sensible aux taux.",
+      "date": "clôture du 23/10",
+      "source": {
+        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+      }
+    },
+    {
+      "id": "us02y",
+      "nom": "Taux à 2 ans US",
+      "valeur": "4,686 %",
+      "variation": "−0,05 pt sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Le 2 ans suit les paris de hausse Fed : un rebond après la Fed pourrait freiner MES et MNQ.",
+      "date": "clôture du 23/10",
+      "source": {
+        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+      }
+    },
+    {
+      "id": "vix",
+      "nom": "VIX",
+      "valeur": "19,45",
+      "variation": "+2,21 % sur la veille",
+      "sens": "hausse",
+      "lecture": "Le VIX proche de 20 avant Fed et Big Tech : les ranges de NY pourraient rester larges sur MNQ et MES.",
+      "date": "clôture du 23/10",
+      "source": {
+        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+      }
+    },
+    {
+      "id": "fedwatch",
+      "nom": "Probabilités Fed (FedWatch)",
+      "valeur": "90,6 % maintien le 28/10",
+      "variation": "",
+      "sens": "stable",
+      "lecture": "Le maintien est attendu : le ton de Warsh sur décembre pourrait faire bouger MNQ, MES et MGC.",
+      "date": "22/10",
+      "source": {
+        "titre": "TradingKey · Semaine à venir : Fed, Microsoft, Alphabet, Amazon",
+        "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262237761-weekly-fed-microsoft-alphabet-amazon-earnings-tradingkey"
+      }
+    },
+    {
+      "id": "wti",
+      "nom": "Pétrole WTI",
+      "valeur": "103,27 $ (contrat décembre)",
+      "variation": "+3,80 % sur la veille",
+      "sens": "hausse",
+      "lecture": "Le pétrole au dessus de 100 $ nourrit la peur d'inflation : ça pourrait peser sur MNQ et MES.",
+      "date": "clôture du 23/10",
+      "source": {
+        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+      }
+    },
+    {
+      "id": "feargreed",
+      "nom": "Peur et cupidité (CNN)",
+      "valeur": "20 · peur extrême",
+      "variation": "−7 sur la veille",
+      "sens": "baisse",
+      "lecture": "Le sentiment est en peur extrême : les mouvements pourraient rester brusques sur MNQ et MES.",
+      "date": "22/10",
+      "source": {
+        "titre": "Benzinga · Nasdaq pire séance depuis juin, indice en peur extrême",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62550969/nasdaq-records-worst-session-since-june-investor-sentiment-weakens-greed-index-moves-to-extreme-fear-zone"
+      }
+    }
+  ],
+  "eco": {
+    "points": [
+      "Fed le mer. 28/10 à 19h00 de Paris, conférence de Warsh à 19h30. Taux à 3,75 % à 4 %, maintien attendu.",
+      "FedWatch : 9 % de hausse cette semaine, 84 % en décembre. Pas de projections ni de dot plot à cette réunion.",
+      "Jeu. 29/10 à 13h30 : PIB T3 et PCE de septembre. Attendu : PCE 3,7 % sur un an, cœur 3,1 %.",
+      "Ven. 30/10 à 13h30 : coût de l'emploi T3. Mar. 27/10 : commandes durables, ventes de logements neufs.",
+      "Heure d'été US jusqu'au 01/11 : les chiffres US tombent à 13h30 de Paris cette semaine, pas 14h30."
+    ],
+    "sources": [
+      {
+        "titre": "Yardeni QuickTakes · Economic Week Ahead, 26 au 30/10",
+        "url": "https://www.yardeniquicktakes.com/economic-week-ahead-october-26-30/"
+      },
+      {
+        "titre": "TradingKey · Semaine à venir : Fed, Microsoft, Alphabet, Amazon",
+        "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262237761-weekly-fed-microsoft-alphabet-amazon-earnings-tradingkey"
+      },
+      {
+        "titre": "Stocktwits · What To Expect In Markets This Week, 25/10",
+        "url": "https://stocktwits.com/news-articles/markets/equity/what-to-expect-markets-this-week-oct-25-2026/cZUcyBcRBUp"
+      },
+      {
+        "titre": "Open Outcry Trade · Weekly Market Wrap and Look Ahead",
+        "url": "https://openoutcrytrade.substack.com/p/weekly-market-wrap-and-look-ahead-a2d"
+      }
+    ]
+  },
+  "fonda": {
+    "points": [
+      "Humeur risk-off : S&P 500 −0,5 % et Nasdaq −0,7 % sur la semaine, deuxième baisse d'affilée. Dow +0,4 %.",
+      "Mer. 28/10 après clôture : Alphabet et Microsoft. Jeu. 29/10 après clôture : Amazon et Intel.",
+      "Meta a déjà publié : −7 % jeudi. Le Nasdaq a perdu 2,6 % ce jour là, pire séance depuis juin.",
+      "Aussi : Visa mar. 27/10, Eli Lilly et Caterpillar jeu. 29/10, Exxon et Chevron ven. 30/10.",
+      "Vendredi, la baisse s'est élargie au delà de la tech. Seule l'énergie a monté, +2,60 %."
+    ],
+    "sources": [
+      {
+        "titre": "TradingKey · Semaine à venir : Fed, Microsoft, Alphabet, Amazon",
+        "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262237761-weekly-fed-microsoft-alphabet-amazon-earnings-tradingkey"
+      },
+      {
+        "titre": "Benzinga · Nasdaq pire séance depuis juin, indice en peur extrême",
+        "url": "https://www.benzinga.com/markets/market-summary/26/10/62550969/nasdaq-records-worst-session-since-june-investor-sentiment-weakens-greed-index-moves-to-extreme-fear-zone"
+      },
+      {
+        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+      },
+      {
+        "titre": "Patel on the Markets · 5 things moving markets, 25/10/2026",
+        "url": "https://www.campaignforamillion.com/post/patel-on-the-markets-5-things-moving-markets-this-week-25-october-2026"
+      }
+    ]
+  },
+  "geo": {
+    "points": [
+      "Attaques houthies sur l'Arabie saoudite : Brent à 116,72 $, plus haut depuis avril. Pétrole, principale inquiétude du marché.",
+      "Ormuz : sept pétroliers touchés près du détroit. Les Gardiens de la révolution menacent les navires sans permission.",
+      "Banques centrales : Canada mer. 28/10, hausse à 2,50 % attendue. BCE jeu. 29/10 et BoJ ven. 30/10, maintien attendu.",
+      "Midterms US le 03/11. Or vers 4 008 $, pire semaine depuis juin malgré les tensions.",
+      "France : écart OAT Bund à 170 pb vendredi, le plus large depuis 2011."
+    ],
+    "sources": [
+      {
+        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+      },
+      {
+        "titre": "Open Outcry Trade · Weekly Market Wrap and Look Ahead",
+        "url": "https://openoutcrytrade.substack.com/p/weekly-market-wrap-and-look-ahead-a2d"
+      },
+      {
+        "titre": "Yardeni QuickTakes · Economic Week Ahead, 26 au 30/10",
+        "url": "https://www.yardeniquicktakes.com/economic-week-ahead-october-26-30/"
+      },
+      {
+        "titre": "Patel on the Markets · 5 things moving markets, 25/10/2026",
+        "url": "https://www.campaignforamillion.com/post/patel-on-the-markets-5-things-moving-markets-this-week-25-october-2026"
+      }
+    ]
+  },
+  "sorties": []
+}
