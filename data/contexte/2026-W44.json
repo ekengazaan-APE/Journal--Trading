@@ -2,112 +2,120 @@
   "v": 1,
   "semaine": "2026-W44",
   "periode": "du lundi 26/10 au vendredi 30/10",
-  "majA": "2026-10-26T12:58:01+01:00",
+  "majA": "2026-10-27T12:52:38+01:00",
   "mode": "quotidien",
-  "note": "DXY, taux à 2 ans, FedWatch et peur et cupidité : pas de valeur neuve lue ce lundi, dernières valeurs gardées.",
+  "note": "FedWatch déduit de 12,7 % de hausse lu le 26/10. Peur et cupidité : valeur du 26/10, page CNN non lisible.",
   "marqueurs": [
     {
       "id": "dxy",
       "nom": "Dollar (DXY)",
-      "valeur": "101,79",
-      "variation": "−0,2 % sur 5 jours",
-      "sens": "stable",
-      "lecture": "Le dollar reste vers 101,8 : l'or (MGC) pourrait suivre surtout les taux et le pétrole.",
-      "date": "clôture du 23/10",
+      "valeur": "102,02",
+      "variation": "+0,2 % sur la veille",
+      "sens": "hausse",
+      "lecture": "Le dollar remonte vers 102 avant la Fed : ça pourrait freiner l'or (MGC).",
+      "date": "clôture du 26/10",
       "source": {
-        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+        "titre": "CappNotes · Closing Look, lundi 26/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-26-2026"
       }
     },
     {
       "id": "us10y",
       "nom": "Taux à 10 ans US",
-      "valeur": "4,988 %",
-      "variation": "+0,035 pt sur la veille",
-      "sens": "hausse",
-      "lecture": "Le 10 ans reste collé aux 5 % avant la Fed : un passage au dessus pourrait peser sur MNQ.",
-      "date": "26/10 en matinée",
+      "valeur": "4,986 %",
+      "variation": "−0,002 pt sur la veille",
+      "sens": "stable",
+      "lecture": "Le 10 ans reste collé aux 5 % : un passage au dessus pourrait peser sur MNQ.",
+      "date": "27/10 à 11h00",
       "source": {
-        "titre": "Yahoo Finance · Futures en légère hausse, pétrole en baisse, 26/10",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-edge-oil-100215774.html"
+        "titre": "Yahoo Finance · Marché en direct, mardi 27/10",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-27-dow-sp-500-nasdaq-081901995.html"
       }
     },
     {
       "id": "us02y",
       "nom": "Taux à 2 ans US",
-      "valeur": "4,686 %",
-      "variation": "−0,05 pt sur 5 jours",
-      "sens": "baisse",
-      "lecture": "Le 2 ans suit les paris de hausse Fed : un rebond après la Fed pourrait freiner MES et MNQ.",
-      "date": "clôture du 23/10",
+      "valeur": "4,712 %",
+      "variation": "+0,032 pt sur la veille",
+      "sens": "hausse",
+      "lecture": "Le 2 ans monte avec les paris de hausse Fed : ça pourrait freiner MES et MNQ.",
+      "date": "clôture du 26/10",
       "source": {
-        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
+        "titre": "CappNotes · Closing Look, lundi 26/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-26-2026"
       }
     },
     {
       "id": "vix",
       "nom": "VIX",
-      "valeur": "19,55",
-      "variation": "+0,10 pt sur la veille",
-      "sens": "stable",
-      "lecture": "Le VIX reste vers 20 avant Fed et Big Tech : les ranges de NY pourraient rester larges sur MNQ et MES.",
-      "date": "26/10 en matinée",
+      "valeur": "17,84",
+      "variation": "−0,55 pt sur la veille",
+      "sens": "baisse",
+      "lecture": "Le VIX repasse sous 18 : la nervosité baisse, mais la Fed pourrait élargir les ranges de NY.",
+      "date": "27/10 à 11h00",
       "source": {
-        "titre": "Yahoo Finance · Futures en légère hausse, pétrole en baisse, 26/10",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-edge-oil-100215774.html"
+        "titre": "Yahoo Finance · Marché en direct, mardi 27/10",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-27-dow-sp-500-nasdaq-081901995.html"
       }
     },
     {
       "id": "fedwatch",
       "nom": "Probabilités Fed (FedWatch)",
-      "valeur": "90,6 % maintien le 28/10",
+      "valeur": "87,3 % maintien le 28/10",
       "variation": "",
       "sens": "stable",
       "lecture": "Le maintien est attendu : le ton de Warsh sur décembre pourrait faire bouger MNQ, MES et MGC.",
-      "date": "22/10",
+      "date": "26/10",
       "source": {
-        "titre": "TradingKey · Semaine à venir : Fed, Microsoft, Alphabet, Amazon",
-        "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262237761-weekly-fed-microsoft-alphabet-amazon-earnings-tradingkey"
+        "titre": "CappNotes · Closing Look, lundi 26/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-26-2026"
       }
     },
     {
       "id": "wti",
       "nom": "Pétrole WTI",
-      "valeur": "101,17 $ (contrat décembre)",
-      "variation": "−2,03 % sur la veille",
+      "valeur": "100,74 $ (contrat décembre)",
+      "variation": "−1,00 % sur la veille",
       "sens": "baisse",
-      "lecture": "Le pétrole recule mais reste au dessus de 100 $ : une détente pourrait soulager MNQ et MES.",
-      "date": "26/10 en matinée",
+      "lecture": "Le pétrole glisse vers 100 $ : une détente pourrait soulager MNQ et MES.",
+      "date": "27/10 à 11h00",
       "source": {
-        "titre": "Yahoo Finance · Futures en légère hausse, pétrole en baisse, 26/10",
-        "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-edge-oil-100215774.html"
+        "titre": "Yahoo Finance · Marché en direct, mardi 27/10",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-27-dow-sp-500-nasdaq-081901995.html"
       }
     },
     {
       "id": "feargreed",
       "nom": "Peur et cupidité (CNN)",
-      "valeur": "20 · peur extrême",
-      "variation": "−7 sur la veille",
-      "sens": "baisse",
-      "lecture": "Le sentiment est en peur extrême : les mouvements pourraient rester brusques sur MNQ et MES.",
-      "date": "22/10",
+      "valeur": "21 · peur extrême",
+      "variation": "",
+      "sens": "stable",
+      "lecture": "Le sentiment reste en peur extrême : les mouvements pourraient rester brusques sur MNQ et MES.",
+      "date": "26/10",
       "source": {
-        "titre": "Benzinga · Nasdaq pire séance depuis juin, indice en peur extrême",
-        "url": "https://www.benzinga.com/markets/market-summary/26/10/62550969/nasdaq-records-worst-session-since-june-investor-sentiment-weakens-greed-index-moves-to-extreme-fear-zone"
+        "titre": "aiStockSelection · Fear & Greed Index Today",
+        "url": "https://www.aistockselection.com/en/fear-greed-today/"
       }
     }
   ],
   "eco": {
     "points": [
-      "Lun. 26/10 : le marché ne voit que 10 % de chance de hausse Fed mercredi. Bank of America attend une hausse de 0,25 pt.",
+      "Mar. 27/10 : la Fed ouvre sa réunion. FedWatch : 12,7 % de hausse mercredi, plus de 70 % en décembre. 2 ans à 4,71 %.",
       "Fed le mer. 28/10 à 19h00 de Paris, conférence de Warsh à 19h30. Taux à 3,75 % à 4 %, maintien attendu.",
-      "FedWatch : 9 % de hausse cette semaine, 84 % en décembre. Pas de projections ni de dot plot à cette réunion.",
+      "Mar. 27/10 à 15h00 : confiance des consommateurs (Conference Board), attendue à 81,2 après 81,9.",
       "Jeu. 29/10 à 13h30 : PIB T3 et PCE de septembre. Attendu : PCE 3,7 % sur un an, cœur 3,1 %.",
-      "Ven. 30/10 à 13h30 : coût de l'emploi T3. Mar. 27/10 : commandes durables, ventes de logements neufs.",
+      "Ven. 30/10 à 13h30 : coût de l'emploi T3, attendu à 0,8 % après 0,9 %.",
       "Heure d'été US jusqu'au 01/11 : les chiffres US tombent à 13h30 de Paris cette semaine, pas 14h30."
     ],
     "sources": [
+      {
+        "titre": "CappNotes · Closing Look, lundi 26/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-26-2026"
+      },
+      {
+        "titre": "Journal · calendrier économique",
+        "url": "https://radiant-puppy-883b29.netlify.app/api/calendar"
+      },
       {
         "titre": "TheStreet · Stock Market Today, 26/10/2026",
         "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-26-2026"
@@ -123,27 +131,31 @@
       {
         "titre": "TradingKey · Semaine à venir : Fed, Microsoft, Alphabet, Amazon",
         "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262237761-weekly-fed-microsoft-alphabet-amazon-earnings-tradingkey"
-      },
-      {
-        "titre": "Stocktwits · What To Expect In Markets This Week, 25/10",
-        "url": "https://stocktwits.com/news-articles/markets/equity/what-to-expect-markets-this-week-oct-25-2026/cZUcyBcRBUp"
-      },
-      {
-        "titre": "Open Outcry Trade · Weekly Market Wrap and Look Ahead",
-        "url": "https://openoutcrytrade.substack.com/p/weekly-market-wrap-and-look-ahead-a2d"
       }
     ]
   },
   "fonda": {
     "points": [
-      "Lun. 26/10 : futures en hausse, Dow +0,36 %, Nasdaq +0,10 %. Les neoclouds chutent après un avertissement d'Elon Musk.",
-      "Humeur risk-off : S&P 500 −0,5 % et Nasdaq −0,7 % sur la semaine, deuxième baisse d'affilée. Dow +0,4 %.",
+      "Mar. 27/10 : futures en légère hausse, Nasdaq 100 +0,40 % vers 11h00. Visa, Coca-Cola, Boeing et UPS publient aujourd'hui.",
+      "Lun. 26/10 : rebond, S&P 500 +0,70 %, Nasdaq +0,82 %. Le dépôt d'IPO d'Anthropic relance l'appétit pour l'IA.",
       "Mer. 28/10 après clôture : Alphabet et Microsoft. Jeu. 29/10 après clôture : Amazon et Intel.",
-      "Meta a déjà publié : −7 % jeudi. Le Nasdaq a perdu 2,6 % ce jour là, pire séance depuis juin.",
-      "Aussi : Visa mar. 27/10, Eli Lilly et Caterpillar jeu. 29/10, Exxon et Chevron ven. 30/10.",
-      "Vendredi, la baisse s'est élargie au delà de la tech. Seule l'énergie a monté, +2,60 %."
+      "Humeur encore fragile : S&P 500 −0,5 % et Nasdaq −0,7 % la semaine passée. Peur et cupidité à 21.",
+      "Meta a déjà publié : −7 % jeudi 22/10. Le Nasdaq a perdu 2,6 % ce jour là, pire séance depuis juin.",
+      "Aussi : Eli Lilly et Caterpillar jeu. 29/10, Exxon et Chevron ven. 30/10."
     ],
     "sources": [
+      {
+        "titre": "Yahoo Finance · Marché en direct, mardi 27/10",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-27-dow-sp-500-nasdaq-081901995.html"
+      },
+      {
+        "titre": "CappNotes · Closing Look, lundi 26/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-26-2026"
+      },
+      {
+        "titre": "TipRanks · Stock Market Today, 27/10",
+        "url": "https://www.tipranks.com/news/stock-market-today-oct-27-futures-edge-higher-ahead-of-key-earnings-and-the-feds-rate-decision"
+      },
       {
         "titre": "Yahoo Finance · Futures en légère hausse, pétrole en baisse, 26/10",
         "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-edge-oil-100215774.html"
@@ -155,31 +167,27 @@
       {
         "titre": "TradingKey · Semaine à venir : Fed, Microsoft, Alphabet, Amazon",
         "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262237761-weekly-fed-microsoft-alphabet-amazon-earnings-tradingkey"
-      },
-      {
-        "titre": "Benzinga · Nasdaq pire séance depuis juin, indice en peur extrême",
-        "url": "https://www.benzinga.com/markets/market-summary/26/10/62550969/nasdaq-records-worst-session-since-june-investor-sentiment-weakens-greed-index-moves-to-extreme-fear-zone"
-      },
-      {
-        "titre": "CappNotes · Closing Look, vendredi 23/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-23-2026"
-      },
-      {
-        "titre": "Patel on the Markets · 5 things moving markets, 25/10/2026",
-        "url": "https://www.campaignforamillion.com/post/patel-on-the-markets-5-things-moving-markets-this-week-25-october-2026"
       }
     ]
   },
   "geo": {
     "points": [
-      "Lun. 26/10 : WTI −2 % vers 101 $. Médiateurs qatariens à Téhéran dimanche, en lien avec les US. Or vers 4 028 $.",
-      "Attaques houthies sur l'Arabie saoudite : Brent à 116,72 $, plus haut depuis avril. Pétrole, principale inquiétude du marché.",
+      "Mar. 27/10 : WTI −1 % vers 100,7 $, espoir de diplomatie. Arabie saoudite, Turquie et Pakistan ont parlé avec l'Iran à Téhéran.",
+      "Lun. 26/10 : nouvelles attaques houthies sur Riyad. Brent à 115,81 $, proche de son plus haut de six mois.",
       "Ormuz : sept pétroliers touchés près du détroit. Les Gardiens de la révolution menacent les navires sans permission.",
       "Banques centrales : Canada mer. 28/10, hausse à 2,50 % attendue. BCE jeu. 29/10 et BoJ ven. 30/10, maintien attendu.",
-      "Midterms US le 03/11. Or vers 4 008 $, pire semaine depuis juin malgré les tensions.",
-      "France : écart OAT Bund à 170 pb vendredi, le plus large depuis 2011."
+      "Brésil : Lula réélu avec 51,79 %, l'Ibovespa chute de 13,88 %. Midterms US le 03/11.",
+      "Or vers 4 025 $ mardi matin, après +0,8 % lundi à 4 038,40 $."
     ],
     "sources": [
+      {
+        "titre": "Yahoo Finance · Marché en direct, mardi 27/10",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-october-27-dow-sp-500-nasdaq-081901995.html"
+      },
+      {
+        "titre": "CappNotes · Closing Look, lundi 26/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-october-26-2026"
+      },
       {
         "titre": "TheStreet · Stock Market Today, 26/10/2026",
         "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-oct-26-2026"
@@ -195,14 +203,6 @@
       {
         "titre": "Open Outcry Trade · Weekly Market Wrap and Look Ahead",
         "url": "https://openoutcrytrade.substack.com/p/weekly-market-wrap-and-look-ahead-a2d"
-      },
-      {
-        "titre": "Yardeni QuickTakes · Economic Week Ahead, 26 au 30/10",
-        "url": "https://www.yardeniquicktakes.com/economic-week-ahead-october-26-30/"
-      },
-      {
-        "titre": "Patel on the Markets · 5 things moving markets, 25/10/2026",
-        "url": "https://www.campaignforamillion.com/post/patel-on-the-markets-5-things-moving-markets-this-week-25-october-2026"
       }
     ]
   },
