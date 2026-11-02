@@ -1,0 +1,183 @@
+{
+  "v": 1,
+  "semaine": "2026-W45",
+  "periode": "du lundi 02/11 au vendredi 06/11",
+  "majA": "2026-11-02T13:34:44+01:00",
+  "mode": "hebdo",
+  "note": "FedWatch : valeur du 30/10, variation sur 5 jours non lue. WTI : clôture du 30/10, il recule de plus de 4 % ce lundi matin.",
+  "marqueurs": [
+    {
+      "id": "dxy",
+      "nom": "Dollar (DXY)",
+      "valeur": "101,88",
+      "variation": "+0,07 % sur 5 jours",
+      "sens": "stable",
+      "lecture": "Le dollar ne bouge presque pas : l'or (MGC) pourrait réagir surtout aux taux et au pétrole cette semaine.",
+      "date": "clôture du 30/10",
+      "source": {
+        "titre": "Portfolio Terminal · Semaine boursière au 30/10/2026",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
+      }
+    },
+    {
+      "id": "us10y",
+      "nom": "Taux à 10 ans US",
+      "valeur": "4,929 %",
+      "variation": "−0,059 pt sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Le 10 ans repasse sous 5 % : ça pourrait soulager un peu MNQ, si l'emploi de vendredi ne le relance pas.",
+      "date": "clôture du 30/10",
+      "source": {
+        "titre": "Portfolio Terminal · Semaine boursière au 30/10/2026",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
+      }
+    },
+    {
+      "id": "us02y",
+      "nom": "Taux à 2 ans US",
+      "valeur": "4,56 %",
+      "variation": "−0,13 pt sur 5 jours",
+      "sens": "baisse",
+      "lecture": "Le 2 ans recule malgré les paris de hausse : le NFP de vendredi pourrait le faire bouger fort.",
+      "date": "clôture du 30/10",
+      "source": {
+        "titre": "Portfolio Terminal · Semaine boursière au 30/10/2026",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
+      }
+    },
+    {
+      "id": "vix",
+      "nom": "VIX",
+      "valeur": "19,42",
+      "variation": "−0,03 pt sur 5 jours",
+      "sens": "stable",
+      "lecture": "Le VIX reste près de 19 : midterms et NFP pourraient élargir les ranges de NY.",
+      "date": "clôture du 30/10",
+      "source": {
+        "titre": "Portfolio Terminal · Semaine boursière au 30/10/2026",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
+      }
+    },
+    {
+      "id": "fedwatch",
+      "nom": "Probabilités Fed (FedWatch)",
+      "valeur": "76 % hausse de 0,25 pt le 09/12",
+      "variation": "",
+      "sens": "baisse",
+      "lecture": "Une hausse en décembre reste le scénario principal : un NFP fort pourrait peser sur MNQ, MES et MGC.",
+      "date": "30/10",
+      "source": {
+        "titre": "PrimeXBT · Musalem et Logan, hausse de décembre à 76 %",
+        "url": "https://primexbt.com/news/feds-musalem-and-logan-say-rates-need-to-rise-with-a-december-hike-priced-at-rou/"
+      }
+    },
+    {
+      "id": "wti",
+      "nom": "Pétrole WTI",
+      "valeur": "104,12 $",
+      "variation": "+0,82 % sur 5 jours",
+      "sens": "hausse",
+      "lecture": "Le pétrole reste au dessus de 100 $ à la clôture, mais chute ce lundi sur les espoirs de négociation avec l'Iran.",
+      "date": "clôture du 30/10",
+      "source": {
+        "titre": "Portfolio Terminal · Semaine boursière au 30/10/2026",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
+      }
+    },
+    {
+      "id": "feargreed",
+      "nom": "Peur et cupidité (CNN)",
+      "valeur": "26 · peur",
+      "variation": "+9 sur une semaine",
+      "sens": "hausse",
+      "lecture": "Le sentiment reste en peur : les mouvements pourraient rester brusques sur les résultats tech.",
+      "date": "02/11",
+      "source": {
+        "titre": "aiStockSelection · Fear & Greed Index Today",
+        "url": "https://www.aistockselection.com/en/fear-greed-today/"
+      }
+    }
+  ],
+  "eco": {
+    "points": [
+      "Fed à 3,75 % à 4,00 % depuis le 28/10. Prochaine réunion le 09/12. FedWatch : environ 76 % de hausse le 30/10.",
+      "Ven. 30/10 : Musalem veut resserrer encore, et vite. Logan veut au moins deux hausses de 0,25 pt.",
+      "Ven. 06/11 à 14h30 : NFP d'octobre, attendu à 55K selon FactSet (63K au calendrier), chômage à 4,2 %. Septembre : 29K.",
+      "Aussi : ISM manufacturier lun. 16h00, JOLTS mar. 16h00, ADP et ISM services mer., inscriptions au chômage jeu. 14h30.",
+      "Taux en baisse sur la semaine : 10 ans à 4,929 %, 2 ans à 4,56 % le 30/10. Dollar stable à 101,88."
+    ],
+    "sources": [
+      {
+        "titre": "Gotrade · Semaine à venir : midterms, Apple, emploi",
+        "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-11-02/"
+      },
+      {
+        "titre": "PrimeXBT · Musalem et Logan, hausse de décembre à 76 %",
+        "url": "https://primexbt.com/news/feds-musalem-and-logan-say-rates-need-to-rise-with-a-december-hike-priced-at-rou/"
+      },
+      {
+        "titre": "CappNotes · Closing Look, vendredi 30/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-30-2026"
+      },
+      {
+        "titre": "Portfolio Terminal · Semaine boursière au 30/10/2026",
+        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
+      }
+    ]
+  },
+  "fonda": {
+    "points": [
+      "Ven. 30/10 : Nasdaq −2,86 %, S&P 500 −1,82 %. Intel −28,58 %, semi-conducteurs −7,20 %. Nasdaq −5,2 % sur octobre.",
+      "Lun. 02/11 matin : futures en rebond, Nasdaq 100 environ +0,8 %, S&P 500 +0,4 %.",
+      "Résultats : Apple et Palantir lun. après clôture, AMD mar., Qualcomm mer., Airbnb jeu. Aussi McDonald's, Uber, Amgen.",
+      "Humeur risk-off sur la tech : Alphabet −13 % sur la semaine passée, Amazon en baisse. Peur et cupidité à 26.",
+      "Bénéfices T3 en hausse de 31 % sur la moitié du S&P 500 publiée (LSEG). La barre reste très haute."
+    ],
+    "sources": [
+      {
+        "titre": "CappNotes · Closing Look, vendredi 30/10/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-30-2026"
+      },
+      {
+        "titre": "Yahoo Finance · Marché en direct, lundi 02/11",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-november-2-dow-sp-500-nasdaq-091835095.html"
+      },
+      {
+        "titre": "Gotrade · Semaine à venir : midterms, Apple, emploi",
+        "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-11-02/"
+      },
+      {
+        "titre": "Business Recorder · Wall Street Week Ahead (Reuters)",
+        "url": "https://www.brecorder.com/news/40446970/wall-street-week-ahead-midterm-elections-earnings-jobs-data-loom-for-ai-wary-market"
+      }
+    ]
+  },
+  "geo": {
+    "points": [
+      "Mar. 03/11 : midterms US. Les démocrates sont donnés gagnants à la Chambre, le Sénat est plus incertain.",
+      "Iran : discussions avec le Qatar sur un projet d'accord, nouvelle réunion possible. WTI à 99,35 $ lundi matin (−4,58 %).",
+      "Mar. 03/11 à 04h30 : RBA, hausse de 4,60 % à 4,85 % attendue à 81 %. Pendant ta session Asie.",
+      "Jeu. 05/11 à 13h00 : BoE, hausse de 3,75 % à 4,00 % attendue, première depuis 2023.",
+      "Or à 3 910,60 $ lundi matin (+0,30 %), après une semaine en forte baisse."
+    ],
+    "sources": [
+      {
+        "titre": "Business Recorder · Wall Street Week Ahead (Reuters)",
+        "url": "https://www.brecorder.com/news/40446970/wall-street-week-ahead-midterm-elections-earnings-jobs-data-loom-for-ai-wary-market"
+      },
+      {
+        "titre": "TheStreet · Stock Market Today, 02/11/2026",
+        "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-02-2026"
+      },
+      {
+        "titre": "Newsquawk · Aperçu RBA du 03/11/2026",
+        "url": "https://www.newsquawk.com/headlines/preview-rba-rate-decision-scheduled-for-tuesday-3rd-november-2026-at-0330gmt-2230est-on-monday"
+      },
+      {
+        "titre": "Business Recorder · La BoE prête à monter ses taux (Reuters)",
+        "url": "https://www.brecorder.com/news/40447002/bank-of-england-poised-to-raise-rates-but-may-push-back-on-bets-for-more"
+      }
+    ]
+  },
+  "sorties": []
+}
