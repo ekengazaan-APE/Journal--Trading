@@ -2,112 +2,128 @@
   "v": 1,
   "semaine": "2026-W45",
   "periode": "du lundi 02/11 au vendredi 06/11",
-  "majA": "2026-11-02T14:05:00+01:00",
+  "majA": "2026-11-03T14:02:02+01:00",
   "mode": "quotidien",
-  "note": "FedWatch : page CME non lue, 75 % vient de NordFX (marchés). Peur et cupidité : valeur reprise du passage de 13h34, source non rouverte. Heures des cotations du matin approximatives. 2 ans : clôture du 30/10 discordante selon les sources.",
+  "note": "Peur et cupidité : valeur CNN non lue, page CNN et article Benzinga non ouverts. Un site tiers (feargreedmeter.com) affiche 19, sans lien confirmé avec CNN, donc non repris. FedWatch : page CME non lue, chiffre cité par TradingKey. JOLTS pas encore sorti à cette heure.",
   "marqueurs": [
     {
       "id": "dxy",
       "nom": "Dollar (DXY)",
-      "valeur": "101,45",
-      "variation": "−0,29 % sur la veille",
+      "valeur": "101,78",
+      "variation": "−0,10 % sur la veille",
       "sens": "baisse",
-      "lecture": "Le dollar recule avant les midterms : ça pourrait soutenir l'or (MGC) si les taux ne remontent pas.",
-      "date": "02/11 matin",
+      "lecture": "Le dollar reste un peu sous 102 : ça pourrait aider l'or (MGC) si les taux ne remontent pas après l'ISM.",
+      "date": "clôture du 02/11",
       "source": {
-        "titre": "Investing.com · Reuters, futures Wall Street du 02/11",
-        "url": "https://www.investing.com/news/stock-market-news/wall-street-futures-rise-as-ai-stocks-catch-their-breath-midterms-in-focus-4990733"
+        "titre": "CappNotes · Closing Look, lundi 02/11/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-november-2-2026"
       }
     },
     {
       "id": "us10y",
       "nom": "Taux à 10 ans US",
-      "valeur": "4,907 %",
-      "variation": "−0,014 pt sur la veille",
+      "valeur": "4,893 %",
+      "variation": "−0,035 pt sur la veille",
       "sens": "baisse",
-      "lecture": "Le 10 ans reste sous 5 % : ça pourrait soulager un peu MNQ, si l'ISM et le NFP ne le relancent pas.",
-      "date": "02/11 matin",
+      "lecture": "Le 10 ans reste sous 5 % avec le pétrole en baisse : ça pourrait soulager MNQ, sauf surprise JOLTS ou NFP.",
+      "date": "clôture du 02/11",
       "source": {
-        "titre": "Investing.com · Reuters, futures Wall Street du 02/11",
-        "url": "https://www.investing.com/news/stock-market-news/wall-street-futures-rise-as-ai-stocks-catch-their-breath-midterms-in-focus-4990733"
+        "titre": "CappNotes · Closing Look, lundi 02/11/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-november-2-2026"
       }
     },
     {
       "id": "us02y",
       "nom": "Taux à 2 ans US",
-      "valeur": "4,61 %",
-      "variation": "+0,010 pt sur la veille",
+      "valeur": "4,581 %",
+      "variation": "+0,002 pt sur la veille",
       "sens": "stable",
-      "lecture": "Le 2 ans bouge peu avant l'ISM : le NFP de vendredi pourrait le faire bouger fort.",
-      "date": "02/11",
+      "lecture": "Le 2 ans n'a pas bougé malgré l'ISM : le NFP de vendredi pourrait le faire bouger, et MNQ avec lui.",
+      "date": "clôture du 02/11",
       "source": {
-        "titre": "Trading Economics · Taux à 2 ans US",
-        "url": "https://tradingeconomics.com/united-states/2-year-note-yield"
+        "titre": "CappNotes · Closing Look, lundi 02/11/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-november-2-2026"
       }
     },
     {
       "id": "vix",
       "nom": "VIX",
-      "valeur": "19,09",
-      "variation": "−1,70 % sur la veille",
-      "sens": "baisse",
-      "lecture": "Le VIX se détend un peu mais reste près de 19 : midterms et NFP pourraient élargir les ranges de NY.",
-      "date": "02/11 avant l'ouverture US",
+      "valeur": "21,15",
+      "variation": "+8,91 % sur la veille",
+      "sens": "hausse",
+      "lecture": "Le VIX repasse au-dessus de 20 : les ranges de MNQ et MES pourraient rester larges pendant les midterms.",
+      "date": "clôture du 02/11",
       "source": {
-        "titre": "Yahoo Finance · Marché en direct, lundi 02/11",
-        "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-november-2-dow-sp-500-nasdaq-091835095.html"
+        "titre": "Saxo · Options Brief du 03/11",
+        "url": "https://www.home.saxo/en-mena/content/articles/options/the-vote-week-outprices-the-month---options-brief---3-november-2026-03112026"
       }
     },
     {
       "id": "fedwatch",
       "nom": "Probabilités Fed (FedWatch)",
-      "valeur": "75 % hausse de 0,25 pt le 09/12",
+      "valeur": "environ 73 % hausse le 09/12",
       "variation": "",
-      "sens": "stable",
-      "lecture": "Une hausse en décembre reste le scénario principal : un NFP fort pourrait peser sur MNQ, MES et MGC.",
-      "date": "02/11",
+      "sens": "baisse",
+      "lecture": "La hausse reste le scénario principal, moins qu'il y a une semaine : un NFP fort pourrait relancer la pression sur MNQ, MES et MGC.",
+      "date": "03/11, session Asie",
       "source": {
-        "titre": "NordFX · Market Pulse du 02/11",
-        "url": "https://nordfx.com/market-news/market-pulse-november-02-2026"
+        "titre": "TradingKey · Or et FedWatch, 03/11",
+        "url": "https://www.tradingkey.com/analysis/commodities/metal/262265825-gold-forecast-below-3900-rebound-2-percent-short-term-bottom-tradingkey"
       }
     },
     {
       "id": "wti",
       "nom": "Pétrole WTI",
-      "valeur": "99,61 $",
-      "variation": "−4,33 % sur la veille",
+      "valeur": "96,46 $",
+      "variation": "−7,36 % sur la veille",
       "sens": "baisse",
-      "lecture": "Le pétrole repasse sous 100 $ sur les espoirs Iran : ça pourrait calmer les taux et aider MNQ et MES, si ça tient.",
-      "date": "02/11 avant l'ouverture US",
+      "lecture": "Le pétrole chute sur les espoirs Iran : ça pourrait calmer les taux, mais un rebond pèserait sur MES et MYM.",
+      "date": "clôture du 02/11",
       "source": {
-        "titre": "Yahoo Finance · Marché en direct, lundi 02/11",
-        "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-november-2-dow-sp-500-nasdaq-091835095.html"
+        "titre": "CappNotes · Closing Look, lundi 02/11/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-november-2-2026"
       }
     },
     {
       "id": "feargreed",
       "nom": "Peur et cupidité (CNN)",
-      "valeur": "26 · peur",
-      "variation": "+9 sur une semaine",
-      "sens": "hausse",
-      "lecture": "Le sentiment reste en peur : les mouvements pourraient rester brusques sur les résultats tech.",
-      "date": "02/11",
+      "valeur": "n.d.",
+      "variation": "",
+      "sens": "stable",
+      "lecture": "Valeur non trouvée aujourd'hui.",
+      "date": "",
       "source": {
-        "titre": "aiStockSelection · Fear & Greed Index Today",
-        "url": "https://www.aistockselection.com/en/fear-greed-today/"
+        "titre": "",
+        "url": ""
       }
     }
   ],
   "eco": {
     "points": [
-      "Lun. 02/11 : ISM manufacturier à 16h00, pas encore sorti. Consensus 54,7, prix payés attendus à 77,5.",
-      "Fed à 3,75 % à 4,00 % depuis le 28/10. Prochaine réunion le 09/12. Marchés : environ 75 % de hausse le 02/11.",
+      "Lun. 02/11 : ISM manufacturier à 55,5 pour 54,5 attendu. Prix payés à 75,2 contre 77,9. Emploi à 52,4.",
+      "Fed à 3,75 % à 4,00 %. Réunion le 09/12. FedWatch : environ 73 % de hausse, environ 81,6 % il y a 7 jours.",
       "Ven. 30/10 : Musalem veut resserrer encore, et vite. Logan veut au moins deux hausses de 0,25 pt.",
-      "Ven. 06/11 à 14h30 : NFP d'octobre, attendu à 55K selon FactSet (63K au calendrier), chômage à 4,2 %. Septembre : 29K.",
-      "Aussi : JOLTS mar. 16h00, ADP et ISM services mer., inscriptions au chômage jeu. 14h30.",
-      "10 ans à 4,907 %, 2 ans à 4,61 %, dollar à 101,45 lundi matin. 10 ans et dollar en léger recul."
+      "Ven. 06/11 à 14h30 : NFP d'octobre, attendu à 65K au calendrier, 55K selon FactSet. Chômage à 4,2 %. Septembre : 29K.",
+      "Mar. 03/11 à 16h00 : JOLTS, 7,15 M attendus. Puis ADP et ISM services mer., inscriptions au chômage jeu. à 14h30.",
+      "Clôture du 02/11 : 10 ans à 4,893 %, 2 ans à 4,581 %, dollar à 101,78. 10 ans et dollar en recul."
     ],
     "sources": [
+      {
+        "titre": "CappNotes · Closing Look, lundi 02/11/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-november-2-2026"
+      },
+      {
+        "titre": "Verified Investing · ISM manufacturier d'octobre 2026",
+        "url": "https://verifiedinvesting.com/blogs/us-economic-metrics/ism-manufacturing-october-2026"
+      },
+      {
+        "titre": "TradingKey · Or et FedWatch, 03/11",
+        "url": "https://www.tradingkey.com/analysis/commodities/metal/262265825-gold-forecast-below-3900-rebound-2-percent-short-term-bottom-tradingkey"
+      },
+      {
+        "titre": "Journal · Flux calendrier",
+        "url": "https://radiant-puppy-883b29.netlify.app/api/calendar"
+      },
       {
         "titre": "Gotrade · Semaine à venir : midterms, Apple, emploi",
         "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-11-02/"
@@ -115,96 +131,86 @@
       {
         "titre": "PrimeXBT · Musalem et Logan, hausse de décembre à 76 %",
         "url": "https://primexbt.com/news/feds-musalem-and-logan-say-rates-need-to-rise-with-a-december-hike-priced-at-rou/"
-      },
-      {
-        "titre": "CappNotes · Closing Look, vendredi 30/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-30-2026"
-      },
-      {
-        "titre": "Portfolio Terminal · Semaine boursière au 30/10/2026",
-        "url": "https://portfolio-terminal.com/blog/stock-market-week-in-review-october-30-2026"
-      },
-      {
-        "titre": "NordFX · Market Pulse du 02/11",
-        "url": "https://nordfx.com/market-news/market-pulse-november-02-2026"
-      },
-      {
-        "titre": "Investing.com · Reuters, futures Wall Street du 02/11",
-        "url": "https://www.investing.com/news/stock-market-news/wall-street-futures-rise-as-ai-stocks-catch-their-breath-midterms-in-focus-4990733"
-      },
-      {
-        "titre": "Trading Economics · Taux à 2 ans US",
-        "url": "https://tradingeconomics.com/united-states/2-year-note-yield"
-      },
-      {
-        "titre": "Yahoo Finance · Marché en direct, lundi 02/11",
-        "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-november-2-dow-sp-500-nasdaq-091835095.html"
       }
     ]
   },
   "fonda": {
     "points": [
-      "Lun. 02/11 : OpenAI réduit de 10 Md$ l'objectif de sa levée. Apple attendu à 2 $ par action, 113,46 Md$ de ventes.",
-      "Ven. 30/10 : Nasdaq −2,86 %, S&P 500 −1,82 %. Intel −28,58 %, semi-conducteurs −7,20 %. Nasdaq −5,2 % sur octobre.",
-      "Lun. 02/11 à 13h01 : futures en rebond, Nasdaq 100 +0,74 %, S&P 500 +0,46 %, Dow +0,49 %.",
-      "Résultats : Apple et Palantir lun. après clôture, AMD mar., Qualcomm mer., Airbnb jeu. Aussi McDonald's, Uber, Amgen.",
-      "Humeur risk-off sur la tech : Alphabet −13 % sur la semaine passée, Amazon en baisse. Peur et cupidité à 26.",
+      "Mar. 03/11 vers 13h05 : futures mitigés. Dow −0,75 %, S&P 500 −0,12 %, Nasdaq 100 +0,28 %.",
+      "Lun. 02/11 : Nasdaq 100 −1,39 %, en zone de correction. S&P 500 −0,51 %, Dow +0,41 %. Risk-off sur l'IA.",
+      "Apple : 114,48 Md$ de ventes, 2,10 $ par action, au-dessus des attentes. Marges menacées par la mémoire, titre en baisse avant l'ouverture.",
+      "Palantir bat les attentes et relève ses prévisions, mais recule. AMD mar. après clôture, Qualcomm mer., Airbnb jeu.",
+      "Options S&P 500 : 0,86 % de mouvement implicite pour aujourd'hui, 1,85 % jusqu'au 06/11. VIX à 21,15.",
       "Bénéfices T3 en hausse de 31 % sur la moitié du S&P 500 publiée (LSEG). La barre reste très haute."
     ],
     "sources": [
       {
-        "titre": "CappNotes · Closing Look, vendredi 30/10/2026",
-        "url": "https://cappnotes.substack.com/p/closing-look-friday-october-30-2026"
+        "titre": "Upstox · Futures US du 03/11",
+        "url": "https://upstox.com/news/market-news/us-stocks/dow-s-and-p-500-nasdaq-futures-hint-mixed-opening-with-us-midterm-elections-in-focus-amd-amgen-stocks-to-watch/article-202912/"
       },
       {
-        "titre": "Yahoo Finance · Marché en direct, lundi 02/11",
-        "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-november-2-dow-sp-500-nasdaq-091835095.html"
+        "titre": "CappNotes · Closing Look, lundi 02/11/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-november-2-2026"
       },
       {
-        "titre": "Gotrade · Semaine à venir : midterms, Apple, emploi",
-        "url": "https://www.heygotrade.com/en/news/weekly-economic-outlook-2026-11-02/"
+        "titre": "Saxo · Market Quick Take du 03/11",
+        "url": "https://www.home.saxo/en-mena/content/articles/macro/market-quick-take---us-mid-term-elections-today-the-focus---3-november-2026-03112026"
+      },
+      {
+        "titre": "Saxo · Options Brief du 03/11",
+        "url": "https://www.home.saxo/en-mena/content/articles/options/the-vote-week-outprices-the-month---options-brief---3-november-2026-03112026"
+      },
+      {
+        "titre": "Yahoo Finance · Marché en direct, mardi 03/11",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-november-3-dow-sp-500-nasdaq-midterms-amd-090846378.html"
+      },
+      {
+        "titre": "TipRanks · Stock Market Today, 03/11",
+        "url": "https://www.tipranks.com/news/stock-market-today-nov-3-futures-mixed-on-midterm-election-day-apple-and-palantir-shares-slide-after-earnings"
       },
       {
         "titre": "Business Recorder · Wall Street Week Ahead (Reuters)",
         "url": "https://www.brecorder.com/news/40446970/wall-street-week-ahead-midterm-elections-earnings-jobs-data-loom-for-ai-wary-market"
-      },
-      {
-        "titre": "Investing.com · Reuters, futures Wall Street du 02/11",
-        "url": "https://www.investing.com/news/stock-market-news/wall-street-futures-rise-as-ai-stocks-catch-their-breath-midterms-in-focus-4990733"
       }
     ]
   },
   "geo": {
     "points": [
-      "Lun. 02/11 : Trump exclut de nouvelles frappes avant les midterms, sans écarter une action après. Ormuz reste un risque.",
-      "Mar. 03/11 : midterms US. Les démocrates sont donnés gagnants à la Chambre, le Sénat est plus incertain.",
-      "Iran : discussions avec le Qatar sur un projet d'accord, nouvelle réunion possible. WTI à 99,61 $ lundi matin (−4,33 %).",
-      "Mar. 03/11 à 04h30 : RBA, hausse de 4,60 % à 4,85 % attendue à 81 % à 87 % selon les sources. Pendant ta session Asie.",
+      "Mar. 03/11 : midterms US. Premiers bureaux fermés mer. à 1h00 de Paris, puis 1h30 et 2h00. Résultats pendant ta session Asie.",
+      "Démocrates favoris à la Chambre et au Sénat. Sénat : 73,1 % selon les marchés de prédiction, 80,3 % selon les sondages.",
+      "Iran : Téhéran autorise les discussions avec Washington via le Qatar. Frappes US limitées sur Qeshm après des drones abattus près d'Ormuz.",
+      "Mar. 03/11 : RBA monte de 0,25 pt à 4,85 %, vote 6 contre 3. Ton plus prudent sur la suite.",
       "Jeu. 05/11 à 13h00 : BoE, hausse de 3,75 % à 4,00 % attendue, première depuis 2023.",
-      "Or à 3 911,20 $ lundi matin (+0,32 %), après une semaine en forte baisse."
+      "WTI à 96,46 $ lundi (−7,36 %), 98,59 $ mardi matin. Or à 3 956,90 $ lundi soir (+1,49 %)."
     ],
     "sources": [
       {
-        "titre": "Business Recorder · Wall Street Week Ahead (Reuters)",
-        "url": "https://www.brecorder.com/news/40446970/wall-street-week-ahead-midterm-elections-earnings-jobs-data-loom-for-ai-wary-market"
+        "titre": "Saxo · Market Quick Take du 03/11",
+        "url": "https://www.home.saxo/en-mena/content/articles/macro/market-quick-take---us-mid-term-elections-today-the-focus---3-november-2026-03112026"
       },
       {
-        "titre": "Newsquawk · Aperçu RBA du 03/11/2026",
-        "url": "https://www.newsquawk.com/headlines/preview-rba-rate-decision-scheduled-for-tuesday-3rd-november-2026-at-0330gmt-2230est-on-monday"
+        "titre": "Yahoo Finance · Marché en direct, mardi 03/11",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-november-3-dow-sp-500-nasdaq-midterms-amd-090846378.html"
+      },
+      {
+        "titre": "CappNotes · Closing Look, lundi 02/11/2026",
+        "url": "https://cappnotes.substack.com/p/closing-look-monday-november-2-2026"
       },
       {
         "titre": "Business Recorder · La BoE prête à monter ses taux (Reuters)",
         "url": "https://www.brecorder.com/news/40447002/bank-of-england-poised-to-raise-rates-but-may-push-back-on-bets-for-more"
-      },
-      {
-        "titre": "Saxo · Market Quick Take du 02/11",
-        "url": "https://www.home.saxo/content/articles/macro/market-quick-take---markets-find-calm-after-friday-turmoil----2-november-2026-02112026"
-      },
-      {
-        "titre": "Yahoo Finance · Marché en direct, lundi 02/11",
-        "url": "https://finance.yahoo.com/markets/live/stock-market-today-monday-november-2-dow-sp-500-nasdaq-091835095.html"
       }
     ]
   },
-  "sorties": []
+  "sorties": [
+    {
+      "jour": "lun. 02/11",
+      "heure": "16:00",
+      "titre": "ISM Manufacturing PMI",
+      "titreFr": "ISM manufacturier",
+      "reel": "55,5",
+      "prevision": "54,5",
+      "reaction": "Clôture : Nasdaq 100 −1,39 %, S&P 500 −0,51 %, Dow +0,41 %, or +1,49 %. Séance menée par les ventes sur l'IA et la chute du pétrole."
+    }
+  ]
 }
