@@ -1011,7 +1011,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.9.3 · import sans doublon · 15/10/2026';
+var APP_BUILD='v2.10 · fiches des annonces · 04/11/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -4228,6 +4228,7 @@ var _cal={events:null,at:0,loading:false,err:''};
 (function(){try{var c=JSON.parse(localStorage.getItem('ui_cal')||'null');if(c&&Array.isArray(c.events)){_cal.events=c.events;_cal.at=+c.at||0;}}catch(e){}})();
 function calFetch(force){
   if(!newsActive()||_cal.loading)return;
+  annLoad(force);
   if(!force&&_cal.events&&Date.now()-_cal.at<30*60000)return;
   if(!/^https?:$/.test(location.protocol)){_cal.err='calendrier disponible uniquement sur le site en ligne';calRefreshViews();return;}
   _cal.loading=true;
@@ -4244,6 +4245,65 @@ function calEventsFrom(list,S){
     .sort(function(a,b){return a.ms-b.ms;});
 }
 function calEvents(S){return calEventsFrom(_cal.events,S||getSettings());}
+// Affichage seulement (v2.10) : ne sert JAMAIS au garde-fou, qui reste sur calEvents.
+// USD : tout, discours et faible impact compris. Autres devises : fort et moyen impact, qui peuvent toucher tes actifs.
+function calDisplayFrom(list){
+  return (list||[]).map(function(e){return {t:e.t,c:e.c,i:e.i,f:e.f,p:e.p,ms:Date.parse(e.d)};})
+    .filter(function(e){return isFinite(e.ms)&&(e.c==='USD'||e.i==='High'||e.i==='Medium');})
+    .sort(function(a,b){return a.ms-b.ms;});
+}
+// Fiches écrites par les tâches sur la branche « contexte » : aucune mise en ligne Netlify.
+var ANN={wk:'',data:null,at:0,loading:false};
+var ANN_RAW='https://raw.githubusercontent.com/ekengazaan-APE/Journal--Trading/contexte/data/annonces/';
+function annWeekKey(ms){var d=new Date(msToZoned(ms,PARIS).slice(0,10)+'T12:00:00Z'),wd=d.getUTCDay()||7;d.setUTCDate(d.getUTCDate()+4-wd);var y=d.getUTCFullYear(),w=Math.ceil(((d-Date.UTC(y,0,1))/86400000+1)/7);return y+'-W'+String(w).padStart(2,'0');}
+function annLoad(force){
+  if(ANN.loading||!/^https?:$/.test(location.protocol))return;
+  var wk=annWeekKey(Date.now());if(!force&&ANN.wk===wk&&Date.now()-ANN.at<15*60000)return;
+  ANN.loading=true;
+  fetch(ANN_RAW+wk+'.json?v='+Date.now(),{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+    .then(function(j){ANN.data=j;}).catch(function(){if(ANN.wk!==wk)ANN.data=null;})
+    .then(function(){ANN.wk=wk;ANN.at=Date.now();ANN.loading=false;calRefreshViews();});
+}
+function annFindFiche(e,data){var f=(data&&data.fiches)||[],day=msToZoned(e.ms,PARIS).slice(0,10);
+  return f.find(function(x){var m=Date.parse(x.d);return x.t===e.t&&x.c===e.c&&isFinite(m)&&msToZoned(m,PARIS).slice(0,10)===day;})||null;}
+function annEntreprises(data){return ((data&&data.entreprises)||[]).map(function(x){return {kind:'ent',t:x.nom||x.ticker||'',c:x.ticker||'',i:'Ent',ms:Date.parse(x.d),ent:x};}).filter(function(e){return isFinite(e.ms)&&e.t;});}
+function annDisplay(){return calDisplayFrom(_cal.events).concat(annEntreprises(ANN.data)).sort(function(a,b){return a.ms-b.ms;});}
+var _annKeys={},_annItems=[];
+function annRef(e){var k=e.ms+'|'+e.t+'|'+e.c;if(_annKeys[k]===undefined){_annKeys[k]=_annItems.length;_annItems.push(e);}else _annItems[_annKeys[k]]=e;return _annKeys[k];}
+function annBlock(title,body){return body?'<details style="border:1px solid var(--border);border-radius:10px;margin-top:8px"><summary style="cursor:pointer;min-height:44px;padding:11px 14px;font-weight:700;font-size:14px">'+title+'</summary><div style="padding:2px 14px 14px;font-size:14px;line-height:1.55">'+body+'</div></details>':'';}
+function annP(label,v){return v?'<p style="margin:8px 0 0"><span style="color:var(--muted)">'+label+' :</span> '+esc(v)+'</p>':'';}
+function annSrc(x){return x&&ctxUrl(x.url)?'<a href="'+esc(ctxUrl(x.url))+'" target="_blank" rel="noopener" style="color:var(--accent2)">'+esc(x.titre||'source')+'</a>':(x&&x.titre?esc(x.titre):'');}
+function annAssets(a){a=a||{};return ['MNQ','MES','MYM','MGC'].filter(function(k){return a[k];}).map(function(k){return '<div style="display:grid;grid-template-columns:48px minmax(0,1fr);gap:8px;margin-top:6px"><b style="font-family:monospace">'+k+'</b><span>'+esc(a[k])+'</span></div>';}).join('');}
+function annNum(l,v){return '<span style="color:var(--muted)">'+l+' <b style="color:var(--text);font-family:monospace">'+esc(v||'·')+'</b></span>';}
+function annModalBody(e){
+  var S=getSettings(),day=(FR_DAYS[zparts(e.ms,PARIS).wd]||'')+' '+frDate(msToZoned(e.ms,PARIS).slice(0,10)).slice(0,5)+' à '+hm(e.ms),h='<div data-nocase>';
+  h+='<div style="font-size:13px;color:var(--muted)">'+esc(day)+' · '+esc(e.c)+'</div>';
+  if(e.kind==='ent'){var x=e.ent;
+    h+=(x.moment?'<div style="font-size:13px;color:var(--muted)">'+esc(x.moment)+'</div>':'')+'<div style="display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:14px">'+annNum('Bénéfice attendu',x.beneficeAttendu)+annNum('Chiffre d’affaires attendu',x.caAttendu)+'</div>'
+      +(x.source?'<div style="font-size:12px;color:var(--muted);margin-top:6px">Source : '+annSrc(x.source)+'</div>':'')
+      +annBlock('Ce que ça peut changer pour tes indices',x.impactIndices?'<p style="margin:8px 0 0">'+esc(x.impactIndices)+'</p>':'')
+      +annBlock('Résultat réel et réaction',(x.reel||x.reaction)?annP('Réel',x.reel)+annP('Réaction',x.reaction):'');
+    return h+'<p style="font-size:12px;color:var(--muted);margin-top:12px">Hypothèses, pas des certitudes. Ce n’est pas un conseil en investissement.</p></div>';}
+  var f=annFindFiche(e,ANN.data)||{},lbl=e.i==='High'?'Fort impact':e.i==='Medium'?'Impact moyen':e.i==='Holiday'?'Jour particulier':'Faible impact';
+  var blocked=calEventsFrom([{t:e.t,c:e.c,i:e.i,d:new Date(e.ms).toISOString()}],Object.assign({},S,{newsImpact:'High'})).length>0;
+  h+='<div style="font-size:13px;margin-top:4px;color:var(--muted)">'+lbl+(blocked?' · bloquée par ton garde-fou':'')+'</div>';
+  h+='<div style="display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:14px">'+annNum('Prévision',e.f)+annNum('Précédent',e.p)+annNum('Réel',f.reel)+'</div>';
+  if(e.i!=='High'&&e.i!=='Medium')return h+'<p style="margin:12px 0 0;font-size:14px">'+esc(f.explication||'Pas encore de description pour cette annonce.')+'</p></div>';
+  var has=f.mesure||f.siFort||f.siFaible||(f.predictions||[]).length;
+  if(!has)h+='<p style="margin:12px 0 0;font-size:14px;color:var(--muted)">La fiche de cette annonce n’est pas encore prête.</p>';
+  h+=annBlock('Prédictions',(f.predictions||[]).map(function(p){return '<div style="padding:8px 0;border-bottom:1px solid var(--border)"><b>'+esc(p.valeur)+'</b> · '+annSrc(p.source||{titre:p.titre,url:p.url})+(p.date?' · '+esc(p.date):'')+'</div>';}).join(''));
+  h+=annBlock('Ce que ça mesure',annP('Mesure',f.mesure)+annP('Contexte',f.contexte)+annP('L’écart qui compte',f.ecart));
+  var sc=function(t,x){return x?'<h4 style="margin:10px 0 0;font-size:14px">'+t+'</h4>'+annP('Pour le pays',x.pays)+annP('Taux et dollar',x.marche):'';};
+  h+=annBlock('Si fort / si faible',(sc('Si ça sort fort',f.siFort)+sc('Si ça sort faible',f.siFaible)+annP('Le piège',f.piege)+annP('Sur quoi ça repose',f.fiabilite)));
+  var as=(f.siFort&&annAssets(f.siFort.actifs)?'<h4 style="margin:10px 0 0;font-size:14px">Si ça sort fort</h4>'+annAssets(f.siFort.actifs):'')+(f.siFaible&&annAssets(f.siFaible.actifs)?'<h4 style="margin:14px 0 0;font-size:14px">Si ça sort faible</h4>'+annAssets(f.siFaible.actifs):'');
+  h+=annBlock('Impact sur MNQ, MES, MYM et MGC',as);
+  h+=annBlock('Réaction du marché',f.reaction?'<p style="margin:8px 0 0">'+esc(f.reaction)+'</p>'+(f.sourceReaction?'<div style="font-size:12px;color:var(--muted);margin-top:6px">Source : '+annSrc(f.sourceReaction)+'</div>':''):'');
+  return h+'<p style="font-size:12px;color:var(--muted);margin-top:12px">Hypothèses, pas des certitudes. Ce n’est pas un conseil en investissement.</p></div>';
+}
+function annOpen(n){var e=_annItems[n];if(!e)return;var S=getSettings();
+  document.getElementById('modal-title').textContent=e.kind==='ent'?(e.t+' · résultats'):newsLabel(e.t);
+  document.getElementById('modal-body').innerHTML=annModalBody(e);
+  document.getElementById('modal-overlay').classList.add('open');}
 // Première news dont la fenêtre [heure − avant ; heure + après] contient l'instant ms
 function newsWindowAt(ms,events,before,after){
   if(ms===null||ms===undefined||!isFinite(ms))return null;
@@ -4251,7 +4311,7 @@ function newsWindowAt(ms,events,before,after){
   return null;
 }
 function newsWindowFor(ms,S){S=S||getSettings();if(!newsActive(S))return null;return newsWindowAt(ms,calEvents(S),num(S.newsBefore)||0,num(S.newsAfter)||0);}
-function impactDot(i){return '<span title="'+(i==='High'?'Fort impact':'Impact moyen')+'" style="display:inline-block;width:9px;height:9px;border-radius:50%;flex-shrink:0;background:'+(i==='High'?'var(--red)':'var(--yellow)')+'"></span>';}
+function impactDot(i){return '<span title="'+(i==='High'?'Fort impact':i==='Medium'?'Impact moyen':i==='Ent'?'Résultats d’entreprise':'Faible impact')+'" style="display:inline-block;width:9px;height:9px;border-radius:50%;flex-shrink:0;background:'+(i==='High'?'var(--red)':i==='Medium'?'var(--yellow)':i==='Ent'?'var(--accent2)':'var(--muted)')+'"></span>';}
 function newsBannerHTML(w,compact){
   return '<div class="v2-cd" style="border-color:rgba(155,93,229,0.55);background:rgba(155,93,229,0.10)"><span style="font-size:12px;font-weight:800;letter-spacing:0.3px;color:var(--red)">📰 FENÊTRE NEWS</span>'
     +'<span class="v2-cd-txt"><b>'+esc(newsLabel(w.ev.t))+'</b> ('+esc(w.ev.c)+') à <b>'+hm(w.ev.ms)+'</b> · pas d’entrée de '+hm(w.start)+' à '+hm(w.end)
@@ -4259,19 +4319,20 @@ function newsBannerHTML(w,compact){
 }
 function newsRowHTML(e,S,now){
   var past=e.ms<now-(num(S.newsAfter)||0)*60000;
-  return '<div style="display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;padding:7px 0;border-top:1px solid var(--border);'+(past?'opacity:0.45':'')+'">'+impactDot(e.i)
+  var inSess=sessionOf(e.ms,S);
+  return '<div role="button" tabindex="0" aria-haspopup="dialog" onclick="annOpen('+annRef(e)+')" onkeydown="if(event.key===\'Enter\'||event.key===\' \'){event.preventDefault();annOpen('+annRef(e)+');}" style="cursor:pointer;display:flex;align-items:center;flex-wrap:wrap;gap:4px 10px;padding:7px 0;min-height:40px;border-top:1px solid var(--border);'+(past?'opacity:0.55':'')+'">'+impactDot(e.i)
     +'<span style="font-family:monospace;font-size:13px;font-weight:700;min-width:42px">'+hm(e.ms)+'</span><span style="font-size:12px;color:var(--muted);min-width:28px">'+esc(e.c)+'</span>'
-    +'<span style="font-size:13px;flex:1 1 160px">'+esc(newsLabel(e.t))+'</span>'
+    +'<span style="font-size:13px;flex:1 1 160px">'+esc(e.kind==='ent'?e.t+' · résultats':newsLabel(e.t))+(inSess?' <span style="font-size:12px;color:var(--accent2)">· pendant ta session '+esc(inSess.label)+'</span>':'')+'</span>'
     +(e.f||e.p?'<span style="font-size:12px;color:var(--muted)">prév. '+esc(e.f||'·')+' · préc. '+esc(e.p||'·')+'</span>':'')+'</div>';
 }
 // Agenda du jour sur le tableau de bord
 function calAgendaHTML(){
   var S=getSettings();if(!newsActive(S))return '';
   if(!_cal.events)return '<div class="v2-note">📅 Calendrier économique : '+(_cal.err?esc(_cal.err)+' <button class="v2-link" onclick="calFetch(true)">Réessayer</button>':'chargement…')+'</div>';
-  var ev=calEvents(S),now=Date.now(),dk=dayKeyOf(now,S),w=newsWindowFor(now,S);
+  var ev=annDisplay(),now=Date.now(),dk=dayKeyOf(now,S),w=newsWindowFor(now,S);
   var today=ev.filter(function(e){return dayKeyOf(e.ms,S)===dk;}),next=ev.find(function(e){return e.ms>now;});
   var nextTxt=next?esc(newsLabel(next.t))+' '+(dayKeyOf(next.ms,S)===dk?'à '+hm(next.ms):'le '+frDate(msToZoned(next.ms,PARIS).slice(0,10)).slice(0,5)+' à '+hm(next.ms)):'aucune cette semaine';
-  return '<div style="margin-top:12px"><div class="flex-between" style="margin-bottom:6px;gap:8px;flex-wrap:wrap"><span style="font-size:12px;letter-spacing:0.3px;font-weight:800;color:var(--muted)">📅 NEWS DU JOUR · '+esc(String(S.newsCcy||'USD'))+' · '+(S.newsImpact==='Medium'?'FORT ET MOYEN IMPACT':'FORT IMPACT')+'</span>'
+  return '<div style="margin-top:12px"><div class="flex-between" style="margin-bottom:6px;gap:8px;flex-wrap:wrap"><span style="font-size:12px;letter-spacing:0.3px;font-weight:800;color:var(--muted)">📅 ANNONCES DU JOUR · clique pour la fiche</span>'
     +'<span style="font-size:12px;color:var(--muted)">Prochaine : '+nextTxt+'</span></div>'
     +(w?newsBannerHTML(w,true):'')
     +(today.map(function(e){return newsRowHTML(e,S,now);}).join('')||'<div style="font-size:13px;color:var(--muted);padding:6px 0">Aucune news retenue aujourd’hui.</div>')
@@ -4281,9 +4342,9 @@ function calAgendaHTML(){
 var FR_DAYS={Mon:'Lundi',Tue:'Mardi',Wed:'Mercredi',Thu:'Jeudi',Fri:'Vendredi',Sat:'Samedi',Sun:'Dimanche'};
 function calWeekHTML(){
   var S=getSettings();if(!_cal.events)return '<div class="v2-note">'+(_cal.err?esc(_cal.err)+' <button class="v2-link" onclick="calFetch(true)">Réessayer</button>':'Chargement du calendrier…')+'</div>';
-  var ev=calEvents(S),now=Date.now(),today=msToZoned(now,PARIS).slice(0,10),groups={},keys=[];
+  var ev=annDisplay(),now=Date.now(),today=msToZoned(now,PARIS).slice(0,10),groups={},keys=[];
   ev.forEach(function(e){var k=msToZoned(e.ms,PARIS).slice(0,10);if(!groups[k]){groups[k]=[];keys.push(k);}groups[k].push(e);});
-  if(!keys.length)return '<div class="v2-note">Aucune news '+esc(String(S.newsCcy||'USD'))+' retenue cette semaine.</div>';
+  if(!keys.length)return '<div class="v2-note">Aucune annonce cette semaine.</div>';
   return keys.map(function(k){var wd=FR_DAYS[zparts(groups[k][0].ms,PARIS).wd]||'';
     return '<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:800;letter-spacing:0.3px;color:'+(k===today?'var(--accent)':'var(--muted)')+';margin-bottom:2px">'+wd.toUpperCase()+' '+frDate(k).slice(0,5)+(k===today?' · AUJOURD’HUI':'')+'</div>'
       +groups[k].map(function(e){return newsRowHTML(e,S,now);}).join('')+'</div>';}).join('')
@@ -5175,6 +5236,10 @@ function runEngineTests(){
   var evs=calEventsFrom(rawEv,{newsCcy:'USD',newsImpact:'High'}),atN=function(h){return zonedToMs('2026-10-14T'+h,PARIS);};
   ok('News : CPI à 14:30 Paris, fenêtre de 10 min : 14:21 et 14:39 dans la fenêtre, 14:19 et 14:41 libres',evs.length===1&&hm(evs[0].ms)==='14:30'&&!!newsWindowAt(atN('14:21'),evs,10,10)&&!!newsWindowAt(atN('14:39'),evs,10,10)&&!newsWindowAt(atN('14:19'),evs,10,10)&&!newsWindowAt(atN('14:41'),evs,10,10));
   ok('News : « fort et moyen » ajoute les ventes au détail, les news EUR restent exclues',calEventsFrom(rawEv,{newsCcy:'USD',newsImpact:'Medium'}).length===2&&calEventsFrom(rawEv,{newsCcy:'USD, EUR',newsImpact:'High'}).length===2);
+  var dispEv=[{t:'CPI m/m',c:'USD',i:'High',d:'2026-10-14T08:30:00-04:00'},{t:'FOMC Member Speaks',c:'USD',i:'Low',d:'2026-10-14T09:00:00-04:00'},{t:'ECB Press Conference',c:'EUR',i:'High',d:'2026-10-14T08:45:00-04:00'},{t:'Petit chiffre',c:'EUR',i:'Low',d:'2026-10-14T04:00:00-04:00'}];
+  ok('Annonces : tout l’USD affiché, EUR fort oui, EUR faible non, garde-fou toujours sur USD fort seulement',calDisplayFrom(dispEv).length===3&&calEventsFrom(dispEv,{newsCcy:'USD',newsImpact:'High'}).length===1);
+  ok('Annonces : fiche retrouvée par titre, devise et jour de Paris, pas un autre jour',!!annFindFiche(calDisplayFrom(dispEv)[0],{fiches:[{t:'CPI m/m',c:'USD',d:'2026-10-14T08:30:00-04:00'}]})&&!annFindFiche(calDisplayFrom(dispEv)[0],{fiches:[{t:'CPI m/m',c:'USD',d:'2026-10-15T08:30:00-04:00'}]}));
+  ok('Annonces : semaine ISO de Paris : 04/11/2026 = 2026-W45, 03/01/2027 = 2026-W53',annWeekKey(Date.parse('2026-11-04T12:00:00Z'))==='2026-W45'&&annWeekKey(Date.parse('2027-01-03T12:00:00Z'))==='2026-W53');
   ok('News : un trade marqué pendant une news porte l’écart « entrée pendant une news »',buildCompute([mk({id:'n1',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('15:40'),exits:[{price:21060,contracts:1,at:day('15:50')}],newsFlag:{t:'CPI m/m',c:'USD',at:'2026-10-05T13:30:00Z'}})],[acc],S,CL).byId.n1.c.deviations.indexOf('newsWindow')>=0);
   ok('Forme : 7 h, énergie 4, calme 4 = vert · 5 h = orange · 4 h = rouge · énergie 2 et calme 2 = rouge',formeVerdict({sleepH:7,energy:4,calm:4},S)==='vert'&&formeVerdict({sleepH:5,energy:4,calm:4},S)==='orange'&&formeVerdict({sleepH:4,energy:5,calm:5},S)==='rouge'&&formeVerdict({sleepH:8,energy:2,calm:2},S)==='rouge'&&formeVerdict({sleepH:8,energy:2,calm:4},S)==='orange');
   ok('Forme : un trade pris avec un check rouge porte l’écart « trade malgré une forme rouge », pas avec un orange',(function(){var B=buildCompute([mk({id:'f1',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('15:40'),exits:[{price:21060,contracts:1,at:day('15:50')}],formeFlag:{v:'rouge'}}),mk({id:'f2',instrument:'MNQ',entry:21000,slInitial:20980,tpInitial:21060,contracts:1,entryAt:day('16:10'),exits:[{price:21060,contracts:1,at:day('16:20')}],formeFlag:{v:'orange'}})],[acc],S,CL);return B.byId.f1.c.deviations.indexOf('formeRouge')>=0&&B.byId.f2.c.deviations.indexOf('formeRouge')<0;})());

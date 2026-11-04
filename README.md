@@ -24,6 +24,7 @@ Journal de trading en un seul fichier (`index.html`), hébergé sur Netlify et s
 - v2.9.1 · 14/10/2026 · le contexte Top-down est écrit sur la branche `contexte` et lu sur raw.githubusercontent.com : les mises à jour quotidiennes ne consomment plus de crédits Netlify (15 par mise en ligne, 300 par mois sur le plan gratuit).
 - v2.9.2 · 15/10/2026 · checklist OPR : SL obligatoire dans l'OPR, sur la bougie de cassure ou sous une liquidité (mèche, gap) si elle est trop courte. Bouton dans Réglages pour remplacer une checklist OPR personnelle par la version détaillée (l'ancienne est gardée en copie).
 - v2.9.3 · 15/10/2026 · import Tradovate sans doublon entre fichiers : un trade déjà importé depuis les Ordres n'est pas réimporté depuis la Performance (et inversement), reconnu par contrat, sens et heure d'entrée à 5 secondes près.
+- v2.10 · 04/11/2026 · annonces : le calendrier affiche tout l'USD et les autres devises à impact fort ou moyen, plus les résultats des grosses entreprises. Un clic ouvre une fiche à blocs dépliables (prédictions, si fort ou faible, impact par actif, réaction), lue dans `data/annonces/<semaine>.json` sur la branche `contexte`. Le garde-fou ne change pas : USD fort impact seulement.
 
 ## Garde-fous avancés (v2.1)
 
