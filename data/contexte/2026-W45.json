@@ -2,191 +2,199 @@
   "v": 1,
   "semaine": "2026-W45",
   "periode": "du lundi 02/11 au vendredi 06/11",
-  "majA": "2026-11-05T13:56:36+01:00",
+  "majA": "2026-11-06T13:57:19+01:00",
   "mode": "quotidien",
-  "note": "Page CME et page CNN non ouvertes : FedWatch cité par KuCoin, peur et cupidité par BizToc (Benzinga). DXY sans variation lue. Inscriptions au chômage du 05/11 pas encore sorties.",
+  "note": "NFP et sentiment Michigan du 06/11 pas encore sortis. Page CNN non ouverte : peur et cupidité n.d. (un titre Benzinga vu en recherche parle de peur extrême, page non lue). Page CME non ouverte : FedWatch cité par TechFlow. Taux du 05/11 lus chez CappNotes, Alpha Vantage s'arrête au 04/11.",
   "marqueurs": [
     {
       "id": "dxy",
       "nom": "Dollar (DXY)",
-      "valeur": "101,20",
-      "variation": "",
-      "sens": "baisse",
-      "lecture": "Le dollar au plus bas du mois pourrait soutenir MGC, sauf si le NFP de vendredi le fait rebondir.",
-      "date": "05/11, session Asie",
+      "valeur": "101,97",
+      "variation": "+0,42 % sur la veille",
+      "sens": "hausse",
+      "lecture": "Le dollar qui remonte avant le NFP pourrait peser sur MGC, un NFP faible pourrait inverser ce mouvement.",
+      "date": "06/11, avant le NFP",
       "source": {
-        "titre": "KuCoin · Le dollar au plus bas du mois, 05/11",
-        "url": "https://www.kucoin.com/news/flash/dollar-index-hits-monthly-low-amid-political-and-oil-price-pressures"
+        "titre": "Trading Economics · Dollar US, 06/11",
+        "url": "https://tradingeconomics.com/united-states/currency"
       }
     },
     {
       "id": "us10y",
       "nom": "Taux à 10 ans US",
-      "valeur": "environ 4,89 %",
-      "variation": "−0,03 à −0,07 pt sur la veille (toute la courbe)",
+      "valeur": "environ 4,84 %",
+      "variation": "environ −0,06 pt sur la veille",
       "sens": "baisse",
-      "lecture": "Un 10 ans en recul pourrait soulager MNQ, tant que le NFP ne relance pas les taux.",
-      "date": "clôture du 04/11",
+      "lecture": "Le 10 ans recule avec la fuite vers les obligations : cela pourrait limiter la pression sur MNQ, sauf NFP fort.",
+      "date": "clôture du 05/11",
       "source": {
-        "titre": "Nexus · Technology Morning Note, 05/11",
-        "url": "https://nexusresearchreports.substack.com/p/nexus-technology-morning-note-thursday"
+        "titre": "CappNotes · Closing Look, 05/11",
+        "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-5"
       }
     },
     {
       "id": "us02y",
       "nom": "Taux à 2 ans US",
-      "valeur": "environ 4,58 %",
-      "variation": "−0,03 à −0,07 pt sur la veille (toute la courbe)",
+      "valeur": "environ 4,46 %",
+      "variation": "environ −0,12 pt sur la veille",
       "sens": "baisse",
-      "lecture": "Le 2 ans reste sensible au pari de hausse en décembre : le NFP pourrait le faire bouger, et MNQ avec lui.",
-      "date": "clôture du 04/11",
+      "lecture": "Le 2 ans suit le recul du pari de hausse en décembre : le NFP pourrait le relancer ou l'accentuer, et faire bouger MNQ et MES.",
+      "date": "clôture du 05/11",
       "source": {
-        "titre": "Nexus · Technology Morning Note, 05/11",
-        "url": "https://nexusresearchreports.substack.com/p/nexus-technology-morning-note-thursday"
+        "titre": "CappNotes · Closing Look, 05/11",
+        "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-5"
       }
     },
     {
       "id": "vix",
       "nom": "VIX",
-      "valeur": "16,61",
-      "variation": "environ −20 % sur la veille",
-      "sens": "baisse",
-      "lecture": "Le VIX repasse sous 20 : les ranges de MNQ et MES pourraient se resserrer, sauf surprise au NFP.",
-      "date": "clôture du 04/11",
+      "valeur": "28,18",
+      "variation": "+69,66 % sur la veille",
+      "sens": "hausse",
+      "lecture": "Le VIX au-dessus de 25 pourrait élargir les ranges de MNQ, MES et MYM, surtout autour du NFP.",
+      "date": "clôture du 05/11",
       "source": {
-        "titre": "Nexus · Technology Morning Note, 05/11",
-        "url": "https://nexusresearchreports.substack.com/p/nexus-technology-morning-note-thursday"
+        "titre": "CappNotes · Closing Look, 05/11",
+        "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-5"
       }
     },
     {
       "id": "fedwatch",
       "nom": "Probabilités Fed (FedWatch)",
-      "valeur": "près de 82 % hausse en décembre",
-      "variation": "",
-      "sens": "hausse",
-      "lecture": "La hausse reste le scénario principal : un NFP fort pourrait peser sur MNQ, MES et MGC, un NFP faible pourrait détendre.",
-      "date": "05/11, session Asie",
+      "valeur": "68,7 % hausse de 0,25 pt le 09/12",
+      "variation": "contre 82,7 % mercredi",
+      "sens": "baisse",
+      "lecture": "Le pari de hausse recule : un NFP fort pourrait le relancer et peser sur MNQ et MGC, un NFP faible pourrait le réduire encore.",
+      "date": "nuit du 05/11 au 06/11",
       "source": {
-        "titre": "KuCoin · Le dollar au plus bas du mois, 05/11",
-        "url": "https://www.kucoin.com/news/flash/dollar-index-hits-monthly-low-amid-political-and-oil-price-pressures"
+        "titre": "TechFlow (Jin10) · FedWatch décembre, 06/11",
+        "url": "https://www.techflowpost.com/en-US/newsletter/143261"
       }
     },
     {
       "id": "wti",
       "nom": "Pétrole WTI",
-      "valeur": "88,12 $",
-      "variation": "−8,3 % sur la veille",
+      "valeur": "89,77 $",
+      "variation": "−0,83 % sur la veille",
       "sens": "baisse",
-      "lecture": "Le pétrole en baisse pourrait calmer les taux et aider MES et MYM, un rebond lié à l'Iran pèserait.",
-      "date": "clôture du 04/11",
+      "lecture": "Le pétrole reste sensible à Ormuz : un nouveau rebond pourrait relancer les taux et peser sur MES et MYM.",
+      "date": "06/11 à 11h35",
       "source": {
-        "titre": "Nexus · Technology Morning Note, 05/11",
-        "url": "https://nexusresearchreports.substack.com/p/nexus-technology-morning-note-thursday"
+        "titre": "TipRanks · Stock Market Today, 06/11",
+        "url": "https://www.tipranks.com/news/stock-market-today-nov-6-futures-mixed-as-nasdaq-futures-rebound-after-tech-selloff"
       }
     },
     {
       "id": "feargreed",
       "nom": "Peur et cupidité (CNN)",
-      "valeur": "27 · peur",
+      "valeur": "n.d.",
       "variation": "",
-      "sens": "hausse",
-      "lecture": "L'indice sort de la peur extrême : le rebond pourrait rester fragile sur MES et MNQ.",
-      "date": "article du 05/11",
+      "sens": "stable",
+      "lecture": "Valeur non trouvée aujourd'hui.",
+      "date": "",
       "source": {
-        "titre": "BizToc (Benzinga) · Dow et indice peur et cupidité, 05/11",
-        "url": "https://biztoc.com/x/49e968566c73d8e4"
+        "titre": "",
+        "url": ""
       }
     }
   ],
   "eco": {
     "points": [
-      "Jeu. 05/11 à 14h30 : inscriptions au chômage, 197K attendus au calendrier, 194K avant. Chiffre pas encore sorti à cette mise à jour.",
-      "Mer. 04/11 : ADP à 86K pour 69K attendus. ISM services à 54,5 pour 54,8 attendu. Prix payés à 73,0.",
-      "Mar. 03/11 : JOLTS à 7,523 M pour 7,10 M attendus (Reuters). Août révisé à 7,19 M.",
-      "Fed à 3,75 % à 4,00 %. Réunion le 09/12. FedWatch : près de 82 % de hausse, environ 73 % le 03/11.",
-      "Ven. 06/11 à 14h30 : NFP d'octobre, 65K attendus. Chômage à 4,2 %. Salaire horaire 0,3 % attendu. Septembre : 29K.",
-      "Mar. 10/11 : CPI d'octobre, 3,7 % sur un an attendu. Clôture du 04/11 : 10 ans vers 4,89 %, 2 ans vers 4,58 %."
+      "Ven. 06/11 à 14h30 : NFP d'octobre, 65K attendus, 29K avant. Chômage à 4,2 %. Salaire horaire 0,3 % attendu. Pas encore sorti à cette mise à jour.",
+      "Ven. 06/11 à 16h00 : sentiment Michigan préliminaire, 48,1 attendu, 46,3 avant. Inflation attendue par les ménages : 4,7 % avant.",
+      "Jeu. 05/11 : inscriptions au chômage à 189K pour 197K attendus, plus bas depuis la mi-juillet. Productivité T3 +3,6 %, coûts salariaux −0,7 %.",
+      "Fed à 3,75 % à 4,00 %. Réunion le 09/12. FedWatch : 68,7 % de hausse, contre 82,7 % mercredi.",
+      "Clôture jeu. : 10 ans vers 4,84 %, 2 ans vers 4,46 %. DXY vers 101,97 vendredi, +0,42 % sur la veille.",
+      "Mar. 10/11 : CPI d'octobre, 3,7 % sur un an attendu."
     ],
     "sources": [
-      {
-        "titre": "Nexus · Technology Morning Note, 05/11",
-        "url": "https://nexusresearchreports.substack.com/p/nexus-technology-morning-note-thursday"
-      },
-      {
-        "titre": "KuCoin · Le dollar au plus bas du mois, 05/11",
-        "url": "https://www.kucoin.com/news/flash/dollar-index-hits-monthly-low-amid-political-and-oil-price-pressures"
-      },
-      {
-        "titre": "GV Wire (Reuters) · JOLTS de septembre, 03/11",
-        "url": "https://gvwire.com/2026/11/03/us-job-openings-increase-sharply-in-september/"
-      },
       {
         "titre": "Journal · Flux calendrier",
         "url": "https://radiant-puppy-883b29.netlify.app/api/calendar"
       },
       {
-        "titre": "Tradingpedia · Or au-dessus de 4 100 $, 05/11",
-        "url": "https://www.tradingpedia.com/2026/11/05/gold-holds-firm-above-4100-as-dollar-yields-soften/"
+        "titre": "24/7 Wall St · Inscriptions au chômage, 05/11",
+        "url": "https://247wallst.com/cards/xpost-01m6p081f2n96z7v2728p7fkvr"
+      },
+      {
+        "titre": "CappNotes · Closing Look, 05/11",
+        "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-5"
+      },
+      {
+        "titre": "TechFlow (Jin10) · FedWatch décembre, 06/11",
+        "url": "https://www.techflowpost.com/en-US/newsletter/143261"
+      },
+      {
+        "titre": "Trading Economics · Dollar US, 06/11",
+        "url": "https://tradingeconomics.com/united-states/currency"
+      },
+      {
+        "titre": "Tradingpedia · Euro et NFP, 06/11",
+        "url": "https://tradingpedia.com/2026/11/06/euro-slips-toward-1-12-ahead-of-ecb-us-jobs-report"
+      },
+      {
+        "titre": "Yahoo Finance · Marché en direct, vendredi 06/11",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-6-dow-sp-500-nasdaq-jobs-report-091927729.html"
       }
     ]
   },
   "fonda": {
     "points": [
-      "Jeu. 05/11 à 11h25 : futures Nasdaq 100 −0,53 %, S&P 500 +0,05 %, Dow +0,49 %. Euphorie post-élection qui se calme.",
-      "Mer. 04/11 : Dow +3,03 %, S&P 500 +1,58 %, Nasdaq Composite +1,44 %. Risk-on après les midterms et la chute du pétrole.",
-      "Séance à deux vitesses : Microsoft +6,7 %, Amazon +6,1 %, mais Nvidia environ −3 %, indice des semi-conducteurs −3,1 %.",
-      "Après clôture mer. : Qualcomm environ −6 %, prévisions moyennes sous les attentes. Arm bat les attentes, recule de 2 à 3 %. AppLovin plus de +20 %.",
-      "Jeu. 05/11 : Airbnb, Cloudflare, puis Atlassian, Microchip, Akamai et Affirm après clôture.",
-      "Bénéfices T3 en hausse de 31 % sur la moitié du S&P 500 publiée (LSEG, chiffre du 03/11). La barre reste très haute."
+      "Ven. 06/11 à 11h35 : futures Nasdaq 100 +1,35 %, S&P 500 +0,27 %, Dow −0,82 %. Rebond partiel avant le NFP.",
+      "Jeu. 05/11 : Nasdaq 100 −6,36 %, S&P 500 −4,36 %, Dow −3,44 %. Pire séance du S&P 500 depuis avril 2025. Risk-off net.",
+      "Cause citée : peur d'un frein aux data centers et aux dépenses IA après les midterms. ETF semi-conducteurs à plus de −12 %. Nasdaq Composite en correction.",
+      "Jeu. : Micron −17,46 %, AMD −17,26 %, Broadcom −10,43 %, Nvidia −9,26 %. AppLovin +31,04 %. S&P 500 : 71 hausses, 431 baisses.",
+      "Après clôture jeu. : Airbnb et Cloudflare au-dessus des attentes, en hausse. Atlassian environ −16 %. Lam Research annonce 25 Md$ de rachat d'actions.",
+      "Ven. 06/11 avant ouverture : Moderna, Humana, Vistra, Charter."
     ],
     "sources": [
       {
-        "titre": "TipRanks · Stock Market Today, 05/11",
-        "url": "https://www.tipranks.com/news/stock-market-today-nov-5-futures-mixed-after-democratic-victory-sparks-wall-street-rally"
+        "titre": "TipRanks · Stock Market Today, 06/11",
+        "url": "https://www.tipranks.com/news/stock-market-today-nov-6-futures-mixed-as-nasdaq-futures-rebound-after-tech-selloff"
       },
       {
-        "titre": "Nexus · Technology Morning Note, 05/11",
-        "url": "https://nexusresearchreports.substack.com/p/nexus-technology-morning-note-thursday"
+        "titre": "CappNotes · Closing Look, 05/11",
+        "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-5"
       },
       {
-        "titre": "Yahoo Finance · Marché en direct, jeudi 05/11",
-        "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-oil-falls-090519607.html"
+        "titre": "StockTitan · Stock Market Today, 05/11",
+        "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-5-2026"
       },
       {
-        "titre": "Business Recorder · Wall Street Week Ahead (Reuters)",
-        "url": "https://www.brecorder.com/news/40446970/wall-street-week-ahead-midterm-elections-earnings-jobs-data-loom-for-ai-wary-market"
+        "titre": "Yahoo Finance · Marché en direct, vendredi 06/11",
+        "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-6-dow-sp-500-nasdaq-jobs-report-091927729.html"
       }
     ]
   },
   "geo": {
     "points": [
-      "Jeu. 05/11 : BoE de 3,75 % à 4 %, première hausse depuis 2023. Vote : 8 pour 0,25 pt, Mann pour 0,50 pt.",
-      "Bailey : pas une longue série inévitable, mais sans doute pas la dernière hausse si le conflit au Moyen-Orient continue. Prochaine décision le 17/12.",
-      "Midterms : démocrates vainqueurs à la Chambre et au Sénat. Vance relie la défaite à la guerre.",
-      "Iran : pétrole en baisse quatre jours de suite, selon Reuters. Espoir d'accord, assaut complet jugé moins probable.",
-      "WTI à 88,12 $ et Brent à 94,62 $ mer. Or environ +3,4 % à 4 073 $ mer., près de 4 130 $ dans la nuit.",
-      "Mar. 03/11 : RBA monte de 0,25 pt à 4,85 %, vote 6 contre 3. Ton plus prudent sur la suite."
+      "Ven. 06/11 : Ormuz sous tension. Les Gardiens de la révolution citent deux pétroliers et un remorqueur en feu. UKMTO : au moins cinq incidents depuis dimanche.",
+      "Eurasia Group : frappes US à 60 %, contre 65 %. Accord avec l'Iran à 10 %, contre 20 %.",
+      "Jeu. 05/11 : Brent +3,8 % à 98,29 $, WTI +2,7 % à 90,52 $, après environ −8 % mercredi.",
+      "Jeu. 05/11 : BoE de 3,75 % à 4 %, première hausse depuis 2023. Banxico baisse de 0,25 pt à 6,25 %.",
+      "Midterms : démocrates vainqueurs à la Chambre et au Sénat. Le marché craint des règles plus strictes sur les data centers, dont Texas et Géorgie.",
+      "Or vers 4 086 $ jeu., +0,51 % selon Rio Times. Les sources divergent un peu sur ce chiffre."
     ],
     "sources": [
+      {
+        "titre": "Gulf News · Pétrole et Iran, 06/11",
+        "url": "https://gulfnews.com/business/energy/oil-edges-higher-as-iran-uncertainty-offsets-peace-hopes-1.500737847"
+      },
+      {
+        "titre": "CappNotes · Closing Look, 05/11",
+        "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-5"
+      },
       {
         "titre": "Euronews · La BoE monte ses taux, 05/11",
         "url": "https://www.euronews.com/2026/11/05/bank-of-england-raises-key-interest-rate-for-first-time-in-over-3-years"
       },
       {
-        "titre": "AOL (Guardian) · La BoE à 4 %, 05/11",
-        "url": "https://www.aol.co.uk/articles/bank-england-raises-interest-rates-120031000.html"
+        "titre": "StockTitan · Stock Market Today, 05/11",
+        "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-5-2026"
       },
       {
-        "titre": "Yahoo Finance · Marché en direct, jeudi 05/11",
-        "url": "https://finance.yahoo.com/markets/live/stock-market-today-thursday-november-5-dow-sp-500-nasdaq-oil-falls-090519607.html"
-      },
-      {
-        "titre": "Nexus · Technology Morning Note, 05/11",
-        "url": "https://nexusresearchreports.substack.com/p/nexus-technology-morning-note-thursday"
-      },
-      {
-        "titre": "Saxo · Market Quick Take du 03/11",
-        "url": "https://www.home.saxo/en-mena/content/articles/macro/market-quick-take---us-mid-term-elections-today-the-focus---3-november-2026-03112026"
+        "titre": "Rio Times · Global Economy, 06/11",
+        "url": "https://www.riotimesonline.com/global-economy-briefing-november-6-2026/"
       }
     ]
   },
@@ -226,6 +234,15 @@
       "reel": "54,5",
       "prevision": "54,8",
       "reaction": "Effet isolé non lu : la séance a été dominée par les midterms et le pétrole."
+    },
+    {
+      "jour": "jeu. 05/11",
+      "heure": "14:30",
+      "titre": "Unemployment Claims",
+      "titreFr": "Inscriptions au chômage",
+      "reel": "189K",
+      "prevision": "197K",
+      "reaction": "Effet isolé non lu : la séance a été dominée par la vente sur l'IA. Clôture : Nasdaq 100 −6,36 %, S&P 500 −4,36 %."
     }
   ]
 }
