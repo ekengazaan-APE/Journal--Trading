@@ -1011,7 +1011,7 @@ function syncSetCode(c){try{c?localStorage.setItem('sync_code',c):localStorage.r
 // ── SÉCURITÉ DU CODE DE SYNCHRO (étape 0) ──────────────────────────────────
 // Le code est la seule clé d'accès au journal : get_journal et save_journal
 // acceptent n'importe quel code avec la clé publique présente dans ce fichier.
-var APP_BUILD='v2.11 · plan express et heures Tradovate · 09/11/2026';
+var APP_BUILD='v2.12 · synthèse proposée et rubrique Contexte · 09/11/2026';
 var SYNC_ALPHABET='ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; // 32 symboles : 256 % 32 = 0, aucun biais
 var SYNC_MASK='•••• •••• •••• ••••';                  // longueur fixe : ne révèle rien du code
 var _syncWriteSeq=0;      // compteur d'écritures locales (détecte une saisie pendant un changement de code)
@@ -1445,7 +1445,7 @@ function lvlLoad(force){
     .catch(function(e){LVL.err='Niveaux indisponibles pour le moment ('+e.message+').';})
     .then(function(){LVL.loading=false;lvlPaint();});
 }
-function lvlPaint(){var el=document.getElementById('td-auto');if(el)el.innerHTML=lvlInner();}
+function lvlPaint(){var el=document.getElementById('td-auto');if(el)el.innerHTML=lvlInner();try{tdAutoPaint();}catch(e){}}
 function lvlInner(){
   var j=LVL.data;
   if(!j)return '<div style="color:var(--muted);font-size:13px;padding:6px 0">'+(LVL.loading?'Chargement des niveaux…':esc(LVL.err||'Pas encore chargé.'))+'</div>';
@@ -1514,6 +1514,8 @@ function ctxPaint(){
   var m=document.getElementById('td-markers');if(m)m.innerHTML=ctxMarkersInner();
   ['eco','fonda','geo'].forEach(function(k){var el=document.getElementById('td-ctx-'+k);if(el)el.innerHTML=ctxPointsInner(k);});
   var so=document.getElementById('td-ctx-sorties');if(so)so.innerHTML=ctxSortiesInner();
+  try{tdAutoPaint();}catch(e){}
+  var rb=document.getElementById('ctx-rub');if(rb)rb.innerHTML=ctxRubInner();
 }
 function ctxStamp(){var j=CTX.data;if(!j||!j.majA)return '';var t=Date.parse(j.majA);if(!isFinite(t))return '';return frDate(msToZoned(t,PARIS).slice(0,10)).slice(0,5)+' à '+hm(t);}
 function ctxSrcHTML(list){
@@ -1573,6 +1575,123 @@ function lvlBlockHTML(){
     +'<button class="btn btn-ghost btn-sm" onclick="lvlLoad(true)">Actualiser</button></div>'
     +'<div id="td-auto">'+lvlInner()+'</div></div>';
 }
+// ══ SYNTHÈSE ET PLAN DE TRADE PROPOSÉS (09/11/2026) ════════════════════════
+// Règles fixes, calculées dans le journal à partir de ta propre analyse : biais par unité de temps,
+// niveaux notés, dernier prix, marqueurs macro et annonces de la semaine. Rien n'est écrit sans ton clic.
+var TD_AUTO_FIELDS=[['biasWeek','Biais de la semaine'],['conviction','Conviction'],['scenarioMain','Scénario principal'],['scenarioAlt','Scénario alternatif'],['keyZones','Zones clés'],['invalidation','Règle d’invalidation'],['tradeDays','Jours et heures de trade']];
+function tdLevelsWk(wk,instr){var d=getTopDownData(wk),tfs=d.tfs||{},seen={},out=[];
+  ['H1','H4','Daily','Weekly','Monthly'].forEach(function(tf){tdParseLevels((tfs[tf]||{}).niveaux,instr).forEach(function(L){var k=L.label+L.lo+L.hi;if(seen[k])return;seen[k]=1;L.tf=tf;out.push(L);});});return out;}
+function tdLastPrice(instr){var s=((LVL.data&&LVL.data.symbols)||[]).find(function(x){return x.symbol===instr;});var p=s&&s.dernier?Number(s.dernier.prix):NaN;return isFinite(p)?{p:p,src:'dernier prix CME (8 h de retard)'}:null;}
+function tdAutoSynth(wk){
+  var d=getTopDownData(wk),T=d.tfs||{},b=function(tf){return (T[tf]||{}).bias||'';};
+  var M=b('Monthly'),W=b('Weekly'),D=b('Daily'),H4=b('H4'),H1=b('H1'),all=[M,W,D,H4,H1],filled=all.filter(Boolean).length;
+  if(filled<3)return {missing:true,filled:filled};
+  var dir=function(x){return x==='Bullish'?1:x==='Bearish'?-1:0;},fr=function(x){return x?({Bullish:'haussier',Bearish:'baissier',Range:'range',Neutre:'neutre'}[x]||x):'non rempli';};
+  var bias;
+  if(dir(W)&&dir(W)===dir(D))bias=W;
+  else if(dir(W)&&!dir(D)&&dir(H4)===dir(W))bias=W;
+  else if(dir(D)&&!dir(W)&&dir(H4)===dir(D))bias=D;
+  else if(dir(W)&&dir(D))bias='Range';
+  else if([M,W,D,H4].filter(function(x){return x==='Range';}).length>=2)bias='Range';
+  else bias='Neutre';
+  var why='Weekly '+fr(W)+', Daily '+fr(D)+', H4 '+fr(H4)+', Monthly '+fr(M)+', H1 '+fr(H1);
+  var bd=dir(bias),aligned=bd?all.filter(function(x){return dir(x)===bd;}).length:0;
+  // Marqueurs macro de la semaine (fichier contexte)
+  var mk=(CTX.wk===wk&&CTX.data&&CTX.data.marqueurs)||[],get=function(id){return mk.find(function(m){return m.id===id;});};
+  var vix=get('vix'),vixV=vix?num(String(vix.valeur||'').replace(/[^\d,.\-]/g,'')):null,r10=get('us10y'),fw=get('fedwatch'),conflicts=[];
+  if(vixV!==null&&vixV>=25)conflicts.push('VIX à '+vix.valeur+' : ranges larges et mèches violentes, ton SL doit avoir de la place et ta taille rester à 1R');
+  if(bd>0&&r10&&r10.sens==='hausse')conflicts.push('Taux à 10 ans en hausse ('+r10.valeur+') : ça pèse souvent sur MNQ');
+  if(bd>0&&fw&&/hausse/i.test(String(fw.valeur||'')))conflicts.push('Hausse de taux de la Fed attendue ('+fw.valeur+') : vent contraire pour les achats');
+  if(bd<0&&r10&&r10.sens==='baisse')conflicts.push('Taux à 10 ans en baisse ('+r10.valeur+') : ça soutient souvent MNQ');
+  if(bd<0&&vixV!==null&&vixV<15)conflicts.push('VIX à '+vix.valeur+' : marché calme, les baisses manquent souvent de force');
+  var conv;
+  if(bd){var sc=aligned-(conflicts.length?1:0);conv=sc>=4?'Fort':sc>=3?'Moyen':'Faible';}
+  else conv=(bias==='Range'&&W==='Range'&&D==='Range')?'Moyen':'Faible';
+  // Niveaux et prix
+  var instr='MNQ',L=tdLevelsWk(wk,instr),LP=tdLastPrice(instr),P=LP?LP.p:null;
+  if(P===null){var pdh=L.find(function(x){return /PDH/i.test(x.label);}),pdl=L.find(function(x){return /PDL/i.test(x.label);});if(pdh&&pdl){P=(pdh.lo+pdl.lo)/2;LP={p:P,src:'milieu entre PDH et PDL'};}}
+  var txt=function(x){return x?x.label+' '+(x.zone?fmtPrice(x.lo,instr)+' à '+fmtPrice(x.hi,instr):fmtPrice(x.lo,instr)):'';};
+  var above=P===null?[]:L.filter(function(x){return x.lo>P;}).sort(function(a,b){return a.lo-b.lo;});
+  var below=P===null?[]:L.filter(function(x){return x.hi<P;}).sort(function(a,b){return b.hi-a.hi;});
+  var inside=P===null?[]:L.filter(function(x){return x.lo<=P&&x.hi>=P&&x.zone;});
+  var isLiqLow=function(x){return /SSL|PDL|PWL|bas|low|EQL|PML/i.test(x.label);},isLiqHigh=function(x){return /BSL|PDH|PWH|haut|high|hight|EQH|PMH|ATH/i.test(x.label);};
+  var sess='pendant ta session NY (15h30 à 17h00)',P1,P2,KZ=[],INV,tradeDays='';
+  if(bias==='Bullish'){
+    var ze=inside[0]||below[0],ssl=below.find(function(x){return x!==ze&&isLiqLow(x);})||below.find(function(x){return x!==ze;}),t1=above[0],t2=above[1];
+    P1='Biais acheteur ('+why+'). J’attends un retour dans '+(ze?txt(ze):'une zone discount (FVG, OB) sous le prix')+(ssl?', idéalement après une prise de liquidité sous '+txt(ssl):'')+'. Entrée sur CHoCH ou BOS haussier en M5 à M15, '+sess+'. Cible : '+(t1?txt(t1):'la BSL au-dessus')+(t2?', puis '+txt(t2):'')+'.';
+    var key=ssl||ze,nxt=key?below.filter(function(x){return x.hi<key.lo;})[0]:null;
+    P2='Si une bougie H4 clôture sous '+(key?txt(key):'le dernier creux')+', le scénario acheteur tombe. J’attends alors un retour sur ce niveau pour chercher des ventes'+(nxt?' vers '+txt(nxt):'')+'.';
+    INV='Clôture H4 sous '+(key?txt(key):'le dernier creux')+' : biais acheteur faux. Plus aucun achat sans nouvelle analyse.';KZ=[ze,t1,ssl];
+  }else if(bias==='Bearish'){
+    var ze2=inside[0]||above[0],bsl=above.find(function(x){return x!==ze2&&isLiqHigh(x);})||above.find(function(x){return x!==ze2;}),u1=below[0],u2=below[1];
+    P1='Biais vendeur ('+why+'). J’attends un retour dans '+(ze2?txt(ze2):'une zone premium (FVG, OB) au-dessus du prix')+(bsl?', idéalement après une prise de liquidité au-dessus de '+txt(bsl):'')+'. Entrée sur CHoCH ou BOS baissier en M5 à M15, '+sess+'. Cible : '+(u1?txt(u1):'la SSL en dessous')+(u2?', puis '+txt(u2):'')+'.';
+    var key2=bsl||ze2,nxt2=key2?above.filter(function(x){return x.lo>key2.hi;})[0]:null;
+    P2='Si une bougie H4 clôture au-dessus de '+(key2?txt(key2):'le dernier sommet')+', le scénario vendeur tombe. J’attends alors un retour sur ce niveau pour chercher des achats'+(nxt2?' vers '+txt(nxt2):'')+'.';
+    INV='Clôture H4 au-dessus de '+(key2?txt(key2):'le dernier sommet')+' : biais vendeur faux. Plus aucune vente sans nouvelle analyse.';KZ=[ze2,u1,bsl];
+  }else{
+    var hi=above.find(isLiqHigh)||above[0],lo=below.find(isLiqLow)||below[0];
+    P1='Pas de biais clair ('+why+'). Je ne trade que les extrêmes : vente près de '+(hi?txt(hi):'la BSL au-dessus')+' après une prise de BSL et un CHoCH baissier ; achat près de '+(lo?txt(lo):'la SSL en dessous')+' après une prise de SSL et un CHoCH haussier. Entre les deux, pas de trade.';
+    P2='Si une bougie Daily clôture au-dessus de '+(hi?txt(hi):'la BSL')+' ou sous '+(lo?txt(lo):'la SSL')+', je reprends un biais dans le sens de la sortie.';
+    INV='Un trade pris au milieu, entre '+(lo?txt(lo):'la SSL')+' et '+(hi?txt(hi):'la BSL')+', est hors plan.';KZ=[hi,lo,inside[0]];
+  }
+  var seenZ={},zones=KZ.filter(function(x){if(!x)return false;var k=txt(x);if(seenZ[k])return false;seenZ[k]=1;return true;}).slice(0,3).map(function(x){return '· '+txt(x)+' ('+x.tf+')';}).join('\n');
+  // Annonces fortes de la semaine croisées avec tes sessions
+  var S=getSettings();
+  if(_cal.events&&wk===getWeekKey(new Date(),0)){
+    var ev=calEventsFrom(_cal.events,Object.assign({},S,{newsImpact:'High'})),bf=num(S.newsBefore)||0,af=num(S.newsAfter)||0;
+    tradeDays=ev.map(function(e){var se=sessionOf(e.ms,S)||sessionOf(e.ms-bf*60000,S)||sessionOf(e.ms+af*60000,S),dd=(FR_DAYS[zparts(e.ms,PARIS).wd]||'').slice(0,3)+' '+frDate(msToZoned(e.ms,PARIS).slice(0,10)).slice(0,5);
+      return '· '+dd+' '+hm(e.ms).replace(':','h')+' '+newsLabel(e.t)+(se?' : pendant ta session '+se.label+', pas d’entrée de '+hm(e.ms-bf*60000).replace(':','h')+' à '+hm(e.ms+af*60000).replace(':','h'):' : hors de tes sessions');}).join('\n');
+    if(!ev.length)tradeDays='· Aucune annonce forte sur tes devises cette semaine.';
+  }
+  // Contrôle de cohérence avec ce que tu as écrit
+  var checks=[],rank={Faible:1,Moyen:2,Fort:3},frB={Bullish:'haussier',Bearish:'baissier',Range:'range',Neutre:'neutre'};
+  if(d.biasWeek&&d.biasWeek!==bias)checks.push('Tu as mis un biais « '+frB[d.biasWeek]+' ». Tes unités de temps donnent « '+frB[bias]+' » ('+why+').');
+  if(d.conviction&&rank[d.conviction]>rank[conv])checks.push('Conviction « '+d.conviction+' » : '+(bd?'seulement '+aligned+' unité'+(aligned>1?'s':'')+' de temps sur 5 dans le sens du biais'+(conflicts.length?', avec un contexte macro contraire':''):'aucun biais clair dans tes unités de temps'+(vixV!==null&&vixV>=25?', avec un marché agité':''))+'. La règle donne « '+conv+' ».');
+  var sm=String(d.scenarioMain||''),buy=/\b(achat|achats|acheter|ach[eè]te|long|haussi\w*|bullish|repartir)/i.test(sm),sell=/\b(vente|ventes|vendre|vends|short|baissi\w*|bearish)/i.test(sm);
+  if(buy&&!sell&&bias!=='Bullish')checks.push('Ton scénario principal parle d’achat, mais le biais calculé est « '+frB[bias]+' ».');
+  if(sell&&!buy&&bias!=='Bearish')checks.push('Ton scénario principal parle de vente, mais le biais calculé est « '+frB[bias]+' ».');
+  if(dir(H1)&&bd&&dir(H1)!==bd)checks.push('Le H1 est '+fr(H1)+', contre ton biais : attends un CHoCH H1 dans le sens du biais avant de chercher une entrée.');
+  if(dir(H1)&&!bd)checks.push('Seul le H1 est '+fr(H1)+' : c’est un signal de timing, pas un biais de semaine.');
+  if(bd)conflicts.forEach(function(c){checks.push('Contexte macro : '+c+'.');});
+  else if(vixV!==null&&vixV>=25)checks.push('Contexte macro : '+conflicts[0]+'.');
+  return {bias:bias,conviction:conv,why:why,aligned:aligned,price:LP,checks:checks,nLevels:L.length,
+    props:{biasWeek:bias,conviction:conv,scenarioMain:P1,scenarioAlt:P2,keyZones:zones,invalidation:INV,tradeDays:tradeDays}};
+}
+function tdAutoHTML(wk){
+  var A=tdAutoSynth(wk),d=getTopDownData(wk),st=d.autoSt||{};
+  if(A.missing)return '<div class="v2-note" style="margin-bottom:10px">Synthèse proposée : remplis le biais d’au moins 3 unités de temps ('+A.filled+' sur 5 pour l’instant).</div>';
+  var frB={Bullish:'Haussier',Bearish:'Baissier',Range:'Range',Neutre:'Neutre'};
+  var rows=TD_AUTO_FIELDS.map(function(f){
+    var k=f[0],v=A.props[k];if(!v)return '';var s=st[k]&&st[k].v===v?st[k].st:'';var shown=k==='biasWeek'?frB[v]:v;
+    var same=String(d[k]||'').trim()===String(v).trim();
+    var badge=same||s==='ok'?'<span class="badge bg">validé</span>':s==='no'?'<span class="badge bm">refusé</span>':'';
+    var btns=(same||s==='ok')?(st[k]&&st[k].prev!==undefined?'<button class="btn btn-ghost btn-sm" onclick="tdAutoAct(\''+k+'\',\'undo\')">Revenir à mon texte</button>':'')
+      :s==='no'?'<button class="btn btn-ghost btn-sm" onclick="tdAutoAct(\''+k+'\',\'reset\')">Revoir</button>'
+      :'<button class="btn btn-primary btn-sm" onclick="tdAutoAct(\''+k+'\',\'ok\')">✓ Valider</button>'+(k==='biasWeek'||k==='conviction'?'':'<button class="btn btn-ghost btn-sm" onclick="tdAutoAct(\''+k+'\',\'edit\')">✎ Modifier</button>')+'<button class="btn btn-ghost btn-sm" onclick="tdAutoAct(\''+k+'\',\'no\')">✗ Refuser</button>';
+    return '<div style="border-top:1px solid var(--border);padding:8px 0;display:grid;grid-template-columns:minmax(120px,170px) 1fr;gap:6px 12px;align-items:start">'
+      +'<div style="font-size:12px;font-weight:800;letter-spacing:0.3px;color:var(--muted)">'+esc(f[1].toUpperCase())+' '+badge+'</div>'
+      +'<div><div style="font-size:13px;line-height:1.5;white-space:pre-wrap'+(s==='no'?';opacity:0.5':'')+'">'+esc(shown)+'</div>'+(d[k]&&!same&&s!=='no'&&k!=='biasWeek'&&k!=='conviction'?'<div style="font-size:12px;color:var(--muted);margin-top:2px">Valider remplace ton texte actuel (gardé pour revenir en arrière).</div>':'')
+      +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-top:6px">'+btns+'</div></div></div>';}).join('');
+  var pend=TD_AUTO_FIELDS.filter(function(f){var k=f[0],v=A.props[k];if(!v)return false;var s=st[k]&&st[k].v===v?st[k].st:'';return !s&&String(d[k]||'').trim()!==String(v).trim();}).length;
+  return '<div class="card" style="margin-bottom:10px;border-color:var(--accent2)55">'
+    +'<div class="flex-between" style="margin-bottom:6px;flex-wrap:wrap;gap:6px"><div class="card-title" style="margin:0">⚙️ SYNTHÈSE PROPOSÉE · À VALIDER</div>'+(pend?'<button class="btn btn-primary btn-sm" onclick="tdAutoAct(\'*\',\'ok\')">Tout valider ('+pend+')</button>':'')+'</div>'
+    +'<div style="font-size:12px;color:var(--muted);margin-bottom:8px">Calculée avec tes biais, tes '+A.nLevels+' niveaux notés'+(A.price?', le '+esc(A.price.src)+' ('+fmtPrice(A.price.p,'MNQ')+')':', sans dernier prix (il s’affiche sur le site en ligne)')+', les marqueurs macro et les annonces. Rien n’est écrit sans ton clic.</div>'
+    +(A.checks.length?'<div class="v2-warn" style="margin-bottom:8px"><b>Contrôle de cohérence</b><ul style="margin:4px 0 0;padding-left:18px;line-height:1.5">'+A.checks.map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ul></div>':'<div class="v2-note" style="margin-bottom:8px">Contrôle de cohérence : rien à signaler.</div>')
+    +rows+'</div>';
+}
+function tdAutoAct(k,act){
+  var wk=currentTDKey,d=getTopDownData(wk),A=tdAutoSynth(wk);if(A.missing)return;d.autoSt=d.autoSt||{};
+  var keys=k==='*'?TD_AUTO_FIELDS.map(function(f){return f[0];}).filter(function(x){var v=A.props[x],s=d.autoSt[x];return v&&!(s&&s.v===v&&s.st)&&String(d[x]||'').trim()!==String(v).trim();}):[k],focus=null;
+  keys.forEach(function(x){var v=A.props[x];if(!v)return;var s=d.autoSt[x]||{};
+    if(act==='ok'||act==='edit'){if(String(d[x]||'').trim()!==String(v).trim())s.prev=d[x]||'';d[x]=v;s.st='ok';s.v=v;if(act==='edit')focus=x;}
+    else if(act==='no'){s.st='no';s.v=v;}
+    else if(act==='reset'){delete d.autoSt[x];return;}
+    else if(act==='undo'){if(s.prev!==undefined)d[x]=s.prev;delete d.autoSt[x];return;}
+    d.autoSt[x]=s;});
+  saveTopDownData(wk,d);nav('topdown');
+  if(focus)setTimeout(function(){var el=document.getElementById('td-'+focus);if(el){el.scrollIntoView({block:'center'});el.focus();}},80);
+}
+function tdAutoPaint(){var el=document.getElementById('td-auto-synth');if(el&&currentPage==='topdown')el.innerHTML=tdAutoHTML(currentTDKey);}
 function topDown(){
   currentTDKey=getWeekKey(new Date(),tdOffset);
   setTimeout(function(){ctxLoad(currentTDKey,false);if(tdOffset===0)calFetch(false);},0);
@@ -1636,7 +1755,7 @@ function topDown(){
     +(isCur?lvlBlockHTML():'')
     +'<div class="flex-between" style="margin-bottom:8px"><div class="anal-section-title" style="margin:0">MARQUEURS MACRO</div><button class="btn btn-ghost btn-sm" onclick="ctxLoad(currentTDKey,true)">Actualiser</button></div>'+'<div id="td-markers" style="margin-bottom:10px">'+ctxMarkersInner()+'</div>'+'<details style="margin-bottom:14px"'+((d.dxy||d.us10y||d.vix)?' open':'')+'><summary style="cursor:pointer;font-size:13px;color:var(--muted)">Tes propres notes sur les marqueurs (facultatif)</summary>'+'<div class="grid-3" style="margin-top:8px">'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">DXY (Dollar Index)</label><input id="td-dxy" oninput="tdSaveField(\'dxy\')" placeholder="ex: 104.2 — pression sur indices" value="'+(d.dxy||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">US10Y (Rendement 10 ans)</label><input id="td-us10y" oninput="tdSaveField(\'us10y\')" placeholder="ex: 4.35% — pèse sur la tech" value="'+(d.us10y||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'<div class="card"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">VIX (Volatilité)</label><input id="td-vix" oninput="tdSaveField(\'vix\')" placeholder="ex: 14.5 — complaisant/haussier" value="'+(d.vix||'')+'" style="width:100%;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:8px;font-family:inherit;font-size:13px"></div>'+'</div></details>'+'<div class="anal-section-title" style="margin-bottom:8px">ANALYSE TECHNIQUE MULTI-TIMEFRAME</div>'
     +tfHTML
-    +'<div class="anal-section-title" style="margin:16px 0 8px">CONTEXTE MACRO & FONDAMENTAL</div>'
+    +'<details style="margin:16px 0 8px"'+((d.eco||d.fonda||d.geo||d.annonces)?' open':'')+'><summary style="cursor:pointer;min-height:44px;display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span class="anal-section-title" style="margin:0">CONTEXTE MACRO, GÉOPOLITIQUE ET ANNONCES</span><span style="font-size:12px;color:var(--muted)">replié · clique pour ouvrir</span><button class="btn btn-ghost btn-sm" onclick="event.preventDefault();nav(\'news\')">Rubrique Contexte et annonces ›</button></summary><div style="margin-top:8px">'
     +'<div class="grid-2" style="margin-bottom:10px">'
     +'<div class="card"><div class="card-title">ANALYSE ÉCONOMIQUE</div><div id="td-ctx-eco">'+ctxPointsInner('eco')+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-eco" oninput="tdSaveField(\'eco\')" placeholder="Taux Fed/BCE, inflation (CPI/PCE), emploi (NFP), DXY, rendements obligataires..." style="width:100%;min-height:90px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.eco||'')+'</textarea></div>'
     +'<div class="card"><div class="card-title">ANALYSE FONDAMENTALE</div><div id="td-ctx-fonda">'+ctxPointsInner('fonda')+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-fonda" oninput="tdSaveField(\'fonda\')" placeholder="Sentiment de marché (risk-on/risk-off), positionnement COT, flux, saisonnalité..." style="width:100%;min-height:90px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.fonda||'')+'</textarea></div>'
@@ -1645,7 +1764,9 @@ function topDown(){
     +'<div class="card"><div class="card-title">CONTEXTE GÉOPOLITIQUE</div><div id="td-ctx-geo">'+ctxPointsInner('geo')+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-geo" oninput="tdSaveField(\'geo\')" placeholder="Tensions, élections, conflits, décisions de banques centrales pouvant créer de la volatilité..." style="width:100%;min-height:80px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.geo||'')+'</textarea></div>'
     +'<div class="card" style="border-color:rgba(249,115,22,0.3)"><div class="card-title" style="color:var(--yellow)">ANNONCES DE LA SEMAINE</div>'+(isCur?'<div id="cal-week-td" style="max-height:360px;overflow:auto">'+calWeekHTML()+'</div>':'')+'<div id="td-ctx-sorties">'+ctxSortiesInner()+'</div>'+'<div style="font-size:12px;color:var(--muted);margin:10px 0 4px">Ton avis (facultatif)</div>'+'<textarea id="td-annonces" oninput="tdSaveField(\'annonces\')" placeholder="Lun: -\nMar: -\nMer: FOMC 19h\nJeu: -\nVen: NFP 14h30" style="width:100%;min-height:80px;resize:vertical;background:var(--s2);border:1px solid var(--border);border-radius:8px;color:var(--text);padding:10px;font-family:inherit;font-size:13px">'+(d.annonces||'')+'</textarea></div>'
     +'</div>'
+    +'</div></details>'
     +'<div class="anal-section-title" style="margin:16px 0 8px">SYNTHÈSE & PLAN DE TRADE</div>'
+    +'<div id="td-auto-synth">'+tdAutoHTML(currentTDKey)+'</div>'
     +'<div class="card" style="margin-bottom:10px;border-color:var(--accent)40">'
     +'<div class="flex-between" style="margin-bottom:10px"><div class="card-title" style="margin:0">BIAIS DE LA SEMAINE</div><div style="display:flex;gap:4px">'+['Bullish','Bearish','Range','Neutre'].map(function(b){var col=b==='Bullish'?'var(--green)':b==='Bearish'?'var(--red)':b==='Range'?'var(--yellow)':'var(--muted)';var active=d.biasWeek===b;return '<button onclick="tdSetWeekBias(\''+b+'\')" style="padding:5px 12px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:0.5px;cursor:pointer;border:1px solid '+(active?col:'var(--border)')+';background:'+(active?col+'22':'transparent')+';color:'+(active?col:'var(--muted)')+'">'+b.toUpperCase()+'</button>';}).join('')+'</div></div>'
     +'<div style="margin-bottom:10px"><label style="font-size:12px;color:var(--muted);font-weight:700;letter-spacing:0.3px;display:block;margin-bottom:6px">NIVEAU DE CONVICTION</label><div style="display:flex;gap:4px">'+['Faible','Moyen','Fort'].map(function(c){var col=c==='Fort'?'var(--green)':c==='Moyen'?'var(--yellow)':'var(--muted)';var active=d.conviction===c;return '<button onclick="tdSetConviction(\''+c+'\')" style="flex:1;padding:8px;border-radius:8px;font-size:13px;font-weight:700;cursor:pointer;border:1px solid '+(active?col:'var(--border)')+';background:'+(active?col+'22':'transparent')+';color:'+(active?col:'var(--muted)')+'">'+c.toUpperCase()+'</button>';}).join('')+'</div></div>'
@@ -1669,7 +1790,7 @@ function topDown(){
 var NAV_GROUPS=[
   {id:'today',pages:[['dashboard','Tableau de bord'],['sessions','Sessions']]},
   {id:'trades',pages:[['trades','Trades']]},
-  {id:'topdown',pages:[['topdown','Top-down de la semaine'],['news','News et macro']]},
+  {id:'topdown',pages:[['topdown','Top-down de la semaine'],['news','Contexte et annonces']]},
   {id:'accounts',pages:[['accounts','Comptes'],['objectives','Objectifs'],['rentability','Rentabilité']]},
   {id:'analysis',pages:[['analytics','Statistiques'],['weekly','Revue de la semaine'],['calendar','Calendrier'],['annual','Vue annuelle'],['leaderboard','Records']]},
   {id:'playbook',pages:[['playbook','Playbook']]},
@@ -3561,9 +3682,79 @@ function playbook(){
 }
 
 // ── NEWS ─────────────────────────────────────────────────────────────────────
+// ══ RUBRIQUE CONTEXTE ET ANNONCES (09/11/2026) ═════════════════════════════
+// Comprendre, pas seulement voir : la semaine en bref, les grosses annonces à venir, les dossiers
+// (géopolitique, Fed, pétrole…) avec leur impact à court, moyen et long terme, et des leçons.
+// Données : data/contexte/<semaine>.json (branche contexte), écrit par les tâches « Contexte Top-down ».
+var ctxTab=(function(){try{return localStorage.getItem('ui_ctxTab')||'semaine';}catch(e){return 'semaine';}})();
+function ctxSetTab(t){ctxTab=t;try{localStorage.setItem('ui_ctxTab',t);}catch(e){}nav('news');}
+function horizonsHTML(h){
+  if(!h)return '';var L=[['court','Court terme','la séance et les jours qui viennent'],['moyen','Moyen terme','les semaines'],['long','Long terme','les mois']];
+  return L.filter(function(x){return h[x[0]];}).map(function(x){var v=h[x[0]],txt=typeof v==='string'?esc(v):(esc(v.texte||'')+annAssets(v));
+    return '<div style="margin-top:10px"><b>'+x[1]+'</b> <span style="font-size:12px;color:var(--muted)">('+x[2]+')</span><div style="margin-top:2px">'+txt+'</div></div>';}).join('');
+}
+function ctxCur(){var wk=getWeekKey(new Date(),0);return CTX.wk===wk?CTX.data:null;}
+function ctxDossiers(){var j=ctxCur();return (j&&j.dossiers)||[];}
+function ctxAvenir(){var j=ctxCur(),now=Date.now();return ((j&&j.aVenir)||[]).map(function(x,i){return Object.assign({ms:Date.parse(x.d),i:i},x);}).filter(function(x){return isFinite(x.ms)&&x.ms>now-6*3600000;}).sort(function(a,b){return a.ms-b.ms;});}
+function ctxThemeColor(t){return /géo/i.test(t||'')?'var(--red)':/banque/i.test(t||'')?'var(--accent)':/entreprise/i.test(t||'')?'var(--green)':'var(--yellow)';}
+function ctxDossierCard(x,i,compact){var col=ctxThemeColor(x.theme);
+  return '<div class="card" style="padding:12px 14px;cursor:pointer;border-color:'+col+'44" onclick="ctxDossierOpen('+i+')">'
+    +'<div style="display:flex;justify-content:space-between;gap:8px;align-items:baseline"><span class="badge" style="background:'+col+'1f;color:'+col+'">'+esc(x.theme||'Dossier')+'</span><span style="font-size:12px;color:var(--muted)">'+(x.maj?'mis à jour le '+esc(x.maj):'')+'</span></div>'
+    +'<div style="font-weight:800;font-size:15px;margin-top:6px">'+esc(x.titre||'')+'</div>'
+    +(compact?'':'<div style="font-size:13px;line-height:1.5;margin-top:4px;color:var(--muted)">'+esc(x.resume||'')+'</div>')
+    +'<div style="font-size:12px;color:var(--accent2);margin-top:6px">Ouvrir la fiche ›</div></div>';}
+function ctxRubInner(){
+  var j=ctxCur();
+  if(!j)return '<div class="v2-note">'+(CTX.loading?'Chargement du contexte…':esc(CTX.err||'Chargement du contexte…'))+'</div>';
+  var stamp=ctxStamp()?'<div style="font-size:12px;color:var(--muted);margin-top:8px">Mis à jour automatiquement le '+ctxStamp()+'. Des hypothèses pour comprendre, pas des conseils d’investissement.</div>':'';
+  var empty=function(m){return '<div class="v2-note">'+m+'</div>';};
+  if(ctxTab==='semaine'){
+    var D=ctxDossiers(),col=function(k,t){var c=j[k]||{},P=c.points||[];return '<div class="card"><div class="card-title">'+t+'</div>'+(P.length?'<ul style="margin:0;padding-left:18px;display:flex;flex-direction:column;gap:6px;font-size:13px;line-height:1.5">'+P.map(function(x){return '<li>'+esc(x)+'</li>';}).join('')+'</ul>'+ctxSrcHTML(c.sources):'<div style="font-size:13px;color:var(--muted)">Rien de nouveau.</div>')+'</div>';};
+    var A=ctxAvenir().slice(0,3);
+    return (D.length?'<div class="anal-section-title" style="margin-bottom:8px">LES SUJETS DU MOMENT</div><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:10px;margin-bottom:14px">'+D.map(function(x,i){return ctxDossierCard(x,i,true);}).join('')+'</div>':'')
+      +'<div class="anal-section-title" style="margin-bottom:8px">LA SEMAINE EN BREF</div><div class="grid-3" style="margin-bottom:12px">'+col('eco','ÉCONOMIE')+col('fonda','MARCHÉS ET ENTREPRISES')+col('geo','GÉOPOLITIQUE')+'</div>'
+      +(A.length?'<div class="v2-note" style="margin-bottom:12px"><b>Prochaines grosses annonces</b> · '+A.map(function(x){return esc(frDate(msToZoned(x.ms,PARIS).slice(0,10)).slice(0,5)+' '+(x.titreFr||x.t));}).join(' · ')+' <button class="v2-link" onclick="ctxSetTab(\'avenir\')">Voir pourquoi ›</button></div>':'')+stamp;
+  }
+  if(ctxTab==='avenir'){
+    var L=ctxAvenir();if(!L.length)return empty('Les grosses annonces des semaines suivantes arrivent avec la prochaine mise à jour du contexte (chaque jour vers 13h50, et le dimanche à 16h52).');
+    var g={},keys=[];L.forEach(function(x){var k=getWeekKey(new Date(x.ms),0);if(!g[k]){g[k]=[];keys.push(k);}g[k].push(x);});
+    return keys.map(function(k){var r=getWeekRange(k);return '<div style="margin-bottom:14px"><div class="anal-section-title" style="margin-bottom:6px">SEMAINE DU '+esc(frDate(r.ks).slice(0,5))+' AU '+esc(frDate(r.ke).slice(0,5))+'</div>'+g[k].map(function(x){var hi=x.impact==='High';
+      var t=msToZoned(x.ms,PARIS),hasH=t.slice(11,16)!=='00:00';
+      return '<div class="card" style="padding:10px 14px;margin-bottom:6px;cursor:pointer;border-color:'+(hi?'var(--red)44':'var(--border)')+'" onclick="ctxAvenirOpen('+x.i+')"><div style="display:flex;gap:10px;align-items:baseline;flex-wrap:wrap"><b style="min-width:110px">'+esc((FR_DAYS[zparts(x.ms,PARIS).wd]||'').slice(0,3)+'. '+frDate(t.slice(0,10)).slice(0,5))+(hasH?' '+esc(hm(x.ms).replace(':','h')):'')+'</b><span class="badge" style="background:'+(hi?'var(--red)':'var(--yellow)')+'1f;color:'+(hi?'var(--red)':'var(--yellow)')+'">'+esc(x.c||'')+(hi?' · fort':' · moyen')+'</span><b>'+esc(x.titreFr||x.t||'')+'</b></div>'
+        +'<div style="font-size:13px;color:var(--muted);margin-top:4px;line-height:1.5">'+esc(x.pourquoi||'')+'</div></div>';}).join('')+'</div>';}).join('')+stamp;
+  }
+  if(ctxTab==='dossiers'){
+    var D2=ctxDossiers();if(!D2.length)return empty('Les dossiers arrivent avec la prochaine mise à jour du contexte (chaque jour vers 13h50, et le dimanche à 16h52).');
+    return '<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:10px">'+D2.map(function(x,i){return ctxDossierCard(x,i,false);}).join('')+'</div>'+stamp;
+  }
+  if(ctxTab==='comprendre'){
+    var C=j.comprendre||[],G=j.glossaire||[];if(!C.length&&!G.length)return empty('Les leçons de la semaine arrivent avec la prochaine mise à jour du contexte.');
+    return C.map(function(x){return annBlock(esc(x.titre||'Leçon'),'<p style="margin:8px 0 0">'+esc(x.texte||'')+'</p>');}).join('')
+      +(G.length?'<div class="anal-section-title" style="margin:16px 0 6px">GLOSSAIRE</div>'+G.map(function(x){return '<div style="padding:8px 0;border-top:1px solid var(--border);font-size:13px"><b style="color:var(--accent)">'+esc(x.terme)+'</b> · '+esc(x.definition)+'</div>';}).join(''):'')+stamp;
+  }
+  return '';
+}
+function ctxModal(title,body){document.getElementById('modal-title').textContent=title;document.getElementById('modal').classList.add('wide');document.getElementById('modal-body').innerHTML='<div data-nocase>'+body+'<p style="font-size:12px;color:var(--muted);margin-top:12px">Hypothèses, pas des certitudes. Ce n’est pas un conseil en investissement.</p></div>';document.getElementById('modal-overlay').classList.add('open');}
+function ctxDossierOpen(i){var x=ctxDossiers()[i];if(!x)return;
+  var b='<div style="font-size:13px;color:var(--muted)">'+esc(x.theme||'')+(x.maj?' · mis à jour le '+esc(x.maj):'')+'</div>'
+    +'<p style="font-size:14px;line-height:1.6;margin:10px 0 0">'+esc(x.resume||'')+'</p>'
+    +(x.pourquoi?'<div class="v2-note" style="margin-top:10px;font-size:14px;line-height:1.55"><b>Pourquoi ça compte pour toi</b> · '+esc(x.pourquoi)+'</div>':'')
+    +annBlock('Impact dans le temps : court, moyen et long terme',horizonsHTML(x.horizons))
+    +annBlock('Impact sur MNQ, MES, MYM et MGC',annAssets(x.actifs))
+    +annBlock('Ce qu’il faut surveiller',(x.surveiller||[]).length?'<ul style="margin:8px 0 0;padding-left:18px">'+x.surveiller.map(function(s){return '<li>'+esc(s)+'</li>';}).join('')+'</ul>':'')
+    +annBlock('Ce qui s’est passé',(x.historique||[]).map(function(h){return '<div style="padding:6px 0;border-top:1px solid var(--border)"><b>'+esc(h.date||'')+'</b> · '+esc(h.fait||'')+'</div>';}).join(''))
+    +ctxSrcHTML(x.sources);
+  ctxModal(x.titre||'Dossier',b);}
+function ctxAvenirOpen(i){var j=ctxCur(),x=j&&(j.aVenir||[])[i];if(!x)return;var ms=Date.parse(x.d),t=isFinite(ms)?msToZoned(ms,PARIS):'';
+  var b='<div style="font-size:13px;color:var(--muted)">'+(t?esc((FR_DAYS[zparts(ms,PARIS).wd]||'')+' '+frDate(t.slice(0,10))+(t.slice(11,16)!=='00:00'?' à '+hm(ms):'')):'')+' · '+esc(x.c||'')+' · '+(x.impact==='High'?'fort impact':'impact moyen')+'</div>'
+    +(x.pourquoi?'<div class="v2-note" style="margin-top:10px;font-size:14px;line-height:1.55"><b>Pourquoi elle comptera</b> · '+esc(x.pourquoi)+'</div>':'')
+    +annBlock('Impact dans le temps : court, moyen et long terme',horizonsHTML(x.horizons));
+  ctxModal(x.titreFr||x.t||'Annonce',b);}
 function news(){
-  return `<div class="page-title">📡 NEWS & MACRO</div><div class="page-sub">ACCÈS DIRECT AUX SOURCES</div>${newsLiveHTML()}
-<div class="grid-2">
+  var wk=getWeekKey(new Date(),0);setTimeout(function(){ctxLoad(wk,false);},0);
+  var tabs=[['semaine','Cette semaine'],['avenir','À venir'],['dossiers','Dossiers'],['comprendre','Comprendre'],['sources','Sources']].map(function(x){return '<button class="btn btn-sm '+(ctxTab===x[0]?'btn-primary':'btn-ghost')+'" onclick="ctxSetTab(\''+x[0]+'\')">'+x[1]+'</button>';}).join('');
+  var head='<div class="page-title">🌍 CONTEXTE ET ANNONCES</div><div class="page-sub">COMPRENDRE CE QUI FAIT BOUGER TES MARCHÉS · UN CLIC SUR UNE ANNONCE OU UN DOSSIER OUVRE SA FICHE</div><div style="display:flex;gap:4px;flex-wrap:wrap;margin:10px 0 14px">'+tabs+'</div>';
+  if(ctxTab==='sources')return head+`<div class="grid-2">
 ${[['📅','FOREX FACTORY','Calendrier économique — NFP, CPI, FOMC','https://www.forexfactory.com/calendar','var(--accent)'],
    ['⚡','FINANCIAL JUICE','News live — Géopolitique · Marchés','https://www.financialjuice.com','var(--yellow)'],
    ['📊','TRADING ECONOMICS','Données macro mondiales en direct','https://tradingeconomics.com/calendar','var(--green)'],
@@ -3578,6 +3769,7 @@ ${[['📅','FOREX FACTORY','Calendrier économique — NFP, CPI, FOMC','https://
   <div style="margin-top:10px;padding:7px 12px;background:${color}12;border:1px solid ${color}25;border-radius:7px;font-size:12px;color:${color};font-weight:700;letter-spacing:0.3px">OUVRIR →</div>
 </div>`).join('')}
 </div>`;
+  return head+'<div id="ctx-rub">'+ctxRubInner()+'</div>'+(ctxTab==='semaine'?'<div style="margin-top:14px">'+newsLiveHTML()+'</div>':'');
 }
 // ── MODAL FORMS : le formulaire de trade et le formulaire de compte sont dans le module V2 ──
 function editObjective(id){var o=DB.objectives.find(function(x){return x.id===id;});if(!o)return;_editingId=id;document.getElementById('modal-title').textContent='MODIFIER';document.getElementById('modal-body').innerHTML=objectiveForm(o);document.getElementById('modal-overlay').classList.add('open');}
@@ -4301,6 +4493,7 @@ function annModalBody(e){
   h+='<div style="display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:10px;font-size:14px">'+annNum('Prévision',e.f)+annNum('Précédent',e.p)+annNum('Réel',f.reel)+'</div>';
   if(e.i!=='High'&&e.i!=='Medium')return h+'<p style="margin:12px 0 0;font-size:14px">'+esc(f.explication||'Pas encore de description pour cette annonce.')+'</p></div>';
   var has=f.mesure||f.siFort||f.siFaible||(f.predictions||[]).length;
+  if(f.pourquoi)h+='<div class="v2-note" style="margin-top:10px;font-size:14px;line-height:1.55"><b>Pourquoi c’est important</b> · '+esc(f.pourquoi)+'</div>';
   if(!has)h+='<p style="margin:12px 0 0;font-size:14px;color:var(--muted)">La fiche de cette annonce n’est pas encore prête.</p>';
   h+=annBlock('Prédictions',(f.predictions||[]).map(function(p){return '<div style="padding:8px 0;border-bottom:1px solid var(--border)"><b>'+esc(p.valeur)+'</b> · '+annSrc(p.source||{titre:p.titre,url:p.url})+(p.date?' · '+esc(p.date):'')+'</div>';}).join(''));
   h+=annBlock('Ce que ça mesure',annP('Mesure',f.mesure)+annP('Contexte',f.contexte)+annP('L’écart qui compte',f.ecart));
@@ -4308,6 +4501,7 @@ function annModalBody(e){
   h+=annBlock('Si fort / si faible',(sc('Si ça sort fort',f.siFort)+sc('Si ça sort faible',f.siFaible)+annP('Le piège',f.piege)+annP('Sur quoi ça repose',f.fiabilite)));
   var as=(f.siFort&&annAssets(f.siFort.actifs)?'<h4 style="margin:10px 0 0;font-size:14px">Si ça sort fort</h4>'+annAssets(f.siFort.actifs):'')+(f.siFaible&&annAssets(f.siFaible.actifs)?'<h4 style="margin:14px 0 0;font-size:14px">Si ça sort faible</h4>'+annAssets(f.siFaible.actifs):'');
   h+=annBlock('Impact sur MNQ, MES, MYM et MGC',as);
+  h+=annBlock('Impact dans le temps : court, moyen et long terme',horizonsHTML(f.horizons));
   h+=annBlock('Réaction du marché',f.reaction?'<p style="margin:8px 0 0">'+esc(f.reaction)+'</p>'+(f.sourceReaction?'<div style="font-size:12px;color:var(--muted);margin-top:6px">Source : '+annSrc(f.sourceReaction)+'</div>':''):'');
   return h+'<p style="font-size:12px;color:var(--muted);margin-top:12px">Hypothèses, pas des certitudes. Ce n’est pas un conseil en investissement.</p></div>';
 }
@@ -4375,7 +4569,7 @@ function mountTVNews(){
   sc.text=JSON.stringify({feedMode:'all_symbols',isTransparent:true,displayMode:'regular',width:'100%',height:520,colorTheme:'dark',locale:'fr'});
   box.appendChild(sc);
 }
-function calRefreshViews(){var a=document.getElementById('cal-agenda');if(a)a.innerHTML=calAgendaHTML();var w=document.getElementById('cal-week');if(w)w.innerHTML=calWeekHTML();var t=document.getElementById('cal-week-td');if(t)t.innerHTML=calWeekHTML();var x=document.getElementById('td-windows');if(x)x.innerHTML=tdWindowsHTML();}
+function calRefreshViews(){try{tdAutoPaint();}catch(e){}var a=document.getElementById('cal-agenda');if(a)a.innerHTML=calAgendaHTML();var w=document.getElementById('cal-week');if(w)w.innerHTML=calWeekHTML();var t=document.getElementById('cal-week-td');if(t)t.innerHTML=calWeekHTML();var x=document.getElementById('td-windows');if(x)x.innerHTML=tdWindowsHTML();}
 // Toutes les secondes : annonce vocale à l'ouverture d'une fenêtre news ; toutes les 30 s : agenda rafraîchi
 var _newsSpoken={},_newsTickN=0;
 function newsTick(){
@@ -5535,6 +5729,8 @@ function runEngineTests(){
   var plan=mk({id:'P1',status:'open',planExpress:true,instrument:'MNQ',side:'Short',entry:21000,slInitial:21050,tpInitial:20800,contracts:2,entryAt:'2026-10-14T15:38',exits:[]});
   var ORD4=[OH,row('4001','Sell','21000.5',2,'10/14/2026 15:40:00','Filled','10/14/2026 15:40:00','Market','',''),row('4002','Buy','21000.5',2,'10/14/2026 15:44:00','Filled','10/14/2026 15:40:00','Stop','','21000.5')].join('\n');
   var B4=tvBuild([{name:'Orders.csv',text:ORD4}],PARIS),C4=buildCompute([plan],[acc],S,CL),PM4=tvPlanMatches(B4,acc,C4),M4=PM4[0]?tvMergeInto(plan,B4.trades[0],acc):null;
+  var PL=tdParseLevels('MNQ :\n- PMH = 31 616.50\n- FVG = 29 533.50 à 28 763.75\nMES · PDH 7 000,25\nMNQ · NWOG 26 879,25 à 27 107,25 (lun. 09/11)\nFVG M = 27 535 / 25 243','MNQ');
+  ok('Niveaux de la Top-down lus : PMH, FVG, NWOG, FVG en « / », MES ignoré',PL.length===4&&PL[0].label==='PMH'&&PL[0].lo===31616.5&&PL[1].zone&&PL[1].lo===28763.75&&PL[1].hi===29533.5&&PL[2].label==='NWOG'&&PL[2].hi===27107.25&&PL[3].lo===25243);
   ok('Plan express : l’import se rattache au plan et garde son SL de départ (stop remonté au BE)',!!M4&&M4.id==='P1'&&M4.slInitial===21050&&M4.slFinal===21000.5&&M4.entry===21000.5&&M4.exits.length===1&&!!M4.importKey);
   return R;
 }
