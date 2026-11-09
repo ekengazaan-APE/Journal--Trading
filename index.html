@@ -4572,6 +4572,7 @@ function trades(){
   return '<div class="flex-between" style="margin-bottom:12px;flex-wrap:wrap;gap:8px"><div><div class="page-title">📋 TRADES</div><div class="page-sub">SAISIE EN DEUX TEMPS · OUVERTURE PUIS CLÔTURE · CALCULS AUTOMATIQUES</div></div>'
     +'<div class="flex-row" style="flex-wrap:wrap">'+accountSelectHTML(tradeFilter,"tradeFilter=this.value;tvSel={};nav('trades')")
     +'<select onchange="tradeSort=this.value;nav(\'trades\')" style="width:auto;padding:7px 12px;border-radius:8px;font-size:13px;background:var(--s1);border:1px solid var(--border);color:var(--text)"><option value="date-desc"'+(tradeSort!=='date-asc'?' selected':'')+'>Plus récent</option><option value="date-asc"'+(tradeSort==='date-asc'?' selected':'')+'>Plus ancien</option></select>'
+    +(function(){var n=tfUndocQueue(null).length;return n?'<button class="btn btn-ghost btn-sm" onclick="tfDocNext()">📝 Documenter ('+n+')</button>':'';})()
     +'<button class="btn btn-ghost btn-sm" onclick="tvImportOpen()">📥 Import Tradovate</button><button class="btn btn-primary btn-sm" onclick="openModal()">+ Trade</button></div></div>'
     +'<div style="display:flex;gap:4px;flex-wrap:wrap;margin-bottom:10px">'+tabs+'</div>'
     +(legacyN?'<div class="v2-note">'+legacyN+' trade'+(legacyN>1?'s':'')+' à l’ancien format : visibles dans les statistiques historiques, non modifiables ici.</div>':'')
@@ -4879,8 +4880,8 @@ function openTradeForm(id){
   var C=v2Compute(),base=id&&C.byId[id]?C.byId[id].t:null;if(id&&!base)return;
   var accs=C.accs.filter(function(a){return accActive(a)||(base&&a.id===base.accountId);});
   if(!accs.length){toast('Crée d’abord un compte actif','err');openAddAccount();return;}
-  var t;
-  if(base)t=JSON.parse(JSON.stringify(base));
+  var t,pre=[];
+  if(base){t=JSON.parse(JSON.stringify(base));if(isUndoc(C.byId[id]))pre=tfPrefill(t);}
   else{
     var L=uiLast(),acc=accs.find(function(a){return a.id===L.accountId;})||accs[0];
     t={id:null,v:2,status:'open',accountId:acc.id,instrument:INSTR[L.instrument]?L.instrument:'MNQ',side:'Long',entryAt:parisNow(),
@@ -4889,13 +4890,64 @@ function openTradeForm(id){
     t.method=defaultMethod(acc);
     var se=sessionOf(Date.now(),C.S);t.playbookId=suggestPlaybook(t.instrument,se?se.id:null,C.CL);
   }
-  _tf={editing:!!base,base:base,t:t,override:'',mirror:{},forced:false};
+  _tf={editing:!!base,base:base,t:t,override:'',mirror:{},forced:false,prefill:pre,undoc:!!(base&&isUndoc(C.byId[id]))};
   document.getElementById('modal-title').textContent=base?'MODIFIER LE TRADE':'NOUVEAU TRADE';
   document.getElementById('modal').classList.add('wide');
   document.getElementById('modal-body').innerHTML=tfHTML(accs);
   document.getElementById('modal-overlay').classList.add('open');
   tfRefresh();
 }
+// ── Documentation pré-remplie (09/11/2026) ─────────────────────────────────
+// Biais HTF repris de la Top-down de la semaine du trade, zone et DOL proposés depuis tes niveaux notés.
+var TD_BIAS_FR={Bullish:'Haussier',Bearish:'Baissier',Range:'Neutre',Neutre:'Neutre'};
+function tdWeekOf(entryAt){var ms=zonedToMs(entryAt,PARIS);return ms===null?null:getWeekKey(new Date(ms));}
+function tdBiasFor(entryAt){var wk=tdWeekOf(entryAt);if(!wk)return null;var d=getTopDownData(wk),tfs=d.tfs||{};
+  var src=[['Daily','Daily'],['H4','H4']].find(function(x){return tfs[x[0]]&&TD_BIAS_FR[tfs[x[0]].bias];});
+  if(src)return {bias:TD_BIAS_FR[tfs[src[0]].bias],raw:tfs[src[0]].bias,from:src[1],wk:wk};
+  if(TD_BIAS_FR[d.biasWeek])return {bias:TD_BIAS_FR[d.biasWeek],raw:d.biasWeek,from:'biais de la semaine',wk:wk};return null;}
+function tdParseLevels(text,instr){
+  var out=[],cur=null,re=/\d{1,3}(?:[   ]\d{3})+(?:[.,]\d+)?|\d+(?:[.,]\d+)?/g;
+  String(text||'').split(/\n/).forEach(function(line){
+    var l=line.replace(/\([^)]*\)/g,' ').replace(/^\s*[-•*]\s*/,'').trim();if(!l)return;
+    var m=/^(MNQ|MES|MYM|MGC)\b\s*[·:\-]?\s*/i.exec(l);if(m){cur=m[1].toUpperCase();l=l.slice(m[0].length).trim();if(!l)return;}
+    if(cur&&cur!==instr)return;
+    var nums=(l.match(re)||[]).map(function(x){return num(x.replace(/[   ]/g,''));}).filter(function(x){return x!==null;});if(!nums.length)return;
+    var label=l.slice(0,l.search(/\d/)).replace(/[=:·]/g,' ').replace(/\s+/g,' ').trim()||'Niveau';
+    out.push({label:label,lo:Math.min.apply(null,nums.slice(0,2)),hi:Math.max.apply(null,nums.slice(0,2)),zone:nums.length>1});});
+  return out;}
+function tdLevelsFor(entryAt,instr){var wk=tdWeekOf(entryAt);if(!wk)return [];var d=getTopDownData(wk),tfs=d.tfs||{},seen={},out=[];
+  ['H1','H4','Daily','Weekly','Monthly'].forEach(function(tf){tdParseLevels((tfs[tf]||{}).niveaux,instr).forEach(function(L){var k=L.label+L.lo+L.hi;if(seen[k])return;seen[k]=1;L.tf=tf;out.push(L);});});
+  tdParseLevels(d.keyZones,instr).forEach(function(L){var k=L.label+L.lo+L.hi;if(!seen[k]){seen[k]=1;L.tf='zones clés';out.push(L);}});return out;}
+function tfLevelSuggest(t){
+  var e=num(t.entry),sl=num(t.slInitial),tp=num(t.tpInitial);if(e===null)return {zone:[],dol:[]};
+  var L=tdLevelsFor(t.entryAt,t.instrument).filter(function(x){return x.lo>e*0.7&&x.hi<e*1.3;}),dir=t.side==='Short'?-1:1;
+  var risk=sl!==null?Math.abs(e-sl):e*0.003,dist=function(x,p){return p<x.lo?x.lo-p:p>x.hi?p-x.hi:0;};
+  var zone=L.map(function(x){return {x:x,d:dist(x,e)};}).filter(function(o){return o.d<=risk*1.5;}).sort(function(a,b){return a.d-b.d;}).slice(0,3);
+  var ref=tp!==null?tp:e+dir*risk*2,reach=Math.max(Math.abs(ref-e)*2,risk*3);
+  var dol=L.filter(function(x){return dir>0?x.hi>e:x.lo<e;}).map(function(x){return {x:x,d:dist(x,ref)};}).filter(function(o){return Math.abs((dir>0?o.x.lo:o.x.hi)-e)<=reach;}).sort(function(a,b){return a.d-b.d;}).slice(0,3);
+  return {zone:zone,dol:dol};}
+function lvlTxt(x,instr){return x.label+' '+(x.zone?fmtPrice(x.lo,instr)+' à '+fmtPrice(x.hi,instr):fmtPrice(x.lo,instr))+' ('+x.tf+')';}
+function tfLevelsHTML(){
+  var t=_tf.t,S=tfLevelSuggest(t),chip=function(field,o,i,why){return '<button type="button" class="btn btn-ghost btn-sm" style="margin:2px" onclick="tfPickLevel(\''+field+'\','+i+')">'+esc(lvlTxt(o.x,t.instrument))+(why?' · '+why:'')+'</button>';};
+  var pts=function(d){return d<=0?'dans la zone':'à '+fmtN(d,2)+' pts';};
+  var z=S.zone.map(function(o,i){return chip('zone',o,i,pts(o.d)+' de ton entrée');}).join(''),dl=S.dol.map(function(o,i){return chip('dol',o,i,o.d<=0?'ton TP y est':pts(o.d)+' de ton TP');}).join('');
+  if(!z&&!dl)return num(t.entry)===null?'':'<div style="font-size:12px;color:var(--muted)">Aucun niveau de ta Top-down ('+esc(tdWeekOf(t.entryAt)||'')+') près de ce trade.</div>';
+  return '<div style="font-size:12px;color:var(--muted);margin-bottom:2px">Tes niveaux de la Top-down, un clic pour les ajouter :</div>'+(z?'<div><b style="font-size:12px">Zone :</b> '+z+'</div>':'')+(dl?'<div><b style="font-size:12px">DOL :</b> '+dl+'</div>':'');}
+function tfPickLevel(field,i){var t=_tf.t,S=tfLevelSuggest(t),o=(S[field]||[])[i];if(!o)return;var txt=lvlTxt(o.x,t.instrument),cur=String(t.pre[field]||'').trim();
+  if(cur.indexOf(txt)>=0)return;t.pre[field]=cur?cur+' · '+txt:txt;var el=document.querySelector('[data-f="pre.'+field+'"]');if(el)el.value=t.pre[field];tfRefresh();}
+// Pré-remplit un trade à documenter : rien n'écrase ce que tu as déjà saisi
+function tfPrefill(t){
+  var notes=[];if(!t.pre)t.pre={biasHTF:'',dol:'',zone:''};
+  if(!t.pre.biasHTF){var b=tdBiasFor(t.entryAt);if(b){t.pre.biasHTF=b.bias;notes.push('Biais HTF « '+b.bias+' » repris de ta Top-down ('+b.from+', '+b.wk+')');}}
+  var ck=t.checklist||(t.checklist={}),any=Object.keys(ck).some(function(k){return ck[k];});
+  if(!any){var C=v2Compute(),pb=(C.CL.playbooks||[]).find(function(p){return p.id===t.playbookId;}),b2=tdBiasFor(t.entryAt);
+    if(pb){var has=function(id){return pb.criteria.some(function(x){return x.id===id;});};
+      if(has('biasHTF')&&b2&&((b2.raw==='Bullish'&&t.side==='Long')||(b2.raw==='Bearish'&&t.side==='Short'))){ck.biasHTF=true;notes.push('Critère « biais HTF » coché : ton '+b2.from+' était '+b2.bias.toLowerCase()+', dans le sens du trade');}
+      if(has('dol')&&String(t.pre.dol||'').trim()){ck.dol=true;notes.push('Critère « DOL identifié » coché : DOL déjà noté');}}}
+  return notes;}
+function tfUndocQueue(exceptId){var C=v2Compute();return C.items.filter(function(it){return it.t.id!==exceptId&&!it.t.archived&&isUndoc(it)&&isFlat(it);}).sort(function(a,b){return (a.c.entryMs||0)-(b.c.entryMs||0);}).map(function(it){return it.t.id;});}
+function tfDocNext(){var q=tfUndocQueue(null);if(!q.length){toast('Aucun trade à documenter');return;}openTradeForm(q[0]);}
+function tfSaveNext(){var id=_tf&&_tf.t.id,q=tfUndocQueue(id);tfSave(true);var it=id?v2Compute().byId[id]:null;if(it&&it.t.status==='closed'&&q.length)setTimeout(function(){openTradeForm(q[0]);},50);}
 function tfAcc(){var C=v2Compute();return C.accById[_tf.t.accountId]||null;}
 function tfSnap(){var t=_tf.t,a=tfAcc(),b=_tf.base;if(b&&b.snap&&b.accountId===t.accountId&&b.instrument===t.instrument)return b.snap;return snapFor(t,a);}
 function tfTemp(){var t=JSON.parse(JSON.stringify(_tf.t));t.id=t.id||'__new__';t.snap=tfSnap();if(!_tf.editing&&_tf.override)t.overrideReason=_tf.override;return t;}
@@ -4928,9 +4980,11 @@ function tfHTML(accs){
   +'<div class="section-title">✅ CHECKLIST DU PLAYBOOK</div>'
   +'<div class="form-group full" id="tf-check"></div>'
   +'<div class="section-title">🧭 NOTE PRÉ-TRADE</div>'
+  +((_tf.prefill||[]).length?'<div class="form-group full"><div class="v2-note">Pré-rempli pour toi, vérifie : '+_tf.prefill.map(esc).join(' · ')+'.</div></div>':'')
   +'<div class="form-group"><label>BIAIS HTF</label>'+fSel('pre.biasHTF',[['','Choisis…'],['Haussier','Haussier'],['Baissier','Baissier'],['Neutre','Neutre']],t.pre.biasHTF)+'</div>'
   +'<div class="form-group"><label>DOL VISÉ (BSL OU SSL)</label>'+fIn('pre.dol',t.pre.dol,'ex : SSL 29480, PDL')+'</div>'
   +'<div class="form-group full"><label>ZONE D’ENTRÉE</label>'+fIn('pre.zone',t.pre.zone,'ex : FVG M5 29625 à 29640, en OTE')+'</div>'
+  +'<div class="form-group full" id="tf-lvl"></div>'
   +'<div class="form-group"><label>TF DE VALIDATION</label>'+fSel('tfValidation',['H4','H1','M30','M15','M5','M3','M1'],t.tfValidation)+'</div>'
   +'<div class="form-group"><label>TF D’ENTRÉE</label>'+fSel('tfEntry',['M15','M5','M3','M1','S30','S15'],t.tfEntry)+'</div>'
   +'<div class="form-group"><label>TYPE DE SETUP</label>'+fSel('setupType',['Continuation','Renversement'],t.setupType)+'</div>'
@@ -4989,6 +5043,7 @@ function tfRenderExits(){
 function tfRefresh(){
   if(!_tf)return;var t=_tf.t,C=v2Compute(),a=tfAcc(),tmp=tfTemp(),it=v2ComputeWith(tmp),c=it.c,v=it.v,S=C.S;
   if(!document.getElementById('tf-exits').innerHTML)tfRenderExits();
+  var lv=document.getElementById('tf-lvl');if(lv)lv.innerHTML=tfLevelsHTML();
   // garde-fous
   var g=document.getElementById('tf-guard');
   if(g&&a&&!_tf.editing){
@@ -5048,7 +5103,8 @@ function tfRefresh(){
   var wasClosed=_tf.base&&_tf.base.status==='closed';
   document.getElementById('tf-foot').innerHTML='<button class="btn btn-ghost" onclick="closeModal()" style="flex:1">Annuler</button>'
     +(wasClosed?'<button class="btn btn-ghost" onclick="tfSave(false)" '+(errs.length?'disabled':'')+' style="flex:1">Repasser en ouvert</button>':'<button class="btn btn-ghost" onclick="tfSave(false)" '+(errs.length?'disabled':'')+' style="flex:1">Enregistrer ouvert</button>')
-    +'<button class="btn btn-primary" onclick="tfSave(true)" '+(canClose?'':'disabled')+' style="flex:2">'+(wasClosed?'Enregistrer':'Clôturer le trade ✓')+'</button>';
+    +'<button class="btn btn-primary" onclick="tfSave(true)" '+(canClose?'':'disabled')+' style="flex:2">'+(wasClosed?'Enregistrer':'Clôturer le trade ✓')+'</button>'
+    +(_tf.undoc&&tfUndocQueue(t.id).length?'<button class="btn btn-primary" onclick="tfSaveNext()" '+(canClose?'':'disabled')+' style="flex:2">Clôturer et suivant › ('+tfUndocQueue(t.id).length+')</button>':'');
   function cell(l,val){return '<div class="v2-cell"><span>'+l+'</span><b>'+val+'</b></div>';}
 }
 function tfSave(close){
