@@ -2,86 +2,86 @@
  "v": 1,
  "semaine": "2026-W46",
  "periode": "du lundi 09/11 au vendredi 13/11",
- "majA": "2026-11-12T13:57:28+01:00",
+ "majA": "2026-11-13T13:58:08+01:00",
  "mode": "quotidien",
- "note": "Peur et cupidité (CNN) introuvable. Marché obligataire fermé le 11/11 : le 2 ans reste à la clôture du 10/11. Le 10 ans et le WTI viennent d'une cotation Yahoo du matin sans heure précise. Date des résultats Nvidia non confirmée sur une source officielle.",
+ "note": "Peur et cupidité (CNN) introuvable. Le PPI sort à 14h30, après cette mise à jour. Chiffres du 12/11 lus dans un récapitulatif CappNotes (assisté par IA).",
  "marqueurs": [
   {
    "id": "dxy",
    "nom": "Dollar (DXY)",
-   "valeur": "102,92",
-   "variation": "+0,67 % sur la veille",
+   "valeur": "103,19",
+   "variation": "+0,27 % sur la veille",
    "sens": "hausse",
-   "lecture": "Un dollar en hausse pour la deuxième séance, porté par les paris de hausse Fed, pourrait continuer de freiner MGC.",
-   "date": "clôture du 11/11",
+   "lecture": "Troisième hausse de suite du dollar, portée par les taux : cela pourrait continuer de peser sur MGC.",
+   "date": "clôture du 12/11",
    "source": {
-    "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
    }
   },
   {
    "id": "us10y",
    "nom": "Taux à 10 ans US",
-   "valeur": "4,998 %",
-   "variation": "+0,015 pt sur la veille",
+   "valeur": "5,10 %",
+   "variation": "+0,12 pt sur la séance précédente",
    "sens": "hausse",
-   "lecture": "Le 10 ans reste collé à 5 % à la réouverture : au-dessus, MNQ pourrait avoir plus de mal à tenir ses rebonds.",
-   "date": "12/11 au matin, cotation Yahoo (heure non précisée) · marché fermé le 11/11",
+   "lecture": "Le 10 ans repasse nettement au-dessus de 5 %, au plus haut depuis octobre : cela pourrait freiner les rebonds de MNQ.",
+   "date": "clôture du 12/11",
    "source": {
-    "titre": "Yahoo Finance · Stock market today: S&P 500, Nasdaq futures sink as Nvidia CEO turmoil jolts confidence",
-    "url": "https://sg.finance.yahoo.com/news/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html"
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
    }
   },
   {
    "id": "us02y",
    "nom": "Taux à 2 ans US",
-   "valeur": "4,73 %",
-   "variation": "",
-   "sens": "stable",
-   "lecture": "Pas de nouvelle clôture à cause de Veterans Day : sa réaction aux inscriptions au chômage et au PPI pourrait guider MNQ et MES.",
-   "date": "clôture du 10/11 (marché fermé le 11/11)",
+   "valeur": "4,88 %",
+   "variation": "+0,15 pt sur la séance précédente",
+   "sens": "hausse",
+   "lecture": "Un saut rare en une séance : le marché parie plus fort sur la Fed, ce qui pourrait peser sur MNQ et MES si le PPI sort chaud.",
+   "date": "clôture du 12/11",
    "source": {
-    "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
    }
   },
   {
    "id": "vix",
    "nom": "VIX",
-   "valeur": "17,49",
-   "variation": "−10,12 % sur la veille",
-   "sens": "baisse",
-   "lecture": "Le VIX était au plus bas d'une semaine mercredi, mais il remonte vers 18,29 ce matin avec l'affaire Nvidia : la volatilité pourrait revenir sur MNQ.",
-   "date": "clôture du 11/11",
+   "valeur": "18,70",
+   "variation": "+6,92 % sur la veille",
+   "sens": "hausse",
+   "lecture": "Le VIX remonte après quatre baisses : des mouvements plus larges pourraient revenir sur MNQ et MES.",
+   "date": "clôture du 12/11",
    "source": {
-    "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
    }
   },
   {
    "id": "fedwatch",
    "nom": "Probabilités Fed (FedWatch)",
-   "valeur": "hausse de 0,25 pt le 09/12 entièrement pricée · 10,4 % pour 0,50 pt",
-   "variation": "0,50 pt : −0,6 pt sur la veille",
-   "sens": "stable",
-   "lecture": "La hausse est acquise pour le marché : la vraie question devient 0,50 pt, et un PPI chaud vendredi pourrait la relancer et secouer MNQ et MGC.",
-   "date": "11/11 à la clôture, chiffre CME cité",
+   "valeur": "hausse de 0,25 pt le 09/12 entièrement pricée · environ 13 % pour 0,50 pt",
+   "variation": "0,50 pt : de 10,4 % à environ 13 % sur la veille",
+   "sens": "hausse",
+   "lecture": "Le pari sur 0,50 pt monte : un PPI chaud aujourd'hui pourrait le pousser encore et secouer MNQ et MGC.",
+   "date": "12/11 à la clôture, chiffre CME cité",
    "source": {
-    "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
    }
   },
   {
    "id": "wti",
    "nom": "Pétrole WTI",
-   "valeur": "85,81 $",
-   "variation": "−0,83 % sur la veille",
-   "sens": "baisse",
-   "lecture": "Le pétrole recule un peu sur l'idée de discussions US Iran : moins de peur d'inflation pourrait aider un peu les indices.",
-   "date": "12/11 au matin, contrat décembre, cotation Yahoo (heure non précisée)",
+   "valeur": "88,74 $",
+   "variation": "+2,55 % sur la veille",
+   "sens": "hausse",
+   "lecture": "Le pétrole remonte après des attaques sur des pétroliers et des sites saoudiens : plus de peur d'inflation pourrait peser sur les indices.",
+   "date": "clôture du 12/11 (contrat non précisé)",
    "source": {
-    "titre": "Yahoo Finance · Stock market today: S&P 500, Nasdaq futures sink as Nvidia CEO turmoil jolts confidence",
-    "url": "https://sg.finance.yahoo.com/news/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html"
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
    }
   },
   {
@@ -100,14 +100,22 @@
  ],
  "eco": {
   "points": [
-   "Jeu. 12/11 : marché obligataire rouvert. Le 10 ans cote vers 4,998 %. Inscriptions au chômage à 14h30, 194 000 attendues.",
-   "Mer. 11/11 : Goolsbee juge le CPI « presque inquiétant ». Paulson veut un resserrement graduel. Logan voit toujours deux hausses de plus.",
-   "FedWatch : hausse de 0,25 pt le 09/12 entièrement pricée, 10,4 % pour 0,50 pt. Goldman attend aussi une hausse en mars.",
-   "Mer. 11/11 : le dollar (DXY) prend 0,67 % à 102,92, deuxième hausse de suite, sur les paris de hausse Fed.",
-   "Mar. 10/11 : CPI d'octobre chaud. +0,4 % sur le mois contre 0,3 % attendu, core +0,3 % contre 0,2 %.",
-   "PPI d'octobre vendredi 13/11 à 14h30 : 0,4 % attendu, core 0,3 %."
+   "Jeu. 12/11 : inscriptions au chômage 200 000 contre 194 000 attendues. Le 2 ans prend 15 pb à 4,88 %, le 10 ans 5,10 %.",
+   "Ven. 13/11 : PPI d'octobre à 14h30, 0,4 % attendu, core 0,3 %. Collins, Logan, Bowman, Daly et Jefferson parlent aujourd'hui.",
+   "Jeu. 12/11 : Hammack (Cleveland) veut une politique restrictive, par des hausses plus petites et plus fréquentes.",
+   "FedWatch : hausse de 0,25 pt le 09/12 entièrement pricée, environ 13 % pour 0,50 pt contre 10,4 % la veille.",
+   "Jeu. 12/11 : le dollar (DXY) prend 0,27 % à 103,19, troisième hausse de suite.",
+   "Mar. 10/11 : CPI d'octobre chaud. +0,4 % sur le mois contre 0,3 % attendu, core +0,3 % contre 0,2 %."
   ],
   "sources": [
+   {
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
+   },
+   {
+    "titre": "Yahoo Finance · Stock market today: Dow, S&P 500, Nasdaq futures edge higher as Nvidia tumult deepens",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-13-dow-sp-500-nasdaq-nvidia-110151154.html"
+   },
    {
     "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
     "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
@@ -119,23 +127,31 @@
    {
     "titre": "CappNotes · Closing Look, Tuesday, November 10, 2026",
     "url": "https://cappnotes.substack.com/p/closing-look-tuesday-november-10"
-   },
-   {
-    "titre": "Federal Reserve · Meeting calendars and information",
-    "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm"
    }
   ]
  },
  "fonda": {
   "points": [
-   "Jeu. 12/11 : selon le WSJ, le conseil de Nvidia prépare le départ de Huang. Futures Nasdaq 100 −0,9 %, S&P 500 −0,4 %, Dow stable.",
-   "Nvidia : −8,61 % après la clôture de mercredi, environ −6 % avant l'ouverture jeudi. Aucune réponse de Nvidia.",
-   "Mer. 11/11 : Nasdaq 100 +2,28 %, S&P 500 +1,31 %, Dow +0,49 %. Tech +3,23 %, semi-conducteurs +5,7 %.",
-   "CoreWeave +24,71 % mercredi : chiffre d'affaires T3 de 3,66 milliards $, prévision 2026 relevée à 13 à 13,3 milliards $.",
-   "Jeu. 12/11 : Alibaba perd plus de 6 % à Hong Kong. Cisco et Applied Materials publient ce soir après clôture.",
-   "Anthropic : prix de l'entrée en Bourse le 18/11, premiers échanges au Nasdaq (ANT) le 19/11."
+   "Jeu. 12/11 : Jensen Huang démissionne de Nvidia, effet immédiat. Colette Kress devient PDG par intérim. Nvidia −4,34 %.",
+   "Jeu. 12/11 : S&P 500 −0,35 %, Nasdaq 100 −0,30 %, Dow −0,36 %, Russell 2000 −1,66 %. Seules 123 valeurs du S&P 500 montent.",
+   "Ven. 13/11 matin : futures S&P 500 +0,2 %, Nasdaq 100 +0,1 %. Nvidia rebondit un peu. Résultats Nvidia mardi prochain selon Yahoo.",
+   "Cisco : chiffre d'affaires record de 18,5 milliards $, environ +3 % après clôture. Applied Materials hésitant après clôture.",
+   "Microsoft recule avant l'ouverture après une panne mondiale d'Outlook, Teams et Copilot.",
+   "Anthropic : prix de l'entrée en Bourse le 18/11, entre 70 et 78 $, premiers échanges au Nasdaq le 19/11."
   ],
   "sources": [
+   {
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
+   },
+   {
+    "titre": "Yahoo Finance · Stock market today: Dow, S&P 500, Nasdaq futures edge higher as Nvidia tumult deepens",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-13-dow-sp-500-nasdaq-nvidia-110151154.html"
+   },
+   {
+    "titre": "TipRanks · Stock Market Today, Nov. 13: U.S. Stocks Wobble Ahead of PPI Data",
+    "url": "https://www.tipranks.com/news/stock-market-today-nov-13-u-s-stocks-wobble-ahead-of-ppi-data"
+   },
    {
     "titre": "Yahoo Finance · Stock market today: S&P 500, Nasdaq futures sink as Nvidia CEO turmoil jolts confidence",
     "url": "https://sg.finance.yahoo.com/news/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html"
@@ -143,27 +159,27 @@
    {
     "titre": "Yahoo Finance · US Stock Futures Decline as Nvidia Leadership Reports Weigh on Technology Shares",
     "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-decline-nvidia-100323595.html"
-   },
-   {
-    "titre": "StockTitan · Tech Stocks Closed Higher in the Stock Market Today, November 11, 2026, Then Nvidia Fell After Hours",
-    "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-11-2026"
-   },
-   {
-    "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
    }
   ]
  },
  "geo": {
   "points": [
-   "Jeu. 12/11 : selon le WSJ, Vance envisagerait des discussions directes avec un haut responsable iranien. Rien n'est encore fixé.",
-   "Mer. 11/11 : l'Iran nie toute négociation et dit qu'Ormuz « restera fermé ». WTI clôture +0,57 % à 86,53 $.",
-   "L'Iran refuse que son matériel nucléaire enrichi quitte le pays. Trump : la guerre finira « quand nous voudrons ».",
+   "Jeu. 12/11 : selon l'armée iranienne, quatre pétroliers touchés par des explosions à Ormuz. WTI +2,55 % à 88,74 $.",
+   "Jeu. 12/11 : les Houthis disent avoir attaqué un oléoduc saoudien, un site à Yanbu et un bâtiment d'Aramco à Riyad.",
+   "Trump : Washington n'a « pas besoin d'un accord » avec l'Iran. Blocus et sanctions continuent, selon TipRanks.",
+   "Or (futures) −2,88 % à 3 885,30 $ jeudi, plus bas depuis octobre 2025, écrasé par les taux et le dollar.",
    "Chine : Pékin demande aux États-Unis de ne pas utiliser l'affaire Huang pour durcir les limites sur les puces.",
-   "Or (futures) −0,74 % à 4 000,50 $ mercredi, puis vers 3 959,80 $ ce matin, freiné par le dollar.",
    "Midterms : les démocrates gagnent le Congrès. Crainte de règles plus dures sur les data centers IA."
   ],
   "sources": [
+   {
+    "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
+   },
+   {
+    "titre": "TipRanks · Stock Market Today, Nov. 13: U.S. Stocks Wobble Ahead of PPI Data",
+    "url": "https://www.tipranks.com/news/stock-market-today-nov-13-u-s-stocks-wobble-ahead-of-ppi-data"
+   },
    {
     "titre": "Yahoo Finance · US Stock Futures Decline as Nvidia Leadership Reports Weigh on Technology Shares",
     "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-decline-nvidia-100323595.html"
@@ -175,10 +191,6 @@
    {
     "titre": "Yahoo Finance · Stock market today: S&P 500, Nasdaq futures sink as Nvidia CEO turmoil jolts confidence",
     "url": "https://sg.finance.yahoo.com/news/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html"
-   },
-   {
-    "titre": "CappNotes · Closing Look, Monday, November 9, 2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-monday-november-9-2026"
    }
   ]
  },
@@ -200,6 +212,15 @@
    "reel": "0,3 %",
    "prevision": "0,2 %",
    "reaction": "Les paris de hausse Fed en décembre sont montés à 88 % ; la tech a mené la baisse."
+  },
+  {
+   "jour": "jeu. 12/11",
+   "heure": "14:30",
+   "titre": "Unemployment Claims",
+   "titreFr": "Inscriptions hebdomadaires au chômage",
+   "reel": "200 000",
+   "prevision": "194 000",
+   "reaction": "Le 2 ans a pris 15 pb dans la séance, mais les indices ont surtout réagi à Nvidia et au pétrole : S&P 500 −0,35 %."
   }
  ],
  "dossiers": [
@@ -207,8 +228,8 @@
    "id": "fed-hausse",
    "theme": "Banques centrales",
    "titre": "La Fed repasse en mode hausse",
-   "maj": "12/11",
-   "resume": "La Fed est à 3,75 % à 4,00 %. Après un emploi fort et un CPI d'octobre chaud, la hausse de 0,25 pt le 09/12 est entièrement pricée selon FedWatch, avec 10,4 % pour 0,50 pt. Goldman attend aussi une hausse en mars.",
+   "maj": "13/11",
+   "resume": "La Fed est à 3,75 % à 4,00 %. La hausse de 0,25 pt le 09/12 est entièrement pricée selon FedWatch, et le pari sur 0,50 pt monte à environ 13 %. Jeudi, le 2 ans a pris 15 pb à 4,88 %.",
    "pourquoi": "Des taux plus hauts rendent l'argent plus cher et font baisser la valeur des actions de croissance. Ils renforcent aussi le dollar, ce qui pèse souvent sur l'or.",
    "horizons": {
     "court": "Le PPI de vendredi pourrait faire monter ou baisser le pari sur 0,50 pt, donc bouger le 2 ans et les indices.",
@@ -223,11 +244,15 @@
    },
    "surveiller": [
     "PPI le 13/11 à 14h30",
-    "Discours des membres de la Fed",
+    "Collins, Logan, Bowman, Daly et Jefferson le 13/11",
     "PCE le 25/11 à 14h30",
     "Réunion FOMC les 08 et 09/12"
    ],
    "historique": [
+    {
+     "date": "12/11",
+     "fait": "Chômage 200 000 contre 194 000 attendues. Hammack veut des hausses plus petites et plus fréquentes. 2 ans +15 pb, or −2,88 %."
+    },
     {
      "date": "11/11",
      "fait": "Goolsbee juge le CPI « presque inquiétant », Paulson veut un resserrement graduel. Le dollar prend 0,67 % à 102,92, l'or perd 0,74 %."
@@ -251,6 +276,10 @@
    ],
    "sources": [
     {
+     "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+     "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
+    },
+    {
      "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
      "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
     },
@@ -269,14 +298,6 @@
     {
      "titre": "Yahoo Finance · Stock market today: Dow, S&P 500, Nasdaq trade mixed ahead of key inflation data",
      "url": "https://finance.yahoo.com/markets/live/stock-market-today-tuesday-november-10-dow-sp-500-nasdaq-inflation-data-cpi-090627830.html"
-    },
-    {
-     "titre": "Current Logic · Morning Brief Nov 10, 2026",
-     "url": "https://currentlogic.substack.com/p/the-morning-brief-november-10-2026"
-    },
-    {
-     "titre": "CappNotes · Closing Look, Monday, November 9, 2026",
-     "url": "https://cappnotes.substack.com/p/closing-look-monday-november-9-2026"
     }
    ]
   },
@@ -284,8 +305,8 @@
    "id": "iran-ormuz",
    "theme": "Géopolitique",
    "titre": "Iran, Ormuz et le pétrole",
-   "maj": "12/11",
-   "resume": "L'Iran nie toute négociation et dit qu'Ormuz restera fermé tant que ses demandes ne sont pas acceptées. Selon le WSJ, Vance envisagerait des discussions directes avec un haut responsable iranien. Le pétrole oscille entre ces deux messages.",
+   "maj": "13/11",
+   "resume": "Jeudi, l'Iran dit que quatre pétroliers ont été touchés à Ormuz, et les Houthis disent avoir frappé des sites pétroliers saoudiens. Trump dit ne pas avoir besoin d'un accord avec l'Iran. Le WTI a repris 2,55 % à 88,74 $.",
    "pourquoi": "Un pétrole cher nourrit l'inflation, donc les hausses de taux, ce qui pèse sur les indices. Une tension forte peut aussi pousser l'or comme valeur refuge.",
    "horizons": {
     "court": "Un titre sur une frappe ou un accord pourrait faire bouger le WTI de plusieurs pourcents en une séance, et les indices avec.",
@@ -299,11 +320,15 @@
     "MGC": "Une escalade pourrait soutenir l'or ; un accord pourrait lui retirer une partie de sa prime."
    },
    "surveiller": [
-    "Confirmation ou non de discussions Vance Iran",
-    "Déclarations de Téhéran sur Ormuz et le nucléaire",
+    "Nouvelles attaques sur les pétroliers à Ormuz",
+    "Sites pétroliers saoudiens et Houthis",
     "Prix du WTI autour de 85 à 90 $"
    ],
    "historique": [
+    {
+     "date": "12/11",
+     "fait": "Quatre pétroliers touchés à Ormuz selon l'Iran, attaques Houthis sur des sites saoudiens. WTI +2,55 %, Brent +3,30 %, ventes sur les obligations."
+    },
     {
      "date": "12/11",
      "fait": "Le WSJ évoque des discussions directes Vance Iran, encore préliminaires. Le WTI recule de 0,83 % à 85,81 $ le matin."
@@ -323,13 +348,17 @@
     {
      "date": "10/11",
      "fait": "Le WTI recule encore de 2,60 % à 84,59 $ vers 11h36."
-    },
-    {
-     "date": "09/11",
-     "fait": "Trump juge de nouvelles frappes « très peu probables ». Le WTI clôture à −4,38 % à 86,85 $, et les indices US prennent plus de 2 %."
     }
    ],
    "sources": [
+    {
+     "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+     "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
+    },
+    {
+     "titre": "TipRanks · Stock Market Today, Nov. 13: U.S. Stocks Wobble Ahead of PPI Data",
+     "url": "https://www.tipranks.com/news/stock-market-today-nov-13-u-s-stocks-wobble-ahead-of-ppi-data"
+    },
     {
      "titre": "Yahoo Finance · US Stock Futures Decline as Nvidia Leadership Reports Weigh on Technology Shares",
      "url": "https://finance.yahoo.com/markets/stocks/articles/us-stock-futures-decline-nvidia-100323595.html"
@@ -345,31 +374,19 @@
     {
      "titre": "CappNotes · Closing Look, Tuesday, November 10, 2026",
      "url": "https://cappnotes.substack.com/p/closing-look-tuesday-november-10"
-    },
-    {
-     "titre": "CappNotes · Closing Look, Monday, November 9, 2026",
-     "url": "https://cappnotes.substack.com/p/closing-look-monday-november-9-2026"
-    },
-    {
-     "titre": "TipRanks · Stock Market Today, Nov. 10: Markets Await the Consumer Inflation Report",
-     "url": "https://www.tipranks.com/news/stock-market-today-nov-10-markets-await-the-consumer-inflation-report"
-    },
-    {
-     "titre": "TheStreet · Stock Market Today (Nov. 9, 2026)",
-     "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-09-202"
     }
    ]
   },
   {
    "id": "ia-tech",
    "theme": "Entreprises",
-   "titre": "Tech, IA et affaire Huang chez Nvidia",
-   "maj": "12/11",
-   "resume": "Mercredi, CoreWeave a relancé l'IA : Nasdaq 100 +2,28 %. Le soir, le WSJ écrit que le conseil de Nvidia prépare le départ de Jensen Huang. Nvidia perd 8,61 % après clôture et les futures Nasdaq 100 reculent de 0,9 % jeudi matin.",
+   "titre": "Tech, IA et départ de Huang chez Nvidia",
+   "maj": "13/11",
+   "resume": "Jensen Huang a démissionné jeudi, avec effet immédiat. Colette Kress devient PDG par intérim, Harvey Jones premier président du conseil. Nvidia a perdu jusqu'à 14 % à l'ouverture, puis 4,34 % à la clôture.",
    "pourquoi": "Nvidia est l'une des plus grosses valeurs du Nasdaq et du S&P 500. Un doute sur son patron peut faire douter de toute l'IA, donc de MNQ.",
    "horizons": {
-    "court": "La séance de jeudi pourrait s'ouvrir sous pression sur la tech. Cisco et Applied Materials ce soir pourraient amortir ou aggraver le mouvement.",
-    "moyen": "Une décision du conseil de Nvidia, dans un sens ou dans l'autre, pourrait fixer le ton de l'IA avant ses résultats, annoncés le 17/11 selon Nexus et The Weekend Spread.",
+    "court": "Le rebond de Nvidia ce matin reste fragile : chaque nouvelle sur la succession ou l'enquête antitrust pourrait secouer MNQ.",
+    "moyen": "Les résultats de Nvidia, annoncés mardi prochain selon Yahoo Finance, pourraient dire si l'IA tient sans Huang.",
     "long": "Si l'affaire pousse Washington à durcir les limites sur les puces vers la Chine, les ventes de l'IA pourraient en souffrir sur plusieurs trimestres."
    },
    "actifs": {
@@ -379,12 +396,16 @@
     "MGC": "Une panique sur la tech pourrait soutenir un peu l'or, mais le dollar fort le freine pour l'instant."
    },
    "surveiller": [
-    "Décision ou communiqué du conseil de Nvidia",
-    "Cisco et Applied Materials le 12/11 après clôture",
-    "Résultats de Nvidia, date à confirmer",
-    "Nouvelles limites US sur les puces vers la Chine"
+    "Nom d'un PDG permanent chez Nvidia",
+    "Résultats de Nvidia, annoncés pour mardi 17/11 selon Yahoo Finance",
+    "Enquête antitrust du DOJ citée par Semafor",
+    "Entrée en Bourse d'Anthropic le 19/11"
    ],
    "historique": [
+    {
+     "date": "12/11",
+     "fait": "Huang démissionne. Nvidia perd jusqu'à 14 % puis finit à −4,34 %. Nasdaq 100 −0,30 %. Cisco environ +3 % après clôture."
+    },
     {
      "date": "12/11",
      "fait": "Le WSJ écrit que le conseil de Nvidia prépare le départ de Huang. Nvidia −8,61 % après clôture mercredi, futures Nasdaq 100 −0,9 % jeudi matin, Alibaba −6 % à Hong Kong."
@@ -408,6 +429,14 @@
    ],
    "sources": [
     {
+     "titre": "CappNotes · Closing Look, Thursday, November 12, 2026",
+     "url": "https://cappnotes.substack.com/p/closing-look-thursday-november-12"
+    },
+    {
+     "titre": "Yahoo Finance · Stock market today: Dow, S&P 500, Nasdaq futures edge higher as Nvidia tumult deepens",
+     "url": "https://finance.yahoo.com/markets/live/stock-market-today-friday-november-13-dow-sp-500-nasdaq-nvidia-110151154.html"
+    },
+    {
      "titre": "Yahoo Finance · Stock market today: S&P 500, Nasdaq futures sink as Nvidia CEO turmoil jolts confidence",
      "url": "https://sg.finance.yahoo.com/news/live/stock-market-today-thursday-november-12-sp-500-nasdaq-dow-nvidia-invest-110027430.html"
     },
@@ -422,18 +451,6 @@
     {
      "titre": "CappNotes · Closing Look, Wednesday, November 11, 2026",
      "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-11"
-    },
-    {
-     "titre": "StockTitan · The Stock Market Today, November 10, 2026",
-     "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-10-2026"
-    },
-    {
-     "titre": "CappNotes · Closing Look, Tuesday, November 10, 2026",
-     "url": "https://cappnotes.substack.com/p/closing-look-tuesday-november-10"
-    },
-    {
-     "titre": "TheStreet · Stock Market Today (Nov. 10, 2026): Nasdaq falls after key inflation report",
-     "url": "https://www.thestreet.com/stock-market-today/stock-market-today-dow-jones-sp-500-nasdaq-updates-nov-10-2026"
     }
    ]
   },
