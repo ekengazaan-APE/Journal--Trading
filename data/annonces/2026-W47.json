@@ -1,0 +1,1660 @@
+{
+ "v": 1,
+ "semaine": "2026-W47",
+ "majA": "2026-11-16T14:52:11+01:00",
+ "note": "Fiches reprises de ton dossier S47 du 16/11, complétées. Chiffres réels lus dans FinancialJuice : Empire State 7,8 pour 18 attendus, inflation canadienne lue à 14h30. Aucune réaction attribuée à ces chiffres n'a pu être lue. Les pages de prévisions n'ont pas pu être rouvertes ce lundi : les prévisions viennent du calendrier, de FinancialJuice et des sources citées dans ton dossier. Bénéfices attendus : Alpha Vantage.",
+ "fiches": [
+  {
+   "t": "FOMC Member Barr Speaks",
+   "c": "USD",
+   "d": "2026-11-16T05:00:00-05:00",
+   "explication": "Michael Barr, gouverneur de la Fed, parle : son avis sur les taux pourrait faire bouger un peu le 10 ans, sinon l'effet resterait faible."
+  },
+  {
+   "t": "CPI m/m",
+   "c": "CAD",
+   "d": "2026-11-16T08:30:00-05:00",
+   "reel": "0.2%",
+   "pourquoi": "L'inflation canadienne dit si la Banque du Canada devra monter ses taux comme la Fed. Le Canada est très lié à l'économie américaine.",
+   "horizons": {
+    "court": "Sorti à 14h30 : effet surtout sur le dollar canadien, faible sur tes indices.",
+    "moyen": "Un Canada moins inflationniste pourrait affaiblir le dollar canadien face au dollar américain.",
+    "long": "Effet indirect et faible sur tes actifs."
+   },
+   "predictions": [
+    {
+     "valeur": "0.3%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    },
+    {
+     "valeur": "0.3%",
+     "titre": "FinancialJuice, flux RSS du 16/11",
+     "url": "https://www.financialjuice.com/feed.ashx?xy=rss",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "La hausse des prix payés par les ménages canadiens sur un mois.",
+   "contexte": "Le même jour, l'Empire State américain est sorti à 7,8 contre 18 attendus (FinancialJuice). Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : 0,1 point d'écart avec la prévision est déjà un signal pour la Banque du Canada.",
+   "siFort": {
+    "pays": "L'inflation canadienne resterait haute : la Banque du Canada pourrait monter ses taux.",
+    "marche": "Le dollar canadien pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "siFaible": {
+    "pays": "L'inflation canadienne ralentirait : moins de pression pour monter les taux.",
+    "marche": "Le dollar canadien pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "piege": "Un mouvement du dollar canadien ne dit rien de tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Median CPI y/y",
+   "c": "CAD",
+   "d": "2026-11-16T08:30:00-05:00",
+   "reel": "2.0%",
+   "pourquoi": "L'inflation canadienne dit si la Banque du Canada devra monter ses taux comme la Fed. Le Canada est très lié à l'économie américaine.",
+   "horizons": {
+    "court": "Sorti à 14h30 : effet surtout sur le dollar canadien, faible sur tes indices.",
+    "moyen": "Un Canada moins inflationniste pourrait affaiblir le dollar canadien face au dollar américain.",
+    "long": "Effet indirect et faible sur tes actifs."
+   },
+   "predictions": [
+    {
+     "valeur": "2.0%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    },
+    {
+     "valeur": "2%",
+     "titre": "FinancialJuice, flux RSS du 16/11",
+     "url": "https://www.financialjuice.com/feed.ashx?xy=rss",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "Une mesure de l'inflation canadienne de fond, calculée par la Banque du Canada, sur un an.",
+   "contexte": "Le même jour, l'Empire State américain est sorti à 7,8 contre 18 attendus (FinancialJuice). Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : 0,1 point d'écart avec la prévision est déjà un signal pour la Banque du Canada.",
+   "siFort": {
+    "pays": "L'inflation canadienne resterait haute : la Banque du Canada pourrait monter ses taux.",
+    "marche": "Le dollar canadien pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "siFaible": {
+    "pays": "L'inflation canadienne ralentirait : moins de pression pour monter les taux.",
+    "marche": "Le dollar canadien pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "piege": "Un mouvement du dollar canadien ne dit rien de tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Trimmed CPI y/y",
+   "c": "CAD",
+   "d": "2026-11-16T08:30:00-05:00",
+   "reel": "1.8%",
+   "pourquoi": "L'inflation canadienne dit si la Banque du Canada devra monter ses taux comme la Fed. Le Canada est très lié à l'économie américaine.",
+   "horizons": {
+    "court": "Sorti à 14h30 : effet surtout sur le dollar canadien, faible sur tes indices.",
+    "moyen": "Un Canada moins inflationniste pourrait affaiblir le dollar canadien face au dollar américain.",
+    "long": "Effet indirect et faible sur tes actifs."
+   },
+   "predictions": [
+    {
+     "valeur": "1.9%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    },
+    {
+     "valeur": "1.9%",
+     "titre": "FinancialJuice, flux RSS du 16/11",
+     "url": "https://www.financialjuice.com/feed.ashx?xy=rss",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "L'inflation canadienne sur un an, sans les prix qui bougent le plus, calculée par la Banque du Canada.",
+   "contexte": "Le même jour, l'Empire State américain est sorti à 7,8 contre 18 attendus (FinancialJuice). Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : 0,1 point d'écart avec la prévision est déjà un signal pour la Banque du Canada.",
+   "siFort": {
+    "pays": "L'inflation canadienne resterait haute : la Banque du Canada pourrait monter ses taux.",
+    "marche": "Le dollar canadien pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "siFaible": {
+    "pays": "L'inflation canadienne ralentirait : moins de pression pour monter les taux.",
+    "marche": "Le dollar canadien pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "piege": "Un mouvement du dollar canadien ne dit rien de tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Common CPI y/y",
+   "c": "CAD",
+   "d": "2026-11-16T08:30:00-05:00",
+   "reel": "2.5%",
+   "pourquoi": "L'inflation canadienne dit si la Banque du Canada devra monter ses taux comme la Fed. Le Canada est très lié à l'économie américaine.",
+   "horizons": {
+    "court": "Sorti à 14h30 : effet surtout sur le dollar canadien, faible sur tes indices.",
+    "moyen": "Un Canada moins inflationniste pourrait affaiblir le dollar canadien face au dollar américain.",
+    "long": "Effet indirect et faible sur tes actifs."
+   },
+   "predictions": [
+    {
+     "valeur": "2.5%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "La partie de l'inflation canadienne commune à tous les prix, sur un an.",
+   "contexte": "Le même jour, l'Empire State américain est sorti à 7,8 contre 18 attendus (FinancialJuice). Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : 0,1 point d'écart avec la prévision est déjà un signal pour la Banque du Canada.",
+   "siFort": {
+    "pays": "L'inflation canadienne resterait haute : la Banque du Canada pourrait monter ses taux.",
+    "marche": "Le dollar canadien pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "siFaible": {
+    "pays": "L'inflation canadienne ralentirait : moins de pression pour monter les taux.",
+    "marche": "Le dollar canadien pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "piege": "Un mouvement du dollar canadien ne dit rien de tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Empire State Manufacturing Index",
+   "c": "USD",
+   "d": "2026-11-16T08:30:00-05:00",
+   "explication": "Une enquête auprès des usines de la région de New York : au-dessus de 0, l'activité progresse, et c'est le premier chiffre de l'industrie US du mois.",
+   "reel": "7.8"
+  },
+  {
+   "t": "FOMC Member Williams Speaks",
+   "c": "USD",
+   "d": "2026-11-16T09:05:00-05:00",
+   "explication": "John Williams, président de la Fed de New York et proche du président, parle : un mot sur décembre pourrait faire bouger les taux."
+  },
+  {
+   "t": "Cleveland Fed Inflation Expectations",
+   "c": "USD",
+   "d": "2026-11-16T09:48:00-05:00",
+   "explication": "Une estimation de l'inflation attendue, calculée par la Fed de Cleveland : elle fait rarement bouger les indices."
+  },
+  {
+   "t": "Fed Chairman Warsh Speaks",
+   "c": "USD",
+   "d": "2026-11-16T12:00:00-05:00",
+   "reel": "",
+   "pourquoi": "C'est le premier discours du président de la Fed depuis le CPI chaud du 10/11. Le marché attend une hausse en décembre, et un mot de Warsh pourrait dire de combien.",
+   "horizons": {
+    "court": "Le discours tombe après ta session : l'effet se verrait le soir et à l'ouverture de mardi, surtout sur le 10 ans et MNQ.",
+    "moyen": "Un ton dur pourrait installer l'idée d'une hausse de 0,5 point en décembre, ce qui pèserait sur la tech pendant plusieurs semaines.",
+    "long": "Ses premiers mois fixent sa réputation : une Fed vue comme dure garderait les taux longs hauts, ce qui pèserait sur les valorisations de la tech."
+   },
+   "predictions": [
+    {
+     "valeur": "Hausse de la Fed en décembre : 88 % pour 0,25 point, 12 % pour 0,5 point (citant Trading Economics)",
+     "titre": "analysisofficial : la semaine macro mondiale du 16 au 20 novembre",
+     "url": "https://analysisofficial.substack.com/p/global-macro-week-ahead-nov-1620",
+     "date": "2026-11-15"
+    }
+   ],
+   "mesure": "Le président de la Fed ouvre une conférence sur la productivité et l'emploi, à la Fed de San Francisco (Admirals). Ce n'est pas une décision de taux.",
+   "contexte": "La Fed a monté son taux en septembre à 3,75 % à 4,00 %, puis l'a gardé le 28/10 par 10 voix contre 2 : Cook et Hammack voulaient une hausse (Admirals, analysisofficial). Le 28/10, Warsh a dit ne pas croire au guidage des taux à l'avance. Après le CPI, une hausse en décembre est vue à 88 % pour 0,25 point et 12 % pour 0,5 point (analysisofficial).",
+   "ecart": "Repère de lecture : « l'inflation est trop haute » ou « resserrer les conditions » seraient un ton dur. « L'IA rend l'économie plus productive, donc moins d'inflation » serait un ton souple (scénarios d'Admirals).",
+   "siFort": {
+    "pays": "Ton dur : la Fed serait prête à monter en décembre, voire plus fort.",
+    "marche": "Les taux courts, le 10 ans et le dollar pourraient monter.",
+    "actifs": {
+     "MNQ": "Pourrait baisser : la tech est la plus sensible aux taux.",
+     "MES": "Pourrait baisser, un peu moins que MNQ.",
+     "MYM": "Pourrait mieux résister que MNQ.",
+     "MGC": "Pourrait baisser si le dollar monte."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la croissance tirée par l'IA laisserait moins de pression sur les prix, donc moins de hausses.",
+    "marche": "Les taux et le dollar pourraient reculer.",
+    "actifs": {
+     "MNQ": "Pourrait monter : la tech profite le plus d'une baisse des taux.",
+     "MES": "Pourrait monter.",
+     "MYM": "Pourrait monter, souvent moins que MNQ.",
+     "MGC": "Pourrait monter si le dollar recule."
+    }
+   },
+   "piege": "S'il ne parle que de productivité, sans un mot sur les taux, le marché pourrait l'ignorer. Il refuse de dire à l'avance ce qu'il fera : chercher un signal clair pourrait mener à de faux mouvements.",
+   "fiabilite": "Réaction vérifiée : le 28/10, pendant sa conférence de presse, le taux à 2 ans a perdu 5,2 points de base, le 10 ans a gagné 2,7 points, le dollar a reculé face aux grandes devises, et le S&P 500 n'a presque pas bougé (Admirals, citant investingLive).",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "FOMC Member Hammack Speaks",
+   "c": "USD",
+   "d": "2026-11-16T14:15:00-05:00",
+   "explication": "Beth Hammack, présidente de la Fed de Cleveland, a voté pour une hausse le 28/10 : un ton dur ne surprendrait pas."
+  },
+  {
+   "t": "RBA Gov Bullock Speaks",
+   "c": "AUD",
+   "d": "2026-11-16T17:50:00-05:00",
+   "reel": "",
+   "pourquoi": "Michele Bullock, gouverneure de la banque centrale australienne, pourrait donner un indice sur les prochains taux en Australie. Cette semaine, toutes les banques centrales sont regardées de près après le CPI américain chaud.",
+   "horizons": {
+    "court": "Effet surtout sur le dollar australien, faible sur tes indices.",
+    "moyen": "Un ton dur pourrait tirer un peu les taux mondiaux vers le haut.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux et le dollar."
+   },
+   "predictions": [],
+   "mesure": "La gouverneure de la banque centrale australienne parle en public.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial). Pas de chiffre à attendre : seul le ton compte.",
+   "ecart": "Repère de lecture : « hausse » ou « inflation trop haute » seraient un ton dur. « Attendre » ou « risques sur la croissance » seraient un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la banque centrale pourrait monter ses taux.",
+    "marche": "Le dollar australien pourrait monter face au dollar.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la banque centrale pourrait attendre.",
+    "marche": "Le dollar australien pourrait reculer face au dollar.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Le discours tombe hors de ta session NY : une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ces discours.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Inflation Expectations q/q",
+   "c": "NZD",
+   "d": "2026-11-16T21:00:00-05:00",
+   "reel": "",
+   "pourquoi": "La banque centrale néo-zélandaise suit de près l'inflation que les entreprises attendent. Une hausse la pousserait à rester dure.",
+   "horizons": {
+    "court": "Effet surtout sur le dollar néo-zélandais, faible sur tes indices : le chiffre sort hors de ta session NY.",
+    "moyen": "Il pourrait changer les paris sur la prochaine décision de la banque centrale du pays.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux mondiaux et le dollar."
+   },
+   "predictions": [],
+   "mesure": "L'inflation attendue dans deux ans par les entreprises néo-zélandaises, selon une enquête de la banque centrale.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : pas de prévision. Compare avec 2,34 % au trimestre d'avant.",
+   "siFort": {
+    "pays": "Les entreprises attendraient plus d'inflation : la banque centrale pourrait rester dure.",
+    "marche": "Le dollar néo-zélandais pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Les attentes d'inflation baisseraient : la banque centrale aurait plus de marge.",
+    "marche": "Le dollar néo-zélandais pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Average Earnings Index 3m/y",
+   "c": "GBP",
+   "d": "2026-11-17T02:00:00-05:00",
+   "reel": "",
+   "pourquoi": "La BoE a monté son taux le 05/11. Des salaires qui ralentissent lui donneraient moins de raisons de monter encore.",
+   "horizons": {
+    "court": "Effet surtout sur la livre, faible sur tes indices : le chiffre sort hors de ta session NY.",
+    "moyen": "Il pourrait changer les paris sur la prochaine décision de la banque centrale du pays.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux mondiaux et le dollar."
+   },
+   "predictions": [
+    {
+     "valeur": "3.5%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "La hausse des salaires britanniques sur un an, en moyenne sur trois mois.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : 0,2 point d'écart avec la prévision serait un signal.",
+   "siFort": {
+    "pays": "Les salaires accéléreraient : la BoE pourrait monter encore.",
+    "marche": "La livre pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Les salaires ralentiraient : la BoE pourrait faire une pause.",
+    "marche": "La livre pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "FOMC Member Musalem Speaks",
+   "c": "USD",
+   "d": "2026-11-17T07:30:00-05:00",
+   "explication": "Alberto Musalem, président de la Fed de Saint-Louis, parle : effet souvent limité, sauf phrase claire sur décembre."
+  },
+  {
+   "t": "ADP Weekly Employment Change",
+   "c": "USD",
+   "d": "2026-11-17T08:15:00-05:00",
+   "explication": "Une estimation hebdomadaire des emplois créés dans le privé par ADP : un premier signal sur l'emploi, 15 minutes avant les ventes au détail."
+  },
+  {
+   "t": "Core Retail Sales m/m",
+   "c": "USD",
+   "d": "2026-11-17T08:30:00-05:00",
+   "reel": "",
+   "pourquoi": "C'est le plus gros chiffre US de la semaine. Avec une Fed qui veut monter en décembre, il dirait si les ménages tiennent malgré des taux hauts.",
+   "horizons": {
+    "court": "Le chiffre sort une heure avant ta session : il pourrait donner le ton de l'ouverture, d'abord par le 10 ans et le dollar.",
+    "moyen": "Un chiffre fort renforcerait l'idée d'une hausse en décembre ; un chiffre faible ferait douter de la taille de la hausse.",
+    "long": "La consommation pèse environ deux tiers de l'économie US : plusieurs mois faibles feraient craindre un ralentissement, ce qui pourrait changer le cap de la Fed."
+   },
+   "predictions": [
+    {
+     "valeur": "0.4%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "Les ventes des magasins, sans les voitures, dont les ventes bougent beaucoup d'un mois à l'autre.",
+   "contexte": "Septembre : +0,8 % pour le total et +0,9 % sans les voitures (FXEmpire). Pour octobre, le flux attend +0,2 % et +0,4 % ; analysisofficial attend 0,0 % pour le total. L'essence a baissé : 3,82 $ le gallon le 15/11 contre 4,33 $ un mois plus tôt (AAA, cité par analysisofficial). La Fed est à 3,75 % à 4,00 % et une hausse en décembre est vue à 88 % (analysisofficial, citant Trading Economics).",
+   "ecart": "Repère de lecture : 0,3 point d'écart avec la prévision serait une vraie surprise. Regarde aussi la révision de septembre : une forte baisse de septembre changerait la lecture.",
+   "siFort": {
+    "pays": "Les ménages dépenseraient encore beaucoup : l'économie resterait chaude, et la Fed aurait une raison de plus de monter ses taux, peut-être de 0,5 point.",
+    "marche": "Le taux à 10 ans et le dollar pourraient monter.",
+    "actifs": {
+     "MNQ": "Pourrait baisser : la tech est la plus sensible aux taux.",
+     "MES": "Pourrait baisser, un peu moins que MNQ.",
+     "MYM": "Pourrait mieux résister que MNQ.",
+     "MGC": "Pourrait baisser si le dollar monte."
+    }
+   },
+   "siFaible": {
+    "pays": "Les ménages ralentiraient : la Fed pourrait monter ses taux moins vite.",
+    "marche": "Le taux à 10 ans et le dollar pourraient baisser.",
+    "actifs": {
+     "MNQ": "Pourrait monter : la tech profite le plus d'une baisse des taux.",
+     "MES": "Pourrait monter.",
+     "MYM": "Pourrait monter, souvent moins que MNQ.",
+     "MGC": "Pourrait monter si le dollar recule."
+    }
+   },
+   "piege": "Si la croissance fait peur, un chiffre faible pourrait faire baisser les indices au lieu de les faire monter : on lirait « l'économie casse » plutôt que « la Fed ralentit ». Et Nvidia le soir même pourrait faire oublier le chiffre.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre en 2026.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Retail Sales m/m",
+   "c": "USD",
+   "d": "2026-11-17T08:30:00-05:00",
+   "reel": "",
+   "pourquoi": "C'est le plus gros chiffre US de la semaine. Avec une Fed qui veut monter en décembre, il dirait si les ménages tiennent malgré des taux hauts.",
+   "horizons": {
+    "court": "Le chiffre sort une heure avant ta session : il pourrait donner le ton de l'ouverture, d'abord par le 10 ans et le dollar.",
+    "moyen": "Un chiffre fort renforcerait l'idée d'une hausse en décembre ; un chiffre faible ferait douter de la taille de la hausse.",
+    "long": "La consommation pèse environ deux tiers de l'économie US : plusieurs mois faibles feraient craindre un ralentissement, ce qui pourrait changer le cap de la Fed."
+   },
+   "predictions": [
+    {
+     "valeur": "0.2%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    },
+    {
+     "valeur": "0.0%",
+     "titre": "analysisofficial : la semaine macro mondiale du 16 au 20 novembre",
+     "url": "https://analysisofficial.substack.com/p/global-macro-week-ahead-nov-1620",
+     "date": "2026-11-15"
+    }
+   ],
+   "mesure": "Tout ce que les magasins américains ont vendu en octobre, en dollars, par rapport à septembre. La consommation est le moteur de l'économie américaine.",
+   "contexte": "Septembre : +0,8 % pour le total et +0,9 % sans les voitures (FXEmpire). Pour octobre, le flux attend +0,2 % et +0,4 % ; analysisofficial attend 0,0 % pour le total. L'essence a baissé : 3,82 $ le gallon le 15/11 contre 4,33 $ un mois plus tôt (AAA, cité par analysisofficial). La Fed est à 3,75 % à 4,00 % et une hausse en décembre est vue à 88 % (analysisofficial, citant Trading Economics).",
+   "ecart": "Repère de lecture : 0,3 point d'écart avec la prévision serait une vraie surprise. Regarde aussi la révision de septembre : une forte baisse de septembre changerait la lecture.",
+   "siFort": {
+    "pays": "Les ménages dépenseraient encore beaucoup : l'économie resterait chaude, et la Fed aurait une raison de plus de monter ses taux, peut-être de 0,5 point.",
+    "marche": "Le taux à 10 ans et le dollar pourraient monter.",
+    "actifs": {
+     "MNQ": "Pourrait baisser : la tech est la plus sensible aux taux.",
+     "MES": "Pourrait baisser, un peu moins que MNQ.",
+     "MYM": "Pourrait mieux résister que MNQ.",
+     "MGC": "Pourrait baisser si le dollar monte."
+    }
+   },
+   "siFaible": {
+    "pays": "Les ménages ralentiraient : la Fed pourrait monter ses taux moins vite.",
+    "marche": "Le taux à 10 ans et le dollar pourraient baisser.",
+    "actifs": {
+     "MNQ": "Pourrait monter : la tech profite le plus d'une baisse des taux.",
+     "MES": "Pourrait monter.",
+     "MYM": "Pourrait monter, souvent moins que MNQ.",
+     "MGC": "Pourrait monter si le dollar recule."
+    }
+   },
+   "piege": "Si la croissance fait peur, un chiffre faible pourrait faire baisser les indices au lieu de les faire monter : on lirait « l'économie casse » plutôt que « la Fed ralentit ». Et Nvidia le soir même pourrait faire oublier le chiffre.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre en 2026.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Import Prices m/m",
+   "c": "USD",
+   "d": "2026-11-17T08:30:00-05:00",
+   "explication": "La variation des prix des produits importés : un signe de l'inflation qui arrive de l'étranger."
+  },
+  {
+   "t": "FOMC Member Waller Speaks",
+   "c": "USD",
+   "d": "2026-11-17T09:10:00-05:00",
+   "explication": "Christopher Waller, gouverneur de la Fed, est un des plus durs en ce moment : un mot sur une hausse de 0,5 point pourrait faire monter les taux."
+  },
+  {
+   "t": "Capacity Utilization Rate",
+   "c": "USD",
+   "d": "2026-11-17T09:15:00-05:00",
+   "explication": "La part des usines américaines réellement utilisée : une donnée de second rang."
+  },
+  {
+   "t": "Industrial Production m/m",
+   "c": "USD",
+   "d": "2026-11-17T09:15:00-05:00",
+   "explication": "La production des usines, mines et centrales américaines sur un mois : une donnée de second rang pour tes indices."
+  },
+  {
+   "t": "FOMC Member Hammack Speaks",
+   "c": "USD",
+   "d": "2026-11-17T09:30:00-05:00",
+   "explication": "Beth Hammack, présidente de la Fed de Cleveland, a voté pour une hausse le 28/10 : un ton dur ne surprendrait pas."
+  },
+  {
+   "t": "Business Inventories m/m",
+   "c": "USD",
+   "d": "2026-11-17T10:00:00-05:00",
+   "explication": "Les stocks des entreprises américaines : une donnée de second rang, rarement suivie."
+  },
+  {
+   "t": "NAHB Housing Market Index",
+   "c": "USD",
+   "d": "2026-11-17T10:00:00-05:00",
+   "explication": "Le moral des constructeurs de maisons : le logement souffre des taux hauts."
+  },
+  {
+   "t": "FOMC Member Williams Speaks",
+   "c": "USD",
+   "d": "2026-11-17T14:25:00-05:00",
+   "explication": "John Williams, président de la Fed de New York et proche du président, parle : un mot sur décembre pourrait faire bouger les taux."
+  },
+  {
+   "t": "API Weekly Statistical Bulletin",
+   "c": "USD",
+   "d": "2026-11-17T16:30:00-05:00",
+   "explication": "Les stocks de pétrole américains selon l'API, un organisme privé : effet surtout sur le pétrole."
+  },
+  {
+   "t": "Wage Price Index q/q",
+   "c": "AUD",
+   "d": "2026-11-17T19:30:00-05:00",
+   "reel": "",
+   "pourquoi": "Les salaires sont une source d'inflation durable. La banque centrale australienne s'en sert pour choisir ses taux.",
+   "horizons": {
+    "court": "Effet surtout sur le dollar australien, faible sur tes indices : le chiffre sort hors de ta session NY.",
+    "moyen": "Il pourrait changer les paris sur la prochaine décision de la banque centrale du pays.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux mondiaux et le dollar."
+   },
+   "predictions": [
+    {
+     "valeur": "0.9%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "La hausse des salaires australiens sur un trimestre.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : 0,1 point d'écart avec la prévision serait déjà un signal.",
+   "siFort": {
+    "pays": "Les salaires accéléreraient : la banque centrale pourrait rester dure.",
+    "marche": "Le dollar australien pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Les salaires ralentiraient : moins de pression sur les taux.",
+    "marche": "Le dollar australien pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "CPI y/y",
+   "c": "GBP",
+   "d": "2026-11-18T02:00:00-05:00",
+   "reel": "",
+   "pourquoi": "La BoE a monté son taux le 05/11. Ce chiffre dirait si une deuxième hausse arrive en décembre.",
+   "horizons": {
+    "court": "Sortie à 8h00 : effet surtout sur la livre, souvent oublié à 15h30.",
+    "moyen": "Une BoE plus dure pourrait tirer un peu les taux mondiaux vers le haut.",
+    "long": "Effet indirect sur tes actifs, par les taux et le dollar."
+   },
+   "predictions": [
+    {
+     "valeur": "3.6%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "La hausse des prix payés par les ménages britanniques sur un an.",
+   "contexte": "Septembre : 3,5 %, sous-jacent 2,8 %, services 3,7 % (ONS, cité par analysisofficial). La BoE a monté son taux à 4 % le 05/11.",
+   "ecart": "Repère de lecture : selon analysisofficial, 3,8 % ou plus rendrait une 2e hausse de la BoE en décembre presque sûre.",
+   "siFort": {
+    "pays": "L'inflation britannique monterait encore : la BoE pourrait remonter en décembre.",
+    "marche": "La livre pourrait monter, le dollar reculer un peu.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "L'inflation se calmerait : la BoE pourrait attendre.",
+    "marche": "La livre pourrait baisser, le dollar monter un peu.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Le chiffre sort 7h30 avant ta session : à 15h30, il pourrait être déjà oublié.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "BOE Gov Bailey Speaks",
+   "c": "GBP",
+   "d": "2026-11-18T02:30:00-05:00",
+   "reel": "",
+   "pourquoi": "Bailey parle le jour de l'inflation britannique, après une hausse de taux le 05/11. Il pourrait dire si une autre hausse suit en décembre.",
+   "horizons": {
+    "court": "Effet surtout sur la livre ; pour toi, effet indirect par le dollar.",
+    "moyen": "Un ton dur pourrait tirer un peu les taux mondiaux vers le haut.",
+    "long": "Effet indirect et faible sur tes actifs."
+   },
+   "predictions": [],
+   "mesure": "Le gouverneur de la Banque d'Angleterre explique ses choix. Le marché cherche un indice sur la décision de décembre.",
+   "contexte": "La BoE a monté son taux à 4 % le 05/11 et voit l'inflation vers 5 % vers mi-2027 (analysisofficial, citant la BoE). Il parle le jour même de l'inflation d'octobre, attendue à 3,6 % après 3,5 %.",
+   "ecart": "Repère de lecture : « une autre hausse » ou « pas fini » seraient un ton dur. « Voir les effets de la hausse » serait un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la BoE pourrait remonter son taux en décembre.",
+    "marche": "Les taux britanniques pourraient monter et tirer un peu le 10 ans américain. Le dollar pourrait reculer face à la livre.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible, par les taux mondiaux.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la BoE pourrait faire une pause après sa hausse.",
+    "marche": "La livre pourrait baisser, donc le dollar monter un peu.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la livre peut ne rien changer sur tes indices. Ce qui compte pour toi, c'est l'effet sur le dollar et sur les taux mondiaux.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ses discours.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "ECB Financial Stability Review",
+   "c": "EUR",
+   "d": "2026-11-18T04:00:00-05:00",
+   "reel": "",
+   "pourquoi": "La BCE y liste les risques pour le système financier. Cette semaine, le risque de l'IA et des dettes publiques est au centre, juste avant les résultats de Nvidia.",
+   "horizons": {
+    "court": "Effet souvent faible : c'est un rapport, pas une décision.",
+    "moyen": "Une alerte forte sur l'IA pourrait nourrir la méfiance envers la tech.",
+    "long": "Effet indirect, par le regard des investisseurs sur les risques de l'IA."
+   },
+   "predictions": [],
+   "mesure": "Le rapport semestriel de la BCE sur les risques pour la stabilité financière de la zone euro.",
+   "contexte": "Lundi, Vujcic (BCE) a dit que l'IA et les dettes publiques ressortent très fortement comme risques (FinancialJuice). Le même jour, Barr (Fed) parlait des risques de l'IA pour la finance (site de la Fed).",
+   "ecart": "Repère de lecture : pas de chiffre. Les mots « bulle », « valorisations » ou « IA » mis en avant seraient un signal de méfiance.",
+   "siFort": {
+    "pays": "Alerte forte : la BCE verrait des risques élevés, notamment sur l'IA.",
+    "marche": "Les valeurs de la tech pourraient être mises sous pression.",
+    "actifs": {
+     "MNQ": "Pourrait baisser un peu si l'alerte vise l'IA.",
+     "MES": "Effet faible.",
+     "MYM": "Effet faible.",
+     "MGC": "Pourrait servir un peu de refuge."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton rassurant : les risques seraient jugés maîtrisés.",
+    "marche": "Effet faible.",
+    "actifs": {
+     "MNQ": "Effet faible.",
+     "MES": "Effet faible.",
+     "MYM": "Effet faible.",
+     "MGC": "Effet faible."
+    }
+   },
+   "piege": "Le rapport sort à 10h00 de Paris : à 15h30, il serait probablement oublié, sauf phrase choc reprise par la presse.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce rapport.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Building Permits",
+   "c": "USD",
+   "d": "2026-11-18T08:30:00-05:00",
+   "explication": "Les permis de construire accordés : une donnée de second rang sur le logement."
+  },
+  {
+   "t": "Housing Starts",
+   "c": "USD",
+   "d": "2026-11-18T08:30:00-05:00",
+   "explication": "Les mises en chantier de logements : une donnée de second rang sur le logement."
+  },
+  {
+   "t": "ECB President Lagarde Speaks",
+   "c": "EUR",
+   "d": "2026-11-18T09:25:00-05:00",
+   "reel": "",
+   "pourquoi": "L'inflation de la zone euro est attendue à 4,0 % et l'euro est faible. Un mot sur une hausse de la BCE ferait bouger l'euro, donc le dollar.",
+   "horizons": {
+    "court": "Effet surtout sur l'euro et le dollar ; sur tes indices, il serait faible.",
+    "moyen": "Une BCE plus dure pourrait faire reculer le dollar, ce qui aiderait un peu l'or.",
+    "long": "Effet indirect sur tes actifs, par le dollar et les taux mondiaux."
+   },
+   "predictions": [],
+   "mesure": "La présidente de la Banque centrale européenne parle. Le marché cherche un indice sur ses prochains taux.",
+   "contexte": "L'inflation de la zone euro est attendue à 4,0 % sur un an pour octobre, chiffre final mercredi (analysisofficial). L'euro face au dollar est tombé le 11/11 à son plus bas depuis mai 2025 (Admirals). Le même jour sort aussi le rapport de la BCE sur la stabilité financière, à 10h00.",
+   "ecart": "Repère de lecture : pas de chiffre. Les mots « hausse », « vigilance » ou « inflation trop haute » seraient un ton dur. « Attendre » ou « risques sur la croissance » seraient un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la BCE pourrait monter ses taux pour freiner une inflation à 4 %.",
+    "marche": "L'euro pourrait monter, donc le dollar reculer. Effet faible sur le taux à 10 ans américain.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la BCE pourrait attendre malgré l'inflation.",
+    "marche": "L'euro pourrait baisser, donc le dollar monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Elle parle souvent de sujets sans lien avec les taux. Sans phrase claire sur la politique monétaire, il pourrait ne rien se passer.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ses discours.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "BOE Gov Bailey Speaks",
+   "c": "GBP",
+   "d": "2026-11-18T10:00:00-05:00",
+   "reel": "",
+   "pourquoi": "Bailey parle le jour de l'inflation britannique, après une hausse de taux le 05/11. Il pourrait dire si une autre hausse suit en décembre.",
+   "horizons": {
+    "court": "Effet surtout sur la livre ; pour toi, effet indirect par le dollar.",
+    "moyen": "Un ton dur pourrait tirer un peu les taux mondiaux vers le haut.",
+    "long": "Effet indirect et faible sur tes actifs."
+   },
+   "predictions": [],
+   "mesure": "Le gouverneur de la Banque d'Angleterre explique ses choix. Le marché cherche un indice sur la décision de décembre.",
+   "contexte": "La BoE a monté son taux à 4 % le 05/11 et voit l'inflation vers 5 % vers mi-2027 (analysisofficial, citant la BoE). Il parle le jour même de l'inflation d'octobre, attendue à 3,6 % après 3,5 %.",
+   "ecart": "Repère de lecture : « une autre hausse » ou « pas fini » seraient un ton dur. « Voir les effets de la hausse » serait un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la BoE pourrait remonter son taux en décembre.",
+    "marche": "Les taux britanniques pourraient monter et tirer un peu le 10 ans américain. Le dollar pourrait reculer face à la livre.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible, par les taux mondiaux.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la BoE pourrait faire une pause après sa hausse.",
+    "marche": "La livre pourrait baisser, donc le dollar monter un peu.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la livre peut ne rien changer sur tes indices. Ce qui compte pour toi, c'est l'effet sur le dollar et sur les taux mondiaux.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ses discours.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Pending Home Sales m/m",
+   "c": "USD",
+   "d": "2026-11-18T10:00:00-05:00",
+   "explication": "Les ventes de maisons signées mais pas encore conclues : une donnée de second rang."
+  },
+  {
+   "t": "Crude Oil Inventories",
+   "c": "USD",
+   "d": "2026-11-18T10:30:00-05:00",
+   "explication": "Les stocks officiels de pétrole aux États-Unis : ils font bouger le pétrole, donc un peu l'inflation attendue."
+  },
+  {
+   "t": "RBNZ Gov Breman Speaks",
+   "c": "NZD",
+   "d": "2026-11-18T13:00:00-05:00",
+   "reel": "",
+   "pourquoi": "La gouverneure de la banque centrale néo-zélandaise pourrait donner un indice sur les prochains taux en Nouvelle-Zélande. Cette semaine, toutes les banques centrales sont regardées de près après le CPI américain chaud.",
+   "horizons": {
+    "court": "Effet surtout sur le dollar néo-zélandais, faible sur tes indices.",
+    "moyen": "Un ton dur pourrait tirer un peu les taux mondiaux vers le haut.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux et le dollar."
+   },
+   "predictions": [],
+   "mesure": "La gouverneure de la banque centrale néo-zélandaise parle en public.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial). Pas de chiffre à attendre : seul le ton compte.",
+   "ecart": "Repère de lecture : « hausse » ou « inflation trop haute » seraient un ton dur. « Attendre » ou « risques sur la croissance » seraient un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la banque centrale pourrait monter ses taux.",
+    "marche": "Le dollar néo-zélandais pourrait monter face au dollar.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la banque centrale pourrait attendre.",
+    "marche": "Le dollar néo-zélandais pourrait reculer face au dollar.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Le discours tombe hors de ta session NY : une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ces discours.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "FOMC Member Barr Speaks",
+   "c": "USD",
+   "d": "2026-11-18T13:35:00-05:00",
+   "explication": "Michael Barr, gouverneur de la Fed, parle : son avis sur les taux pourrait faire bouger un peu le 10 ans, sinon l'effet resterait faible."
+  },
+  {
+   "t": "FOMC Meeting Minutes",
+   "c": "USD",
+   "d": "2026-11-18T14:00:00-05:00",
+   "reel": "",
+   "pourquoi": "Le marché veut savoir combien de membres voyaient déjà une hausse en décembre avant le CPI chaud. Plus ils sont nombreux, plus une hausse de 0,5 point deviendrait crédible.",
+   "horizons": {
+    "court": "Sortie à 20h00, après ta session : l'effet se verrait le soir et pendant la session Asie, surtout sur les taux.",
+    "moyen": "Des minutes dures pourraient faire monter les paris sur une hausse de 0,5 point d'ici la réunion de décembre.",
+    "long": "Le texte montre si la Fed pense à une série de hausses ou à une seule : une série pèserait plus longtemps sur la tech et l'or."
+   },
+   "predictions": [
+    {
+     "valeur": "Hausse de la Fed en décembre : 88 % pour 0,25 point, 12 % pour 0,5 point (citant Trading Economics)",
+     "titre": "analysisofficial : la semaine macro mondiale du 16 au 20 novembre",
+     "url": "https://analysisofficial.substack.com/p/global-macro-week-ahead-nov-1620",
+     "date": "2026-11-15"
+    }
+   ],
+   "mesure": "Le compte rendu détaillé des débats de la réunion d'octobre. Il montre ce que pensaient les membres, au-delà du communiqué.",
+   "contexte": "Le 28/10, la Fed a gardé son taux à 3,75 % à 4,00 % par 10 voix contre 2 (Cook et Hammack voulaient une hausse). Le communiqué disait que l'inflation « reste élevée » (Kiplinger). La réunion a eu lieu avant le CPI et le PPI d'octobre (analysisofficial).",
+   "ecart": "Repère de lecture : la question est de savoir combien des 10 membres qui ont voté la pause parlaient d'une hausse probable en décembre. Plusieurs mentions rendraient une hausse de 0,5 point plus facile à défendre (analysisofficial).",
+   "siFort": {
+    "pays": "Ton dur : beaucoup de membres voulaient déjà monter. Avec le CPI chaud depuis, une hausse de 0,5 point deviendrait plus crédible.",
+    "marche": "Les taux courts, le 10 ans et le dollar pourraient monter.",
+    "actifs": {
+     "MNQ": "Pourrait baisser : la tech est la plus sensible aux taux.",
+     "MES": "Pourrait baisser, un peu moins que MNQ.",
+     "MYM": "Pourrait mieux résister que MNQ.",
+     "MGC": "Pourrait baisser si le dollar monte."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la majorité voulait attendre. Une hausse de 0,25 point resterait le scénario central.",
+    "marche": "Les taux et le dollar pourraient reculer un peu.",
+    "actifs": {
+     "MNQ": "Pourrait monter : la tech profite le plus d'une baisse des taux.",
+     "MES": "Pourrait monter.",
+     "MYM": "Pourrait monter, souvent moins que MNQ.",
+     "MGC": "Pourrait monter si le dollar recule."
+    }
+   },
+   "piege": "C'est une photo du passé, d'avant le CPI chaud. Le marché pourrait ne pas réagir. Et Nvidia, la veille au soir, pourrait encore dominer MNQ.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à des minutes en 2026. analysisofficial s'attend à des minutes plutôt dures, sans réponse claire sur la taille de la hausse.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "FOMC Member Williams Speaks",
+   "c": "USD",
+   "d": "2026-11-18T14:30:00-05:00",
+   "explication": "John Williams, président de la Fed de New York et proche du président, parle : un mot sur décembre pourrait faire bouger les taux."
+  },
+  {
+   "t": "TIC Long-Term Purchases",
+   "c": "USD",
+   "d": "2026-11-18T16:00:00-05:00",
+   "explication": "Les achats d'actifs américains par l'étranger : effet rare sur tes indices."
+  },
+  {
+   "t": "FOMC Member Kashkari Speaks",
+   "c": "USD",
+   "d": "2026-11-18T16:15:00-05:00",
+   "explication": "Neel Kashkari, président de la Fed de Minneapolis, parle : effet souvent limité, sauf phrase claire sur décembre."
+  },
+  {
+   "t": "Employment Change",
+   "c": "AUD",
+   "d": "2026-11-18T19:30:00-05:00",
+   "reel": "",
+   "pourquoi": "L'emploi australien a reculé le mois dernier. Ce chiffre dirait si c'était un accident ou un vrai ralentissement.",
+   "horizons": {
+    "court": "Effet surtout sur le dollar australien, faible sur tes indices : le chiffre sort hors de ta session NY.",
+    "moyen": "Il pourrait changer les paris sur la prochaine décision de la banque centrale du pays.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux mondiaux et le dollar."
+   },
+   "predictions": [
+    {
+     "valeur": "25.2K",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "Le nombre d'emplois créés ou perdus en Australie sur un mois.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : ce chiffre bouge beaucoup ; 20 000 d'écart avec la prévision serait notable.",
+   "siFort": {
+    "pays": "L'emploi rebondirait : la banque centrale pourrait rester dure.",
+    "marche": "Le dollar australien pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "L'emploi reculerait encore : la banque centrale pourrait s'adoucir.",
+    "marche": "Le dollar australien pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Unemployment Rate",
+   "c": "AUD",
+   "d": "2026-11-18T19:30:00-05:00",
+   "reel": "",
+   "pourquoi": "Le chômage australien dit si l'économie ralentit. Il sort avec les créations d'emplois.",
+   "horizons": {
+    "court": "Effet surtout sur le dollar australien, faible sur tes indices : le chiffre sort hors de ta session NY.",
+    "moyen": "Il pourrait changer les paris sur la prochaine décision de la banque centrale du pays.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux mondiaux et le dollar."
+   },
+   "predictions": [
+    {
+     "valeur": "4.7%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "La part des Australiens actifs sans emploi.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : 0,1 point d'écart avec la prévision serait un signal. Ici, un chiffre fort veut dire un chômage plus bas.",
+   "siFort": {
+    "pays": "Le chômage baisserait : la banque centrale pourrait rester dure.",
+    "marche": "Le dollar australien pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Le chômage monterait : la banque centrale pourrait s'adoucir.",
+    "marche": "Le dollar australien pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "ECB President Lagarde Speaks",
+   "c": "EUR",
+   "d": "2026-11-19T08:30:00-05:00",
+   "reel": "",
+   "pourquoi": "L'inflation de la zone euro est attendue à 4,0 % et l'euro est faible. Un mot sur une hausse de la BCE ferait bouger l'euro, donc le dollar.",
+   "horizons": {
+    "court": "Effet surtout sur l'euro et le dollar ; sur tes indices, il serait faible.",
+    "moyen": "Une BCE plus dure pourrait faire reculer le dollar, ce qui aiderait un peu l'or.",
+    "long": "Effet indirect sur tes actifs, par le dollar et les taux mondiaux."
+   },
+   "predictions": [],
+   "mesure": "La présidente de la Banque centrale européenne parle. Le marché cherche un indice sur ses prochains taux.",
+   "contexte": "L'inflation de la zone euro est attendue à 4,0 % sur un an pour octobre, chiffre final mercredi (analysisofficial). L'euro face au dollar est tombé le 11/11 à son plus bas depuis mai 2025 (Admirals). Elle parle trois fois cette semaine : mercredi, jeudi et vendredi.",
+   "ecart": "Repère de lecture : pas de chiffre. Les mots « hausse », « vigilance » ou « inflation trop haute » seraient un ton dur. « Attendre » ou « risques sur la croissance » seraient un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la BCE pourrait monter ses taux pour freiner une inflation à 4 %.",
+    "marche": "L'euro pourrait monter, donc le dollar reculer. Effet faible sur le taux à 10 ans américain.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la BCE pourrait attendre malgré l'inflation.",
+    "marche": "L'euro pourrait baisser, donc le dollar monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Elle parle souvent de sujets sans lien avec les taux. Sans phrase claire sur la politique monétaire, il pourrait ne rien se passer.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ses discours.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Philly Fed Manufacturing Index",
+   "c": "USD",
+   "d": "2026-11-19T08:30:00-05:00",
+   "reel": "",
+   "pourquoi": "C'est un indice très récent sur l'industrie, sur le mois de novembre. Sa partie prix payés dit aussi si l'inflation remonte dans les usines.",
+   "horizons": {
+    "court": "Sortie avec le chômage une heure avant ta session : effet souvent bref, sauf gros écart.",
+    "moyen": "Avec l'Empire State de lundi, il dirait si l'industrie ralentit vraiment en novembre.",
+    "long": "Effet faible seul ; une série de chiffres faibles pourrait faire douter de la croissance."
+   },
+   "predictions": [
+    {
+     "valeur": "19.2",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    },
+    {
+     "valeur": "19.2",
+     "titre": "FXEmpire : la semaine à venir, Nvidia et l'entrée en Bourse d'Anthropic",
+     "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-nvidia-earnings-anthropic-ipo-test-ai-trade-1644719",
+     "date": "2026-11-15"
+    }
+   ],
+   "mesure": "Une enquête auprès des usines de la région de Philadelphie. Au-dessus de 0, l'activité monte ; en dessous, elle baisse.",
+   "contexte": "Octobre : 20,9, donc une industrie en croissance. Novembre attendu à 19,2 (FXEmpire). La production industrielle d'octobre sort mardi, attendue à +0,1 % après +0,7 % (FXEmpire).",
+   "ecart": "Repère de lecture : cet indice bouge beaucoup. Seul un écart d'environ 10 points avec la prévision serait vraiment une surprise.",
+   "siFort": {
+    "pays": "L'industrie accélérerait : l'économie resterait chaude.",
+    "marche": "Le taux à 10 ans et le dollar pourraient monter un peu.",
+    "actifs": {
+     "MNQ": "Pourrait baisser : la tech est la plus sensible aux taux.",
+     "MES": "Pourrait baisser, un peu moins que MNQ.",
+     "MYM": "Pourrait mieux résister que MNQ.",
+     "MGC": "Pourrait baisser si le dollar monte."
+    }
+   },
+   "siFaible": {
+    "pays": "L'industrie ralentirait.",
+    "marche": "Le taux à 10 ans et le dollar pourraient baisser un peu.",
+    "actifs": {
+     "MNQ": "Pourrait monter : la tech profite le plus d'une baisse des taux.",
+     "MES": "Pourrait monter.",
+     "MYM": "Pourrait monter, souvent moins que MNQ.",
+     "MGC": "Pourrait monter si le dollar recule."
+    }
+   },
+   "piege": "Il sort à la même seconde que le chômage : si les deux disent l'inverse, le marché pourrait hésiter. Regarde aussi la partie « prix payés » : une forte hausse pourrait inquiéter sur l'inflation.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à cet indice.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Unemployment Claims",
+   "c": "USD",
+   "d": "2026-11-19T08:30:00-05:00",
+   "reel": "",
+   "pourquoi": "L'emploi est un des deux piliers que la Fed regarde. Un chiffre bas lui donnerait de la place pour monter ses taux en décembre.",
+   "horizons": {
+    "court": "Sortie une heure avant ta session : un gros écart pourrait faire bouger le 10 ans juste avant l'ouverture.",
+    "moyen": "Plusieurs semaines de hausse des inscriptions feraient douter d'une hausse forte de la Fed.",
+    "long": "Une remontée durable du chômage changerait le récit : la Fed pourrait passer de la lutte contre l'inflation à la défense de l'emploi."
+   },
+   "predictions": [
+    {
+     "valeur": "199K",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "Le nombre de personnes qui s'inscrivent au chômage pour la première fois dans la semaine.",
+   "contexte": "La semaine dernière : 200 000 pour 194 000 attendues (Zacks, cité dans ton rapport du 13/11). En octobre, 165 000 emplois créés et chômage à 4,1 % (analysisofficial).",
+   "ecart": "Repère de lecture : environ 10 000 d'écart avec la prévision commence à compter.",
+   "siFort": {
+    "pays": "Chiffre fort, donc peu d'inscriptions : l'emploi resterait solide, la Fed garderait sa hausse en tête.",
+    "marche": "Le taux à 10 ans et le dollar pourraient monter.",
+    "actifs": {
+     "MNQ": "Pourrait baisser : la tech est la plus sensible aux taux.",
+     "MES": "Pourrait baisser, un peu moins que MNQ.",
+     "MYM": "Pourrait mieux résister que MNQ.",
+     "MGC": "Pourrait baisser si le dollar monte."
+    }
+   },
+   "siFaible": {
+    "pays": "Beaucoup d'inscriptions : l'emploi ralentirait.",
+    "marche": "Le taux à 10 ans et le dollar pourraient baisser.",
+    "actifs": {
+     "MNQ": "Pourrait monter : la tech profite le plus d'une baisse des taux.",
+     "MES": "Pourrait monter.",
+     "MYM": "Pourrait monter, souvent moins que MNQ.",
+     "MGC": "Pourrait monter si le dollar recule."
+    }
+   },
+   "piege": "Le même jour, Walmart publie avant l'ouverture et Anthropic entre en Bourse : une grosse nouvelle d'entreprise pourrait effacer ce chiffre.",
+   "fiabilite": "Réaction vérifiée : le 12/11, 200 000 pour 194 000 ; les indices ont fini à −0,4 % et le 10 ans a touché 5,10 %, mais Zacks cite Nvidia et l'Iran comme raisons (ton rapport du 13/11).",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "FOMC Member Hammack Speaks",
+   "c": "USD",
+   "d": "2026-11-19T08:50:00-05:00",
+   "explication": "Beth Hammack, présidente de la Fed de Cleveland, a voté pour une hausse le 28/10 : un ton dur ne surprendrait pas."
+  },
+  {
+   "t": "CB Leading Index m/m",
+   "c": "USD",
+   "d": "2026-11-19T10:00:00-05:00",
+   "explication": "Un indice qui tente d'annoncer la conjoncture des prochains mois : une donnée de second rang."
+  },
+  {
+   "t": "Mortgage Delinquencies",
+   "c": "USD",
+   "d": "2026-11-19T10:15:00-05:00",
+   "explication": "La part des prêts immobiliers en retard de paiement : une donnée de second rang."
+  },
+  {
+   "t": "Natural Gas Storage",
+   "c": "USD",
+   "d": "2026-11-19T10:30:00-05:00",
+   "explication": "Les stocks de gaz naturel aux États-Unis : effet surtout sur le gaz."
+  },
+  {
+   "t": "FOMC Member Goolsbee Speaks",
+   "c": "USD",
+   "d": "2026-11-19T12:30:00-05:00",
+   "explication": "Austan Goolsbee, président de la Fed de Chicago, disait le 13/11 que l'inflation va dans le mauvais sens : un ton dur ne surprendrait pas."
+  },
+  {
+   "t": "FOMC Member Barr Speaks",
+   "c": "USD",
+   "d": "2026-11-19T14:15:00-05:00",
+   "explication": "Michael Barr, gouverneur de la Fed, parle : son avis sur les taux pourrait faire bouger un peu le 10 ans, sinon l'effet resterait faible."
+  },
+  {
+   "t": "FOMC Member Barkin Speaks",
+   "c": "USD",
+   "d": "2026-11-19T16:00:00-05:00",
+   "explication": "Tom Barkin, président de la Fed de Richmond, ne vote pas en 2026 : effet souvent limité."
+  },
+  {
+   "t": "FOMC Member Paulson Speaks",
+   "c": "USD",
+   "d": "2026-11-19T18:30:00-05:00",
+   "explication": "Anna Paulson, présidente de la Fed de Philadelphie, jugeait le 11/11 approprié de continuer à monter les taux."
+  },
+  {
+   "t": "Retail Sales m/m",
+   "c": "GBP",
+   "d": "2026-11-20T02:00:00-05:00",
+   "reel": "",
+   "pourquoi": "La consommation britannique dit si la hausse de taux de la BoE freine déjà les ménages.",
+   "horizons": {
+    "court": "Effet surtout sur la livre, faible sur tes indices : le chiffre sort hors de ta session NY.",
+    "moyen": "Il pourrait changer les paris sur la prochaine décision de la banque centrale du pays.",
+    "long": "Effet indirect et faible sur tes actifs, par les taux mondiaux et le dollar."
+   },
+   "predictions": [
+    {
+     "valeur": "0.0%",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "Les ventes des magasins britanniques sur un mois.",
+   "contexte": "Aux États-Unis, une hausse de la Fed en décembre est vue à 88 % (analysisofficial).",
+   "ecart": "Repère de lecture : ce chiffre bouge beaucoup ; 0,5 point d'écart serait notable.",
+   "siFort": {
+    "pays": "Les ménages britanniques dépenseraient encore : la BoE pourrait rester dure.",
+    "marche": "La livre pourrait monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Les ménages ralentiraient : la BoE aurait des raisons de faire une pause.",
+    "marche": "La livre pourrait reculer.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Une forte réaction sur la devise peut ne rien changer sur tes indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "ECB President Lagarde Speaks",
+   "c": "EUR",
+   "d": "2026-11-20T03:15:00-05:00",
+   "reel": "",
+   "pourquoi": "L'inflation de la zone euro est attendue à 4,0 % et l'euro est faible. Un mot sur une hausse de la BCE ferait bouger l'euro, donc le dollar.",
+   "horizons": {
+    "court": "Effet surtout sur l'euro et le dollar ; sur tes indices, il serait faible.",
+    "moyen": "Une BCE plus dure pourrait faire reculer le dollar, ce qui aiderait un peu l'or.",
+    "long": "Effet indirect sur tes actifs, par le dollar et les taux mondiaux."
+   },
+   "predictions": [],
+   "mesure": "La présidente de la Banque centrale européenne parle. Le marché cherche un indice sur ses prochains taux.",
+   "contexte": "L'inflation de la zone euro est attendue à 4,0 % sur un an pour octobre, chiffre final mercredi (analysisofficial). L'euro face au dollar est tombé le 11/11 à son plus bas depuis mai 2025 (Admirals). C'est son troisième discours de la semaine : un message déjà donné mercredi ou jeudi aurait moins d'effet.",
+   "ecart": "Repère de lecture : pas de chiffre. Les mots « hausse », « vigilance » ou « inflation trop haute » seraient un ton dur. « Attendre » ou « risques sur la croissance » seraient un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la BCE pourrait monter ses taux pour freiner une inflation à 4 %.",
+    "marche": "L'euro pourrait monter, donc le dollar reculer. Effet faible sur le taux à 10 ans américain.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la BCE pourrait attendre malgré l'inflation.",
+    "marche": "L'euro pourrait baisser, donc le dollar monter.",
+    "actifs": {
+     "MNQ": "Effet indirect et faible.",
+     "MES": "Effet indirect et faible.",
+     "MYM": "Effet indirect et faible.",
+     "MGC": "Pourrait baisser un peu si le dollar monte."
+    }
+   },
+   "piege": "Elle parle souvent de sujets sans lien avec les taux. Sans phrase claire sur la politique monétaire, il pourrait ne rien se passer.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ses discours.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "FOMC Member Waller Speaks",
+   "c": "USD",
+   "d": "2026-11-20T08:25:00-05:00",
+   "explication": "Christopher Waller, gouverneur de la Fed, est un des plus durs en ce moment : un mot sur une hausse de 0,5 point pourrait faire monter les taux."
+  },
+  {
+   "t": "Revised UoM Consumer Sentiment",
+   "c": "USD",
+   "d": "2026-11-20T10:00:00-05:00",
+   "reel": "",
+   "pourquoi": "Le moral des ménages est bas, et la Fed surveille s'ils vont moins dépenser. Ce chiffre corrige la première estimation du 06/11.",
+   "horizons": {
+    "court": "Pendant ta session à 16h00 : souvent un petit mouvement, sauf si les attentes d'inflation surprennent.",
+    "moyen": "Un moral qui remonte soutiendrait l'idée d'une consommation solide pour les fêtes.",
+    "long": "Effet faible seul ; il compte surtout avec les ventes au détail."
+   },
+   "predictions": [
+    {
+     "valeur": "52.1",
+     "titre": "Calendrier ForexFactory (flux du journal)",
+     "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
+     "date": "2026-11-16"
+    }
+   ],
+   "mesure": "Une enquête de l'université du Michigan sur le moral des ménages américains. Ce chiffre corrige la première estimation du 06/11.",
+   "contexte": "La première estimation de novembre était 51,0, au-dessus des 48,1 attendus (ton rapport du 09/11). Kiplinger parle d'une hausse d'environ 6 % sur un mois.",
+   "ecart": "Repère de lecture : la révision bouge souvent peu. Un écart de 2 points avec la prévision serait déjà notable.",
+   "siFort": {
+    "pays": "Les ménages seraient plus confiants : ils pourraient dépenser plus.",
+    "marche": "Effet faible sur le taux à 10 ans et le dollar, sauf si les attentes d'inflation montent aussi.",
+    "actifs": {
+     "MNQ": "Effet faible, plutôt à la hausse.",
+     "MES": "Effet faible, plutôt à la hausse.",
+     "MYM": "Effet faible, plutôt à la hausse.",
+     "MGC": "Effet faible."
+    }
+   },
+   "siFaible": {
+    "pays": "Les ménages seraient plus inquiets : la consommation pourrait ralentir.",
+    "marche": "Effet faible sur le taux à 10 ans et le dollar.",
+    "actifs": {
+     "MNQ": "Effet faible.",
+     "MES": "Effet faible.",
+     "MYM": "Effet faible.",
+     "MGC": "Effet faible."
+    }
+   },
+   "piege": "Le marché lit surtout les attentes d'inflation publiées en même temps. Le moral seul bouge rarement les indices.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction propre à ce chiffre le 06/11 (ton rapport du 09/11).",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "Revised UoM Inflation Expectations",
+   "c": "USD",
+   "d": "2026-11-20T10:00:00-05:00",
+   "reel": "",
+   "pourquoi": "La Fed craint que les ménages s'habituent à une inflation haute. Si ce chiffre remonte, ce serait une raison de plus de monter les taux.",
+   "horizons": {
+    "court": "Pendant ta session à 16h00 : un écart pourrait faire bouger le 10 ans et MNQ en fin de session.",
+    "moyen": "Une hausse confirmerait la crainte d'une inflation durable avant la réunion de décembre.",
+    "long": "Des attentes d'inflation hautes pourraient pousser la Fed à garder des taux hauts plus longtemps."
+   },
+   "predictions": [],
+   "mesure": "L'inflation que les ménages attendent pour les 12 prochains mois, dans l'enquête du Michigan.",
+   "contexte": "Première estimation de novembre : 4,3 %, contre 4,7 % en octobre. Sur le long terme, 3,4 % (Kiplinger). L'essence a baissé ces dernières semaines (AAA, cité par analysisofficial), ce qui pourrait peser sur ce chiffre.",
+   "ecart": "Repère de lecture : pas de prévision. Un écart de 0,2 point ou plus avec 4,3 % serait un signal.",
+   "siFort": {
+    "pays": "Les ménages attendraient plus d'inflation : la Fed craindrait que ça dure, et une hausse en décembre serait encore plus sûre.",
+    "marche": "Le taux à 10 ans et le dollar pourraient monter.",
+    "actifs": {
+     "MNQ": "Pourrait baisser : la tech est la plus sensible aux taux.",
+     "MES": "Pourrait baisser, un peu moins que MNQ.",
+     "MYM": "Pourrait mieux résister que MNQ.",
+     "MGC": "Pourrait baisser si le dollar monte."
+    }
+   },
+   "siFaible": {
+    "pays": "Les ménages attendraient moins d'inflation : moins de pression sur la Fed.",
+    "marche": "Le taux à 10 ans et le dollar pourraient baisser.",
+    "actifs": {
+     "MNQ": "Pourrait monter : la tech profite le plus d'une baisse des taux.",
+     "MES": "Pourrait monter.",
+     "MYM": "Pourrait monter, souvent moins que MNQ.",
+     "MGC": "Pourrait monter si le dollar recule."
+    }
+   },
+   "piege": "Un vendredi après-midi, avec peu de volume, un petit écart peut donner un mouvement exagéré puis vite effacé.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
+  },
+  {
+   "t": "FOMC Member Cook Speaks",
+   "c": "USD",
+   "d": "2026-11-20T12:15:00-05:00",
+   "explication": "Lisa Cook, gouverneure de la Fed, a voté pour une hausse le 28/10 : un ton dur ne surprendrait pas."
+  }
+ ],
+ "entreprises": [
+  {
+   "nom": "Home Depot",
+   "ticker": "HD",
+   "d": "2026-11-17T13:00:00+01:00",
+   "moment": "avant l'ouverture (heure approximative)",
+   "beneficeAttendu": "3,87 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Home Depot pèse lourd dans le Dow : une surprise pourrait faire bouger MYM à l'ouverture. Elle donnerait aussi un signal sur la dépense des ménages, le jour des ventes au détail.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "Walt Disney",
+   "ticker": "DIS",
+   "d": "2026-11-17T13:00:00+01:00",
+   "moment": "avant l'ouverture (heure approximative)",
+   "beneficeAttendu": "1,67 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Disney fait partie du Dow : l'effet sur les indices resterait probablement faible, sauf grosse surprise sur les parcs ou le streaming.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "Nvidia",
+   "ticker": "NVDA",
+   "d": "2026-11-17T22:20:00+01:00",
+   "moment": "après la clôture",
+   "beneficeAttendu": "2,47 $ par action",
+   "caAttendu": "108,8 Md$",
+   "source": {
+    "titre": "Alpha Vantage, estimations des analystes (EARNINGS_ESTIMATES) et calendrier, lus le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-estimates"
+   },
+   "impactIndices": "Nvidia pèse beaucoup plus dans le Nasdaq 100 que dans le Dow : ses résultats pourraient faire bouger MNQ bien plus que MYM, le soir et en session Asie mercredi. Avec le départ de son PDG, les prévisions et le discours de la direction pourraient compter plus que les chiffres.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "Lowe's",
+   "ticker": "LOW",
+   "d": "2026-11-18T13:00:00+01:00",
+   "moment": "avant l'ouverture (heure approximative)",
+   "beneficeAttendu": "2,86 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Grosse valeur du S&P 500 liée au logement : une surprise pourrait jouer sur le moral autour de la consommation, avec un effet faible sur les indices.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "TJX",
+   "ticker": "TJX",
+   "d": "2026-11-18T13:00:00+01:00",
+   "moment": "avant l'ouverture (heure approximative)",
+   "beneficeAttendu": "1,33 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Grand distributeur à prix réduits du S&P 500 : il dirait si les ménages cherchent les bonnes affaires. Effet faible sur les indices.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "Palo Alto Networks",
+   "ticker": "PANW",
+   "d": "2026-11-18T22:05:00+01:00",
+   "moment": "après la clôture (heure approximative)",
+   "beneficeAttendu": "0,52 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Valeur du Nasdaq 100 dans la cybersécurité : une surprise pourrait faire bouger MNQ un peu le soir et en session Asie.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "Walmart",
+   "ticker": "WMT",
+   "d": "2026-11-19T13:00:00+01:00",
+   "moment": "avant l'ouverture (heure approximative)",
+   "beneficeAttendu": "0,64 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Walmart pèse dans le Dow, le S&P 500 et le Nasdaq 100 : ses chiffres et ses prévisions pour les fêtes pourraient donner le ton de l'ouverture jeudi. C'est un baromètre de la consommation américaine.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "PDD Holdings",
+   "ticker": "PDD",
+   "d": "2026-11-19T13:00:00+01:00",
+   "moment": "avant l'ouverture (heure approximative)",
+   "beneficeAttendu": "2,61 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Valeur chinoise du Nasdaq 100 (Temu) : une surprise pourrait toucher un peu MNQ, surtout via le moral sur la Chine.",
+   "reel": "",
+   "reaction": ""
+  },
+  {
+   "nom": "Intuit",
+   "ticker": "INTU",
+   "d": "2026-11-19T22:05:00+01:00",
+   "moment": "après la clôture (heure approximative)",
+   "beneficeAttendu": "2,47 $ par action",
+   "caAttendu": "",
+   "source": {
+    "titre": "Alpha Vantage, calendrier des résultats (EARNINGS_CALENDAR), lu le 16/11",
+    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+   },
+   "impactIndices": "Valeur du Nasdaq 100 dans les logiciels : une surprise pourrait faire bouger un peu MNQ le soir, surtout si elle parle de l'IA.",
+   "reel": "",
+   "reaction": ""
+  }
+ ]
+}
