@@ -1,8 +1,8 @@
 {
  "v": 1,
  "semaine": "2026-W48",
- "majA": "2026-11-23T14:51:08+01:00",
- "note": "Fichier créé le 23/11. Base : ton dossier S48 du 23/11 et ton rapport NY du 23/11. Chiffres réels lus : PMI allemands (investingLive). Non trouvés dans une source ouverte : PMI français et britanniques, réactions de marché du matin. Le flux FinancialJuice, StockTitan, TradingKey et ifyouspent n'ont pas pu être ouverts. Le PMI américain de 15h45 n'était pas encore sorti. Le GDPNow lu date du 20/10, il serait ancien. Heures des résultats : approximatives sauf mention.",
+ "majA": "2026-11-24T14:49:09+01:00",
+ "note": "Mis à jour le 24/11 vers 14h45. Nouveaux réels : PMI américains, Williams et ADP (repris de ton rapport NY du 24/11), résultats de Medtronic (communiqué officiel). Contexte du jour : le WSJ annoncerait de nouveaux droits de douane, les futures du Nasdaq reculaient vers 13h35. Toujours non trouvés : PMI français et britanniques détaillés, résultats de HPE et d'Analog Devices. Le flux FinancialJuice n'a pas pu être ouvert. Heures des résultats : approximatives sauf mention.",
  "fiches": [
   {
    "t": "German Flash Manufacturing PMI",
@@ -320,7 +320,7 @@
    "t": "Flash Manufacturing PMI",
    "c": "USD",
    "d": "2026-11-23T09:45:00-05:00",
-   "reel": "",
+   "reel": "54.5",
    "pourquoi": "C'est le premier chiffre américain de la semaine, 15 minutes après ton ouverture. Après une semaine de panique sur la tech, il dirait si l'industrie ralentissent assez pour calmer la Fed.",
    "horizons": {
     "court": "Le jour même, un écart avec la prévision pourrait faire bouger le taux à 10 ans, le dollar et la tech en quelques minutes, car le marché cherche à savoir si la Fed montera de 0,25 ou 0,5 point.",
@@ -360,17 +360,17 @@
    },
    "piege": "La semaine dernière, le Nasdaq a perdu environ 10 %, sa pire semaine depuis 2020, et le VIX a fini vers 37 (irinapchel). Dans ce climat de peur, un chiffre peut être lu à l'envers : un chiffre faible pourrait faire baisser les indices si le marché y lit « l'économie casse », au lieu de fêter la baisse des taux. Et une nouvelle sur Nvidia pourrait effacer le chiffre.",
    "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
-   "reaction": "",
+   "reaction": "Comme prévu. Peu d'effet propre : la séance restait portée par le rebond de la tech (FXEmpire, investingLive).",
    "sourceReaction": {
-    "titre": "",
-    "url": ""
+    "titre": "FXEmpire · US PMI: services miss forecast as price pressures ease in November",
+    "url": "https://www.fxempire.com/forecasts/article/us-pmi-services-miss-forecast-as-price-pressures-ease-in-november-1646578"
    }
   },
   {
    "t": "Flash Services PMI",
    "c": "USD",
    "d": "2026-11-23T09:45:00-05:00",
-   "reel": "",
+   "reel": "54.7",
    "pourquoi": "C'est le premier chiffre américain de la semaine, 15 minutes après ton ouverture. Après une semaine de panique sur la tech, il dirait si les services ralentissent assez pour calmer la Fed.",
    "horizons": {
     "court": "Le jour même, un écart avec la prévision pourrait faire bouger le taux à 10 ans, le dollar et la tech en quelques minutes, car le marché cherche à savoir si la Fed montera de 0,25 ou 0,5 point.",
@@ -410,23 +410,25 @@
    },
    "piege": "Les services pèsent plus lourd que l'industrie aux États-Unis. Dans un marché qui rebondit après une panique, un chiffre faible pourrait être lu comme « l'économie casse » et faire baisser les indices au lieu de les aider.",
    "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
-   "reaction": "",
+   "reaction": "Sous la prévision (55,6 au calendrier, 55,7 pour investingLive). Le taux à 10 ans serait passé de 4,956 % à 4,952 % et le rebond de la tech n'aurait pas faibli : le marché regardait surtout l'IA.",
    "sourceReaction": {
-    "titre": "",
-    "url": ""
+    "titre": "investingLive · US services November flash PMI 54.7 vs 55.7 expected",
+    "url": "https://investinglive.com/news/s-p-global-us-services-november-flash-pmi-54-7-vs-55-7-expected/"
    }
   },
   {
    "t": "FOMC Member Williams Speaks",
    "c": "USD",
    "d": "2026-11-23T16:00:00-05:00",
-   "explication": "Le numéro 2 de la Fed parle à 22h00, après ta session : un mot sur 0,25 ou 0,5 point en décembre pourrait faire bouger les futures le soir."
+   "explication": "Le numéro 2 de la Fed parle à 22h00, après ta session : un mot sur 0,25 ou 0,5 point en décembre pourrait faire bouger les futures le soir.",
+   "reel": "Ton plutôt calme : l'économie résiste, l'inflation ne s'étend pas beaucoup, 2027 serait une année d'inflation plus basse (flux FinancialJuice, repris dans ton rapport NY du 24/11)."
   },
   {
    "t": "ADP Weekly Employment Change",
    "c": "USD",
    "d": "2026-11-24T08:15:00-05:00",
-   "explication": "L'estimation hebdomadaire des emplois privés par ADP : le seul chiffre d'emploi privé avant mercredi."
+   "explication": "L'estimation hebdomadaire des emplois privés par ADP : le seul chiffre d'emploi privé avant mercredi.",
+   "reel": "21K (contre 23K la semaine d'avant après révision, flux FinancialJuice repris dans ton rapport NY du 24/11)"
   },
   {
    "t": "HPI m/m",
@@ -1078,14 +1080,14 @@
    "ticker": "MDT",
    "d": "2026-11-24T13:00:00+01:00",
    "moment": "avant l'ouverture (heure approximative)",
-   "beneficeAttendu": "1,33 $ par action",
+   "beneficeAttendu": "1,33 $ par action (Alpha Vantage, lu le 23/11)",
    "caAttendu": "9,48 milliards $",
    "source": {
-    "titre": "Alpha Vantage · EARNINGS_ESTIMATES (lu le 23/11)",
-    "url": "https://www.alphavantage.co/documentation/#earnings-estimates"
+    "titre": "Medtronic · communiqué du 24/11/2026 (SEC 8-K)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001613103/000162828026075604/exhibit991-fy27q2earningsr.htm"
    },
    "impactIndices": "Grosse valeur de la santé du S&P 500 : un effet léger sur MES, presque nul sur MNQ.",
-   "reel": "",
+   "reel": "Chiffre d'affaires 9,364 milliards $ (+4,5 %, +6,5 % en organique) ; bénéfice ajusté 1,34 $ par action ; prévisions annuelles maintenues.",
    "reaction": ""
   },
   {
