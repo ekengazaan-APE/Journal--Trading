@@ -1,8 +1,8 @@
 {
  "v": 1,
  "semaine": "2026-W48",
- "majA": "2026-11-24T14:49:09+01:00",
- "note": "Mis à jour le 24/11 vers 14h45. Nouveaux réels : PMI américains, Williams et ADP (repris de ton rapport NY du 24/11), résultats de Medtronic (communiqué officiel). Contexte du jour : le WSJ annoncerait de nouveaux droits de douane, les futures du Nasdaq reculaient vers 13h35. Toujours non trouvés : PMI français et britanniques détaillés, résultats de HPE et d'Analog Devices. Le flux FinancialJuice n'a pas pu être ouvert. Heures des résultats : approximatives sauf mention.",
+ "majA": "2026-11-25T14:51:29+01:00",
+ "note": "Mis à jour le 25/11 vers 15h. Nouveaux réels de 14h30 : PCE sous-jacent 0,3 % sur un mois et 3,3 % sur un an (et non 3,1 % comme écrit dans ton rapport NY), PIB 4,3 %, revenus +0,7 %. Inscriptions au chômage : 186K selon CoinDesk, 189K dans ton rapport, les deux sont affichés. Résultats lus : Dell (CoinDesk) et Deere (communiqué officiel). Contexte : les États-Unis proposent de nouveaux droits de douane contre 14 pays, la tech baissait déjà avant 14h30. Toujours non trouvés : commandes de biens durables, prix du PIB, PMI français et britanniques, résultats de HPE, Analog Devices, Workday, Autodesk et HP. Heures des résultats : approximatives sauf mention.",
  "fiches": [
   {
    "t": "German Flash Manufacturing PMI",
@@ -713,7 +713,7 @@
    "t": "Core PCE Price Index m/m",
    "c": "USD",
    "d": "2026-11-25T08:30:00-05:00",
-   "reel": "",
+   "reel": "0.3% sur un mois (comme prévu). Sur un an : 3,3 % contre 3,2 % attendu (FinancialJuice, Unusual Whales, CoinDesk). Ton rapport NY de 14h34 indiquait 3,1 % sur un an : ce serait une erreur de lecture.",
    "pourquoi": "C'est la mesure de l'inflation que la Fed vise à 2 %, et c'est la dernière avant sa réunion des 8 et 9 décembre. Le marché se demande si la hausse sera de 0,25 ou 0,5 point.",
    "horizons": {
     "court": "Le jour même, à 14h30, une heure avant ta session, un écart de 0,1 point pourrait faire bouger le taux à 10 ans et le Nasdaq. Le lendemain est férié, la réaction pourrait se prolonger vendredi avec peu de volume.",
@@ -759,17 +759,17 @@
    },
    "piege": "Le CPI et le PPI d'octobre sont déjà sortis : le marché peut déjà deviner le PCE. Une petite surprise pourrait donc peu compter. Et il sort à la même minute que le PIB et le chômage : le premier mouvement mélange les trois.",
    "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre. Pour le CPI du 10/11, un chiffre chaud a fait monter le 10 ans de 10 points de base et baisser la tech (ton dossier S47).",
-   "reaction": "",
+   "reaction": "À 14h30, les fonds tech (QQQ) perdaient déjà 2,98 % sur la veille, mais seulement 0,28 % de plus juste après le chiffre. Les obligations longues (TLT) ne bougeaient pas après le chiffre. Le marché baissait surtout à cause des droits de douane annoncés vers 14h10.",
    "sourceReaction": {
-    "titre": "",
-    "url": ""
+    "titre": "Unusual Whales · October PCE: 3.8% vs 3.8% forecast; core 3.3%",
+    "url": "https://unusualwhales.com/news/october-pce-prices-match-forecast-core-tops-2026-11-25"
    }
   },
   {
    "t": "Prelim GDP q/q",
    "c": "USD",
    "d": "2026-11-25T08:30:00-05:00",
-   "reel": "",
+   "reel": "4.3% (contre 3,5 % attendu et 3,4 % en première estimation), selon CoinDesk et le titre d'InvestingLive.",
    "pourquoi": "C'est la deuxième estimation de la croissance du 3e trimestre. Elle compterait surtout si elle change beaucoup, car la Fed monte ses taux contre une économie encore forte.",
    "horizons": {
     "court": "Le jour même, il sortirait à la même minute que le PCE : seule une révision de 0,3 point ou plus pourrait se voir dans le premier mouvement.",
@@ -821,10 +821,10 @@
    },
    "piege": "Le PCE, à la même minute, dit sur le mois d'octobre ce que le PIB dit sur un trimestre passé : en cas de conflit, le PCE devrait l'emporter.",
    "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à une deuxième estimation du PIB.",
-   "reaction": "",
+   "reaction": "Pas de réaction propre au PIB lue : il est sorti avec le PCE, et la baisse de la tech venait d'avant (droits de douane).",
    "sourceReaction": {
-    "titre": "",
-    "url": ""
+    "titre": "CoinDesk · Live updates du 25/11 (entrée de 8h35 heure de NY)",
+    "url": "https://www.coindesk.com/business/2026/11/25/live-updates-bitcoin-slips-back-under-usd60-000-as-hype-leads-altcoins-lower"
    }
   },
   {
@@ -871,7 +871,7 @@
    },
    "piege": "Ce chiffre parle du passé (juillet à septembre) : le PCE d'octobre, à la même minute, devrait compter bien plus.",
    "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre.",
-   "reaction": "",
+   "reaction": "Pas de chiffre réel lu dans une source ouverte.",
    "sourceReaction": {
     "titre": "",
     "url": ""
@@ -881,7 +881,7 @@
    "t": "Unemployment Claims",
    "c": "USD",
    "d": "2026-11-25T08:30:00-05:00",
-   "reel": "",
+   "reel": "186K selon CoinDesk (contre 200K attendu et 202K la semaine d'avant). Ton rapport NY donnait 189K : les deux sources diffèrent, mais les deux montrent un chiffre bas.",
    "pourquoi": "Il est avancé à mercredi à cause de Thanksgiving. C'est le seul chiffre officiel sur l'emploi de la semaine, et la Fed regarde si le marché du travail se fragilise.",
    "horizons": {
     "court": "Le jour même, il sortirait avec le PCE : un écart de 15 000 ou plus pourrait quand même faire bouger les taux.",
@@ -921,10 +921,10 @@
    },
    "piege": "Les semaines de fête faussent souvent ce chiffre. Et il sort avec le PCE : il pèsera sans doute moins.",
    "fiabilite": "Vérifié une fois : le 19/11, 203 000 pour 198 000 attendues, le 10 ans a peu bougé (−0,01 point) et le Nasdaq a fini à −2,25 % à cause de la tech (ton rapport du 20/11).",
-   "reaction": "",
+   "reaction": "Pas de réaction propre lue : sorti à la même minute que le PCE et le PIB.",
    "sourceReaction": {
-    "titre": "",
-    "url": ""
+    "titre": "CoinDesk · Live updates du 25/11 (entrée de 8h35 heure de NY)",
+    "url": "https://www.coindesk.com/business/2026/11/25/live-updates-bitcoin-slips-back-under-usd60-000-as-hype-leads-altcoins-lower"
    }
   },
   {
@@ -943,13 +943,15 @@
    "t": "Personal Income m/m",
    "c": "USD",
    "d": "2026-11-25T08:30:00-05:00",
-   "explication": "Les revenus des ménages sur un mois, dans le même rapport que le PCE."
+   "explication": "Les revenus des ménages sur un mois, dans le même rapport que le PCE.",
+   "reel": "+0,7 % (Unusual Whales)"
   },
   {
    "t": "Personal Spending m/m",
    "c": "USD",
    "d": "2026-11-25T08:30:00-05:00",
-   "explication": "Les dépenses des ménages sur un mois, dans le même rapport que le PCE : elles diraient si la consommation tient."
+   "explication": "Les dépenses des ménages sur un mois, dans le même rapport que le PCE : elles diraient si la consommation tient.",
+   "reel": "+63,8 milliards $ en valeur ; une fois l'inflation retirée, léger recul, moins de 0,1 % (Unusual Whales)"
   },
   {
    "t": "New Home Sales",
@@ -1042,6 +1044,13 @@
    "c": "USD",
    "d": "2026-11-27T08:30:00-05:00",
    "explication": "Les stocks des grossistes. Petit chiffre, rarement de mouvement."
+  },
+  {
+   "t": "FOMC Member Bowman Speaks",
+   "c": "USD",
+   "d": "2026-11-25T07:25:00-05:00",
+   "explication": "Discours de Michelle Bowman, vice-présidente de la Fed : elle vote les taux, et ses mots pourraient dire si la hausse de décembre serait de 0,25 ou 0,5 point.",
+   "reel": ""
   }
  ],
  "entreprises": [
@@ -1102,8 +1111,8 @@
     "url": "https://www.alphavantage.co/documentation/#earnings-estimates"
    },
    "impactIndices": "Le grand test de la semaine pour l'IA : une prévision de serveurs IA relevée ou baissée pourrait faire bouger MNQ et MES pendant la nuit et ta session Asie.",
-   "reel": "",
-   "reaction": ""
+   "reel": "Chiffre d'affaires record de 54,9 milliards $ (+103 % sur un an), au-dessus des 49,27 milliards attendus ; prévision annuelle relevée à 202 milliards $. Bénéfice par action non lu.",
+   "reaction": "L'action perdait environ 6 % avant l'ouverture mercredi, malgré ces chiffres (CoinDesk, 13h01 heure de Paris)."
   },
   {
    "nom": "Workday",
@@ -1158,12 +1167,12 @@
    "beneficeAttendu": "4,07 $ par action",
    "caAttendu": "",
    "source": {
-    "titre": "Alpha Vantage · EARNINGS_CALENDAR (lu le 23/11)",
-    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+    "titre": "Deere · communiqué du 25/11/2026 (SEC 8-K)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000315189/000110465926131741/de-ex99d1.htm"
    },
    "impactIndices": "Grosse valeur industrielle du S&P 500 : un effet léger sur MES et MYM, noyé dans le PCE de 14h30.",
-   "reel": "",
-   "reaction": ""
+   "reel": "Bénéfice net de 1,051 milliard $, soit 3,89 $ par action (4,07 $ attendus) ; chiffre d'affaires 12,115 milliards $ (−2 %). Prévision 2027 : bénéfice net de 4,50 à 5,25 milliards $ (communiqué officiel, SEC).",
+   "reaction": "Pas de réaction de l'action lue dans une source ouverte."
   }
  ]
 }
