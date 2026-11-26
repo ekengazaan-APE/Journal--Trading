@@ -1,8 +1,8 @@
 {
  "v": 1,
  "semaine": "2026-W48",
- "majA": "2026-11-25T14:51:29+01:00",
- "note": "Mis à jour le 25/11 vers 15h. Nouveaux réels de 14h30 : PCE sous-jacent 0,3 % sur un mois et 3,3 % sur un an (et non 3,1 % comme écrit dans ton rapport NY), PIB 4,3 %, revenus +0,7 %. Inscriptions au chômage : 186K selon CoinDesk, 189K dans ton rapport, les deux sont affichés. Résultats lus : Dell (CoinDesk) et Deere (communiqué officiel). Contexte : les États-Unis proposent de nouveaux droits de douane contre 14 pays, la tech baissait déjà avant 14h30. Toujours non trouvés : commandes de biens durables, prix du PIB, PMI français et britanniques, résultats de HPE, Analog Devices, Workday, Autodesk et HP. Heures des résultats : approximatives sauf mention.",
+ "majA": "2026-11-26T14:45:27+01:00",
+ "note": "Mis à jour le 26/11 (Thanksgiving, Bourse de New York fermée, demi-séance vendredi jusqu'à 19h00). Nouveau : commandes de biens durables +0,2 % (Census), ventes de maisons neuves 701K, clôture de mercredi ajoutée au PCE, résultats de HPE et Analog Devices (communiqués officiels), fiche de l'audition de la Banque d'Angleterre. Tokyo ce soir à 0h30 : le calendrier attend 3,0 %, Trading Economics prévoit 2,6 %. Hors calendrier : Nvidia suspend des livraisons vers l'Asie du Sud-Est (FT) et tensions dans le Golfe. Toujours non trouvés : stocks de pétrole, livre beige, prix du PIB, PMI français et britanniques, résultats de Workday, Autodesk et HP. Heures des résultats : approximatives sauf mention.",
  "fiches": [
   {
    "t": "German Flash Manufacturing PMI",
@@ -759,7 +759,7 @@
    },
    "piege": "Le CPI et le PPI d'octobre sont déjà sortis : le marché peut déjà deviner le PCE. Une petite surprise pourrait donc peu compter. Et il sort à la même minute que le PIB et le chômage : le premier mouvement mélange les trois.",
    "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ce chiffre. Pour le CPI du 10/11, un chiffre chaud a fait monter le 10 ans de 10 points de base et baisser la tech (ton dossier S47).",
-   "reaction": "À 14h30, les fonds tech (QQQ) perdaient déjà 2,98 % sur la veille, mais seulement 0,28 % de plus juste après le chiffre. Les obligations longues (TLT) ne bougeaient pas après le chiffre. Le marché baissait surtout à cause des droits de douane annoncés vers 14h10.",
+   "reaction": "À 14h30, les fonds tech (QQQ) perdaient déjà 2,98 % sur la veille, mais seulement 0,28 % de plus juste après le chiffre. Les obligations longues (TLT) ne bougeaient pas après le chiffre. Le marché baissait surtout à cause des droits de douane annoncés vers 14h10. À la clôture : Nasdaq Composite -0,62 %, après un passage du Nasdaq 100 à -20 % de son record en séance ; S&P 500 -0,25 % ; Dow en hausse. Le 10 ans a pourtant baissé vers 4,85 % : la peur, plus que l'inflation, aurait mené la séance (Wisevoter, Saxo).",
    "sourceReaction": {
     "titre": "Unusual Whales · October PCE: 3.8% vs 3.8% forecast; core 3.3%",
     "url": "https://unusualwhales.com/news/october-pce-prices-match-forecast-core-tops-2026-11-25"
@@ -920,7 +920,7 @@
     }
    },
    "piege": "Les semaines de fête faussent souvent ce chiffre. Et il sort avec le PCE : il pèsera sans doute moins.",
-   "fiabilite": "Vérifié une fois : le 19/11, 203 000 pour 198 000 attendues, le 10 ans a peu bougé (−0,01 point) et le Nasdaq a fini à −2,25 % à cause de la tech (ton rapport du 20/11).",
+   "fiabilite": "Vérifié une fois : le 19/11, 203 000 pour 198 000 attendues, le 10 ans a peu bougé (-0,01 point) et le Nasdaq a fini à -2,25 % à cause de la tech (ton rapport du 20/11).",
    "reaction": "Pas de réaction propre lue : sorti à la même minute que le PCE et le PIB.",
    "sourceReaction": {
     "titre": "CoinDesk · Live updates du 25/11 (entrée de 8h35 heure de NY)",
@@ -931,13 +931,15 @@
    "t": "Core Durable Goods Orders m/m",
    "c": "USD",
    "d": "2026-11-25T08:30:00-05:00",
-   "explication": "Les commandes d'objets qui durent, sans le transport. Noyé dans le PCE de la même minute."
+   "explication": "Les commandes d'objets qui durent, sans le transport. Noyé dans le PCE de la même minute.",
+   "reel": "+0,5 % sans le transport (Census Bureau)"
   },
   {
    "t": "Durable Goods Orders m/m",
    "c": "USD",
    "d": "2026-11-25T08:30:00-05:00",
-   "explication": "Les commandes d'objets qui durent (machines, avions). Le flux attend +0,5 %, bkobog 0,0 %. Noyé dans le PCE."
+   "explication": "Les commandes d'objets qui durent (machines, avions). Le flux attend +0,5 %, bkobog 0,0 %. Noyé dans le PCE.",
+   "reel": "+0,2 % en octobre, après +2,0 % en septembre (Census Bureau)"
   },
   {
    "t": "Personal Income m/m",
@@ -957,7 +959,8 @@
    "t": "New Home Sales",
    "c": "USD",
    "d": "2026-11-25T10:00:00-05:00",
-   "explication": "Les ventes de maisons neuves, 30 minutes après ton ouverture. Peu suivi, mais il tombe pendant que tu trades."
+   "explication": "Les ventes de maisons neuves, 30 minutes après ton ouverture. Peu suivi, mais il tombe pendant que tu trades.",
+   "reel": "701K contre 650K attendu, +14,2 % sur un mois (PiQ, repris dans ton rapport NY du 26/11)"
   },
   {
    "t": "Crude Oil Inventories",
@@ -996,14 +999,20 @@
    },
    "predictions": [
     {
-     "valeur": "2.9%",
+     "valeur": "3.0%",
      "titre": "Calendrier économique (flux ForexFactory)",
      "url": "https://radiant-puppy-883b29.netlify.app/api/calendar",
-     "date": "2026-11-23"
+     "date": "2026-11-26"
+    },
+    {
+     "valeur": "3% (consensus) · 2,6 % (prévision propre de Trading Economics)",
+     "titre": "Trading Economics · Japan Tokyo Core CPI",
+     "url": "https://tradingeconomics.com/japan/tokyo-core-cpi",
+     "date": "2026-11-26"
     }
    ],
    "mesure": "La hausse des prix à Tokyo sur un an, sans l'alimentation fraîche. Elle sort avant le chiffre national et sert de signal.",
-   "contexte": "Octobre : 2,6 %. Novembre attendu à 2,9 % (calendrier ForexFactory). La mesure de la BoJ sort mercredi, attendue à 2,5 %.",
+   "contexte": "Octobre : 2,6 %, comme attendu. Novembre : le calendrier attend maintenant 3,0 % (2,9 % lundi) ; Trading Economics affiche un consensus à 3 % mais sa propre prévision à 2,6 %. Les deux sources diffèrent, ce qui rendrait la surprise possible dans les deux sens.",
    "ecart": "Repère de lecture : 0,2 point d'écart avec la prévision serait une vraie surprise.",
    "siFort": {
     "pays": "L'inflation japonaise monterait : la BoJ pourrait monter ses taux.",
@@ -1051,6 +1060,49 @@
    "d": "2026-11-25T07:25:00-05:00",
    "explication": "Discours de Michelle Bowman, vice-présidente de la Fed : elle vote les taux, et ses mots pourraient dire si la hausse de décembre serait de 0,25 ou 0,5 point.",
    "reel": ""
+  },
+  {
+   "t": "Monetary Policy Report Hearings",
+   "c": "GBP",
+   "d": "2026-11-25T09:15:00-05:00",
+   "reel": "",
+   "pourquoi": "Le gouverneur de la Banque d'Angleterre et ses collègues répondent aux députés sur leur rapport de politique monétaire. Le marché écoute s'ils comptent continuer à monter les taux face à l'inflation.",
+   "horizons": {
+    "court": "Le jour même, l'effet serait surtout sur la livre, à 15h15 heure de Paris, avant ta session, un jour déjà chargé par le PCE et les droits de douane.",
+    "moyen": "Dans les semaines suivantes, leur ton pourrait préparer la décision de décembre de la Banque d'Angleterre.",
+    "long": "Sur plusieurs mois, l'effet sur tes actifs serait très indirect, surtout à travers le dollar."
+   },
+   "predictions": [],
+   "mesure": "Une audition devant le Parlement britannique. Pas de chiffre : le marché écoute le ton sur les taux.",
+   "contexte": "Aucun compte rendu de l'audition lu dans une source ouverte. Le lendemain, la Banque d'Angleterre a averti que le financement de l'IA devenait « complexe, circulaire, opaque » (FinancialJuice).",
+   "ecart": "Repère de lecture : « d'autres hausses sont nécessaires » serait un ton dur, « on attend les chiffres » un ton souple.",
+   "siFort": {
+    "pays": "Ton dur : la Banque d'Angleterre pourrait monter encore ses taux.",
+    "marche": "La livre pourrait monter, le dollar reculer un peu.",
+    "actifs": {
+     "MNQ": "Pas d'effet direct.",
+     "MES": "Pas d'effet direct.",
+     "MYM": "Pas d'effet direct.",
+     "MGC": "Pourrait monter un peu si le dollar recule."
+    }
+   },
+   "siFaible": {
+    "pays": "Ton souple : la Banque d'Angleterre pourrait attendre.",
+    "marche": "La livre pourrait baisser.",
+    "actifs": {
+     "MNQ": "Pas d'effet direct.",
+     "MES": "Pas d'effet direct.",
+     "MYM": "Pas d'effet direct.",
+     "MGC": "Effet indirect et faible."
+    }
+   },
+   "piege": "Elle tombe 45 minutes après le PCE américain : ses mots seraient sans doute noyés dans la réaction aux chiffres américains.",
+   "fiabilite": "Raisonnement : je n'ai pas lu de réaction passée vérifiée de tes actifs à ces auditions.",
+   "reaction": "",
+   "sourceReaction": {
+    "titre": "",
+    "url": ""
+   }
   }
  ],
  "entreprises": [
@@ -1062,12 +1114,12 @@
    "beneficeAttendu": "1,18 $ par action",
    "caAttendu": "",
    "source": {
-    "titre": "Alpha Vantage · EARNINGS_CALENDAR (lu le 23/11)",
-    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+    "titre": "HPE · communiqué du 23/11/2026 (SEC, pièce 99.1)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001645590/000164559026000097/ex-991x11232026x8k.htm"
    },
    "impactIndices": "Vendeur de serveurs pour l'IA : de bons chiffres pourraient rassurer un peu sur le thème qui a fait chuter la tech, avec un effet surtout sur MNQ la nuit.",
-   "reel": "",
-   "reaction": ""
+   "reel": "Chiffre d'affaires 14,5 milliards $ (+50 %) ; bénéfice ajusté 1,43 $ par action, au-dessus des 1,18 $ attendus ; prévision annuelle 2027 relevée à 59,4 à 63,1 milliards $ (communiqué officiel, SEC, 23/11).",
+   "reaction": "Pas de réaction de l'action lue dans une source ouverte."
   },
   {
    "nom": "Analog Devices",
@@ -1077,12 +1129,12 @@
    "beneficeAttendu": "3,89 $ par action",
    "caAttendu": "environ 4,3 milliards $ (ifyouspent)",
    "source": {
-    "titre": "Alpha Vantage · EARNINGS_CALENDAR (lu le 23/11)",
-    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+    "titre": "Analog Devices · communiqué du 24/11/2026 (SEC, pièce 99.1)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000006281/000000628126000087/adiq426exhibit991.htm"
    },
    "impactIndices": "Fabricant de puces du Nasdaq 100 : sa prévision pourrait peser sur les valeurs des puces avant ton ouverture, donc un peu sur MNQ.",
-   "reel": "",
-   "reaction": ""
+   "reel": "Chiffre d'affaires 4,373 milliards $ (+42 %) ; bénéfice ajusté 4,06 $ par action, au-dessus des 3,89 $ attendus ; prévision du trimestre suivant : 4,4 milliards $ à plus ou moins 150 millions (communiqué officiel, SEC, 24/11).",
+   "reaction": "Pas de réaction de l'action lue dans une source ouverte."
   },
   {
    "nom": "Medtronic",
@@ -1171,7 +1223,7 @@
     "url": "https://www.sec.gov/Archives/edgar/data/0000315189/000110465926131741/de-ex99d1.htm"
    },
    "impactIndices": "Grosse valeur industrielle du S&P 500 : un effet léger sur MES et MYM, noyé dans le PCE de 14h30.",
-   "reel": "Bénéfice net de 1,051 milliard $, soit 3,89 $ par action (4,07 $ attendus) ; chiffre d'affaires 12,115 milliards $ (−2 %). Prévision 2027 : bénéfice net de 4,50 à 5,25 milliards $ (communiqué officiel, SEC).",
+   "reel": "Bénéfice net de 1,051 milliard $, soit 3,89 $ par action (4,07 $ attendus) ; chiffre d'affaires 12,115 milliards $ (-2 %). Prévision 2027 : bénéfice net de 4,50 à 5,25 milliards $ (communiqué officiel, SEC).",
    "reaction": "Pas de réaction de l'action lue dans une source ouverte."
   }
  ]
