@@ -1,8 +1,8 @@
 {
  "v": 1,
  "semaine": "2026-W48",
- "majA": "2026-11-26T14:45:27+01:00",
- "note": "Mis à jour le 26/11 (Thanksgiving, Bourse de New York fermée, demi-séance vendredi jusqu'à 19h00). Nouveau : commandes de biens durables +0,2 % (Census), ventes de maisons neuves 701K, clôture de mercredi ajoutée au PCE, résultats de HPE et Analog Devices (communiqués officiels), fiche de l'audition de la Banque d'Angleterre. Tokyo ce soir à 0h30 : le calendrier attend 3,0 %, Trading Economics prévoit 2,6 %. Hors calendrier : Nvidia suspend des livraisons vers l'Asie du Sud-Est (FT) et tensions dans le Golfe. Toujours non trouvés : stocks de pétrole, livre beige, prix du PIB, PMI français et britanniques, résultats de Workday, Autodesk et HP. Heures des résultats : approximatives sauf mention.",
+ "majA": "2026-11-27T14:43:46+01:00",
+ "note": "Mis à jour le 27/11 (demi-séance après Thanksgiving, Bourse de New York fermée à 19h00, aucune annonce américaine pendant ta session). Nouveau : inflation de Tokyo 2,9 % (calendrier 3,0 %), balance commerciale des biens -149,5 milliards $ (déficit plus large que prévu), stocks des grossistes +0,9 %, résultats de Workday et Autodesk (communiqués officiels). Hors calendrier : inflation française et espagnole bien sous les prévisions ce matin, mais Nagel (BCE) dit que la BCE pourrait devoir monter encore ses taux ; tanker touché par une mine près d'Ormuz (FinancialJuice). Toujours non trouvés : stocks de pétrole, livre beige, prix du PIB, PMI français et britanniques, résultats de HP. Heures des résultats : approximatives sauf mention.",
  "fiches": [
   {
    "t": "German Flash Manufacturing PMI",
@@ -990,7 +990,7 @@
    "t": "Tokyo Core CPI y/y",
    "c": "JPY",
    "d": "2026-11-26T18:30:00-05:00",
-   "reel": "",
+   "reel": "2.9%",
    "pourquoi": "C'est le premier chiffre d'inflation japonaise du mois. Il sort 2 heures avant ta session Asie et pourrait faire bouger le yen si la BoJ est poussée à monter ses taux.",
    "horizons": {
     "court": "Le jour même, l'effet serait surtout sur le yen, pendant ta session Asie, avec peu de volume après Thanksgiving.",
@@ -1012,7 +1012,7 @@
     }
    ],
    "mesure": "La hausse des prix à Tokyo sur un an, sans l'alimentation fraîche. Elle sort avant le chiffre national et sert de signal.",
-   "contexte": "Octobre : 2,6 %, comme attendu. Novembre : le calendrier attend maintenant 3,0 % (2,9 % lundi) ; Trading Economics affiche un consensus à 3 % mais sa propre prévision à 2,6 %. Les deux sources diffèrent, ce qui rendrait la surprise possible dans les deux sens.",
+   "contexte": "Octobre : 2,6 %, comme attendu. Novembre : le calendrier attend maintenant 3,0 % (2,9 % lundi) ; Trading Economics affiche un consensus à 3 % mais sa propre prévision à 2,6 %. Les deux sources diffèrent, ce qui rendrait la surprise possible dans les deux sens. Sorti à 2,9 %, juste sous les 3,0 % du calendrier mais au-dessus des 2,6 % d'octobre. L'inflation totale à Tokyo est restée à 2,8 %, sous les 3,1 % attendus (FinancialJuice). Ton rapport NY du 27/11 cite Newsquawk : une hausse de la BoJ en décembre serait vue à environ 75 %.",
    "ecart": "Repère de lecture : 0,2 point d'écart avec la prévision serait une vraie surprise.",
    "siFort": {
     "pays": "L'inflation japonaise monterait : la BoJ pourrait monter ses taux.",
@@ -1046,13 +1046,15 @@
    "t": "Goods Trade Balance",
    "c": "USD",
    "d": "2026-11-27T08:30:00-05:00",
-   "explication": "Le commerce extérieur des biens. Petit chiffre, une heure avant ta session, sur une séance écourtée."
+   "explication": "Le commerce extérieur des biens. Petit chiffre, une heure avant ta session, sur une séance écourtée.",
+   "reel": "-149.5B (contre -136B attendu et -135.08B avant, FinancialJuice) : un déficit plus large que prévu."
   },
   {
    "t": "Prelim Wholesale Inventories m/m",
    "c": "USD",
    "d": "2026-11-27T08:30:00-05:00",
-   "explication": "Les stocks des grossistes. Petit chiffre, rarement de mouvement."
+   "explication": "Les stocks des grossistes. Petit chiffre, rarement de mouvement.",
+   "reel": "0.9% (contre 0,5 % attendu et 0,7 % avant, FinancialJuice)."
   },
   {
    "t": "FOMC Member Bowman Speaks",
@@ -1174,11 +1176,11 @@
    "beneficeAttendu": "1,28 $ par action",
    "caAttendu": "",
    "source": {
-    "titre": "Alpha Vantage · EARNINGS_CALENDAR (lu le 23/11)",
-    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+    "titre": "Workday · communiqué du 24/11 (SEC, Exhibit 99.1)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0001327811/000132781126000057/wday-10312026x991.htm"
    },
    "impactIndices": "Logiciel du Nasdaq 100 : un effet surtout sur les valeurs du logiciel, léger sur MNQ.",
-   "reel": "",
+   "reel": "Chiffre d'affaires 2,705 milliards $ (+11,2 %) ; bénéfice 2,82 $ par action en ajusté, 0,96 $ en comptable. Prévision d'abonnements annuelle : 9,958 milliards $ (+13 %).",
    "reaction": ""
   },
   {
@@ -1189,11 +1191,11 @@
    "beneficeAttendu": "2,27 $ par action",
    "caAttendu": "",
    "source": {
-    "titre": "Alpha Vantage · EARNINGS_CALENDAR (lu le 23/11)",
-    "url": "https://www.alphavantage.co/documentation/#earnings-calendar"
+    "titre": "Autodesk · communiqué du 24/11 (SEC)",
+    "url": "https://www.sec.gov/Archives/edgar/data/0000769397/000076939726000069/q327pressrelease.htm"
    },
    "impactIndices": "Logiciel du Nasdaq 100 : un effet léger sur MNQ, sauf grosse surprise sur la prévision.",
-   "reel": "",
+   "reel": "Chiffre d'affaires 2,16 milliards $ (+17 %) ; bénéfice 3,20 $ par action en ajusté, 2,68 $ en comptable. Prévision annuelle de chiffre d'affaires : 8,36 à 8,375 milliards $.",
    "reaction": ""
   },
   {
