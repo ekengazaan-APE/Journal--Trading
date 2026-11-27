@@ -2,198 +2,208 @@
  "v": 1,
  "semaine": "2026-W48",
  "periode": "du lundi 23/11 au vendredi 27/11",
- "majA": "2026-11-22T17:01:36+01:00",
- "mode": "hebdo",
- "note": "Calendriers officiels (Fed, BLS, BEA, BCE, BoJ) pas rouverts cette fois : dates de aVenir reprises du fichier S47. FedWatch, peur et cupidité et VIX lus dans des sources secondaires ; variations sur 5 jours du VIX et du WTI non trouvées.",
+ "majA": "2026-11-27T13:56:11+01:00",
+ "mode": "quotidien",
+ "note": "Peur et cupidité non trouvée aujourd'hui. Variation FedWatch sur la veille non lue. PMI flash, confiance du Conference Board et indice des prix du PIB : chiffres réels non trouvés, non inclus. Dates de aVenir reprises du fichier précédent.",
  "marqueurs": [
   {
    "id": "dxy",
    "nom": "Dollar (DXY)",
-   "valeur": "103,84",
-   "variation": "+0,3 % sur 5 jours",
-   "sens": "hausse",
-   "lecture": "Un dollar au plus haut depuis 19 mois pourrait continuer de peser sur MGC, même si les taux reculent.",
-   "date": "clôture du 20/11",
+   "valeur": "103,71",
+   "variation": "−0,10 % sur la veille",
+   "sens": "baisse",
+   "lecture": "Un dollar qui se tasse sous 104 pourrait laisser un peu d'air à MGC et aux indices, sans changer la tendance de fond.",
+   "date": "clôture du 25/11",
    "source": {
-    "titre": "1Trader · Weekly Forex Recap 16 à 20/11/2026",
-    "url": "https://1trader.com/en/forex-weekly-2026-11-20/"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    }
   },
   {
    "id": "us10y",
    "nom": "Taux à 10 ans US",
-   "valeur": "4,92 %",
-   "variation": "−0,23 pt sur 5 jours",
+   "valeur": "4,85 %",
+   "variation": "−0,06 pt sur la veille",
    "sens": "baisse",
-   "lecture": "Une baisse des taux longs aiderait en temps normal MNQ ; ici elle vient surtout de la peur, donc l'effet pourrait rester faible.",
-   "date": "clôture du 20/11",
+   "lecture": "Le 10 ans baisse malgré un PCE chaud : ça pourrait soutenir MNQ, car des taux longs plus bas allègent la valorisation de la tech.",
+   "date": "clôture du 25/11",
    "source": {
-    "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    }
   },
   {
    "id": "us02y",
    "nom": "Taux à 2 ans US",
-   "valeur": "4,63 %",
-   "variation": "−0,25 pt sur 5 jours",
+   "valeur": "4,61 %",
+   "variation": "−0,02 pt sur la veille",
    "sens": "baisse",
-   "lecture": "Le 2 ans suit la Fed : sa chute de 13 pb vendredi pourrait montrer un marché qui doute d'une Fed très dure si les actions cassent.",
-   "date": "clôture du 20/11",
+   "lecture": "Le 2 ans reste haut car le marché voit une hausse de la Fed le 09/12 ; il pourrait bondir si les chiffres d'inflation restent chauds.",
+   "date": "clôture du 25/11",
    "source": {
-    "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    }
   },
   {
    "id": "vix",
    "nom": "VIX",
-   "valeur": "35,89",
-   "variation": "",
+   "valeur": "28,29",
+   "variation": "+7,32 % sur la veille",
    "sens": "hausse",
-   "lecture": "Au dessus de 30, les mouvements de MNQ et MES pourraient rester très larges, avec des mèches violentes en session NY.",
-   "date": "clôture du 20/11",
+   "lecture": "Un VIX vers 28, passé au dessus de 30 le matin, signale des séances larges : les ranges de MNQ et MES pourraient rester très grands.",
+   "date": "clôture du 25/11",
    "source": {
-    "titre": "CEO Economy · VIX à 35,89, plus haut de 2026",
-    "url": "https://ceoeconomy.com/article/vix-closes-at-2026-high-35-89-wall-street-fear-gauge-nov-2026"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    }
   },
   {
    "id": "fedwatch",
    "nom": "Probabilités Fed (FedWatch)",
-   "valeur": "88,6 % hausse de 0,25 pt le 09/12",
+   "valeur": "97,8 % hausse de 0,25 pt le 09/12",
    "variation": "",
-   "sens": "baisse",
-   "lecture": "Le pari sur une hausse recule un peu ; chaque chiffre d'inflation pourrait faire bouger ce pourcentage, et donc MNQ et MGC.",
-   "date": "20/11, CME FedWatch cité par Stocktwits",
+   "sens": "hausse",
+   "lecture": "La hausse de décembre est quasi prise en compte : la surprise viendrait plutôt du ton de Warsh et des projections pour 2027.",
+   "date": "25/11 après le PCE",
    "source": {
-    "titre": "Yahoo Finance · Goldman Sachs : la vente d'actions n'est pas finie",
-    "url": "https://finance.yahoo.com/markets/commodities/articles/great-cash-grab-crashing-gold-094952865.html"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    }
   },
   {
    "id": "wti",
    "nom": "Pétrole WTI",
-   "valeur": "83,98 $",
-   "variation": "",
+   "valeur": "83,68 $",
+   "variation": "+1,99 % sur la veille",
    "sens": "hausse",
-   "lecture": "Un pétrole stable vers 84 $ pourrait limiter la pression sur l'inflation ; un choc à Ormuz pourrait la relancer.",
-   "date": "clôture du 20/11",
+   "lecture": "Le pétrole remonte sur les attaques au Moyen Orient : ça pourrait raviver la peur d'inflation et peser sur les indices.",
+   "date": "clôture du 25/11",
    "source": {
-    "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    }
   },
   {
    "id": "feargreed",
    "nom": "Peur et cupidité (CNN)",
-   "valeur": "14 · peur extrême",
-   "variation": "−23 sur 5 jours",
-   "sens": "baisse",
-   "lecture": "Une peur extrême peut précéder des rebonds brutaux, mais elle peut aussi durer quand les fonds vendent encore.",
-   "date": "20/11 vers 17h55",
+   "valeur": "n.d.",
+   "variation": "",
+   "sens": "stable",
+   "lecture": "Valeur non trouvée aujourd'hui.",
+   "date": "",
    "source": {
-    "titre": "TokenPost · CNN Fear & Greed tombe à 14",
-    "url": "https://www.tokenpost.com/news/investing/62212"
+    "titre": "",
+    "url": ""
    }
   }
  ],
  "eco": {
   "points": [
-   "Fed : hausse de 0,25 pt attendue le 09/12, FedWatch à 88,6 %. Environ une chance sur deux d'une deuxième hausse en janvier.",
-   "Ven. 20/11 : Lisa Cook juge qu'attendre pour monter les taux risque de mettre la Fed en retard. Elle voulait déjà monter en octobre.",
-   "Mer. 25/11 à 14h30 : PCE d'octobre, cœur attendu à 0,3 % sur un mois et 3,2 % sur un an. PIB T3 attendu à 3,5 %.",
-   "Michigan 20/11 : moral 51,5, conforme. Attentes d'inflation à 1 an à 3,7 %, plus bas depuis mars, contre 4,3 % mi novembre.",
-   "Taux en chute vendredi : 10 ans 4,92 % (−12 pb), 2 ans 4,63 % (−13 pb). Les investisseurs fuient vers les obligations."
+   "Mer. 25/11 : PCE d'octobre à 3,8 % sur un an, cœur à 3,3 % contre 3,2 % attendu. PIB T3 relevé à 4,3 % contre 3,4 %.",
+   "Fed : FedWatch donne 97,8 % de chances d'une hausse de 0,25 pt le 09/12. Environ 55 % pour une deuxième hausse en janvier.",
+   "Taux en baisse malgré tout : 10 ans à 4,85 % (−6 pb), 2 ans à 4,61 % (−2 pb) le 25/11.",
+   "Beige Book : 8 districts sur 12 en croissance, les prix montent encore modérément.",
+   "Trump juge « faux » le PIB révisé à 4,3 % et demande une enquête, sans preuve.",
+   "Michigan 20/11 : attentes d'inflation à 1 an à 3,7 %, plus bas depuis mars."
   ],
   "sources": [
    {
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
+   },
+   {
+    "titre": "FXBrokerTrust · PCE d'octobre, cœur à 3,3 %",
+    "url": "https://www.fxbrokertrust.com/insights/october-pce-core-at-33-december-hike-odds-rise"
+   },
+   {
+    "titre": "Yahoo Finance · Futures en hausse, la peur sur l'IA se calme (27/11)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-firday-november-27-dow-sp-500-nasdaq-black-friday-holiday-091152065.html"
+   },
+   {
     "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
     "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
-   },
-   {
-    "titre": "Investrade · Market Review, 20/11/2026",
-    "url": "https://investrade.com/market-review-november-20-2026/"
-   },
-   {
-    "titre": "Yahoo Finance · Goldman Sachs : la vente d'actions n'est pas finie",
-    "url": "https://finance.yahoo.com/markets/commodities/articles/great-cash-grab-crashing-gold-094952865.html"
-   },
-   {
-    "titre": "FXEmpire · The Week Ahead : PCE après la vente sur l'IA",
-    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-pce-in-focus-after-ai-sell-off-in-holiday-shortened-week-1646337"
-   },
-   {
-    "titre": "Newsquawk · Week in Focus 23 à 27/11",
-    "url": "https://www.newsquawk.com/headlines/week-in-focus--november-23rd-27th-highlights-include-us-pce-flash-pmis-aussie-cpi-and-ecb-minutes"
    }
   ]
  },
  "fonda": {
   "points": [
-   "Risk-off fort : S&P 500 −8,61 % sur la semaine, Nasdaq −10,02 %, Dow −8,02 %. S&P 500 en correction, sous 10 % de son record du 06/10.",
-   "Ven. 20/11 : Nvidia −14,01 % après un article Reuters sur une enquête de la SEC sur ses comptes. AMD −13,25 %, Micron −13,89 %.",
-   "Goldman : les fonds automatiques pourraient vendre jusqu'à 80,6 Md$ d'actions cette semaine si la baisse continue, 28,6 Md$ même en rebond.",
-   "Résultats : HPE lundi soir, Analog Devices mardi matin, Dell, Workday et Autodesk mardi soir, Deere mercredi matin.",
-   "Semaine courte : Bourse fermée jeudi 26/11 (Thanksgiving), clôture à 19h00 vendredi 27/11. Liquidité faible attendue."
+   "Ven. 27/11 : rebond avant l'ouverture, Nasdaq 100 futures +2 %, S&P 500 futures +1,7 %. Nvidia près de +4 %, Micron +6 %.",
+   "Mer. 25/11 : Nasdaq −0,62 %, S&P 500 −0,25 %, Dow +0,33 %. Le Nasdaq a perdu jusqu'à 4,6 % en séance avant de remonter.",
+   "Nvidia −3,91 % à 149,30 $ le 25/11, environ −27 % en novembre. S&P Global place sa note sous surveillance négative.",
+   "Résultats : HP Inc. +11,49 %, Deere +4,44 %, Dell +0,60 %, Autodesk −3,49 %, Nutanix −15,19 %.",
+   "Rotation : petites et moyennes valeurs en hausse (Russell 2000 +0,71 %), la tech la plus faible (−0,83 %).",
+   "Séance courte ce vendredi : clôture des actions à 19h00, des obligations à 20h00. Liquidité faible attendue."
   ],
   "sources": [
    {
-    "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
+    "titre": "Yahoo Finance · Futures en hausse, la peur sur l'IA se calme (27/11)",
+    "url": "https://finance.yahoo.com/markets/live/stock-market-today-firday-november-27-dow-sp-500-nasdaq-black-friday-holiday-091152065.html"
    },
    {
-    "titre": "Investrade · Market Review, 20/11/2026",
-    "url": "https://investrade.com/market-review-november-20-2026/"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    },
    {
-    "titre": "Yahoo Finance · Goldman Sachs : la vente d'actions n'est pas finie",
-    "url": "https://finance.yahoo.com/markets/commodities/articles/great-cash-grab-crashing-gold-094952865.html"
-   },
-   {
-    "titre": "FXEmpire · The Week Ahead : PCE après la vente sur l'IA",
-    "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-pce-in-focus-after-ai-sell-off-in-holiday-shortened-week-1646337"
-   },
-   {
-    "titre": "TradingKey · Week Ahead : PIB, PCE, Dell, HPE, Anthropic",
-    "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262316778-week-ahead-us-gdp-pce-dell-hpe-report-anthropic-tradingkey"
+    "titre": "Yahoo Finance · Stock Market Today, 25/11 : Nvidia recule de 3,9 %",
+    "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-25-220645995.html"
    }
   ]
  },
  "geo": {
   "points": [
-   "Ven. 20/11 : missiles houthis sur Riyad et incidents de pétroliers à Ormuz. WTI +0,93 % à 83,98 $.",
-   "BoJ : réunion les 17 et 18/12, 61 économistes sur 71 attendent une hausse à 1,50 %. Le dollar yen est vers 158,5.",
-   "BCE : en route pour resserrer en décembre selon Newsquawk. Minutes d'octobre jeudi 26/11.",
-   "Trump, Xi et Poutine en sommet à Shenzhen jeudi, jugé surtout symbolique. Trump menace de « pénalités » les centres de données à l'étranger."
+   "Jeu. 26/11 : l'Iran dit que deux pétroliers ont sauté sur des mines près de Khasab, à Ormuz. Non confirmé de façon indépendante.",
+   "Mer. 25/11 : les Houthis disent avoir frappé Ras Tanura, plus grande raffinerie saoudienne. Brent +3,5 %, puis 96,57 $ jeudi.",
+   "Tarifs : les États Unis proposent des droits Section 301 sur 14 partenaires, jusqu'à 20 % sur la Chine, 15 % sur l'UE et le Japon.",
+   "OPEP+ se réunit le 29/11 pour décider la production de 2027.",
+   "BoJ : réunion les 17 et 18/12, la majorité des économistes attend une hausse à 1,50 %."
   ],
   "sources": [
    {
-    "titre": "Wisevoter · Brent et WTI montent sur les risques au Moyen-Orient",
-    "url": "https://wisevoter.com/world/2026/11/21/brent-wti-crude-rise-middle-east-supply-risks"
+    "titre": "N Globe · Brent à 96,57 $ après Ras Tanura et les mines d'Ormuz",
+    "url": "https://nglobenews.com/en/article/oil-brent-96-houthi-ras-tanura-hormuz-mines-2026-11-26"
    },
    {
-    "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
-    "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
+    "titre": "BOE Report (Reuters) · le pétrole monte, l'Iran évoque des mines",
+    "url": "https://boereport.com/2026/11/26/oil-rises-on-supply-concerns-as-iran-claims-mine-strikes-on-ships/"
    },
    {
-    "titre": "Newsquawk · Week in Focus 23 à 27/11",
-    "url": "https://www.newsquawk.com/headlines/week-in-focus--november-23rd-27th-highlights-include-us-pce-flash-pmis-aussie-cpi-and-ecb-minutes"
+    "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+    "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
    },
    {
-    "titre": "1Trader · Weekly Forex Recap 16 à 20/11/2026",
+    "titre": "1Trader · Forex weekly 20/11",
     "url": "https://1trader.com/en/forex-weekly-2026-11-20/"
    }
   ]
  },
- "sorties": [],
+ "sorties": [
+  {
+   "jour": "mer. 25/11",
+   "heure": "14:30",
+   "titre": "Core PCE Price Index m/m",
+   "titreFr": "Inflation PCE cœur sur un mois",
+   "reel": "0,3 %",
+   "prevision": "0,3 %",
+   "reaction": "Le cœur à 3,3 % sur un an, au dessus des 3,2 % attendus, a fait plonger le Nasdaq jusqu'à −4,6 % en séance avant une remontée à −0,62 % à la clôture."
+  },
+  {
+   "jour": "mer. 25/11",
+   "heure": "14:30",
+   "titre": "Prelim GDP q/q",
+   "titreFr": "PIB du T3, deuxième estimation",
+   "reel": "4,3 %",
+   "prevision": "3,5 %",
+   "reaction": "Croissance forte qui confirme la hausse de la Fed en décembre ; les taux longs ont pourtant baissé et le Dow a fini en hausse de 0,33 %."
+  }
+ ],
  "dossiers": [
   {
    "id": "fed-hausse",
    "theme": "Banques centrales",
    "titre": "La Fed repasse en mode hausse",
-   "maj": "22/11",
-   "resume": "La Fed est à 3,75 % à 4,00 %. FedWatch donne 88,6 % pour une hausse de 0,25 pt le 09/12, un peu moins qu'en début de semaine. Lisa Cook pousse à ne pas attendre. Le PCE du 25/11 est le dernier gros chiffre d'inflation avant la réunion.",
+   "maj": "27/11",
+   "resume": "La Fed a monté ses taux en septembre et doit selon le marché les remonter le 09/12. Le PCE d'octobre à 3,3 % pour le cœur et un PIB T3 à 4,3 % renforcent cette attente : FedWatch est à 97,8 %.",
    "pourquoi": "Des taux plus hauts rendent l'argent plus cher et font baisser la valeur des actions de croissance. Ils renforcent aussi le dollar, ce qui pèse souvent sur l'or.",
    "horizons": {
     "court": "Le PCE et le PIB du 25/11 à 14h30 pourraient faire bouger le pari de décembre, dans une semaine peu liquide.",
@@ -213,6 +223,10 @@
     "Décision de la Fed le 09/12 à 20h00"
    ],
    "historique": [
+    {
+     "date": "25/11",
+     "fait": "PCE cœur à 3,3 % sur un an, PIB T3 à 4,3 %. FedWatch monte à 97,8 % pour une hausse le 09/12, le 10 ans baisse à 4,85 %."
+    },
     {
      "date": "20/11",
      "fait": "Cook juge qu'attendre risque de mettre la Fed en retard. Michigan : inflation à 1 an 3,7 %. 2 ans −13 pb à 4,63 %, 10 ans −12 pb à 4,92 %. FedWatch à 88,6 % pour +0,25 pt."
@@ -248,24 +262,20 @@
    ],
    "sources": [
     {
+     "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+     "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
+    },
+    {
+     "titre": "FXBrokerTrust · PCE d'octobre, cœur à 3,3 %",
+     "url": "https://www.fxbrokertrust.com/insights/october-pce-core-at-33-december-hike-odds-rise"
+    },
+    {
      "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
      "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
     },
     {
      "titre": "Yahoo Finance · Goldman Sachs : la vente d'actions n'est pas finie",
      "url": "https://finance.yahoo.com/markets/commodities/articles/great-cash-grab-crashing-gold-094952865.html"
-    },
-    {
-     "titre": "KuCoin · Lisa Cook laisse voir des hausses après décembre",
-     "url": "https://kucoin.com/news/flash/fed-governor-lisa-cook-hints-at-rate-hikes-beyond-december"
-    },
-    {
-     "titre": "Newsquawk · Week in Focus 23 à 27/11",
-     "url": "https://www.newsquawk.com/headlines/week-in-focus--november-23rd-27th-highlights-include-us-pce-flash-pmis-aussie-cpi-and-ecb-minutes"
-    },
-    {
-     "titre": "FXEmpire · The Week Ahead : PCE après la vente sur l'IA",
-     "url": "https://www.fxempire.com/forecasts/article/the-week-ahead-pce-in-focus-after-ai-sell-off-in-holiday-shortened-week-1646337"
     }
    ]
   },
@@ -273,7 +283,7 @@
    "id": "ia-tech",
    "theme": "Entreprises",
    "titre": "La tech en correction, Nvidia sous enquête",
-   "maj": "22/11",
+   "maj": "27/11",
    "resume": "Le Nasdaq a perdu 10,02 % sur la semaine et 5,28 % vendredi. Nvidia a chuté de 14,01 % après un article Reuters sur une enquête de la SEC sur ses comptes. Anthropic a rendu une partie de son gain d'introduction, à 88,91 $.",
    "pourquoi": "Les géants de l'IA pèsent très lourd dans le Nasdaq 100 et le S&P 500. Quand ils chutent ensemble, MNQ et MES suivent, et les fonds automatiques peuvent accélérer la baisse.",
    "horizons": {
@@ -294,6 +304,10 @@
     "Ventes des fonds automatiques selon Goldman"
    ],
    "historique": [
+    {
+     "date": "25/11",
+     "fait": "Nvidia −3,91 % à 149,30 $, S&P Global met sa note sous surveillance négative. Nasdaq −4,6 % en séance puis −0,62 % à la clôture. Vendredi, futures Nasdaq 100 +2 %."
+    },
     {
      "date": "20/11",
      "fait": "Nvidia −14,01 % à 125,53 $ (enquête SEC selon Reuters), AMD −13,25 %, Broadcom −12,19 %, Anthropic −8,50 % à 88,91 $. Nasdaq −5,28 %, Nasdaq 100 −5,61 %."
@@ -329,24 +343,20 @@
    ],
    "sources": [
     {
+     "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+     "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
+    },
+    {
+     "titre": "Yahoo Finance · Futures en hausse, la peur sur l'IA se calme (27/11)",
+     "url": "https://finance.yahoo.com/markets/live/stock-market-today-firday-november-27-dow-sp-500-nasdaq-black-friday-holiday-091152065.html"
+    },
+    {
      "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
      "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
     },
     {
      "titre": "Investrade · Market Review, 20/11/2026",
      "url": "https://investrade.com/market-review-november-20-2026/"
-    },
-    {
-     "titre": "StockTitan · Stock Market Today, 20/11/2026",
-     "url": "https://www.stocktitan.net/articles/stock-market-today-live-november-20-2026"
-    },
-    {
-     "titre": "Yahoo Finance · Goldman Sachs : la vente d'actions n'est pas finie",
-     "url": "https://finance.yahoo.com/markets/commodities/articles/great-cash-grab-crashing-gold-094952865.html"
-    },
-    {
-     "titre": "TradingKey · Week Ahead : PIB, PCE, Dell, HPE, Anthropic",
-     "url": "https://www.tradingkey.com/analysis/stocks/us-stocks/262316778-week-ahead-us-gdp-pce-dell-hpe-report-anthropic-tradingkey"
     }
    ]
   },
@@ -354,7 +364,7 @@
    "id": "iran-ormuz",
    "theme": "Géopolitique",
    "titre": "Iran, Ormuz et le pétrole",
-   "maj": "22/11",
+   "maj": "27/11",
    "resume": "Les attaques continuent autour d'Ormuz et les Houthis ont visé Riyad vendredi. Le WTI a quand même fini vers 84 $, loin de ses plus hauts. Les flux par Ormuz étaient revenus près de leur niveau d'avant-guerre selon Reuters.",
    "pourquoi": "Un pétrole cher nourrit l'inflation, donc les hausses de taux, ce qui pèse sur les indices. Une tension forte peut aussi pousser l'or comme valeur refuge.",
    "horizons": {
@@ -369,11 +379,20 @@
     "MGC": "Une escalade pourrait soutenir l'or ; le dollar fort reste un frein."
    },
    "surveiller": [
+    "Confirmation ou non des frappes sur Ras Tanura et des mines à Ormuz",
+    "Réunion OPEP+ le 29/11 sur la production 2027",
     "Attaques sur les pétroliers à Ormuz",
-    "Tirs houthis sur l'Arabie saoudite",
-    "Stocks de pétrole US (EIA) mercredi 25/11"
+    "Tirs houthis sur l'Arabie saoudite"
    ],
    "historique": [
+    {
+     "date": "26/11",
+     "fait": "L'Iran annonce deux pétroliers touchés par des mines près de Khasab. Brent à 96,57 $, environ +5 % sur la semaine."
+    },
+    {
+     "date": "25/11",
+     "fait": "Les Houthis disent avoir frappé la raffinerie de Ras Tanura. Brent +3,51 %, WTI +1,99 % à 83,68 $."
+    },
     {
      "date": "20/11",
      "fait": "Missiles houthis sur Riyad et incidents de pétroliers à Ormuz. WTI +0,93 % à 83,98 $, Brent +0,64 % à 92,57 $."
@@ -409,20 +428,20 @@
    ],
    "sources": [
     {
+     "titre": "N Globe · Brent à 96,57 $ après Ras Tanura et les mines d'Ormuz",
+     "url": "https://nglobenews.com/en/article/oil-brent-96-houthi-ras-tanura-hormuz-mines-2026-11-26"
+    },
+    {
+     "titre": "BOE Report (Reuters) · le pétrole monte, l'Iran évoque des mines",
+     "url": "https://boereport.com/2026/11/26/oil-rises-on-supply-concerns-as-iran-claims-mine-strikes-on-ships/"
+    },
+    {
      "titre": "Wisevoter · Brent et WTI montent sur les risques au Moyen-Orient",
      "url": "https://wisevoter.com/world/2026/11/21/brent-wti-crude-rise-middle-east-supply-risks"
     },
     {
      "titre": "Capp Notes · Closing Look, vendredi 20/11/2026",
      "url": "https://cappnotes.substack.com/p/closing-look-friday-november-20-2026"
-    },
-    {
-     "titre": "Investrade · Market Review, 20/11/2026",
-     "url": "https://investrade.com/market-review-november-20-2026/"
-    },
-    {
-     "titre": "Strategitz · Global Markets Close, November 19, 2026",
-     "url": "https://strategitz.substack.com/p/global-markets-close-november-19"
     }
    ]
   },
@@ -430,7 +449,7 @@
    "id": "dollar-yen",
    "theme": "Banques centrales",
    "titre": "Dollar au plus haut, or en chute de 8,7 %",
-   "maj": "22/11",
+   "maj": "27/11",
    "resume": "Le DXY a fini à 103,84, plus haut depuis 19 mois, avec une 4e semaine de hausse. L'or a perdu environ 8,7 % sur la semaine, à 3 543,60 $. Les minutes dures de la Fed et des ventes pour couvrir des pertes en actions l'ont fait chuter.",
    "pourquoi": "L'or se paie en dollars : un dollar fort le rend plus cher pour le reste du monde. Quand les actions chutent, certains vendent aussi leur or pour trouver du cash.",
    "horizons": {
@@ -450,6 +469,10 @@
     "BoJ les 17 et 18/12"
    ],
    "historique": [
+    {
+     "date": "25/11",
+     "fait": "L'or clôture à 3 534,70 $ (−0,71 %), passé sous 3 500 $ en séance pour la première fois depuis août 2025. DXY à 103,71."
+    },
     {
      "date": "20/11",
      "fait": "DXY −0,07 % à 103,84, +0,3 % sur la semaine. Or à 3 543,60 $, environ −8,7 % sur la semaine. Dollar yen vers 158,5."
@@ -481,6 +504,10 @@
    ],
    "sources": [
     {
+     "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+     "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
+    },
+    {
      "titre": "1Trader · Weekly Forex Recap 16 à 20/11/2026",
      "url": "https://1trader.com/en/forex-weekly-2026-11-20/"
     },
@@ -493,29 +520,49 @@
      "url": "https://www.newsquawk.com/headlines/week-in-focus--november-23rd-27th-highlights-include-us-pce-flash-pmis-aussie-cpi-and-ecb-minutes"
     }
    ]
+  },
+  {
+   "id": "tarifs-301",
+   "theme": "Macro",
+   "titre": "Nouveaux tarifs Section 301 sur 14 partenaires",
+   "maj": "27/11",
+   "resume": "Le représentant américain au commerce propose de nouveaux droits de douane sur 14 partenaires. Jusqu'à 20 % sur la Chine et 15 % sur l'UE et le Japon. Le Mexique a monté de 2,99 % car il serait épargné.",
+   "pourquoi": "Des tarifs plus hauts peuvent pousser les prix, donc l'inflation, alors que la Fed monte déjà ses taux. Ils pèsent aussi sur les fabricants de puces, très exposés à la Chine.",
+   "horizons": {
+    "court": "Chaque annonce sur ces tarifs pourrait secouer MNQ en séance, car la tech vend beaucoup en Chine.",
+    "moyen": "Si les tarifs sont confirmés, l'inflation pourrait rester haute plus longtemps, ce qui soutiendrait d'autres hausses de la Fed.",
+    "long": "Une guerre commerciale durable pourrait ralentir la croissance mondiale et peser sur les bénéfices des grandes entreprises."
+   },
+   "actifs": {
+    "MNQ": "Pourrait être le plus touché, via les puces et la tech exposées à la Chine.",
+    "MES": "Pourrait suivre la tech, en moins fort grâce aux secteurs domestiques.",
+    "MYM": "Pourrait mieux résister, comme le 25/11 où le Dow a fini en hausse.",
+    "MGC": "Pourrait profiter d'un besoin de refuge, mais un dollar fort freinerait la hausse."
+   },
+   "surveiller": [
+    "Réaction de la Chine, de l'UE et du Japon",
+    "Liste finale des produits et date d'entrée en vigueur",
+    "Ton de la Fed sur l'effet des tarifs sur les prix"
+   ],
+   "historique": [
+    {
+     "date": "25/11",
+     "fait": "Proposition des tarifs Section 301 ; la tech recule (−0,83 %) et Nvidia perd 3,91 %, le Mexique gagne 2,99 %."
+    }
+   ],
+   "sources": [
+    {
+     "titre": "CappNotes · Closing Look, mercredi 25/11/2026",
+     "url": "https://cappnotes.substack.com/p/closing-look-wednesday-november-25"
+    },
+    {
+     "titre": "Yahoo Finance · Stock Market Today, 25/11 : Nvidia recule de 3,9 %",
+     "url": "https://finance.yahoo.com/markets/stocks/articles/stock-market-today-nov-25-220645995.html"
+    }
+   ]
   }
  ],
  "aVenir": [
-  {
-   "d": "2026-11-25T14:30:00+01:00",
-   "t": "Core PCE Price Index m/m",
-   "titreFr": "Inflation PCE d'octobre",
-   "c": "USD",
-   "impact": "High",
-   "pourquoi": "C'est la mesure d'inflation préférée de la Fed. Elle sortira deux semaines avant la réunion de décembre.",
-   "horizons": {
-    "court": "Elle pourrait faire bouger les paris de décembre dès 14h30.",
-    "moyen": "Elle pourrait confirmer ou contredire le CPI du 10/11."
-   }
-  },
-  {
-   "d": "2026-11-25T14:30:00+01:00",
-   "t": "Prelim GDP q/q",
-   "titreFr": "PIB du 3e trimestre, deuxième estimation",
-   "c": "USD",
-   "impact": "Medium",
-   "pourquoi": "Elle dira si la croissance tient. Elle sort à la même heure que le PCE, la volatilité pourrait s'additionner."
-  },
   {
    "d": "2026-12-04T14:30:00+01:00",
    "t": "Non-Farm Employment Change",
@@ -660,6 +707,10 @@
   {
    "terme": "BoJ",
    "definition": "La banque centrale du Japon. Ses hausses de taux peuvent faire monter le yen."
+  },
+  {
+   "terme": "Section 301",
+   "definition": "Loi américaine qui permet de taxer les importations d'un pays jugé déloyal en commerce."
   }
  ]
 }
